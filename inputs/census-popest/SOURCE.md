@@ -17,5 +17,12 @@
 (`co-est2026-alldata.csv`) replaces it, and Census revises earlier postcensal years
 with each vintage. Rebuild from the frozen copy, not the live URL.
 
+**Diagnostic file from the data hub.** The folder also holds
+`hub/population/cbsa_population_2000_2025.csv` (`$MV_INPUTS/population/`), an older
+interpolated CBSA population series. Step 01 reads it only to write
+`data/diagnostics/pop_vs_interpolated.csv`, which compares it with the PEP-based CBSA
+totals; no other output depends on it. It was frozen on 2026-11-18 after the clean-room
+run found it undeclared.
+
 The same cache folder also holds `fred_pcepi.csv`, which is documented separately in
 [`../bea-pcepi/SOURCE.md`](../bea-pcepi/SOURCE.md).
