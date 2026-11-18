@@ -12,8 +12,8 @@
 ## and need_socap/acs_need_cbsa.csv from the build being reproduced.
 ## Exit status 1 if anything differs.
 
-source( "R/00_setup.R" )
-source( "R/40_multiverse.R" )
+source( "R/lib/00_setup.R" )
+source( "R/lib/40_multiverse.R" )
 suppressPackageStartupMessages( library( arrow ) )
 a <- commandArgs( TRUE )
 REF <- if ( length( a ) ) a[1] else file.path( BUILD, "ref" )

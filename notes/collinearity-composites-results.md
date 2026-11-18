@@ -1,6 +1,6 @@
 # Collinearity and composite covariates
 
-Nov 12, 2026 · script `R/70_collinearity_composites.R` · outputs `D:/MULTIVERSE/data/collinearity/`
+Nov 12, 2026 · script `R/notes/70_collinearity_composites.R` · outputs `D:/MULTIVERSE/data/collinearity/`
 
 Metros only: 386 metros, 2010–2022, complete on all 31 items. "Log form" means extensive (type B) variables are logged and intensive ones are levels, with incomes logged. "SAMI form" means each item is residualized on log P year by year. "Within" means SAMI forms with metro and year means removed.
 
@@ -119,7 +119,7 @@ Blocks in this table are for n_filer_c3, pooled. Expenditures show the same patt
 
 ## Implemented (Nov 12): composite fork
 
-`R/41_composites.R` and `R/53_run_composites.R` add the composites to the principled universe as nine extra measure options:
+`R/lib/41_composites.R` and `R/multiverse/53_run_composites.R` add the composites to the principled universe as nine extra measure options:
 
 | block | options |
 |---|---|
@@ -138,7 +138,7 @@ Blocks in this table are for n_filer_c3, pooled. Expenditures show the same patt
 
 Rebuilt 2026-11-16 on base run v8, with the per-capita floor and % nonwhite as the diversity default.
 
-All 162,756 composite specs fit, with 0 errors. Merged with v8 into `run_principled_cmp_merged/` (661,188 specs). Summary: `R/54_summarize_composites.R` → `run_principled_cmp/summary_*.csv`. Shareable page: https://claude.ai/artifact/TANCnJHvdQMpR2YGxoFiLS (local copy `notes/composites-results-page.html`).
+All 162,756 composite specs fit, with 0 errors. Merged with v8 into `run_principled_cmp_merged/` (661,188 specs). Summary: `R/multiverse/54_summarize_composites.R` → `run_principled_cmp/summary_*.csv`. Shareable page: https://claude.ai/artifact/TANCnJHvdQMpR2YGxoFiLS (local copy `notes/composites-results-page.html`).
 
 Full model, all specifications. "Sig." is p < .05 with the median's sign; "|t| wins" is the share of cross-section/pooled pairs where the index beats its default twin.
 
@@ -156,7 +156,7 @@ Spill-over onto the other blocks is a median |Δ partial r| ≤ .02, and ≤ 7% 
 
 Reading: in the multiverse, composites are a measurement choice, not a collinearity fix. They help where items share one construct (foundations; the diversity index only ties % nonwhite) and dilute blocks that one item carries (% BA, turnout, government earnings).
 
-## Time spacing for within models (`R/71_fe_frequency.R`, outputs `data/collinearity/p4_*`)
+## Time spacing for within models (`R/notes/71_fe_frequency.R`, outputs `data/collinearity/p4_*`)
 
 **5-year waves don't add within variance.** FE within variance is how far metros drift from their own mean over the window, which depends on the window's length, not how often it is sampled.
 
@@ -195,7 +195,7 @@ Within SDs are 40–80% larger, so SEs should fall by about a third. Costs:
 - ACS measures need a 2000 census anchor
 - IRS contributions start in 2010 in the panel
 
-## Within-metro over 2000–2022 (`R/57_run_within_long.R`, `run_principled_wl/`)
+## Within-metro over 2000–2022 (`R/multiverse/57_run_within_long.R`, `run_principled_wl/`)
 
 **Setup.** 27,216 `within_long` specs (all OK). These are the within specs, default grid plus composite options, re-run on 2000–2022. 23,472 specs whose data start in 2010/2012 are skipped, since they would reproduce their twins: the net outcomes and the contribution and giving options. The engine change is a `within_long` case in `run_spec()` only; IDENT and the default grid are unchanged.
 

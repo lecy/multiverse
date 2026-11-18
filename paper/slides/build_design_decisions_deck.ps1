@@ -214,7 +214,7 @@ Bul $s @( "Shaded: population, identification, measurement and predictor form ch
           "The hospital and university exclusion matters only for spending (23% vs. 2%)." ) 628 110 292 360 15 $INK "Takeaways" | Out-Null
 Source $s "Run v11; matched pairs differing in one decision"
 Num $s $i
-Notes $s "A verdict is significantly positive, not significant or significantly negative. Verdicts changed is the share of matched specification pairs, differing only in the one decision, in which a covariate's verdict differs. Mean |delta r| for the top decisions is .07–.11; for year, winsorizing, log P and the money measure it is .04 or less. With 10^4–10^5 specifications every F test is significant, so eta-squared (.06 threshold) is the screen. Source: R/98_decision_matrix.R, R/97_v11_decision_summary.R."
+Notes $s "A verdict is significantly positive, not significant or significantly negative. Verdicts changed is the share of matched specification pairs, differing only in the one decision, in which a covariate's verdict differs. Mean |delta r| for the top decisions is .07–.11; for year, winsorizing, log P and the money measure it is .04 or less. With 10^4–10^5 specifications every F test is significant, so eta-squared (.06 threshold) is the screen. Source: R/multiverse/98_decision_matrix.R, R/multiverse/97_v11_decision_summary.R."
 
 # part 1 -----------------------------------------------------------------------------------------------
 $s = Divider $pres "1" "What is being estimated" "Population, unit and identification are estimand choices: each option answers a different question (D1–D3)"; $i++

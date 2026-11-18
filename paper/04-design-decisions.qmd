@@ -106,7 +106,7 @@ Old values are from the six-covariate cards; refitting the old model on the curr
 
 **What to report.** The population definition (forms, floor, exclusions) and the key results for both filers and grassroots.
 
-*Sources: `R/96_lean_card_evidence.R` (`D:/MULTIVERSE/data/outline/v11/single/d1_outcome_models.csv`); `R/97_v11_decision_summary.R` (`D:/MULTIVERSE/data/outline/v11/mv/`); `R/58_outline_analyses.R` part G (SAMI correlations); `notes/catchup-lag-results.md` sections 3 and 5.*
+*Sources: `R/paper/96_lean_card_evidence.R` (`D:/MULTIVERSE/data/outline/v11/single/d1_outcome_models.csv`); `R/multiverse/97_v11_decision_summary.R` (`D:/MULTIVERSE/data/outline/v11/mv/`); `R/notes/58_outline_analyses.R` part G (SAMI correlations); `notes/catchup-lag-results.md` sections 3 and 5.*
 
 # D2. Unit of analysis: county, metro, metro + micro, CSA {#sec-d2}
 
@@ -208,7 +208,7 @@ The multiverse agrees. The 1,212 default-model specifications per outcome (2022 
 
 **What to report.** The unit and its delineation vintage, the number of units and zeros, and key results at one alternative unit and, for claims about large cities, above a population threshold.
 
-*Sources: `R/96_lean_card_evidence.R` (`v11/single/d2_units.csv`, `d2_size_split.csv`, `d2_size_quadratic.csv`); `R/97_v11_decision_summary.R`; size screen on the 13-covariate default: `R/90_size_moderation_screen.R` with `MV_MODEL=lean` (`D:/MULTIVERSE/data/interactions/size_moderation_v11/`); six-covariate size analyses: `R/86_sensitivity_tcja_size.R` part B, `R/90_size_moderation_screen.R`; sample exclusions: `R/83_sample_exclusions.R` with `MV_MODEL=lean` (`D:/MULTIVERSE/data/sample_excl_v11/`); `notes/scaling-aggregation-results.md`.*
+*Sources: `R/paper/96_lean_card_evidence.R` (`v11/single/d2_units.csv`, `d2_size_split.csv`, `d2_size_quadratic.csv`); `R/multiverse/97_v11_decision_summary.R`; size screen on the 13-covariate default: `R/notes/90_size_moderation_screen.R` with `MV_MODEL=lean` (`D:/MULTIVERSE/data/interactions/size_moderation_v11/`); six-covariate size analyses: `R/notes/86_sensitivity_tcja_size.R` part B, `R/notes/90_size_moderation_screen.R`; sample exclusions: `R/notes/83_sample_exclusions.R` with `MV_MODEL=lean` (`D:/MULTIVERSE/data/sample_excl_v11/`); `notes/scaling-aggregation-results.md`.*
 
 # D3. Identification: cross-section, between, within, long difference {#sec-d3}
 
@@ -308,7 +308,7 @@ Changing only the identification moves the average covariate by |Δr| = .106 and
 
 **What to report.** Which variation identifies each estimate; the within-metro share of variance for the outcome and key covariates; the clustering level and effective sample size; and, for panels, between and within effects side by side.
 
-*Sources: `R/97_v11_decision_summary.R` (`v11/mv_split/option_medians.csv`, `stability.csv`); `R/96_lean_card_evidence.R` (`v11/single/d3_hybrid_cre.csv`); `R/94_variables_panel_model.R` (within shares); `R/101_lean_open_checks.R` part W (`v11/open_checks/w_*.csv`); `notes/catchup-lag-results.md` section 2.*
+*Sources: `R/multiverse/97_v11_decision_summary.R` (`v11/mv_split/option_medians.csv`, `stability.csv`); `R/paper/96_lean_card_evidence.R` (`v11/single/d3_hybrid_cre.csv`); `R/paper/94_variables_panel_model.R` (within shares); `R/notes/101_lean_open_checks.R` part W (`v11/open_checks/w_*.csv`); `notes/catchup-lag-results.md` section 2.*
 
 # D4. DV form: per capita, log-log, SAMI, Poisson {#sec-d4}
 
@@ -377,7 +377,7 @@ Changing only the DV form changes 23% of verdicts for filers, 16% for grassroots
 
 **What to report.** The outcome's form; β with its interval; whether log P is on the right-hand side; and the form of size-scaled covariates.
 
-*Sources: `R/96_lean_card_evidence.R` (`v11/single/d4_forms.csv`, `d4_size_cor.csv`); `R/97_v11_decision_summary.R`; `R/58_outline_analyses.R` part J (rankings).*
+*Sources: `R/paper/96_lean_card_evidence.R` (`v11/single/d4_forms.csv`, `d4_size_cor.csv`); `R/multiverse/97_v11_decision_summary.R`; `R/notes/58_outline_analyses.R` part J (rankings).*
 
 # D5. Estimator with zeros: OLS on logs vs. Poisson {#sec-d5}
 
@@ -438,7 +438,7 @@ Changing only the DV form changes 23% of verdicts for filers, 16% for grassroots
 
 **What to report.** The share of zeros; the estimator and how zeros were handled; and, for Poisson, sensitivity to the largest units.
 
-*Sources: `R/96_lean_card_evidence.R` (`v11/single/d5_county_models.csv`, `d5_metro_ols_pois.csv`, `d5_disagreement.csv`); `R/97_v11_decision_summary.R`; `notes/scaling-aggregation-results.md` (`R/74_scaling_aggregation.R`).*
+*Sources: `R/paper/96_lean_card_evidence.R` (`v11/single/d5_county_models.csv`, `d5_metro_ols_pois.csv`, `d5_disagreement.csv`); `R/multiverse/97_v11_decision_summary.R`; `notes/scaling-aggregation-results.md` (`R/notes/74_scaling_aggregation.R`).*
 
 # D6. Predictor form for size-scaled covariates {#sec-d6}
 
@@ -506,7 +506,7 @@ Turnout, poverty and the heterogeneity terms respond less (η² ≤ .17 for file
 
 **What to report.** The form of every size-scaled covariate, whether log P is on the right, and each total's correlation with log P in the form used.
 
-*Sources: `R/97_v11_decision_summary.R` (`v11/mv_split/option_medians.csv`, `decision_importance.csv`); `R/45_summarize_run.R` on run v11 (meta-hypothesis); interactions: `R/99_interaction_screen_v11.R` (`D:/MULTIVERSE/data/interactions/v11/`; `notes/interaction-screen-v11-results.md`); floor: `R/81_compare_floor.R`; Fact 6.*
+*Sources: `R/multiverse/97_v11_decision_summary.R` (`v11/mv_split/option_medians.csv`, `decision_importance.csv`); `R/multiverse/45_summarize_run.R` on run v11 (meta-hypothesis); interactions: `R/paper/99_interaction_screen_v11.R` (`D:/MULTIVERSE/data/interactions/v11/`; `notes/interaction-screen-v11-results.md`); floor: `R/notes/81_compare_floor.R`; Fact 6.*
 
 # D7. Measurement: one item or an index {#sec-d7}
 
@@ -531,7 +531,7 @@ Swapping one construct's measure moves the other terms much less: η² ≤ .21 f
 
 **What to report.** The item chosen for each construct, its alternatives, and the measurement η² for any covariate the argument rests on.
 
-*Sources: `paper/02-variables.qmd` (`R/94_variables_panel_model.R`); `R/97_v11_decision_summary.R`.*
+*Sources: `paper/02-variables.qmd` (`R/paper/94_variables_panel_model.R`); `R/multiverse/97_v11_decision_summary.R`.*
 
 # D8. Historical controls: endowment, growth history and market share {#sec-d8}
 
@@ -593,7 +593,7 @@ In the six-covariate model the endowment had partial r .45 for counts and added 
 
 **What to report.** Which historical controls are included and why; the covariates that change most when they are added; and for the endowment, how it was built (ruling-date cutoff, artifacts removed).
 
-*Sources: `R/96_lean_card_evidence.R` (`v11/single/d8_models.csv`, `d8_correlations.csv`); `R/97_v11_decision_summary.R` (`v11/mv_split/drop_shift.csv`); `R/55_endowment_fork.R`; `R/82_lag_fork.R`; `notes/catchup-lag-results.md` sections 2.8, 4 and 6.*
+*Sources: `R/paper/96_lean_card_evidence.R` (`v11/single/d8_models.csv`, `d8_correlations.csv`); `R/multiverse/97_v11_decision_summary.R` (`v11/mv_split/drop_shift.csv`); `R/multiverse/55_endowment_fork.R`; `R/multiverse/82_lag_fork.R`; `notes/catchup-lag-results.md` sections 2.8, 4 and 6.*
 
 # D9. Geography fixed effects and standard errors {#sec-d9}
 
@@ -697,7 +697,7 @@ With six covariates the spending rankings agreed far less (.59–.64 for OLS vs.
 
 **What to report.** The between-state share table, the three-estimator estimates for key covariates, and significance under robust and state-clustered SEs.
 
-*Sources: `R/96_lean_card_evidence.R` (`v11/single/d9_between_state_share.csv`, `d9_estimators.csv`); `R/97_v11_decision_summary.R` with `MV_SPLIT=1` (`v11/mv_split/`: `decision_importance.csv`, `est_spearman.csv`, `stability.csv`, `option_medians.csv`); `R/101_lean_open_checks.R` part M (multi-state metros; `v11/open_checks/m_*.csv`).*
+*Sources: `R/paper/96_lean_card_evidence.R` (`v11/single/d9_between_state_share.csv`, `d9_estimators.csv`); `R/multiverse/97_v11_decision_summary.R` with `MV_SPLIT=1` (`v11/mv_split/`: `decision_importance.csv`, `est_spearman.csv`, `stability.csv`, `option_medians.csv`); `R/notes/101_lean_open_checks.R` part M (multi-state metros; `v11/open_checks/m_*.csv`).*
 
 # D10. Money measure and exclusions {#sec-d10}
 
@@ -752,7 +752,7 @@ With six covariates the spending rankings agreed far less (.59–.64 for OLS vs.
 
 **What to report.** The money measure (expenses or revenue, gross or net); how hospitals and universities are identified and whether they are excluded; and their share of spending in the sample.
 
-*Sources: `R/96_lean_card_evidence.R` (`v11/single/d10_models.csv`, `d10_beta.csv`); `R/97_v11_decision_summary.R`; `R/58_outline_analyses.R` part N (rankings); `notes/rev-exp-passthrough-results.md`; `notes/market-competition-measures.md` (the 2026-11-17 NTEE correction).*
+*Sources: `R/paper/96_lean_card_evidence.R` (`v11/single/d10_models.csv`, `d10_beta.csv`); `R/multiverse/97_v11_decision_summary.R`; `R/notes/58_outline_analyses.R` part N (rankings); `notes/rev-exp-passthrough-results.md`; `notes/market-competition-measures.md` (the 2026-11-17 NTEE correction).*
 
 # D11. Subsector scope {#sec-d11}
 
@@ -809,7 +809,7 @@ With six covariates the spending rankings agreed far less (.59–.64 for OLS vs.
 
 Subsector counts and spending were rebuilt on 2026-11-17 so that invalid BMF codes no longer fill missing NTEE codes; national subsector counts moved by .03% or less and no partial r in the table moved by more than .004.
 
-*Sources: `R/96_lean_card_evidence.R` (`v11/single/d11_subsector_models.csv`, `d11_sign_agreement.csv`); subsector file: `R/50_followups_jeremy.R` part 3 (`D:/MULTIVERSE/data/followup/p3_*`); `R/58_outline_analyses.R` part C (scaling); `R/56_drop_religion_mutual.R` with `MV_MODEL=lean` (`D:/MULTIVERSE/data/followup/p10_v11_*`); `notes/scaling-aggregation-results.md`.*
+*Sources: `R/paper/96_lean_card_evidence.R` (`v11/single/d11_subsector_models.csv`, `d11_sign_agreement.csv`); subsector file: `R/notes/50_followups_jeremy.R` part 3 (`D:/MULTIVERSE/data/followup/p3_*`); `R/notes/58_outline_analyses.R` part C (scaling); `R/notes/56_drop_religion_mutual.R` with `MV_MODEL=lean` (`D:/MULTIVERSE/data/followup/p10_v11_*`); `notes/scaling-aggregation-results.md`.*
 
 # D12. Sector age as a control {#sec-d12}
 
@@ -873,7 +873,7 @@ Subsector counts and spending were rebuilt on 2026-11-17 so that invalid BMF cod
 
 **What to report.** If age enters a model: which age measure, when it is measured relative to the outcome, and results with and without it.
 
-*Sources: `R/96_lean_card_evidence.R` (`v11/single/d12_levels.csv`, `d12_alt_measures.csv`); change models: `R/100_d12_change_lean.R` (`v11/single/d12_change_lean*.csv`); `R/77_nonprofit_age.R`; `notes/catchup-lag-results.md` section 4.7.*
+*Sources: `R/paper/96_lean_card_evidence.R` (`v11/single/d12_levels.csv`, `d12_alt_measures.csv`); change models: `R/notes/100_d12_change_lean.R` (`v11/single/d12_change_lean*.csv`); `R/notes/77_nonprofit_age.R`; `notes/catchup-lag-results.md` section 4.7.*
 
 # Summary: the decision matrix {#sec-matrix}
 
@@ -903,4 +903,4 @@ The estimand choices (population, identification, unit) and the measurement and 
 
 The decision matrix in `05-findings.qmd` shows the same decisions covariate by covariate.
 
-*Sources: `R/98_decision_matrix.R` (`D:/MULTIVERSE/data/outline/v11/matrix/`); `R/97_v11_decision_summary.R` (`D:/MULTIVERSE/data/outline/v11/mv/`); run v11 (`D:/MULTIVERSE/data/spec/run_principled_v11/`, `MV_MODEL=lean` in `R/40_multiverse.R`).*
+*Sources: `R/multiverse/98_decision_matrix.R` (`D:/MULTIVERSE/data/outline/v11/matrix/`); `R/multiverse/97_v11_decision_summary.R` (`D:/MULTIVERSE/data/outline/v11/mv/`); run v11 (`D:/MULTIVERSE/data/spec/run_principled_v11/`, `MV_MODEL=lean` in `R/lib/40_multiverse.R`).*

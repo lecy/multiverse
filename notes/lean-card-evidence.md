@@ -1,6 +1,6 @@
 # Card evidence refit with the lean default model
 
-2026-11-17. Script: `R/96_lean_card_evidence.R` (log `D:/MULTIVERSE/logs/96.log`). Outputs:
+2026-11-17. Script: `R/paper/96_lean_card_evidence.R` (log `D:/MULTIVERSE/logs/96.log`). Outputs:
 `D:/MULTIVERSE/data/outline/v11/single/*.csv`. Figures: `paper/figures/d1_lean_outcomes.png`,
 `d2_lean_units.png`, `d2_lean_size.png`, `d4_lean_dv_form.png`, `d8_lean_history.png`,
 `d10_lean_money.png`, `d12_lean_age.png`.
@@ -526,7 +526,7 @@ gets stronger.
 
 ## D12 Evidence 2 — change model with start-of-window covariates
 
-Script: `R/100_d12_change_lean.R` (log `D:/MULTIVERSE/logs/100.log`). Outputs: `d12_change_lean.csv`
+Script: `R/notes/100_d12_change_lean.R` (log `D:/MULTIVERSE/logs/100.log`). Outputs: `d12_change_lean.csv`
 (every coefficient), `d12_change_lean_summary.csv`, `d12_change_lean_cor.csv`.
 
 **Model.** Change in the filer (or grassroots) SAMI between the start window and 2022–24, regressed on:

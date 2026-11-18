@@ -1,6 +1,6 @@
 # Market competition (niche quality) measures
 
-Built 2026-11-17 by `R/23_cov_compete.R`. The measures are in the CBSA analysis panel (`data/analysis/cbsa_year.parquet`, 69 `mkt_*` columns, 2000–2024; the pre-merge panel is backed up in `data/analysis/pre_compete_20261117/`). They are not in the multiverse grid yet.
+Built 2026-11-17 by `R/build/C_npo_panel/23_cov_compete.R`. The measures are in the CBSA analysis panel (`data/analysis/cbsa_year.parquet`, 69 `mkt_*` columns, 2000–2024; the pre-merge panel is backed up in `data/analysis/pre_compete_20261117/`). They are not in the multiverse grid yet.
 
 **Idea.** When a few organizations hold most of a metro's resources, smaller organizations face a thinner niche, and growth of the sector as a whole may be held back. The measures follow the Nonprofit Open Data Collective's [npcompete](https://github.com/Nonprofit-Open-Data-Collective/npcompete) package (HHI, normalized HHI, concentration ratios, Gini). They are recomputed here because the package is pre-release and has several errors:
 

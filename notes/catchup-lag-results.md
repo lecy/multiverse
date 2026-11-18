@@ -12,15 +12,15 @@
 - The registered stock stays in two places: as a robustness check (outputs in `catchup_grass/`), since unlike grassroots it has no splice, and as the denominator of the entry and filing-share mechanism in section 3.6.
 
 Scripts:
-- `R/50_followups_jeremy.R` part 2 and `R/52_endowment_change.R` (section 1; outputs `D:/MULTIVERSE/data/followup/p2_*`, `p8_*`, `p9_*`)
-- `R/72_catchup_lag.R` (sections 2–4; outputs `D:/MULTIVERSE/data/catchup/c1_*` … `c8_*`)
-- `R/73_pre2000_growth.R` (section 2.6, 1970–2000 population; outputs `c9_*`)
-- `R/75_capacity_grid.R` (section 6; outputs `c10_*`)
-- `R/76_bls_share_change.R` (sections 4.5–4.6; outputs `c11_*`)
-- `R/77_nonprofit_age.R` (section 4.7; outputs `c12_*`)
-- `R/78_nonprofit_lifespan.R` (section 4.8; outputs `c13_*`)
-- `R/79_kernel_lag.R` (section 2.8, kernel/distributed-lag models; outputs `c14_*`)
-- Registered-stock robustness: `R/72_catchup_lag.R grass` and `R/73_pre2000_growth.R grass`, which run filers, grassroots and all registered (`D:/MULTIVERSE/data/catchup_grass/`)
+- `R/notes/50_followups_jeremy.R` part 2 and `R/notes/52_endowment_change.R` (section 1; outputs `D:/MULTIVERSE/data/followup/p2_*`, `p8_*`, `p9_*`)
+- `R/notes/72_catchup_lag.R` (sections 2–4; outputs `D:/MULTIVERSE/data/catchup/c1_*` … `c8_*`)
+- `R/notes/73_pre2000_growth.R` (section 2.6, 1970–2000 population; outputs `c9_*`)
+- `R/notes/75_capacity_grid.R` (section 6; outputs `c10_*`)
+- `R/notes/76_bls_share_change.R` (sections 4.5–4.6; outputs `c11_*`)
+- `R/notes/77_nonprofit_age.R` (section 4.7; outputs `c12_*`)
+- `R/notes/78_nonprofit_lifespan.R` (section 4.8; outputs `c13_*`)
+- `R/notes/79_kernel_lag.R` (section 2.8, kernel/distributed-lag models; outputs `c14_*`)
+- Registered-stock robustness: `R/notes/72_catchup_lag.R grass` and `R/notes/73_pre2000_growth.R grass`, which run filers, grassroots and all registered (`D:/MULTIVERSE/data/catchup_grass/`)
 
 Figures are copied to `notes/catchup-figures/`. Updated Nov 13, 2026.
 
@@ -280,7 +280,7 @@ Sources: `c5_horizon_by_sign.csv`, `c5_half_life_sign.csv`. These are the same m
 
 Panel A shows growth, panel B stable population, and panel C decline, with the outcomes as lines on a shared scale. The earlier layout, one panel per outcome and without the stable group, is `fig_c5_decline.png`.
 
-**Panel B, the stable baseline** (`c5_stable_baseline.csv`; `R/72_catchup_lag.R` part 5c):
+**Panel B, the stable baseline** (`c5_stable_baseline.csv`; `R/notes/72_catchup_lag.R` part 5c):
 - **Why it needs its own estimate.** In panels A and C, growth enters the model as a straight line, so a metro with 0% growth would sit at 0 by construction. Panel B adds a dummy for metro-years whose 3-year population change was within ±1%. That is 1,920 metro-years in 259 metros, with a median change of +0.2%. The dummy lets those metro-years depart from the model's no-change baseline, so a lag or excess in metros whose population did not move would show up.
 - **What it uses.** The specification is otherwise identical: within metro, with the same controls.
 - **Panels A and C barely change.** Adding the dummy moves the count paths by at most 0.6 points, so they keep the original model.
@@ -338,7 +338,7 @@ Panel A shows gains, panel B stable relative income, and panel C losses, with th
 
 ### 2.6 Is the Sunbelt gap an old growth lag? Test with 1970–2000 population
 
-Script `R/73_pre2000_growth.R`; outputs `c9_*`, `fig_c9_*`.
+Script `R/notes/73_pre2000_growth.R`; outputs `c9_*`, `fig_c9_*`.
 
 **Data.**
 - Census county counts for 1970, 1980 and 1990 come from three public Census Bureau tables (`e7079co.txt`, `e8089co.txt`, `99c8_00.txt`, in `D:/MULTIVERSE/raw/census-hist/`).
@@ -408,7 +408,7 @@ Coefficients include region and 2000 traits. "Expected" is what an immediate gap
 
 ### 2.8 One specification for the lag: smoothed-population (kernel) models
 
-Script `R/79_kernel_lag.R`; outputs `c14_*`, `fig_c14_*`. Updated Nov 15, 2026.
+Script `R/notes/79_kernel_lag.R`; outputs `c14_*`, `fig_c14_*`. Updated Nov 15, 2026.
 
 **Why.** The local projections describe the response to a single episode. A regression of density on population needs one specification that works for any path, including growth followed by decline. Two simple candidates fail:
 - `log N ~ log P[t−5]` imposes a fixed delay: no response for five years, then all of it at once.
@@ -508,7 +508,7 @@ Script `R/79_kernel_lag.R`; outputs `c14_*`, `fig_c14_*`. Updated Nov 15, 2026.
 
 ### 2.9 The lag branch in the multiverse (run v7)
 
-Script `R/82_lag_fork.R`; outputs `data/spec/run_principled_v7/lag_term.csv` and `lag_shift.csv`.
+Script `R/multiverse/82_lag_fork.R`; outputs `data/spec/run_principled_v7/lag_term.csv` and `lag_shift.csv`.
 
 **Setup.**
 - Add-on block `lag` in `40_multiverse.R`. Each alternative adds a kernel term to the full default model, under every non-covariate fork and in all three strata (the kernels vary over time, so within-metro specs run too):
@@ -731,7 +731,7 @@ Catch-up here is the SAMI change from 2013–15 to 2022–24, controlling for th
 
 ### 4.5 How much does market share change, and why?
 
-Script `R/76_bls_share_change.R`; outputs `c11_*`, `fig_c11_*`. The sample is a balanced panel of 327 metros with all ten years and no delineation change.
+Script `R/notes/76_bls_share_change.R`; outputs `c11_*`, `fig_c11_*`. The sample is a balanced panel of 327 metros with all ten years and no delineation change.
 
 **Share is nearly fixed within metros.**
 - Across metros, the share's SD is 5.3 percentage points. The typical metro's own year-to-year SD is 0.4 points, and its 2013–2022 range is 1.2 points.
@@ -787,7 +787,7 @@ Splitting further:
 
 ### 4.6 Why is the Northeast's nonprofit sector about twice the South's and West's?
 
-Source: `c11_region_profile.csv`, from `R/76_bls_share_change.R` part 6. Each figure is the regional median of metro averages over 2013–2022; the endowment and growth rows come from sections 2.6 and 3.
+Source: `c11_region_profile.csv`, from `R/notes/76_bls_share_change.R` part 6. Each figure is the regional median of metro averages over 2013–2022; the endowment and growth rows come from sections 2.6 and 3.
 
 | | Northeast | Midwest | South | West |
 |---|---|---|---|---|
@@ -840,7 +840,7 @@ Candidate explanations, roughly in order of weight:
 
 ### 4.7 Nonprofit age: by state, against market share, and against size
 
-Script `R/77_nonprofit_age.R`; outputs `c12_*`, `fig_c12_*`.
+Script `R/notes/77_nonprofit_age.R`; outputs `c12_*`, `fig_c12_*`.
 - **Age** is 2022 minus the IRS ruling year, for the 1.36 million 501(c)(3) public charities in the 2022 BMF.
 - **Filers** are the 312,500 matched by EIN to 2022 e-file returns at or above the $50k (2010 $) floor; the rest are grassroots.
 - **Dollar-weighted age** weights each filer by its expenditures. It is the age of the average nonprofit dollar, the closest analogue to employment share.
@@ -903,7 +903,7 @@ Caveats:
 
 ### 4.8 How long do nonprofits last? Lifespan by region, filers vs non-filers
 
-Script `R/78_nonprofit_lifespan.R`; outputs `c13_*`, `fig_c13_*`.
+Script `R/notes/78_nonprofit_lifespan.R`; outputs `c13_*`, `fig_c13_*`.
 
 **Definitions.** The sample is 1.49 million 501(c)(3) public charities with an IRS ruling year from 1990 to 2021.
 - **Filers** (585,000) have filed any 990 or 990-EZ, of any size, in 2000–2024. Their lifespan runs from the ruling year to the last filing year.
@@ -1025,7 +1025,7 @@ This is the same simplified chart as in the draft paper (`58_outline_analyses.R`
 
 ## 6. Carrying capacity: growth history × nonprofit market share
 
-Script `R/75_capacity_grid.R`; outputs `c10_*`, `fig_c10_*`.
+Script `R/notes/75_capacity_grid.R`; outputs `c10_*`, `fig_c10_*`.
 - **Growth history** is population growth 1970–2000 in %/yr (section 2.6).
 - **Market share** is the BLS 501(c)(3) share of private employment, averaged over 2013–2022.
 - **Density** is the mean SAMI over 2013–2022, shown as % above or below the size-expected level.

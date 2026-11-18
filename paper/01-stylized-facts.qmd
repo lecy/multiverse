@@ -87,7 +87,7 @@ Counts look sublinear only after conditioning, and the conditional value moves w
 - Compare exponents only across studies that use the same unit: county spending exponents run about 0.2 above metro ones.
 - Use Poisson whenever zeros are common (subsectors, small units).
 
-*Sources: `R/58_outline_analyses.R` part F (`D:/MULTIVERSE/data/outline/fact1_numbers.csv`); `notes/scaling-aggregation-results.md`; Thornton's scaling page §3.*
+*Sources: `R/notes/58_outline_analyses.R` part F (`D:/MULTIVERSE/data/outline/fact1_numbers.csv`); `notes/scaling-aggregation-results.md`; Thornton's scaling page §3.*
 
 # Fact 2: Density is nearly frozen {#sec-fact2}
 
@@ -148,7 +148,7 @@ Who moved, and where (top and bottom 10% by filer SAMI change, 39 metros each):
 - A single recent year represents a metro's long-run filer density well. For spending, average several years and avoid splice years.
 - Persistence makes history a confounder in levels models: today's covariates partly stand in for conditions decades ago (Fact 3, D8).
 
-*Sources: `notes/catchup-lag-results.qmd` section 1; `R/50_followups_jeremy.R` part 2; `R/52_endowment_change.R`; `notes/collinearity-composites-results.md` (within-metro shares).*
+*Sources: `notes/catchup-lag-results.qmd` section 1; `R/notes/50_followups_jeremy.R` part 2; `R/notes/52_endowment_change.R`; `notes/collinearity-composites-results.md` (within-metro shares).*
 
 # Fact 3: Density runs on two clocks {#sec-fact3}
 
@@ -237,7 +237,7 @@ Local projections give a half-life for the growth gap of about 5 years for filer
 - Cross-sectional comparisons inherit decades of growth history. The stock-flow test shows that the fast growers' gap is a lag in the stock, not lower entry or faster exit. When the question is about current conditions, control for past growth or the pre-1970 endowment, and do not read the gap as a trait of newcomers.
 - Filer counts respond to income shocks through the filing floor; grassroots counts do not. Choose the count to match the question (D1).
 
-*Sources: `notes/catchup-lag-results.qmd` (sections 1, 2, 3.5, 6); `R/72_catchup_lag.R`, `R/73_pre2000_growth.R`, `R/75_capacity_grid.R`; Evidence 2b: `R/58_outline_analyses.R` part T (`D:/MULTIVERSE/data/outline/v10/gap_lag_*`; notes section 2.6d); Evidence 5: `R/79_kernel_lag.R` (`data/catchup/c14_*`; notes section 2.8).*
+*Sources: `notes/catchup-lag-results.qmd` (sections 1, 2, 3.5, 6); `R/notes/72_catchup_lag.R`, `R/notes/73_pre2000_growth.R`, `R/notes/75_capacity_grid.R`; Evidence 2b: `R/notes/58_outline_analyses.R` part T (`D:/MULTIVERSE/data/outline/v10/gap_lag_*`; notes section 2.6d); Evidence 5: `R/notes/79_kernel_lag.R` (`data/catchup/c14_*`; notes section 2.8).*
 
 # Fact 4: Registered charities are two populations {#sec-fact4}
 
@@ -282,7 +282,7 @@ Local projections give a half-life for the growth gap of about 5 years for filer
 - Use the registered stock as a splice-free robustness check; grassroots inherit the filer splices in reverse.
 - Check registration practices that distort grassroots counts: LDS congregations that do not register separately (low counts in Utah), group exemptions (Memphis, Mankato), and the many registrations in military towns.
 
-*Sources: `notes/catchup-lag-results.qmd` sections 3, 4 and 5; `R/58_outline_analyses.R` part H (`D:/MULTIVERSE/data/outline/fact4_composition.csv`).*
+*Sources: `notes/catchup-lag-results.qmd` sections 3, 4 and 5; `R/notes/58_outline_analyses.R` part H (`D:/MULTIVERSE/data/outline/fact4_composition.csv`).*
 
 # Fact 5: Market share sets the level, not the pace {#sec-fact5}
 
@@ -458,7 +458,7 @@ Not tested: hospital ownership (AHA survey, CMS Provider of Services) and state 
 - In change models, share is fixed enough to treat as a metro trait. It belongs with the starting conditions, not with time-varying covariates.
 - The BLS window is short (2013–2022) and starts midway through the catch-up decade; treat these results as cross-sectional.
 
-*Sources: `notes/catchup-lag-results.qmd` sections 4, 4.5, 4.6, 4.7, 4.8 and 6; `R/75_capacity_grid.R`; `R/76_bls_share_change.R` (`c11_by_region.csv`, `c11_region_profile.csv`); `R/77_nonprofit_age.R`, `R/78_nonprofit_lifespan.R`; `R/58_outline_analyses.R` part O (age-size chart); figures from `notes/catchup-figures/`.*
+*Sources: `notes/catchup-lag-results.qmd` sections 4, 4.5, 4.6, 4.7, 4.8 and 6; `R/notes/75_capacity_grid.R`; `R/notes/76_bls_share_change.R` (`c11_by_region.csv`, `c11_region_profile.csv`); `R/notes/77_nonprofit_age.R`, `R/notes/78_nonprofit_lifespan.R`; `R/notes/58_outline_analyses.R` part O (age-size chart); figures from `notes/catchup-figures/`.*
 
 # Fact 6: Size is the main source of collinearity {#sec-fact6}
 
@@ -507,7 +507,7 @@ Without log population, government earnings becomes a proxy for size (.83) and %
 - Diagnose collinearity in SAMI form; high VIFs in the log-log model reflect size, not instability.
 - Within a construct, use one measure or a composite (see `02-variables.qmd`).
 
-*Sources: `R/58_outline_analyses.R` part B (`D:/MULTIVERSE/data/outline/v10/fact6_*`); `notes/collinearity-composites-results.md`.*
+*Sources: `R/notes/58_outline_analyses.R` part B (`D:/MULTIVERSE/data/outline/v10/fact6_*`); `notes/collinearity-composites-results.md`.*
 
 # Fact 7: Data hazards are frequent and patterned {#sec-fact7}
 
@@ -582,4 +582,4 @@ Within-metro and lag models fit mostly interpolated change in these covariates (
 - Exclude covariates built from nonprofit counts (Rupasingha index, association counts) from models of nonprofit density.
 - Check registered and grassroots outcomes for group-exemption and military-town outliers before interpreting them.
 
-*Sources: `R/58_outline_analyses.R` parts Q and R (`D:/MULTIVERSE/data/outline/fact7_*`, `v10/gap_floor_*`); `R/101_lean_open_checks.R` part F (floor, 13 covariates; `v11/open_checks/f_*.csv`); `R/50_followups_jeremy.R` part 2 (year-to-year correlations); `R/84_tcja_contrib.R` with `MV_MODEL=lean` (Evidence 6; `D:/MULTIVERSE/data/tcja_v11/`); `R/86_sensitivity_tcja_size.R` part A with `MV_MODEL=lean` (Evidence 6b; `D:/MULTIVERSE/data/sensitivity_v11/a_*.csv`); `R/README.md` and the data-construction notes.*
+*Sources: `R/notes/58_outline_analyses.R` parts Q and R (`D:/MULTIVERSE/data/outline/fact7_*`, `v10/gap_floor_*`); `R/notes/101_lean_open_checks.R` part F (floor, 13 covariates; `v11/open_checks/f_*.csv`); `R/notes/50_followups_jeremy.R` part 2 (year-to-year correlations); `R/notes/84_tcja_contrib.R` with `MV_MODEL=lean` (Evidence 6; `D:/MULTIVERSE/data/tcja_v11/`); `R/notes/86_sensitivity_tcja_size.R` part A with `MV_MODEL=lean` (Evidence 6b; `D:/MULTIVERSE/data/sensitivity_v11/a_*.csv`); `R/README.md` and the data-construction notes.*

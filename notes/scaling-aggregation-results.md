@@ -1,6 +1,6 @@
 # Scaling exponent B by geographic aggregation
 
-Script: `R/74_scaling_aggregation.R` (run 2026-11-13). Output: `D:/MULTIVERSE/data/scaling_agg/`
+Script: `R/notes/74_scaling_aggregation.R` (run 2026-11-13). Output: `D:/MULTIVERSE/data/scaling_agg/`
 (`scaling_B_by_unit.csv` has every unit × year × group × measure, with SEs, R² and zeros).
 
 **Data.** 501(c)(3) e-filers above the $50k-real floor, 2021–2023 (966,535 org-years), NCCS 12
@@ -19,7 +19,7 @@ Poisson is pulled toward large places.
 ## Results, 2022
 
 ![B by aggregation](scaling-aggregation-figures/fig_B_by_aggregation.png)
-(`R/74b_plot_scaling_aggregation.R`)
+(`R/notes/74b_plot_scaling_aggregation.R`)
 
 | count | County OLS | Metro OLS | CSA OLS | OLS range | County Pois | Metro Pois | CSA Pois | Pois range |
 |---|---|---|---|---|---|---|---|---|

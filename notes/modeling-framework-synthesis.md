@@ -1,6 +1,6 @@
 # How to model nonprofit density: synthesis of results so far
 
-Nov 14, 2026. Synthesis of `Multiverse Analysis Design Nonprofit Density.md`, `R/README.md`, the four results notes in `notes/` (scaling aggregation, revenue/expenses and pass-through, collinearity and composites, catch-up and lags) and the v5 multiverse outputs (`D:/MULTIVERSE/data/outline/v5/`, from `R/58_outline_analyses.R` with `MV_RUN=run_principled_v5`). Nothing was re-run for this note.
+Nov 14, 2026. Synthesis of `Multiverse Analysis Design Nonprofit Density.md`, `R/README.md`, the four results notes in `notes/` (scaling aggregation, revenue/expenses and pass-through, collinearity and composites, catch-up and lags) and the v5 multiverse outputs (`D:/MULTIVERSE/data/outline/v5/`, from `R/notes/58_outline_analyses.R` with `MV_RUN=run_principled_v5`). Nothing was re-run for this note.
 
 ## The overall story
 

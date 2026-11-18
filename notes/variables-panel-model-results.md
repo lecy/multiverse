@@ -1,6 +1,6 @@
 # Key variables for a unified panel model: results
 
-Nov 17, 2026 · script `R/94_variables_panel_model.R` (parts build, describe, models, index, lean, figs) · outputs `D:/MULTIVERSE/data/variables/` · figures `paper/figures/var_*.png` · draft section `paper/02-variables.qmd` (replaces outline card D7).
+Nov 17, 2026 · script `R/paper/94_variables_panel_model.R` (parts build, describe, models, index, lean, figs) · outputs `D:/MULTIVERSE/data/variables/` · figures `paper/figures/var_*.png` · draft section `paper/02-variables.qmd` (replaces outline card D7).
 
 ## Setup
 
@@ -260,7 +260,7 @@ Variants:
 - Medicaid is recorded by beneficiary residence but pays providers; dense health nonprofit sectors could raise it.
 - Political division uses the presidential margin, interpolated between elections.
 
-## 8. Market competition measures (added 2026-11-17, `R/95_compete_niche.R`)
+## 8. Market competition measures (added 2026-11-17, `R/paper/95_compete_niche.R`)
 
 Twelve concentration measures from `23_cov_compete.R` (local universe unless noted: no health, Q, T, U, B11, uncoded) were added one at a time to the 13-covariate lean set, on the common sample of 385 metros, 2010-2022. Outcomes were rebuilt from the current panel, after the 2026-11-17 NTEE backfill that moved spending (r old vs new spending SAMI, 2022 = .972). Refitting the lean model on the corrected spending series moves no spending partial r by more than .04, so sections 1-7 stand.
 

@@ -4,17 +4,33 @@ Scripts live here (Dropbox). Every build product, download cache, temp file, and
 log lives on **D:/MULTIVERSE** (C: is nearly full). Read-only sources stay in the
 Dropbox data hub (`00 - DATA`). Run each script from the `multiverse/` folder:
 
-    "C:/Program Files/R/R-4.5.1/bin/Rscript.exe" R/<script>.R > D:/MULTIVERSE/logs/<script>.log 2>&1
+    "C:/Program Files/R/R-4.5.1/bin/Rscript.exe" R/<folder>/<script>.R > D:/MULTIVERSE/logs/<script>.log 2>&1
 
 The build runs in the order of `pipeline.csv` (not the order below), through
 `Rscript run.R [database|checks|multiverse|all] [--dry-run] [--from <id>] [--only <ids>]`:
 it skips up-to-date steps, stops on a missing input, and writes `MANIFEST.csv`.
 `Rscript run.R --graph` writes the dependency graph to `env/pipeline_graph.md`.
 
+Scripts keep their numbers and sit in folders by role (old → new paths:
+`env/phase3_moves.csv`). The table below names scripts without their folder.
+
+| Folder | Holds |
+|---|---|
+| `lib/` | sourced, not run: `00_setup.R`, `config.R`, `geo_helpers.R`, `13_16_cov_helpers.R`, the multiverse engine `40_multiverse.R`, `41_composites.R`; and the `md2qmd.R` tool |
+| `build/A_geo/` | 01 county spine |
+| `build/B_npo/` | nonprofit sources: 02, 02b, 03, 03b, 04, 05, 08, 09a, 09, 24 |
+| `build/C_npo_panel/` | 06 nonprofit panel, 23 competition |
+| `build/D_cov/` | covariates: 07, 11–22, 25–27 |
+| `build/E_assemble/` | 30 analysis panels |
+| `build/F_checks/` | checks run after the build: 07b, 10, 10b, 10c, 16b, 20b |
+| `multiverse/` | grids, universe runs, forks merged into runs, run summaries: 42–46, 51, 53–55, 57, 82, 85, 92, 93, 97, 98 |
+| `paper/` | scripts that write `paper/figures/`: 94, 95, 96, 99, 102 |
+| `notes/` | research-note analyses, kept for the record and not run by `run.R`: 09b, 50, 52, 56, 58, 60, 70–81, 83, 84, 86–91, 100, 101, 103–105 |
+
 | Order | Script | Builds | Output (D:/MULTIVERSE/…) |
 |---|---|---|---|
 | 0 | `00_setup.R`, `geo_helpers.R` | paths, constants, geography helpers | — |
-| — | `md2qmd.R <note>.md [--render] [--subtitle="..."]` | converts a GitHub-markdown results note in `notes/` to a Quarto `.qmd` beside it (title to YAML, "How to read" blockquote to a callout, the blank lines Pandoc needs before/after lists and tables), optionally renders self-contained HTML. The `.md` stays the source; the `.qmd` is overwritten each run. E.g. `Rscript R/md2qmd.R notes/catchup-lag-results.md --render --subtitle="Catch-up results note"` | `notes/<note>.qmd`, `.html` |
+| — | `md2qmd.R <note>.md [--render] [--subtitle="..."]` | converts a GitHub-markdown results note in `notes/` to a Quarto `.qmd` beside it (title to YAML, "How to read" blockquote to a callout, the blank lines Pandoc needs before/after lists and tables), optionally renders self-contained HTML. The `.md` stays the source; the `.qmd` is overwritten each run. E.g. `Rscript R/lib/md2qmd.R notes/catchup-lag-results.md --render --subtitle="Catch-up results note"` | `notes/<note>.qmd`, `.html` |
 | 1 | `01_geo_spine.R` | 2023 county-equivalent spine (CT planning regions), annual PEP population 2000–2025, CBSA crosswalk | `data/geo`, `data/pop` |
 | 2 | `02_npo_bmf_counts.R` | registered-org counts from NCCS BMF snapshots; EIN × year locations (FIPS → other-year FIPS → ZIP modal) | `data/npo/bmf_county_year.csv`, `ein_location_bmf.csv.gz` |
 | 3 | `03_npo_core.R` | harmonized CORE 2000–2019 (PZ, CE, PF) | `raw/nccs-core-hrmn`, `data/npo/orgyear_core.parquet` |

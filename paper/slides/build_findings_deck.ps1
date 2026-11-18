@@ -305,7 +305,7 @@ $st = $s.Shapes.Item( "Table" ).Table
 for ( $r = 1; $r -le 11; $r++ ) { for ( $c = 2; $c -le 3; $c++ ) { $st.Cell( $r, $c ).Shape.TextFrame.TextRange.ParagraphFormat.Alignment = 1 } }
 T $s "None is a fork: each is smaller than winsorizing, itself a fork that changes 13% of verdicts, or confined to one term the paper can state directly." 40 452 880 36 14 $MUTED $false $BODY 1 $true "Takeaway" | Out-Null
 Num $s
-Notes $s "From tbl-sensitivity in 05-findings.qmd. Outlying-case and multi-state checks: R/83_sample_exclusions.R and R/101_lean_open_checks.R. City size: R/90_size_moderation_screen.R. Interactions: R/99_interaction_screen_v11.R. Religion and mutual benefit: R/56_drop_religion_mutual.R. Concentration: R/95_compete_niche.R. Tax law: R/84_tcja_contrib.R and R/86_sensitivity_tcja_size.R part A."
+Notes $s "From tbl-sensitivity in 05-findings.qmd. Outlying-case and multi-state checks: R/notes/83_sample_exclusions.R and R/notes/101_lean_open_checks.R. City size: R/notes/90_size_moderation_screen.R. Interactions: R/paper/99_interaction_screen_v11.R. Religion and mutual benefit: R/notes/56_drop_religion_mutual.R. Concentration: R/paper/95_compete_niche.R. Tax law: R/notes/84_tcja_contrib.R and R/notes/86_sensitivity_tcja_size.R part A."
 
 # 9. scope and gaps -------------------------------------------------------------------------------------
 $s = NewSlide $pres

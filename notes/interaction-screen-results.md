@@ -2,9 +2,9 @@
 
 ![Interaction matrix](interaction-figures/fig_interaction_matrix.png)
 
-- **Script:** `R/80_interaction_screen.R`, run 2026-11-15.
+- **Script:** `R/notes/80_interaction_screen.R`, run 2026-11-15.
 - **Outputs:** `D:/MULTIVERSE/data/interactions/`: `p1_interaction_matrix.csv`, `p2_joint_cv.csv`, `p3_stability.csv`, `p3_stability_summary.csv`, `fig_interaction_matrix.png`.
-- **Logs.** Extensive covariates are logged with the per-capita floor (`flog`, see below). The first run used `log(x + 1)`. `Rscript R/80_interaction_screen.R slog` reproduces it in `interactions/slog/`.
+- **Logs.** Extensive covariates are logged with the per-capita floor (`flog`, see below). The first run used `log(x + 1)`. `Rscript R/notes/80_interaction_screen.R slog` reproduces it in `interactions/slog/`.
 
 ## Status in the multiverse
 

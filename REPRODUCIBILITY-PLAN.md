@@ -249,7 +249,7 @@ results.
    byte-identical (or identical cell by cell).
 
 *Status 2026-11-17 (second machine, user `jlecy`, R 4.5.3):*
-- **Step 1 done.** `R/config.R`, sourced first by `00_setup.R`, reads `MV_BUILD`, `MV_INPUTS` (data hub), `MV_BLS`, `MV_DROPBOX` and `CENSUS_API_KEY`. Defaults keep the original machine's layout: `D:/MULTIVERSE`, and Dropbox = four folders above the project. Set the variables in the user-level `~/.Renviron` (Documents/.Renviron), never in the project, because the project syncs. On this machine `MV_BUILD=C:/Users/jlecy/Documents/MULTIVERSE`. `census_key()` replaces the three copies in 13–16, 17 and 89; it falls back to `../CENSUS-DATA.R`.
+- **Step 1 done.** `R/lib/config.R`, sourced first by `00_setup.R`, reads `MV_BUILD`, `MV_INPUTS` (data hub), `MV_BLS`, `MV_DROPBOX` and `CENSUS_API_KEY`. Defaults keep the original machine's layout: `D:/MULTIVERSE`, and Dropbox = four folders above the project. Set the variables in the user-level `~/.Renviron` (Documents/.Renviron), never in the project, because the project syncs. On this machine `MV_BUILD=C:/Users/jlecy/Documents/MULTIVERSE`. `census_key()` replaces the three copies in 13–16, 17 and 89; it falls back to `../CENSUS-DATA.R`.
 - **Step 2 done.** 21 worker `setwd()` calls in 20 scripts (including 99–104) now use `Sys.getenv("MV_PROJECT_ROOT")`, which `config.R` sets. `D:/MULTIVERSE` is gone from 40 (`load_panel`), 58 and 60.
 - **Step 3 done, without activating renv in the project.** An renv autoloader in the Dropbox folder would switch the other machine's sessions to an empty library. `env/build_renv_lock.R` builds the library in `$MV_BUILD/renv-build` and writes `renv.lock`. It installs every version in `env/packages-2026-11-17.csv` (all 22 match), with `panel990` at `7045d97c` and dependencies from the Posit Package Manager snapshot of 2026-11-16. Use it by setting `R_LIBS_USER` to that library, or with `renv::restore(lockfile = "renv.lock")`. The lockfile records R 4.5.3; the original build used 4.5.1.
 - **Step 4 done.** Inputs and reference outputs came from `s3://lecy/multiverse/data` (needs the `lecy-data` profile).
@@ -286,6 +286,20 @@ Move the scripts into `R/lib`, `R/build/*`, `R/multiverse`, `R/paper` and `R/not
 Update the `source()` paths, the README and the memory notes. Check:
 `run.R database --dry-run` resolves every step.
 
+*Status 2026-11-17 (second machine):*
+- **Moves done.** All 97 scripts moved with `git mv`, keeping their numbers. The old → new table is `env/phase3_moves.csv`.
+  - The folders follow 2.1. 24 (government grants) joins `build/B_npo`.
+  - `multiverse/` also holds the forks that built and merged the universes: 51, 53–55, 57, 82, 85, 92 and 93.
+  - `paper/` holds the five scripts that write `paper/figures/`: 94, 95, 96, 99 and 102. 98 also writes there but stays in `multiverse/` as a pipeline step.
+  - Everything else (the 50s–100s analyses, 09b and 105) is in `notes/`. Phase 6 decides which of those the paper needs.
+- **Paths updated.** Every `R/<script>.R` written in the code, `pipeline.csv`, the notes, the paper `.qmd` files and the slide scripts now points at the new path (397 lines in 120 files). `config.R` and `env/build_renv_lock.R` check for `R/lib/00_setup.R`. The README has a folder table.
+- **Memory notes not updated.** No memory on this machine names a script path. Notes on the original machine that cite `R/<nn>_*.R` paths can be mapped with `env/phase3_moves.csv`.
+- **Check passed.**
+  - `run.R all --dry-run` plans all 36 steps.
+  - `env/check_phase3.R`: all 102 R files parse, all 94 script paths cited anywhere exist (apart from the two Phase 6 scripts named above), nothing is left at the top of `R/`, and setup, helpers and the engine load.
+  - `run.R --only 25,26` rebuilt the endowment and lag-kernel files byte-identical to the reference.
+  - A 200-spec v11 slice through the parallel workers matched 200/200 statuses and every coefficient row, apart from lme4 noise around 1e-9.
+
 **Phase 4: freeze the inputs (1 day, mostly upload time)**
 1. Write an inventory script that lists every file the build reads. Instrument the
    read helpers, or use `pipeline.csv` inputs, and record size and sha256 for each.
@@ -307,7 +321,6 @@ Update the `source()` paths, the README and the memory notes. Check:
   - Do not ship RCMS (ASARB forbids reposting) or the NERCRD social capital files (no licence). Ship sha256 and download instructions instead.
   - Replace the FRED PCEPI download with BEA: FRED's terms forbid archiving it.
   - Everything else can be redistributed with attribution: NCCS under ODC-BY, tonmcg under MIT, PatentsView under CC BY 4.0, MEDSL under CC0, and the federal sources as public domain.
-
 
 **Phase 5: clean-room rebuild (1–2 days of compute)**
 1. With `MV_BUILD=D:/MULTIVERSE_REPRO` and `MV_INPUTS=<frozen inputs>`, run

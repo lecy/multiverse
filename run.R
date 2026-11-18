@@ -1,6 +1,6 @@
 ## run.R
 ## Single entry point for the build. Steps, their order, inputs and outputs are in
-## pipeline.csv (paths relative to MV_BUILD; see R/config.R).
+## pipeline.csv (paths relative to MV_BUILD; see R/lib/config.R).
 ##
 ##   Rscript run.R [database|checks|multiverse|all] [options]
 ##     --dry-run       list what would run (and why), run nothing
@@ -17,7 +17,7 @@
 ## lists every declared output (path, bytes, sha256, step, modified).
 ## Default stage: database. "all" = database, checks, multiverse.
 
-source( "R/config.R" )                      # BUILD, PROJECT_ROOT (base R only)
+source( "R/lib/config.R" )                      # BUILD, PROJECT_ROOT (base R only)
 
 args <- commandArgs( TRUE )
 opt_val <- function( flag ) { i <- match( flag, args ); if ( is.na( i ) || i == length( args ) ) NA_character_ else args[ i + 1 ] }
@@ -61,7 +61,7 @@ if ( GRAPH ) {
   for ( s in STAGES ) {
     q <- p[ p$stage == s, ]
     L <- c( L, paste0( "  subgraph ", s ),
-            sprintf( "    %s[\"%s %s\"]", node( q$id ), q$id, sub( "^R/[0-9a-z]+_|\\.R$", "", sub( "\\.R$", "", q$script ) ) ),
+            sprintf( "    %s[\"%s %s\"]", node( q$id ), q$id, sub( "^[0-9a-z]+_", "", sub( "\\.R$", "", basename( q$script ) ) ) ),
             "  end" )
   }
   L <- c( L, sprintf( "  %s --> %s", node( ed$from ), node( ed$to ) ), "```" )

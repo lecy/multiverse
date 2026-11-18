@@ -7,8 +7,8 @@
 ## Writes <MV_BUILD>/check/v11_slice_{coefs_new,diff}.csv.
 
 Sys.setenv( MV_MODEL = "lean" )
-source( "R/00_setup.R" )
-source( "R/40_multiverse.R" )
+source( "R/lib/00_setup.R" )
+source( "R/lib/40_multiverse.R" )
 suppressPackageStartupMessages( { library( parallel ); library( arrow ) } )
 
 a <- commandArgs( TRUE )
@@ -40,7 +40,7 @@ t0 <- proc.time()[[ "elapsed" ]]
 cl <- makePSOCKcluster( WORKERS )
 invisible( clusterEvalQ( cl, { Sys.setenv( OMP_NUM_THREADS = "1", MV_MODEL = "lean" )
   setwd( Sys.getenv( "MV_PROJECT_ROOT" ) )
-  source( "R/00_setup.R" ); source( "R/40_multiverse.R" )
+  source( "R/lib/00_setup.R" ); source( "R/lib/40_multiverse.R" )
   data.table::setDTthreads( 1L ); NULL } ) )
 clusterExport( cl, c( "panel", "g" ) )
 res <- parLapplyLB( cl, seq_len( nrow( g ) ), fit_one )

@@ -1,6 +1,6 @@
 # Measuring nonprofit sector size: revenue vs expenses, and pass-through grants
 
-First results for the research note (built 2026-11-12). Code: `R/09_npo_grants.R`, `R/09b_revexp_analysis.R`; all tables are in `D:/MULTIVERSE/data/aux_revexp/`. Figures are in `rev-exp-figures/`.
+First results for the research note (built 2026-11-12). Code: `R/build/B_npo/09_npo_grants.R`, `R/notes/09b_revexp_analysis.R`; all tables are in `D:/MULTIVERSE/data/aux_revexp/`. Figures are in `rev-exp-figures/`.
 
 **Sample.** Active 501(c)(3) public charities: 990 and 990-EZ filers with max(revenue, expenses) ≥ $50k in 2010 dollars. Sources follow the main splice: CORE 2000–2010, SOI 2011–2019, e-file 2020–2024. Year-over-year pairs are formed only within a source era, so pairs that cross the 2011 and 2020 seams are excluded.
 

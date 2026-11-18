@@ -19,7 +19,7 @@ repo <- c( CRAN = sprintf( "https://packagemanager.posit.co/cran/%s", PPM_DATE )
 options( repos = repo )
 
 project <- getwd()
-stopifnot( file.exists( file.path( project, "R", "00_setup.R" ) ) )
+stopifnot( file.exists( file.path( project, "R", "lib", "00_setup.R" ) ) )
 build <- Sys.getenv( "MV_BUILD", "D:/MULTIVERSE" )
 rproj <- file.path( build, "renv-build" )
 dir.create( rproj, recursive = TRUE, showWarnings = FALSE )

@@ -2,9 +2,9 @@
 
 ![Interaction matrix, 13-covariate model](../paper/figures/d6_lean_interactions.png)
 
-- **Script:** `R/99_interaction_screen_v11.R`, run 2026-11-17 (log `D:/MULTIVERSE/logs/99.log`).
+- **Script:** `R/paper/99_interaction_screen_v11.R`, run 2026-11-17 (log `D:/MULTIVERSE/logs/99.log`).
 - **Outputs:** `D:/MULTIVERSE/data/interactions/v11/`: `p1_main_effects.csv`, `p1_interaction_matrix.csv`, `p1b_absorption.csv`, `p1b_leverage.csv`, `p2_joint_cv.csv`, `p2_main_effects.csv`, `p3_stability.csv`, `p3_stability_summary.csv`, `fig_interaction_matrix.png` (copy of the figure above).
-- **Predecessor:** `R/80_interaction_screen.R` and `notes/interaction-screen-results.md` (six-covariate default, five benchmark covariates, 20 terms).
+- **Predecessor:** `R/notes/80_interaction_screen.R` and `notes/interaction-screen-results.md` (six-covariate default, five benchmark covariates, 20 terms).
 
 ## Design (what changed from script 80)
 

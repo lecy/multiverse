@@ -1,6 +1,6 @@
 # Need, social capital, and diversity: measurement checks (2026-11-16)
 
-Script: `R/89_need_socap_diversity.R` (modes build, describe, horse, horse_summary, figs).
+Script: `R/notes/89_need_socap_diversity.R` (modes build, describe, horse, horse_summary, figs).
 Outputs: `D:/MULTIVERSE/data/need_socap/`. Figures: `notes/need-socap-figures/`.
 
 New metro measures (ACS 5-year 2015–2022, county tables summed to 2023 CBSAs):
@@ -114,7 +114,7 @@ Partial r after controls (size, education, poverty, income, % 65+, division FE);
   - Census response slopes *down* given turnout.
 - **Companion figure.** `fig_ns_horse` shows the same comparisons across the sub-universe: median and 10th–90th percentile partial r for every alternative set and outcome.
 
-## 5. In the multiverse: run v9 (`R/92_ineq_cong_fork.R`)
+## 5. In the multiverse: run v9 (`R/multiverse/92_ineq_cong_fork.R`)
 
 Two add-on blocks; each adds one covariate to the full default model.
 

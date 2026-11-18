@@ -5,10 +5,10 @@ Written 2026-11-16. The first-wave measures were built the same day and are in t
 ## Built: first wave (2026-11-16)
 
 **Scripts**
-- `R/22_cov_government.R` → `data/cov/cov_gov.csv`
-- `R/12_cov_bea.R` now also reads CAINC35 (`tr_*` columns)
-- `R/30_assemble_analysis.R`: interpolation of the new series and the derived ratios (`derive_gov()`)
-- `R/91_government_measures.R` → `data/government/`
+- `R/build/D_cov/22_cov_government.R` → `data/cov/cov_gov.csv`
+- `R/build/D_cov/12_cov_bea.R` now also reads CAINC35 (`tr_*` columns)
+- `R/build/E_assemble/30_assemble_analysis.R`: interpolation of the new series and the derived ratios (`derive_gov()`)
+- `R/notes/91_government_measures.R` → `data/government/`
 
 The rebuilt panels keep every existing column identical, cell by cell (backup: `data/analysis/pre_gov_20261116/`).
 
@@ -103,7 +103,7 @@ Partial r of each government measure, entered alone in place of S&L earnings in 
   - Medicaid: poverty .34, % BA −.39, S&L earnings .07.
   - Transfers: % 65+ .38 (Medicare), poverty .43, % BA −.56.
 
-## Mechanism check: do the government terms work through grants? (`R/105_govgrant_mechanism.R`, 2026-11-17)
+## Mechanism check: do the government terms work through grants? (`R/notes/105_govgrant_mechanism.R`, 2026-11-17)
 
 **Question.** In the 13-covariate model, Medicaid transfers (.24) and S&L government earnings (.23) have positive partial r for filer density. Two readings fit that sign:
 - **Interdependence:** government funds nonprofits.
@@ -160,7 +160,7 @@ The 2013 paper's scatterplots used four measures:
 
 ## What the multiverse has now
 
-There is a single `government` block (`R/40_multiverse.R`):
+There is a single `government` block (`R/lib/40_multiverse.R`):
 
 | | Variable | Source | Years |
 |---|---|---|---|
@@ -205,7 +205,7 @@ From CORE 501(c)(3) PZ files (`F9_08_REV_CONTR_GOVT_GRANT`):
 - **2020–2024:** available in e-file. `panel990` table P08 is not cached yet.
 - **Not counted:** Medicaid and Medicare reimbursements are program-service revenue, not line 1e, so line 1e understates government money by roughly 3×.
 
-## Line 1e built for 2011–2024 (`R/24_npo_govgrants.R`, 2026-11-17)
+## Line 1e built for 2011–2024 (`R/build/B_npo/24_npo_govgrants.R`, 2026-11-17)
 
 The 2011–2019 gap is now filled: e-filed returns are observed, and paper filers are imputed. Outputs are in `D:/MULTIVERSE/data/govgrants/`. Nothing in the analysis panel or the multiverse uses them; use the series descriptively (see Cautions).
 
