@@ -855,8 +855,8 @@ The cross-place estimate goes the other way: Kim finds government wages per capi
 </tr>
 <tr class="even">
 <td>Government</td>
-<td><strong>Funding complements; direct provision substitutes within places</strong></td>
-<td>Causal direction unresolved; money received is partly an outcome</td>
+<td><strong>Funding complements; direct provision may substitute within places</strong></td>
+<td>Causal direction unresolved; money received is partly an outcome; substitution is contested by recent work (below)</td>
 </tr>
 <tr class="odd">
 <td>Size</td>
@@ -1065,11 +1065,11 @@ Table&nbsp;4: Entry, exit and survival studies.
 <tbody>
 <tr class="odd">
 <td><span class="citation" data-cites="mayer2025connecting">Mayer (<a href="#ref-mayer2025connecting" role="doc-biblioref">2025</a>)</span></td>
-<td>US counties, 2010–2016 (21,756 county-years)</td>
-<td>Foundings and dissolutions</td>
-<td>Ecological count models</td>
-<td>Density dependence, resources and government size shape both; more dissolutions predict more foundings</td>
-<td>abstract</td>
+<td>NCCS BMF public charities; US counties, 2010–2016 (21,756 county-years)</td>
+<td>Foundings and dissolutions; population as offset</td>
+<td>Quasi-Poisson, county and year fixed effects</td>
+<td>Within counties: higher density means fewer foundings and more dissolutions; rising government wages go with more foundings; economic hardship raises dissolutions; dissolutions predict foundings</td>
+<td>full</td>
 </tr>
 <tr class="even">
 <td><span class="citation" data-cites="lee2025exploring">J. Lee &amp; Sullivan (<a href="#ref-lee2025exploring" role="doc-biblioref">2025</a>)</span></td>
@@ -1259,12 +1259,22 @@ Table&nbsp;5: Spatial studies of nonprofit location.
 <li><span class="citation" data-cites="lu2018complementary">Lu &amp; Xu (<a href="#ref-lu2018complementary" role="doc-biblioref">2018</a>)</span> report that effect sizes depend on data structure and unit of analysis, which is what the identification argument predicts.</li>
 </ul>
 A cross-sectional negative at the county level does not fit cleanly. It may reflect county units, where government payroll concentrates in county seats and capitals, or a real difference in the claim.</li>
-<li><strong>Verdict.</strong> “Funding complements” is now well supported. “Provision substitutes within places” is supported by within-place designs and contested by one cross-sectional one. It should stay a qualified claim.</li>
+<li><strong>A within-place challenge.</strong> <span class="citation" data-cites="mayer2025connecting">Mayer (<a href="#ref-mayer2025connecting" role="doc-biblioref">2025</a>)</span> use county fixed effects, the same within-place design as the substitution studies, and find the opposite for <em>new</em> organizations: as a county’s government wages rise, more nonprofits are founded. Government wages are not related to dissolutions once density is modeled flexibly.
+<ul>
+<li><strong>Flows versus stocks.</strong> The substitution studies measure stocks, or large organizations; Mayer measures foundings, a flow.</li>
+<li><strong>Possible reconciliation.</strong> A growing government may spur new, small organizations while the established sector shrinks relative to it.</li>
+<li><strong>The multiverse does not settle it.</strong> Its within-metro estimate for direct government is near zero for filers and <em>negative</em> for grassroots, the population most like new foundings. That is the opposite of Mayer’s sign.</li>
+</ul></li>
+<li><strong>Verdict.</strong>
+<ul>
+<li>“Funding complements” is now well supported.</li>
+<li>“Provision substitutes within places” is contested. It is supported by three within-place studies of stocks <span class="citation" data-cites="matsunaga2004government lecy2013nonprofit marquis2013golfing">(<a href="#ref-lecy2013nonprofit" role="doc-biblioref">Lecy &amp; Van Slyke, 2013</a>; <a href="#ref-marquis2013golfing" role="doc-biblioref">Marquis et al., 2013</a>; <a href="#ref-matsunaga2004government" role="doc-biblioref">Matsunaga &amp; Yamauchi, 2004</a>)</span>, and challenged by one cross-sectional study of stocks and one within-place study of foundings. It should be stated as an open question, not a finding.</li>
+</ul></li>
 </ul>
 </section>
 <section id="density-is-persistent-and-history-matters" class="level2">
 <h2 class="anchored" data-anchor-id="density-is-persistent-and-history-matters">Density is persistent, and history matters</h2>
-<p><strong>Strengthens, strongly.</strong> - <strong>Persistent levels.</strong> Over 50 years, area densities follow the same trajectory while level differences persist <span class="citation" data-cites="mcdonnell2026development">(<a href="#ref-mcdonnell2026development" role="doc-biblioref">McDonnell et al., 2026</a>)</span>. That is Fact 2, seen over a longer span than US data allow. - <strong>A mechanism for persistence.</strong> Dissolutions predict new foundings <span class="citation" data-cites="mayer2025connecting">(<a href="#ref-mayer2025connecting" role="doc-biblioref">Mayer, 2025</a>)</span>, so organizations that close tend to be replaced. - <strong>Persistent leadership gaps.</strong> Deprived areas lose charities when volunteer leaders are not replaced <span class="citation" data-cites="clifford2024passing">(<a href="#ref-clifford2024passing" role="doc-biblioref">Clifford, 2024</a>)</span>. That shows how gaps can persist.</p>
+<p><strong>Strengthens, strongly.</strong> - <strong>Persistent levels.</strong> Over 50 years, area densities follow the same trajectory while level differences persist <span class="citation" data-cites="mcdonnell2026development">(<a href="#ref-mcdonnell2026development" role="doc-biblioref">McDonnell et al., 2026</a>)</span>. That is Fact 2, seen over a longer span than US data allow. - <strong>A mechanism for persistence.</strong> Within counties, a higher density means fewer foundings and more dissolutions, and dissolutions predict new foundings <span class="citation" data-cites="mayer2025connecting">(<a href="#ref-mayer2025connecting" role="doc-biblioref">Mayer, 2025</a>)</span>. A county’s sector is pulled back toward its level: it behaves like a carrying capacity. That is the slow catch-up of Fact 3. - <strong>Persistent leadership gaps.</strong> Deprived areas lose charities when volunteer leaders are not replaced <span class="citation" data-cites="clifford2024passing">(<a href="#ref-clifford2024passing" role="doc-biblioref">Clifford, 2024</a>)</span>. That shows how gaps can persist.</p>
 <p>Together these support controlling for history (D8), and the realistic time horizons in Part 10.</p>
 </section>
 <section id="resources-education-and-civic-life" class="level2">
@@ -1280,7 +1290,8 @@ A cross-sectional negative at the county level does not fit cleanly. It may refl
 <li><strong>Who is served.</strong> Location studies show that where an organization is based is not where it serves <span class="citation" data-cites="marwell2026configuring">(<a href="#ref-marwell2026configuring" role="doc-biblioref">Marwell et al., 2026</a>)</span>. Density by headquarters can overstate access in poor neighborhoods.</li>
 </ul>
 <p><strong>Overall.</strong> The newer literature mostly <em>strengthens</em> the page’s claims: - across places versus within places; - size handled explicitly; - diversity depends on the population; - history and persistence.</p>
-<p>It <em>competes</em> on two points: whether direct government substitutes for nonprofits across counties, and the role of the older population. And it identifies three gaps: - spatial spillovers between metros; - rural counties; - turnover.</p>
+<p>It <em>competes</em> on two points: - <strong>Government provision.</strong> Whether direct government substitutes for nonprofits is challenged both across counties (Jeong &amp; Cui) and, for new organizations, within them (Mayer). - <strong>The older population.</strong></p>
+<p>And it identifies three gaps: - spatial spillovers between metros; - rural counties; - turnover.</p>
 <p>All three are now listed in Part 10.</p>
 </section>
 </section>
