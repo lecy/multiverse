@@ -46,6 +46,10 @@ website:
             href: site/03-files-sources.qmd
           - text: "4. Workflow code"
             href: site/04-workflow.qmd
+          - text: "Research guide: CBSA-year"
+            href: site/guides/cbsa_year.html
+          - text: "Research guide: county-year"
+            href: site/guides/county_year.html
       - section: "Multiverse"
         contents:
           - text: "5. Multiverse overview"
