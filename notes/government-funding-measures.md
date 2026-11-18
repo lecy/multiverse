@@ -103,6 +103,40 @@ Partial r of each government measure, entered alone in place of S&L earnings in 
   - Medicaid: poverty .34, % BA −.39, S&L earnings .07.
   - Transfers: % 65+ .38 (Medicare), poverty .43, % BA −.56.
 
+## Mechanism check: do the government terms work through grants? (`R/105_govgrant_mechanism.R`, 2026-11-17)
+
+**Question.** In the 13-covariate model, Medicaid transfers (.24) and S&L government earnings (.23) have positive partial r for filer density. Two readings fit that sign:
+- **Interdependence:** government funds nonprofits.
+- **Something else:** for example, demand for services.
+
+Line 1e can tell them apart, but only when used as an *outcome*, never as a predictor. The model is the lean single model of `96_lean_card_evidence.R`: 13 covariates with log P on the right, standardized, partial r, 385 metros. Hospitals and universities are excluded.
+
+**Part B: population split, 2022 (fully observed).** Log count of full-990 filers with any government grants vs. with none. This is the sharpest test.
+
+| Covariate | With grants: OLS / division FE / state FE | Without grants: OLS / division FE / state FE |
+|---|---|---|
+| Medicaid transfers | **.29 / .17 / .04** | .08 / .03 / .04 |
+| S&L govt earnings | **.23 / .14 / .16** | .12 / .12 / .11 |
+| Pre-1970 endowment | .06 / .07 / .19 | **.36 / .29 / .30** |
+| Growth kernel | **−.23 / −.27 / −.15** | .03 / .00 / .06 |
+| % BA | .33 / .33 / .25 | .27 / .24 / .19 |
+| Foundation assets | .15 / .29 / .30 | .23 / .24 / .23 |
+| Poverty rate | −.14 / −.07 / −.03 | −.21 / −.17 / −.18 |
+| % nonwhite | −.21 / −.17 / −.14 | −.12 / −.11 / −.11 |
+
+**Part A: how dependent are a metro's nonprofits?** Two outcomes, in 2022 and averaged over 2015–2018:
+- **Incidence:** the logit share of 990 filers with any government grants. Medicaid has partial r .16–.23 under OLS, .12–.14 with division FE and .01–.05 with state FE. S&L earnings is .05–.12. The growth kernel (−.19 to −.28) and the endowment (−.11 to −.23) are negative under every estimator. R² is .28–.33 under OLS and .56–.60 with state FE.
+- **Intensity:** the log of government grants ÷ revenue. Neither government term predicts it: Medicaid is .00–.12, S&L earnings −.05 to .04. The terms that do are % 65+ (.10–.25), % nonwhite (.09–.18), age SD (−.15 to −.17) and foundation assets (−.08 to −.12). R² is .20–.26 under OLS and .39–.44 with state FE.
+
+**Reading**
+- **The government terms work through government-funded nonprofits.** Medicaid's density association sits almost entirely in filers that receive government grants: .29 against .08. S&L earnings tilts the same way, .23 against .12, and this holds within states. That is the interdependence (third-party government) reading. The gap-filling reading predicts the opposite: more nonprofits where government is absent.
+- **Medicaid's part is a state-policy pattern.** With state FE, its association falls to .04 for both groups, as its density effect does in D9 (.24 → .06). States that buy services through nonprofits have more government-funded nonprofits. Within a state, metros with more Medicaid do not. S&L earnings, which varies within states, keeps its tilt under state FE.
+- **Government funding affects how many organizations receive grants, not how much of their revenue grants supply.** Where government is larger, more nonprofits get government grants. But the grant share of revenue is set by the age profile, diversity and private philanthropy, not by the government terms.
+- **The two history terms split the sector.** The pre-1970 endowment predicts filers *without* government grants (.36 against .06): old, privately funded institutions. The Sunbelt growth deficit sits in government-funded filers (−.23 against .03). Fast-growing metros lag in organizations that depend on public money, not in privately funded ones, which suggests catch-up waits on public contracting.
+- **Limits.** These are cross-sections, not causal estimates. "With grants" is any line-1e amount above zero, and EZs are excluded because they have no line 1e. 2022 is fully observed. In the 2015–2018 window, 7–11% of dollars are imputed and incidence uses e-filed returns only. Including hospitals and universities leaves intensity unchanged in substance (Medicaid .00–.06).
+
+Outputs are in `D:/MULTIVERSE/data/govgrants/`: `mechanism_dependence.csv` and `mechanism_split.csv`.
+
 ## Why this matters
 
 Lecy & Van Slyke (JPART 2013, 23(1)) tested two theories that predict the same sign for "government size":
@@ -171,6 +205,67 @@ From CORE 501(c)(3) PZ files (`F9_08_REV_CONTR_GOVT_GRANT`):
 - **2020–2024:** available in e-file. `panel990` table P08 is not cached yet.
 - **Not counted:** Medicaid and Medicare reimbursements are program-service revenue, not line 1e, so line 1e understates government money by roughly 3×.
 
+## Line 1e built for 2011–2024 (`R/24_npo_govgrants.R`, 2026-11-17)
+
+The 2011–2019 gap is now filled: e-filed returns are observed, and paper filers are imputed. Outputs are in `D:/MULTIVERSE/data/govgrants/`. Nothing in the analysis panel or the multiverse uses them; use the series descriptively (see Cautions).
+
+**Data.** The e-file revenue table (`F9-P08-T00-REVENUE`) for TY2011–2024 was downloaded with `panel990::download_tables()` into `raw/panel990/<year>/`, about 460 MB; the download log is in `raw/panel990/logs/`.
+- A blank line 1e on an e-filed 990 is a zero.
+- Duplicate returns are dropped by the panel990 rule: non-group, non-partial, amended, then the latest timestamp.
+- The 990-EZ has no line 1e in any year.
+
+**Frame.** Active 501(c)(3) filers, defined as in `06_npo_assemble.R`: SOI for 2011–2019 and e-file for 2020–2024, max(revenue, expenses) ≥ $50k in 2010 dollars, the record's own geocode, and invalid NTEE codes backfilled from the BMF. Full 990s are matched to e-file on EIN × tax-period month.
+
+**Imputation.** Government grants = share × total contributions. Line 1h, total contributions, contains line 1e, and SOI carries line 1h for paper filers. The share comes from:
+1. **The same EIN's nearest e-filed year,** within 4 years. A donor year across the COVID boundary counts 5 years farther. Filers of $25M or more (2022 $) use their own history at any distance.
+2. **Otherwise, a cell ratio:** Σ government grants / Σ contributions of observed filers in the same year × NTEE major group × size band. Hospitals and universities are their own groups. The ratio is taken by state if the cell has ≥ 30 filers, else by census region, else nationally.
+
+The same method imputes paper 990s and all EZs; EZs are kept as their own component.
+
+**Validation.** 20% of observed active filers under $1M, the paper-filer size range, were held out in 2011–2019 and imputed without their own year.
+
+| | Ratio of imputed to true dollars | r |
+|---|---|---|
+| Organizations imputed from their own year (132k) | 1.006 | .93 (organization level) |
+| ... donor 1 / 2 / 3 / 4 years away | 1.00 / 0.99 / 1.10 / 1.16 | .94 / .90 / .81 / .78 |
+| Organizations imputed from a cell ratio (6k) | 1.17 | .47 (organization level) |
+| Metro totals, 2011–2018 | 0.99–1.02 | .95–.997 |
+| Metro totals, 2019 | 1.07 | .996 |
+
+The 2019 excess is COVID relief: some held-out organizations borrow 2020-era shares from donor years.
+
+**National totals, active located 501(c)(3) filers, 2022 $bn.** "Imputed" is the share of dollars imputed. "Unlocated" adds about $9–10bn a year in 2011–2019, mostly foreign-address filers (EIN prefix 98).
+
+| Year | Gov. grants | Observed | Imputed paper 990 | Imputed EZ | Share of revenue | Excl. hospitals and universities | Imputed |
+|---|---|---|---|---|---|---|---|
+| 2010 (CORE) | 194.4 | — | — | — | 9.2% | — | — |
+| 2011 | 191.9 | 153.1 | 38.1 | 0.7 | 9.4% | 16.7% | 20% |
+| 2015 | 194.1 | 172.1 | 21.4 | 0.6 | 8.2% | 14.5% | 11% |
+| 2018 | 211.6 | 197.2 | 13.7 | 0.6 | 7.9% | 13.8% | 7% |
+| 2019 | 254.5 | 231.3 | 22.6 | 0.6 | 9.2% | 15.1% | 9% |
+| 2020 | 342.8 | 342.3 | 0 | 0.6 | 11.2% | 17.4% | 0% |
+| 2022 | 314.6 | 314.0 | 0 | 0.6 | 10.3% | 17.3% | 0% |
+| 2024 | 312.9 | 312.3 | 0 | 0.6 | 9.1% | 15.6% | 0% |
+
+**Reading and cautions**
+- **The 2010 → 2011 seam is smooth:** CORE gives 9.16% of revenue, this build 9.36%.
+- **COVID relief inflates TY2019–2021.** PPP loan forgiveness, the Provider Relief Fund and ESSER were commonly reported on line 1e. 77% of TY2019 dollars sit in tax periods ending after March 2020, mostly June fiscal years. The flag is `covid` (tax periods ending 2020-04 to 2022-06), and aggregates carry `covid_dollars`. For trends, compare 2018 with 2022–2024.
+- **Imputation matters most early on.** The median metro has 17% of its 2011 dollars imputed, 7.5% in 2015 and 2.5% in 2019. Single large paper filers dominate some metros: Jacksonville is 82% imputed in 2015. Filter on `gg_imputed_share`, or start in 2015.
+- **Paper filers are contribution-heavy.** Contributions are 52–85% of their revenue, against 19% for e-filers. So they hold about 20% of 2011 government-grant dollars with about 10% of revenue. The CORE seam suggests the level is right.
+- **It is stable across metros.** Each metro's government share of revenue (excluding hospitals and universities) correlates .82 between 2015 and 2022. The 2022 median metro is 18%; the 10th–90th percentiles are 9% and 37%.
+- **E-file EZs with a blank contributions field** (about 20% of e-file EZs, 2020–24) are counted as zero. EZ dollars are small in any case, about $0.6bn a year.
+
+**Files** (`D:/MULTIVERSE/data/govgrants/`)
+- `orgyear_govgrants.parquet`: one row per active c3 filer-year. Includes `status` (observed / paper990 / ez), `method`, `own_dist`, `covid`, `gg` and `gg_obs`.
+- `govgrants_{county,cbsa}_year.csv` (2022 $):
+  - `gg_c3` = `gg_c3_obs` + `gg_c3_imp990` + `gg_c3_impez`;
+  - `gg_c3_nohu` and `gg_c3_nohu_obs`;
+  - `rev_c3`, `rev_c3_nohu` and `con_c3`;
+  - `gg_imputed_share` and `covid_dollars`;
+  - `n_c3`, `n_c3_observed` and `n_gg_pos_obs`;
+  - CBSA only: `gg_share_rev` and `gg_share_rev_nohu`.
+- `govgrants_national.csv`, `coverage_by_year.csv`, `imputation_methods.csv`, and `validation_{org,own_distance,geo}.csv`.
+
 ## Proposed schema
 
 There are three constructs, each with one main measure and alternatives. All are per capita or in SAMI form, like the other type-B covariates.
@@ -230,7 +325,7 @@ These are cheap and cover 2000–2024 annually:
 3. ACS B24080 government workers (A4).
 4. C1 from A2 and local direct expenditure, once the Census of Governments individual unit files for 2002, 2007, 2012, 2017 and 2022 are downloaded (A3/B2).
 
-The second wave would be USAspending/CFFR (B3), the Single Audit (B4), and e-file P08 for line 1e from 2020 on.
+The second wave would be USAspending/CFFR (B3) and the Single Audit (B4). Line 1e from e-file P08 is built for 2011–2024, with paper filers imputed (see above).
 
 ## Sources
 

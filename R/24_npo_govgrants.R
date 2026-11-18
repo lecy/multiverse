@@ -152,19 +152,30 @@ print( cov_tab )
 
 ## ---- 4. imputation ----------------------------------------------------------------
 
+## COVID relief (PPP forgiveness, Provider Relief Fund, ESSER) is often reported on
+## line 1e: flag tax periods ending April 2020 - June 2022 (TY2019 fiscal-year filers
+## through TY2021)
+org[ , covid := taxpd >= "202004" & taxpd <= "202206" ]
+OWN_MAX <- 4L
+
 ## cell ratios: sum(gg) / sum(con) among observed filers with con > 0
 cell_ratio <- function( obs, keys ) {
   obs[ con8 > 0, .( r = sum( gg_obs ) / sum( con8 ), n = .N ), by = keys ]
 }
 impute <- function( d, obs ) {
   d <- copy( d )
-  ## A. own nearest observed year (excluding the row's own year)
-  own <- obs[ con8 > 0 & !is.na( s_obs ), .( ein, year_own = year, s_own = s_obs ) ]
+  ## A. own nearest observed year (excluding the row's own year). A donor across the
+  ##    COVID-relief boundary counts 5 years farther; donors farther than OWN_MAX are
+  ##    not used (validation: ratio 1.02 at 1-2 years, 1.1 at 3-4, 1.36 at 5+).
+  own <- obs[ con8 > 0 & !is.na( s_obs ), .( ein, year_own = year, s_own = s_obs, cv_own = covid ) ]
   setkey( own, ein, year_own )
   d[ , rid := .I ]
-  m <- own[ d[ , .( ein, y = year, rid ) ], on = .( ein ), allow.cartesian = TRUE, nomatch = NULL ]
-  m <- m[ year_own != y ][ , dist := abs( year_own - y ) ]
-  m <- unique( m[ order( rid, dist, -year_own ) ], by = "rid" )
+  ##    Large filers (size >= $25M in 2022 dollars) are idiosyncratic: their own history
+  ##    is used at any distance.
+  m <- own[ d[ , .( ein, y = year, cv = covid, big = size * to2022 >= 25e6, rid ) ], on = .( ein ),
+            allow.cartesian = TRUE, nomatch = NULL ]
+  m <- m[ year_own != y ][ , dist := abs( year_own - y ) + 5L * ( cv_own != cv ) ]
+  m <- unique( m[ dist <= OWN_MAX | big ][ order( rid, dist, -year_own ) ], by = "rid" )
   d[ m, on = "rid", `:=`( s_own = i.s_own, own_dist = i.dist ) ]
   ## B. cell ratio, state -> region -> national
   b_st  <- cell_ratio( obs, c( "year", "major", "band", "st" ) )[ n >= 30 ]
@@ -179,6 +190,7 @@ impute <- function( d, obs ) {
   d[ , cell_level := fcase( !is.na( r_st ), "state", !is.na( r_rg ), "region", !is.na( r_nat ), "national",
                             default = "year" ) ]
   d[ , method := fifelse( !is.na( s_own ), "own_nearest", paste0( "cell_", cell_level ) ) ]
+  d[ is.na( s_own ), own_dist := NA_integer_ ]
   d[ , gg_imp := con * fifelse( !is.na( s_own ), s_own, s_cell ) ]
   d[ con <= 0, `:=`( gg_imp = 0, method = "no_contributions" ) ]
   d[ , c( "rid", "r_st", "r_rg", "r_nat", "r_yr" ) := NULL ]
@@ -227,7 +239,7 @@ log_msg( "validation, metro and county totals:" ); print( v_geo )
 ## ---- 6. outputs -------------------------------------------------------------------
 
 keep <- c( "ein", "year", "source", "form", "status", "method", "own_dist", "geoid", "ntee3", "major",
-           "hosp_univ", "band", "rev", "exp", "con", "con8", "gg_obs", "gg", "to2022" )
+           "hosp_univ", "band", "covid", "rev", "exp", "con", "con8", "gg_obs", "gg", "to2022" )
 write_parquet( org[ , ..keep ], file.path( OUTG, "orgyear_govgrants.parquet" ) )
 
 agg <- function( d, by ) d[ , .(
@@ -240,6 +252,7 @@ agg <- function( d, by ) d[ , .(
   rev_c3           = sum( pmax( rev, 0, na.rm = TRUE ) * to2022 ),
   rev_c3_nohu      = sum( ( pmax( rev, 0, na.rm = TRUE ) * to2022 )[ !hosp_univ ] ),
   con_c3           = sum( con * to2022 ),
+  covid_dollars    = sum( ( gg * to2022 )[ covid ] ) / sum( gg * to2022 ),
   n_c3             = .N,
   n_c3_observed    = sum( status == "observed" ),
   n_gg_pos_obs     = sum( status == "observed" & gg > 0 ) ), by = by ]
@@ -255,7 +268,11 @@ cb[ , gg_imputed_share := fifelse( gg_c3 > 0, 1 - gg_c3_obs / gg_c3, NA_real_ ) 
 cb[ , `:=`( gg_share_rev = gg_c3 / rev_c3, gg_share_rev_nohu = gg_c3_nohu / rev_c3_nohu ) ]
 fwrite( cb, file.path( OUTG, "govgrants_cbsa_year.csv" ) )
 
-nat <- agg( org, "year" )
+## national totals over located filers (the county panel's universe); unlocated filers,
+## mostly foreign-address organizations (EIN prefix 98), are reported separately
+nat <- agg( org[ !is.na( geoid ) ], "year" )
+nat <- merge( nat, org[ is.na( geoid ), .( gg_c3_unlocated = sum( gg * to2022 ), n_unlocated = .N ), by = year ],
+              by = "year", all.x = TRUE )
 nat[ , `:=`( gg_share_rev = gg_c3 / rev_c3, gg_share_rev_nohu = gg_c3_nohu / rev_c3_nohu,
              gg_imputed_share = 1 - gg_c3_obs / gg_c3 ) ]
 setorder( nat, year )
@@ -264,6 +281,7 @@ log_msg( "national totals (2022 $ bn):" )
 print( nat[ , .( year, gg_bn = round( gg_c3 / 1e9, 1 ), obs_bn = round( gg_c3_obs / 1e9, 1 ),
                  imp990_bn = round( gg_c3_imp990 / 1e9, 1 ), impez_bn = round( gg_c3_impez / 1e9, 1 ),
                  share_rev = round( gg_share_rev, 4 ), share_rev_nohu = round( gg_share_rev_nohu, 4 ),
-                 imputed = round( gg_imputed_share, 3 ) ) ] )
+                 imputed = round( gg_imputed_share, 3 ), covid = round( covid_dollars, 2 ),
+                 unlocated_bn = round( gg_c3_unlocated / 1e9, 1 ) ) ] )
 log_msg( "metro coverage: ", cb[ cbsa_type == "metro", .( metros = uniqueN( cbsa ),
                                                           max_imputed_share = round( max( gg_imputed_share, na.rm = TRUE ), 3 ) ) ] )
