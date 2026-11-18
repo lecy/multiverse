@@ -36,3 +36,30 @@ main table code {
 .table-matrix table th:last-child {
   text-align: left;
 }
+
+/* Result and theory matrices (Part 9): one coloured badge per cell. */
+.r-pos, .r-neg, .r-null, .r-mix {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 0.25em;
+  border-radius: 3px;
+  font-weight: 600;
+  text-align: center;
+}
+.r-pos  { background: #d8f0e0; color: #14532d; }
+.r-neg  { background: #fbe0de; color: #7f1d1d; }
+.r-null { background: #eceff1; color: #374151; }
+.r-mix  { background: #fff1c2; color: #6b4e00; }
+
+/* The results matrix has 12 variable columns: smaller type so it fits. */
+.table-matrix table {
+  font-size: 0.72rem;
+}
+.table-matrix .r-pos, .table-matrix .r-neg, .table-matrix .r-null, .table-matrix .r-mix {
+  min-width: 1.3em;
+  padding: 0 0.1em;
+}
+.table-matrix table td,
+.table-matrix table th {
+  padding: 0.2rem 0.12rem;
+}

@@ -1,7 +1,55 @@
 ---
 title: "9. Reconciling the density literature"
 subtitle: "Ten studies read through the multiverse, and 26 recent and related studies weighed against it"
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
+
+```{r}
+#| label: matrix-helpers
+library( data.table )
+rd <- function( f ) fread( file.path( "data", f ), encoding = "UTF-8", colClasses = "character", na.strings = character( 0 ) )
+norm <- function( x ) gsub( "-", "−", x, fixed = TRUE )
+## one coloured cell; implicit tests (theory table) are shown in parentheses
+cell <- function( x ) {
+  x <- norm( x ); if ( !nzchar( x ) ) return( "" )
+  impl <- startsWith( x, "I" ); s <- sub( "^[EI]", "", x )
+  cls <- switch( s, "+" = "r-pos", "−" = "r-neg", "0" = "r-null", "±" = "r-mix", "r-null" )
+  lab <- if ( impl ) paste0( "(", s, ")" ) else s
+  sprintf( "[%s]{.%s}", lab, cls )
+}
+label <- function( key, group, read ) {
+  if ( group == "multiverse" ) return( sprintf( "**%s**", c( "MV-filers" = "Multiverse: filers", "MV-grassroots" = "Multiverse: grassroots", "MV" = "This project's multiverse" )[[ key ]] ) )
+  paste0( "@", key, if ( read == "abstract" ) "\\*" else "" )
+}
+## agreement verdict across studies (multiverse rows excluded)
+verdict <- function( v ) {
+  v <- sub( "^[EI]", "", norm( v[ nzchar( v ) ] ) ); n <- length( v ); if ( !n ) return( c( "", "", "" ) )
+  p <- sum( v == "+" ); m <- sum( v == "−" ); z <- sum( v == "0" ); x <- sum( v == "±" )
+  dom <- if ( p >= m ) "+" else "−"; share <- max( p, m ) / n
+  ver <- if ( n < 2 ) "one study" else if ( share >= .7 ) paste0( "agree (", dom, ")" ) else
+         if ( p > 0 && m > 0 && min( p, m ) / max( p, m ) >= .5 ) "diverge" else
+         if ( share >= .5 ) paste0( "lean (", dom, ")" ) else "mixed"
+  cls <- if ( startsWith( ver, "agree" ) ) "r-pos" else if ( ver == "diverge" ) "r-neg" else "r-mix"
+  c( as.character( n ), sprintf( "%d / %d / %d / %d", p, m, z, x ), sprintf( "[%s]{.%s}", ver, cls ) )
+}
+matrix_md <- function( d, cols, heads ) {
+  body <- d[ , c( list( Study = mapply( label, key, group, read ) ), lapply( .SD, function( v ) vapply( v, cell, "" ) ) ), .SDcols = cols ]
+  setnames( body, c( "Study", heads ) )
+  st <- d[ group != "multiverse" ]
+  summ <- lapply( cols, function( cc ) verdict( st[[ cc ]] ) )
+  extra <- data.table( Study = c( "*Studies testing*", "*+ / − / 0 / ±*", "*Agreement*" ) )
+  for ( i in seq_along( cols ) ) extra[[ heads[ i ] ]] <- summ[[ i ]]
+  out <- rbind( body, extra )
+  cat( knitr::kable( out, format = "pipe", align = c( "l", rep( "c", length( cols ) ) ) ), sep = "\n" )
+}
+notes_md <- function( d ) {
+  d <- d[ nzchar( note ) ]
+  cat( paste0( "- ", mapply( label, d$key, d$group, d$read ), ": ", gsub( "-", "−", d$note, fixed = TRUE ) ), sep = "\n" )
+}
+```
 
 ::: {.callout-note}
 **Draft, 2026-11-18.** The data, models and results of all ten studies are taken
@@ -575,6 +623,201 @@ Column key:
   above each involve studies that counted different populations without saying so.
 - **Assets are almost never the outcome.** Only Wu (2021) measures assets, for
   community foundations.
+
+# Results by variable
+
+Each cell gives the direction a study reports for a variable's association with
+nonprofit density or sector size.
+
+- [+]{.r-pos} positive, [−]{.r-neg} negative, [0]{.r-null} not significant.
+- [±]{.r-mix} means the sign depends on subsector, model, population or design; the
+  notes below say which.
+- **Entry and exit studies** are signed by their effect on the *stock*: a variable
+  that raises dissolutions is shown as −.
+- **Excluded from the summary rows:** the two multiverse rows. The summary rows
+  count how often the other studies agree.
+- **Verdicts:**
+  - *agree* = at least 70% of studies share one sign;
+  - *diverge* = both signs appear, and the smaller side is at least half the larger;
+  - *lean* = otherwise a majority sign;
+  - *mixed* = no majority.
+
+\* abstract only. These are our codings of each paper's main results, not
+re-estimates.
+
+Column key:
+- **Need and resources:** Pov = poverty or need; Inc = income or wealth; Edu =
+  education.
+- **Heterogeneity and religion:** Race = racial or ethnic diversity; RelD =
+  religious diversity; RelA = religious adherence or church density; Ineq = income
+  inequality.
+- **Government:** GovF = government funding to nonprofits; GovS = government size or
+  direct provision.
+- **Other:** Civic = civic participation or social capital; Old = older population;
+  Hist = history, existing density or region.
+
+::: {.table-compact .table-matrix}
+
+```{r}
+#| label: tbl-results-matrix
+#| tbl-cap: "Direction of results by variable. Agreement is computed across studies, excluding the multiverse rows."
+#| output: asis
+rm <- rd( "results_matrix.csv" )
+matrix_md( rm, c( "pov", "inc", "edu", "race", "relhet", "relad", "ineq", "govfund", "govsize", "civic", "older", "hist" ),
+           c( "Pov", "Inc", "Edu", "Race", "RelD", "RelA", "Ineq", "GovF", "GovS", "Civic", "Old", "Hist" ) )
+```
+
+:::
+
+::: {.callout-note collapse="true"}
+## Notes by study
+
+```{r}
+#| output: asis
+notes_md( rm )
+```
+:::
+
+**Where the studies agree, and where they diverge:**
+
+- **Agree.**
+  - Government *funding* paid to nonprofits is positive in six of seven studies and
+    never negative.
+  - History, existing density or region is positive in four of five.
+  - The older population (three studies) and income inequality (two) are positive
+    wherever tested, though on few studies.
+  - Income leans positive (six of nine).
+
+  History and inequality are also among the multiverse's most stable results.
+- **Education: the multiverse is clearer than the literature.** Few studies measure
+  education, and their results are split:
+  - attainment is positive [@gronbjerg2001community; @vanpuyvelde2016determinants];
+  - high-school enrollment is negative in some of Lecy & Van Slyke's models;
+  - Ben-Ner & Van Hoomissen and Wu find signs that depend on the subsector or
+    outcome.
+
+  In the multiverse, % with a BA is the most robust covariate of all. The
+  literature's split reflects inconsistent measures more than inconsistent
+  results.
+- **Diverge: poverty.** Poverty is the most-tested variable and splits three ways:
+  negative across places, positive within places or tracts, and nonlinear in
+  others. The split is the across-versus-within distinction (D2, D3). Read by
+  design, the results line up.
+- **Diverge: racial and ethnic diversity.** The sign depends on what is counted:
+  - positive for registered organizations, new or identity-based organizations, and
+    spending in the home county;
+  - negative for human-services spending, environmental organizations and survival.
+
+  The multiverse shows the same split by population: positive for grassroots,
+  negative for filers.
+- **Diverge: government size.** Direct government is positive in Kim (2015) and in
+  Mayer's foundings, and negative in four studies, three of them within-place
+  estimates of established organizations. This is the open question discussed
+  below.
+- **Income: the two negatives are design differences.** They come from a
+  within-state estimate [@matsunaga2004government] and from a *share* of
+  employment [@benner1992empirical].
+- **Civic participation is mixed, by measure.**
+  - Turnout and political engagement are positive [@kim2015socioeconomic;
+    @saxton2005social].
+  - Association counts are null [@bae2018factors; @benner1992empirical].
+
+  This matches the multiverse, where turnout is robust and association-based
+  indexes partly count the outcome.
+- **Religious diversity: two studies, opposite signs.** These are Corbin and
+  Grønbjerg & Paarlberg, explained above by how each handles size.
+
+# Theories tested
+
+Each cell shows whether a study's results support a theory's prediction:
+
+- [+]{.r-pos} supports, [−]{.r-neg} contrary, [0]{.r-null} null, [±]{.r-mix} mixed.
+- **Explicit tests** are shown plainly: the paper frames its analysis as a test of
+  that theory.
+- **Implicit tests** are shown in parentheses: the paper includes a variable that
+  bears on the theory without framing it as a test. For example, Marquis, Davis &
+  Glynn never mention interdependence theory. But their models include government
+  revenue, and within metros it is *negative*. That is an implicit test of
+  interdependence, and it does not support it.
+
+**What each theory predicts:**
+- **GF, government failure:** more nonprofits where preferences are diverse, and
+  fewer where government provides more.
+- **Int, interdependence:** more where government funds or contracts more.
+- **Need:** more where need is greater.
+- **Sup, supply or resources:** more where income, education and entrepreneurs are
+  plentiful.
+- **SC, social capital:** more where civic participation and trust are higher.
+- **Coh, social cohesion:** more where communities are religiously or socially
+  cohesive.
+- **Eco, organizational ecology:** density dependence; existing organizations
+  legitimize new ones, then compete with them.
+- **Elite, elite or institutional:** more where corporate and elite networks are
+  present.
+- **Cult, political or regional culture:** more in moralistic regions such as the
+  Northeast.
+- **Hist, path dependence:** today's sector reflects its inherited size.
+
+::: {.table-compact .table-matrix}
+
+```{r}
+#| label: tbl-theory-matrix
+#| tbl-cap: "Theories tested and whether results support them. Parentheses mark implicit tests. Agreement is computed across studies, excluding the multiverse row."
+#| output: asis
+th <- rd( "theory_matrix.csv" )
+matrix_md( th, c( "gf", "int", "need", "sup", "sc", "coh", "eco", "elite", "cult", "hist" ),
+           c( "GF", "Int", "Need", "Sup", "SC", "Coh", "Eco", "Elite", "Cult", "Hist" ) )
+```
+
+:::
+
+::: {.callout-note collapse="true"}
+## Notes by study
+
+```{r}
+#| output: asis
+notes_md( th )
+```
+:::
+
+**What the theory table shows:**
+
+- **Ecology and path dependence agree everywhere they are tested, but they are
+  tested least.** Each appears in three or four studies.
+- **Supply-side theory has the broadest support.** It holds in seven of eleven
+  studies. Of the others, Matsunaga & Yamauchi measure income within states, and
+  Ben-Ner & Van Hoomissen measure income as a share of employment; Kim (2015) finds
+  median income null, and Wu (2021) finds the presence and the activity of community
+  foundations respond differently.
+- **Government failure theory, the field's central hypothesis, is the most
+  divided.**
+  - Its demand-heterogeneity prediction holds for registered and new organizations.
+  - It fails for established organizations and survival.
+  - Its substitution prediction holds within places for established organizations.
+
+  The meta-analysis finds the average effect positive but small
+  [@lu2020population], which is what a mix of opposite-signed populations would
+  produce.
+- **Interdependence is supported for funding, but many tests are implicit.**
+  - Its explicit tests mostly support it.
+  - Two implicit or recent tests contradict it: Marquis et al. within metros, and
+    Jeong & Cui's government size.
+
+  Studies that measure government *funding* support it; studies that measure
+  government *size or provision* often do not. The theory is about the first, but
+  is often tested with the second.
+- **Need theory fails across places and holds within them.** Across counties,
+  metros and regions, need goes with fewer resources. Within metros and tracts,
+  organizations locate where need is. Need theory is a theory of *location* more
+  than of *level*.
+- **Path dependence and ecology are rarely named but consistently supported.**
+  - Existing density, region and history predict today's sector in every study that
+    includes them.
+  - Density dependence holds in all four studies that test it.
+
+  They are the strongest results that the field's main theories do not name.
+- **Social capital is mixed, by measure.** Participation is supported; trust and
+  association counts are not.
 
 # Do they strengthen our claims, or compete with them?
 
