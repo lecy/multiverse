@@ -108,6 +108,201 @@ and what new data, methods and analyses would move the work toward that goal.
   estimates. Treatment timing, comparison group and outcome window are choices that
   should be crossed and reported [@steegen2016increasing; @young2017model].
 
+# Limits of current designs, and how to fix them
+
+Three problems run through the density literature, including its best within-place
+studies. Each has a known fix.
+
+## Panel models cannot identify slow-moving variables
+
+**The problem.** Within-place panels compare each place with itself over time. For
+variables that barely change within a place, that leaves almost nothing to estimate
+from:
+
+- racial composition;
+- education;
+- religious structure;
+- regional culture.
+
+In the multiverse, a within-metro estimator discards the 95–99% of variance that
+lies *between* metros (D3). What remains is mostly:
+
+- **interpolation:** ACS five-year averages and values carried between census years;
+- **data breaks:** splices between data sources;
+- **short-run adjustment** that lags population change.
+
+In hybrid models, within effects are .03 SD or less for filers and spending, against
+.13–.42 SD between metros. A null or negative within-place estimate for race or
+education is therefore not evidence of no effect. It is evidence that the design
+cannot see one.
+
+Three further problems compound this:
+
+- **Measurement error.** Interpolated covariates move smoothly between real
+  observations, which biases within estimates toward zero.
+- **Timing.** Composition affects density over decades. A one-year or five-year
+  within-place change cannot capture an effect that takes a generation to build.
+- **Reverse causation.** Nonprofit infrastructure can attract residents, as
+  immigrant service organizations do, so composition and density shape each other.
+
+**Is there a study that does this well?** Within the density literature, no. The six
+within-place studies either drop slow-moving variables or estimate them on little
+variation. Adjacent fields offer designs that work:
+
+- **Diversity and public goods.** The canonical cross-city study of diversity and
+  public goods is cross-sectional [@alesina1999public]. Its strength is theory and
+  measurement, not identification.
+- **Education.** Education's local effects have been identified with historical
+  instruments: the location of land-grant colleges as a source of variation in a
+  city's college share [@moretti2004estimating].
+- **Immigration and composition.** Changes in local composition from immigration
+  have been identified with past settlement patterns, which predict where new
+  immigrants go, regardless of current local conditions [@card2001immigrant]. These
+  shift-share instruments now have a well-developed theory of when they are valid
+  [@goldsmithpinkham2020bartik].
+
+**Better specifications for slow-moving variables:**
+
+| Specification | What it identifies | When to use it |
+|---|---|---|
+| Hybrid (within-between, correlated random effects) | Between-place and within-place effects in one model, with the place means of covariates entered alongside their deviations [@mundlak1978pooling; @bell2015explaining] | Default for panels: reports the long-run (between) and short-run (within) association together instead of discarding one |
+| Long differences | Change over 10–20 years regressed on covariate change, controlling for the starting level | Composition and education, which change meaningfully only over decades |
+| Shift-share or historical instruments | Variation in composition or education driven by past settlement or historical institutions | Causal claims about diversity or education |
+| Event studies around discrete shocks | The response to a sudden change in composition or need: refugee resettlement, plant closures, disasters | Short-run causal effects with a clear timing |
+| Cohort or entry models | Whether *new* organizations form where composition is changing | Separating today's conditions from the inherited stock |
+
+The multiverse already includes cross-section, between, within and long-difference
+estimators, and hybrid models as evidence (D3). The literature should treat these as
+answers to different questions, not as more and less robust versions of one answer.
+
+## The literature ignores carrying capacity and path dependence
+
+**The problem.** No study in the literature models density as a stock that adjusts,
+slowly, toward a level set by a place's size and history. Every model treats the
+current density as an equilibrium. Two facts from the multiverse show why that
+misleads.
+
+**Carrying capacity.** Density lags population (Fact 3).
+
+- **Within a metro:** after growth, half of the size-expected organizations are
+  missing at first. The gap closes with a half-life of about 5 years for filers and
+  9 for grassroots.
+- **Across metros:** the Sunbelt deficit, about 25% for the fastest-growing fifth,
+  closes with a half-life of about 35 years. Stock-flow accounting shows it is a lag,
+  not a trait: fast growers add at least as many entrants per resident.
+- **Decline is asymmetric.** Organizations stay at first, then grassroots
+  organizations shed the excess.
+
+A model of density *levels* that ignores this reads every fast-growing place as
+"under-served" and every shrinking one as "over-served". Covariates that go with
+growth then absorb the lag: in-migration, diversity, Sunbelt location. Ecological
+theories of organizations have described this kind of dynamic for decades
+[@hannan1977population], but the density literature has not used them.
+
+**Path dependence in market share.** The nonprofit share of local employment varies
+widely and persistently (Fact 5).
+
+- **Regional gap.** The Northeast has 61 nonprofit jobs per 1,000 residents and the
+  South 25, with similar for-profit employment.
+- **Age of the sector.** Older sectors hold larger shares.
+- **History.** The pre-1970 endowment, a sector's inherited size, is one of the
+  strongest covariates in the multiverse.
+
+Much of today's density is the residue of decisions made generations ago: who built
+the hospitals, universities and charities, and whether government contracted with
+them. Studies that leave history out attribute that residue to current income,
+diversity or politics.
+
+**How the literature can proceed:**
+
+1. **Model adjustment, not just levels.** Use error-correction or partial-adjustment
+   models: density moves toward a size-expected level at an estimated speed. Or
+   enter a distributed lag of past population change, the growth kernels of the
+   multiverse (D8).
+2. **Separate growth from decline.** Estimate the response to population gains and
+   losses separately, since the adjustment is asymmetric.
+3. **Control for history when the question is current conditions:** the sector's
+   inherited size (the pre-1970 endowment), its age, and long-run growth before the
+   study period. Report results with and without it, since history is also partly
+   the outcome's own past (D8).
+4. **Treat market share as a benchmark or an outcome, not a control.** It includes
+   the hospitals and universities whose history explains it, and it rises with
+   density itself.
+5. **Link stocks and flows.** Model entry, survival and crossing the filing floor
+   together, so that a gap can be traced to too few foundings, too many exits, or a
+   lag that will close on its own.
+
+## Most studies do not account for scaling
+
+**The problem.** Larger places have more of almost everything, but not always in
+proportion.
+
+- **Counts** of filers scale with population at about 1.0 (Fact 1).
+- **Spending** scales faster: about 1.27 across metros and 1.46 across counties.
+- **Size-scaled covariates** correlate .80–.94 with log population (Fact 6): total
+  income, government spending, foundation assets, numbers of congregations or
+  corporations.
+
+Two errors follow when a model ignores this:
+
+- **Population-related bias.** Per-capita ratios impose an exponent of 1. Where the
+  true exponent differs, density per capita still rises or falls with size, and every
+  covariate correlated with size absorbs that relationship. This is the classic
+  problem of ratio variables [@uslaner1976pitfalls; @kronmal1993spurious].
+- **Size-carrying covariates.** Totals, or logged totals entered without log
+  population, measure city size as much as the construct they are meant to
+  capture.
+
+**How many studies fail to account for it?** Of the 26 place-level studies in Part 9,
+none confirms estimating the scaling exponent. Of the 19 whose functional form we
+could confirm:
+
+| How population is handled | Studies |
+|---|---|
+| Per capita, or a population offset (imposes an exponent of 1) | 13 |
+| Raw counts, with population linear or absent | 5 |
+| Logged outcome without log population | 1 |
+| Log-log, or SAMI (exponent estimated) | **0** |
+
+The remaining seven could not be confirmed. Two may use log population as a control,
+but their papers do not make the form clear. All six within-place studies impose an
+exponent of 1 or enter population linearly.
+
+In panels the problem does not go away. When a place grows, its per-capita density
+falls mechanically while the sector catches up (Fact 3). Any covariate that changes
+with growth picks up that lag.
+
+**The fix: the SAMI specification.** This project introduces scale-adjusted
+metropolitan indicators to nonprofit density research. SAMIs come from urban
+scaling [@bettencourt2010urban]. The specification has four parts:
+
+1. **Estimate scaling instead of assuming it.**
+   - Regress log density on log population, year by year:
+     $\log Y_{it} = \alpha_t + \beta_t \log P_{it}$.
+   - Take the residual as the SAMI: how far a place sits above or below the level
+     expected for its size.
+   - Equivalently, keep log population on the right-hand side of the model, so its
+     exponent is estimated rather than fixed at 1 (D4).
+2. **Treat size-scaled covariates the same way.** Enter totals in SAMI form, or as
+   logged totals with log population on the right. Rates such as poverty, % with a
+   BA and turnout enter as they are (D6).
+3. **For counts with zeros, use Poisson regression with log population as a
+   regressor,** not an offset, which re-imposes an exponent of 1. Never use
+   log(1 + x) (D5).
+4. **In panels, use year-specific SAMIs with place and year fixed effects,** so the
+   scaling relationship can shift over time.
+
+**What the fix changes.** In the multiverse, the size-handling decisions change 13–32%
+of covariate verdicts:
+
+- predictor form changes the most;
+- then DV form;
+- then whether log population is on the right.
+
+They are avoidable errors, not matters of judgment. A study that reports per-capita
+density with untransformed totals on the right is not making a different choice; it
+is making a fixable mistake.
+
 # Analyses that would serve funders and governments
 
 1. **A community benchmark tool.** Built on this database, it would show:
