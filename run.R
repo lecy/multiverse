@@ -60,7 +60,8 @@ raw_path <- function( e ) {
 }
 raw_files <- function( e ) {
   f <- raw_path( e )
-  if ( endsWith( f, "/" ) ) return( list.files( f, recursive = TRUE, full.names = TRUE ) )
+  ## test the entry, not f: file.path() drops a trailing "/" on Windows
+  if ( endsWith( e, "/" ) ) return( list.files( f, recursive = TRUE, full.names = TRUE ) )
   if ( grepl( "[*?[]", f ) ) return( Sys.glob( f ) )
   f[ file.exists( f ) ]
 }

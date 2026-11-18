@@ -50,11 +50,9 @@ flowchart LR
   end
   s01 --> s02
   s02 --> s02b
-  s05 --> s02b
   s01 --> s08
   s02 --> s08
   s02b --> s08
-  s09a --> s09
   s03 --> s06
   s04 --> s06
   s03b --> s06

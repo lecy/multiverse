@@ -33,7 +33,14 @@ pk <- pk[ !pk$package %in% base, ]
 spec <- ifelse( grepl( "^github:", pk$source ),
                 paste0( sub( "^github:", "", pk$source ), "@", pk$remote_sha ),
                 paste0( pk$package, "@", pk$version ) )
-writeLines( c( "deps <- c(", paste0( '  "', pk$package, '"', collapse = ",\n" ), ")" ),
+## Used by the build but not loaded when the package list was recorded, so the
+## list misses them (found by the Phase 5 clean-room rebuild). Versions come from
+## the PPM snapshot above.
+##   R.utils: data.table::fread() needs it to read .csv.gz files (a Suggests only)
+##   digest:  sha256 in run.R's MANIFEST.csv and the env/ checks
+EXTRA <- c( "R.utils", "digest" )
+spec <- c( spec, EXTRA )
+writeLines( c( "deps <- c(", paste0( '  "', c( pk$package, EXTRA ), '"', collapse = ",\n" ), ")" ),
             file.path( rproj, "deps.R" ) )     # so snapshot sees them as used
 
 setwd( rproj )

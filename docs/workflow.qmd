@@ -33,7 +33,7 @@ stopifnot( !anyNA( inv$status ), !anyNA( inv$source ) )
 rw <- p[ , .( e = split_paths( raw ) ), by = id ][ , .( folder = sub( "=.*", "", e ), path = sub( "^[^=]*=", "", e ), id ) ]
 rw <- rw[ , .( steps = paste( unique( id ), collapse = ", " ), files = paste( sprintf( "`%s`", unique( path ) ), collapse = "<br>" ) ), by = folder ]
 inv <- merge( inv, rw, by = "folder", all.x = TRUE, sort = FALSE )
-inv[ folder == "nccs-bmf-unified", `:=`( steps = "05 (writes), 02b", files = "`raw/panel990/bmf/bmf_unified_geocoded.parquet`" ) ]
+inv[ folder == "nccs-bmf-unified", `:=`( steps = "05 (caches, via panelize), 02b", files = "`raw/panel990/bmf/bmf_unified_geocoded.parquet`" ) ]
 ```
 
 This page documents how the county × year and CBSA × year panels are built: the
@@ -75,7 +75,8 @@ kable( s, col.names = c( "Step", "Stage", "Script", "Build inputs", "Raw sources
 
 ## Order sensitivity
 
-- **Every file passed from one step to another is declared in `pipeline.csv`.** `run.R` refuses to run if a step reads a file that a later step writes, and rebuilds every step downstream of a changed input. Files that used to pass between steps without being declared are now declared: the unified BMF (05 → 02b), the ruling cohorts (02b → 08), the NTEE lookup (02 → 02b, 06, 08, 23, 24), and step 24 itself.
+- **Every file passed from one step to another is declared in `pipeline.csv`.** `run.R` refuses to run if a step reads a file that a later step writes, and rebuilds every step downstream of a changed input. Files that used to pass between steps without being declared are now declared: the ruling cohorts (02b → 08), the NTEE lookup (02 → 02b, 06, 08, 23, 24), and step 24 itself.
+- **Caches that a step fills only when missing are raw inputs, not outputs.** A step never rewrites such a file, so declaring it as an output made the step (and everything after it) look out of date on every run. Three are passed between steps this way: the unified BMF, which 05's `panelize()` caches and 02b reads; the e-file grants files, one per year, which 09a builds and 09 reads (09a has no declared outputs, so it always runs, in seconds); and the TIGER polygons in `data/geo/`, which `geo_helpers.R` downloads for whichever of 04, 05, 02b and 21 runs first. A new or rebuilt cache file still reruns the steps that read it, through the raw-file rule below; the order of those steps is fixed by `pipeline.csv`.
 - **30 reads a fixed list of CBSA-level files** (`cbsa_bls`, `cbsa_compete`, `cbsa_rcms`). Before 2026-11-17 it merged whatever `data/cov/cbsa/cbsa_*.csv` files were on disk, so a stale or extra file could change `cbsa_year`.
 - **Raw files are declared, but downloads are not refreshed.** Every raw source a step reads is in the `raw` column, and a raw file newer than a step's outputs makes that step rerun. But steps 03, 05, 06, 09, 09a, 10, 17, 22 and 27 skip a download when the cached file exists, so a rebuild reproduces the cached version of a source, not the current one online. Delete the cache to refresh it; Section 3.1 says which sources change over time.
 
