@@ -1,0 +1,423 @@
+variable,group,step,label,description
+cbsa,keys,01,"CBSA code, OMB 2023 delineation","CBSA code, OMB 2023 delineation"
+year,keys,01,Calendar / tax year,Calendar / tax year
+population,population,01,"Resident population, Census PEP July 1","Resident population, Census PEP July 1"
+n_filer_all,nonprofit filers,06,"Active filers, all 501(c) subsections","Active filers, all 501(c) subsections (max(revenue, expenses) >= $50k in 2010 $)"
+n_filer_c3,nonprofit filers,06,Active 501(c)(3) 990/990-EZ filers,Active 501(c)(3) 990/990-EZ filers (same floor; 990-PF excluded)
+n_filer_c3_nohu,nonprofit filers,06,Active c3 filers excluding hospitals,"Active c3 filers excluding hospitals (NTEE E20-E24) and universities (B40-B43, B50)"
+n_filer_c3_hs,nonprofit filers,06,Active c3 filers in human services,Active c3 filers in human services (NTEE major groups I-P)
+n_filer_c3_nofloor,nonprofit filers,06,"All c3 990/990-EZ records, no size floor","All c3 990/990-EZ records, no size floor"
+exp_all,nonprofit resources,06,"Total expenses of active filers, all subsections","Total expenses of active filers, all subsections (2022 $)"
+exp_c3,nonprofit resources,06,Total expenses of active c3 filers,Total expenses of active c3 filers (2022 $)
+exp_c3_nohu,nonprofit resources,06,Total expenses of active c3 filers excluding hospitals and universi...,Total expenses of active c3 filers excluding hospitals and universities (2022 $)
+exp_c3_hs,nonprofit resources,06,Total expenses of active human-services c3 filers,Total expenses of active human-services c3 filers (2022 $)
+rev_c3,nonprofit resources,06,Total revenue of active c3 filers,Total revenue of active c3 filers (2022 $)
+rev_c3_nohu,nonprofit resources,06,"Total revenue, excluding hospitals and universities","Total revenue, excluding hospitals and universities (2022 $)"
+grants_org_c3,nonprofit resources,09,Grants paid to domestic organizations and governments,Grants paid to domestic organizations and governments (990 Part IX line 1; 2012+; 2022 $)
+exp_c3_net,nonprofit resources,06,exp_c3 minus grants_org_c3,exp_c3 minus grants_org_c3 (pass-through removed; 2012+)
+exp_c3_nohu_net,nonprofit resources,06,exp_c3_nohu minus grants paid,exp_c3_nohu minus grants paid (2012+)
+rev_c3_net,nonprofit resources,06,rev_c3 minus grants paid,rev_c3 minus grants paid (2012+)
+rev_c3_nohu_net,nonprofit resources,06,rev_c3_nohu minus grants paid,rev_c3_nohu minus grants paid (2012+)
+con_c3,nonprofit resources,06,"Contributions, gifts and grants received by active c3 filers","Contributions, gifts and grants received by active c3 filers (2022 $)"
+assets_c3,nonprofit resources,06,"Total assets, end of year, active c3 filers","Total assets, end of year, active c3 filers (2022 $)"
+n_pf,foundations,06,Private foundations filing a 990-PF,Private foundations filing a 990-PF (no floor)
+pf_assets,foundations,06,"Foundation assets, book value end of year","Foundation assets, book value end of year (2022 $)"
+pf_grants,foundations,06,Foundation contributions and grants paid,Foundation contributions and grants paid (2022 $)
+n_bmf_all,registered orgs,02b,"Registered exempt organizations, all subsections","Registered exempt organizations, all subsections (reconstructed BMF stock)"
+n_bmf_c3,registered orgs,02b,Registered 501(c)(3) organizations,Registered 501(c)(3) organizations (reconstructed stock)
+n_bmf_c3pc,registered orgs,02b,Registered 501(c)(3) public charities,Registered 501(c)(3) public charities (foundation code not 02/03/04)
+n_bmf_c3pc_nohu,registered orgs,02b,Registered public charities excluding hospitals and universities,Registered public charities excluding hospitals and universities
+n_bmf_c3pc_hs,registered orgs,02b,Registered human-services public charities,Registered human-services public charities (NTEE I-P)
+n_bmf_pf,registered orgs,02b,Registered private foundations,Registered private foundations
+n_bmf_all_snap,registered orgs,02,"Raw BMF snapshot count, all subsections","Raw BMF snapshot count, all subsections (no gap filling)"
+n_bmf_c3_snap,registered orgs,02,"Raw snapshot count, 501(c)(3)","Raw snapshot count, 501(c)(3)"
+n_bmf_c3pc_snap,registered orgs,02,"Raw snapshot count, c3 public charities","Raw snapshot count, c3 public charities"
+n_bmf_c3pc_nohu_snap,registered orgs,02,"Raw snapshot count, public charities excluding hospitals and univer...","Raw snapshot count, public charities excluding hospitals and universities"
+n_bmf_c3pc_hs_snap,registered orgs,02,"Raw snapshot count, human-services public charities","Raw snapshot count, human-services public charities"
+n_bmf_pf_snap,registered orgs,02,"Raw snapshot count, private foundations","Raw snapshot count, private foundations"
+n_entry_c3,entries,08,New 501(c)(3) registrations by ruling year,New 501(c)(3) registrations by ruling year
+n_entry_c3pc,entries,08,New public-charity registrations,New public-charity registrations
+n_entry_c3pc_nohu,entries,08,New public-charity registrations excluding hospitals and universities,New public-charity registrations excluding hospitals and universities
+n_entry_pf,entries,08,New private-foundation registrations,New private-foundation registrations (NA for 2016-21)
+edu_den,demography,17,Population 25+,Population 25+
+edu_ba_num,demography,17,Population 25+ with BA or higher,Population 25+ with BA or higher
+fb_num,demography,17,Foreign-born population,Foreign-born population
+fb_den,demography,17,Total population,Total population (place of birth universe)
+personal_income,economy,12,Personal income,Personal income
+bea_pop,economy,12,Population,"Population (BEA, midyear)"
+earn_total,economy,12,Earnings by place of work,Earnings by place of work
+wages_total,economy,12,Wages and salaries,Wages and salaries
+gov_earn_total,economy,12,Earnings: government and government enterprises,Earnings: government and government enterprises
+gov_earn_federal_civ,economy,12,Earnings: federal civilian government,Earnings: federal civilian government
+gov_earn_military,economy,12,Earnings: military,Earnings: military
+gov_earn_sl,economy,12,Earnings: state and local government,Earnings: state and local government
+emp_total,economy,12,Total employment,Total employment (jobs)
+gov_emp_total,economy,12,Employment: government and government enterprises,Employment: government and government enterprises
+gov_emp_sl,economy,12,Employment: state and local government,Employment: state and local government
+gdp_real,economy,12,Real GDP,Real GDP (chained 2017 dollars)
+gdp_nominal,economy,12,Current-dollar GDP,Current-dollar GDP
+tr_total,economy,12,Personal current transfer receipts,"Personal current transfer receipts. Gap-filled: interpolated between observed years; see also tr_total_obs, _lin and _locf."
+tr_gov,economy,12,Transfer receipts of individuals from governments,"Transfer receipts of individuals from governments. Gap-filled: interpolated between observed years; see also tr_gov_obs, _lin and _locf."
+tr_socsec,economy,12,Social Security benefits,"Social Security benefits. Gap-filled: interpolated between observed years; see also tr_socsec_obs, _lin and _locf."
+tr_medical,economy,12,Medical benefits,"Medical benefits (Medicare + Medicaid + military). Gap-filled: interpolated between observed years; see also tr_medical_obs, _lin and _locf."
+tr_medicare,economy,12,Medicare benefits,"Medicare benefits. Gap-filled: interpolated between observed years; see also tr_medicare_obs, _lin and _locf."
+tr_medicaid,economy,12,Public assistance medical care,"Public assistance medical care (mostly Medicaid). Gap-filled: interpolated between observed years; see also tr_medicaid_obs, _lin and _locf."
+tr_income_maint,economy,12,Income maintenance,"Income maintenance (SSI, EITC, SNAP, other). Gap-filled: interpolated between observed years; see also tr_income_maint_obs, _lin and _locf."
+tr_snap,economy,12,SNAP benefits,"SNAP benefits. Gap-filled: interpolated between observed years; see also tr_snap_obs, _lin and _locf."
+tr_unemp,economy,12,Unemployment insurance compensation,"Unemployment insurance compensation. Gap-filled: interpolated between observed years; see also tr_unemp_obs, _lin and _locf."
+tr_veterans,economy,12,Veterans' benefits,"Veterans' benefits. Gap-filled: interpolated between observed years; see also tr_veterans_obs, _lin and _locf."
+tr_education,economy,12,Education and training assistance,"Education and training assistance. Gap-filled: interpolated between observed years; see also tr_education_obs, _lin and _locf."
+tr_nonprofit,economy,12,Transfer receipts of nonprofit institutions,"Transfer receipts of nonprofit institutions (descriptive only). Gap-filled: interpolated between observed years; see also tr_nonprofit_obs, _lin and _locf."
+votes_total,civic,16,Total presidential votes cast,Total presidential votes cast (all candidates)
+votes_dem,civic,16,Democratic presidential votes,Democratic presidential votes
+votes_rep,civic,16,Republican presidential votes,Republican presidential votes
+qcew_fgov_emp,government,22,QCEW federal government employment,"QCEW federal government employment (annual average, place of work)"
+qcew_sgov_emp,government,22,QCEW state government employment,QCEW state government employment
+qcew_lgov_emp,government,22,QCEW local government employment,QCEW local government employment (incl. public schools and hospitals)
+qcew_fgov_wages,government,22,QCEW federal government total annual wages,QCEW federal government total annual wages ($)
+qcew_sgov_wages,government,22,QCEW state government wages,QCEW state government wages ($)
+qcew_lgov_wages,government,22,QCEW local government wages,QCEW local government wages ($)
+qcew_fgov_imputed,government,22,1,"1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: federal"
+qcew_sgov_imputed,government,22,1,"1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: state"
+qcew_lgov_imputed,government,22,1,"1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: local"
+acs_cow_den,government,22,ACS civilian employed residents 16+,ACS civilian employed residents 16+ (B24080 universe)
+acs_cow_npo,government,22,ACS residents working for private not-for-profits,ACS residents working for private not-for-profits
+acs_cow_lgov,government,22,ACS residents working for local government,ACS residents working for local government
+acs_cow_sgov,government,22,ACS residents working for state government,ACS residents working for state government
+acs_cow_fgov,government,22,ACS residents working for federal government,ACS residents working for federal government
+cog_curop,government,22,"Local current operations, excl. utilities and liquor stores","Local current operations, excl. utilities and liquor stores (E codes). Gap-filled: interpolated between observed years; see also cog_curop_obs, _lin and _locf."
+cog_capital,government,22,"Local capital outlay, excl. utilities","Local capital outlay, excl. utilities (F+G). Gap-filled: interpolated between observed years; see also cog_capital_obs, _lin and _locf."
+cog_assist,government,22,Local assistance and subsidies,"Local assistance and subsidies (J). Gap-filled: interpolated between observed years; see also cog_assist_obs, _lin and _locf."
+cog_interest,government,22,Local interest on general debt,"Local interest on general debt (I89). Gap-filled: interpolated between observed years; see also cog_interest_obs, _lin and _locf."
+cog_educ_curop,government,22,"Local current operations, education","Local current operations, education (E12, E16, E18, E21). Gap-filled: interpolated between observed years; see also cog_educ_curop_obs, _lin and _locf."
+cog_welfare,government,22,Local public welfare spending,"Local public welfare spending (E/J 67, 68, 74, 75, 77, 79). Gap-filled: interpolated between observed years; see also cog_welfare_obs, _lin and _locf."
+cog_health_curop,government,22,Local health and hospitals current operations,"Local health and hospitals current operations (E32, E36, E38). Gap-filled: interpolated between observed years; see also cog_health_curop_obs, _lin and _locf."
+cog_salaries,government,22,Local salaries and wages,"Local salaries and wages (Z00; not published for 2022). Gap-filled: interpolated between observed years; see also cog_salaries_obs, _lin and _locf."
+cog_fed_igr,government,22,Local intergovernmental revenue from federal government,"Local intergovernmental revenue from federal government (B). Gap-filled: interpolated between observed years; see also cog_fed_igr_obs, _lin and _locf."
+cog_state_igr,government,22,Local intergovernmental revenue from state government,"Local intergovernmental revenue from state government (C). Gap-filled: interpolated between observed years; see also cog_state_igr_obs, _lin and _locf."
+cog_dge,government,22,Local direct general expenditure,"Local direct general expenditure = curop + capital + assist + interest. Gap-filled: interpolated between observed years; see also cog_dge_obs, _lin and _locf."
+n1,giving,15,Number of returns,Number of returns
+a00100,giving,15,Adjusted gross income,Adjusted gross income ($)
+n04470,giving,15,Returns with itemized deductions,Returns with itemized deductions
+a04470,giving,15,Total itemized deductions,Total itemized deductions ($)
+n19700,giving,15,Returns claiming itemized charitable contributions,Returns claiming itemized charitable contributions
+a19700,giving,15,Itemized charitable contributions,Itemized charitable contributions ($)
+lf,economy,14,"Civilian labor force, annual average","Civilian labor force, annual average"
+emp,economy,14,"Employed, annual average","Employed, annual average"
+unemp,economy,14,"Unemployed, annual average","Unemployed, annual average"
+patents_frac,innovation,21,"Utility patents by application year, fractional inventor counts","Utility patents by application year, fractional inventor counts"
+patents_corp,innovation,21,Patents with a corporate assignee,Patents with a corporate assignee (fractional)
+patents_univnp,innovation,21,Patents with a university or nonprofit assignee,Patents with a university or nonprofit assignee (fractional)
+patents_other,innovation,21,Patents with another or no assignee,Patents with another or no assignee (fractional)
+pop_total,demography,11,Total resident population,Total resident population (PEP July 1)
+pop_under18,demography,11,Population under 18,Population under 18 (exact 2010+; 2000-2009 from 5-year bins calibrated to county 2010 ratio; see u18_method)
+pop_18plus,demography,11,Population 18+,Population 18+ (= pop_total - pop_under18); voting-age denominator
+pop_65plus,demography,11,Population 65+,Population 65+ (AGEGRP 14-18)
+n_nhwhite,demography,11,Count: non-Hispanic White alone,Count: non-Hispanic White alone
+n_nhblack,demography,11,Count: non-Hispanic Black alone,Count: non-Hispanic Black alone
+n_nhaian,demography,11,Count: non-Hispanic AIAN alone,Count: non-Hispanic AIAN alone
+n_nhasian,demography,11,Count: non-Hispanic Asian alone,Count: non-Hispanic Asian alone
+n_nhnhpi,demography,11,Count: non-Hispanic NHPI alone,Count: non-Hispanic NHPI alone
+n_nhtwo,demography,11,Count: non-Hispanic two or more races,Count: non-Hispanic two or more races
+n_hisp,demography,11,Count: Hispanic,Count: Hispanic (any race)
+race_den,demography,11,Sum of the 7 race/ethnicity groups,Sum of the 7 race/ethnicity groups (= pop_total)
+pop_age_00_04,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_05_09,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_10_14,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_15_19,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_20_24,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_25_29,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_30_34,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_35_39,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_40_44,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_45_49,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_50_54,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_55_59,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_60_64,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_65_69,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_70_74,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_75_79,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_80_84,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_85_plus,demography,11,Count in five-year age bin,Count in five-year age bin (numerators for age_sd / age_hhi)
+qcew_priv_estab,economy,20,private establishments,private establishments (annual average)
+qcew_priv_emp,economy,20,private employment,private employment (annual average)
+qcew_priv_wages,economy,20,private total annual wages,private total annual wages ($)
+qcew_813_estab,economy,20,"NAICS 813 membership-organization establishments, private","NAICS 813 membership-organization establishments, private (NA = suppressed)"
+qcew_813_emp,economy,20,"NAICS 813 employment, private","NAICS 813 employment, private"
+qcew_813_wages,economy,20,"NAICS 813 wages, private","NAICS 813 wages, private ($)"
+qcew_privx813_estab,economy,20,Private establishments excluding NAICS 813,Private establishments excluding NAICS 813
+qcew_privx813_emp,economy,20,Private employment excluding NAICS 813,Private employment excluding NAICS 813
+qcew_privx813_wages,economy,20,Private wages excluding NAICS 813,Private wages excluding NAICS 813 ($)
+qcew_813_suppressed,economy,20,1,1 = county's 813 cell suppressed
+rel_cng,religion,18,congregations,"congregations (count). Gap-filled: interpolated between observed years; see also rel_cng_obs, _lin and _locf."
+rel_adh,religion,18,adherents,"adherents (count). Gap-filled: interpolated between observed years; see also rel_adh_obs, _lin and _locf."
+rel_cath_adh,religion,18,Catholic adherents,"Catholic adherents (count). Gap-filled: interpolated between observed years; see also rel_cath_adh_obs, _lin and _locf."
+pov_n,need,13,"Persons in poverty, all ages","Persons in poverty, all ages (SAIPE point estimate)"
+pov_universe,need,13,"Poverty universe, all ages","Poverty universe, all ages (SAEPOVU_ALL)"
+socap_assn_n,social capital,19,association establishments,"association establishments (sum of 10 categories; CBP). Gap-filled: interpolated between observed years; see also socap_assn_n_obs, _lin and _locf."
+socap_n_relig,social capital,19,Religious organizations,Religious organizations (CBP establishments)
+socap_n_civic,social capital,19,Civic and social associations,Civic and social associations
+socap_n_bus,social capital,19,Business associations,Business associations
+socap_n_pol,social capital,19,Political organizations,Political organizations
+socap_n_prof,social capital,19,Professional organizations,Professional organizations
+socap_n_labor,social capital,19,Labor organizations,Labor organizations
+socap_n_bowl,social capital,19,Bowling centers,Bowling centers
+socap_n_fitness,social capital,19,Fitness and recreational sports centers,Fitness and recreational sports centers
+socap_n_golf,social capital,19,Golf courses and country clubs,Golf courses and country clubs
+socap_n_sport,social capital,19,Sports teams and clubs,Sports teams and clubs
+gini,demography,17,Household income Gini index,"Household income Gini index. Gap-filled: interpolated between observed years; see also gini_obs, _lin and _locf."
+mhi,need,13,"Median household income, nominal dollars","Median household income, nominal dollars"
+socap_respn,social capital,19,Census mail response rate,"Census mail response rate. Gap-filled: interpolated between observed years; see also socap_respn_obs, _lin and _locf."
+socap_sk,social capital,19,published Rupasingha index,"published Rupasingha index (contains nccs = nonprofit density and pvote; validation / kitchen only). Gap-filled: interpolated between observed years; see also socap_sk_obs, _lin and _locf."
+socap_sk2,social capital,19,"PC1 of log assn rate and respn, re-estimated per wave without nccs ...","PC1 of log assn rate and respn, re-estimated per wave without nccs and pvote. Gap-filled: interpolated between observed years; see also socap_sk2_obs, _lin and _locf."
+src_990,nonprofit flags,06,"Source of the 990/990-EZ series that year: CORE 2000-10, SOI 2011-1...","Source of the 990/990-EZ series that year: CORE 2000-10, SOI 2011-19, e-file 2020-24"
+src_pf,nonprofit flags,06,Source of the 990-PF series that year,Source of the 990-PF series that year
+pf_interp,nonprofit flags,06,1,1 = foundation values interpolated (2016-18)
+n_counties,keys,30,Number of county-equivalents in the CBSA,Number of county-equivalents in the CBSA
+bmf_src_monthly,registered orgs,02b,1,1 = 2023-24 counts from the NCCS monthly BMF
+entry_src_monthly,entries,08,1,1 = 2022-24 entries from the Dec 2024 monthly BMF (survivors only)
+rel_2000_noblack,religion,18,1,1 = 2000 file (historically Black bodies largely missing)
+socap_interp2000,social capital,19,1,1 = 2000 interpolated from 1997 and 2005
+patents_truncated,innovation,21,1,1 = application year 2021+ (grant lag truncates counts)
+bls_npo_estab,BLS nonprofit,07,"501(c)(3) establishments, QCEW-IRS match","501(c)(3) establishments, QCEW-IRS match (MSA, 2013-22)"
+bls_npo_emp,BLS nonprofit,07,501(c)(3) annual average employment,501(c)(3) annual average employment
+bls_npo_wages,BLS nonprofit,07,501(c)(3) total annual wages,501(c)(3) total annual wages ($)
+bls_priv_estab,BLS nonprofit,07,All private establishments,All private establishments
+bls_priv_emp,BLS nonprofit,07,All private employment,All private employment
+bls_priv_wages,BLS nonprofit,07,All private total annual wages,All private total annual wages ($)
+bls_pct_npo,BLS nonprofit,07,Nonprofit share of private employment,Nonprofit share of private employment
+bls_wage_ratio,BLS nonprofit,07,Nonprofit / private average annual wage,Nonprofit / private average annual wage (raw)
+bls_wage_ratio_adj,BLS nonprofit,07,Composition-adjusted wage ratio,Composition-adjusted wage ratio (fixed 2018 national sector weights)
+bls_wage_ratio_cov,BLS nonprofit,07,Share of national sector weight available for the adjusted ratio,Share of national sector weight available for the adjusted ratio
+bls_pct_npo_61,BLS nonprofit,07,"Nonprofit share of employment, educational services","Nonprofit share of employment, educational services (NAICS 61)"
+bls_pct_npo_62,BLS nonprofit,07,"Nonprofit share of employment, health care and social assistance","Nonprofit share of employment, health care and social assistance (62)"
+bls_pct_npo_624,BLS nonprofit,07,"Nonprofit share of employment, social assistance","Nonprofit share of employment, social assistance (624)"
+bls_pct_npo_71,BLS nonprofit,07,"Nonprofit share of employment, arts and recreation","Nonprofit share of employment, arts and recreation (71)"
+bls_delin_flag,BLS nonprofit,07,1,1 = MSA code absent from the 2023 delineation or its county set changed
+mkt_hhi_con_c3,market competition,23,HHI of organization shares,"HHI of organization shares (0-1), whole metro; contributions; all 501(c)(3)"
+mkt_hhi_con_local,market competition,23,HHI of organization shares,"HHI of organization shares (0-1), whole metro; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_hhi_con_nohu,market competition,23,HHI of organization shares,"HHI of organization shares (0-1), whole metro; contributions; excl. hospitals and universities"
+mkt_hhi_rev_c3,market competition,23,HHI of organization shares,"HHI of organization shares (0-1), whole metro; revenue; all 501(c)(3)"
+mkt_hhi_rev_local,market competition,23,HHI of organization shares,"HHI of organization shares (0-1), whole metro; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_hhi_rev_nohu,market competition,23,HHI of organization shares,"HHI of organization shares (0-1), whole metro; revenue; excl. hospitals and universities"
+mkt_nhhi_con_c3,market competition,23,Normalized HHI,Normalized HHI (hhi - 1/n)/(1 - 1/n); contributions; all 501(c)(3)
+mkt_nhhi_con_local,market competition,23,Normalized HHI,"Normalized HHI (hhi - 1/n)/(1 - 1/n); contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_nhhi_con_nohu,market competition,23,Normalized HHI,Normalized HHI (hhi - 1/n)/(1 - 1/n); contributions; excl. hospitals and universities
+mkt_nhhi_rev_c3,market competition,23,Normalized HHI,Normalized HHI (hhi - 1/n)/(1 - 1/n); revenue; all 501(c)(3)
+mkt_nhhi_rev_local,market competition,23,Normalized HHI,"Normalized HHI (hhi - 1/n)/(1 - 1/n); revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_nhhi_rev_nohu,market competition,23,Normalized HHI,Normalized HHI (hhi - 1/n)/(1 - 1/n); revenue; excl. hospitals and universities
+mkt_xs_con_c3,market competition,23,Excess concentration n x HHI,Excess concentration n x HHI; contributions; all 501(c)(3)
+mkt_xs_con_local,market competition,23,Excess concentration n x HHI,"Excess concentration n x HHI; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_xs_con_nohu,market competition,23,Excess concentration n x HHI,Excess concentration n x HHI; contributions; excl. hospitals and universities
+mkt_xs_rev_c3,market competition,23,Excess concentration n x HHI,Excess concentration n x HHI; revenue; all 501(c)(3)
+mkt_xs_rev_local,market competition,23,Excess concentration n x HHI,"Excess concentration n x HHI; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_xs_rev_nohu,market competition,23,Excess concentration n x HHI,Excess concentration n x HHI; revenue; excl. hospitals and universities
+mkt_cr1_con_c3,market competition,23,Share of the largest organization,Share of the largest organization; contributions; all 501(c)(3)
+mkt_cr1_con_local,market competition,23,Share of the largest organization,"Share of the largest organization; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_cr1_con_nohu,market competition,23,Share of the largest organization,Share of the largest organization; contributions; excl. hospitals and universities
+mkt_cr1_rev_c3,market competition,23,Share of the largest organization,Share of the largest organization; revenue; all 501(c)(3)
+mkt_cr1_rev_local,market competition,23,Share of the largest organization,"Share of the largest organization; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_cr1_rev_nohu,market competition,23,Share of the largest organization,Share of the largest organization; revenue; excl. hospitals and universities
+mkt_cr4_con_c3,market competition,23,Share of the 4 largest organizations,Share of the 4 largest organizations; contributions; all 501(c)(3)
+mkt_cr4_con_local,market competition,23,Share of the 4 largest organizations,"Share of the 4 largest organizations; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_cr4_con_nohu,market competition,23,Share of the 4 largest organizations,Share of the 4 largest organizations; contributions; excl. hospitals and universities
+mkt_cr4_rev_c3,market competition,23,Share of the 4 largest organizations,Share of the 4 largest organizations; revenue; all 501(c)(3)
+mkt_cr4_rev_local,market competition,23,Share of the 4 largest organizations,"Share of the 4 largest organizations; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_cr4_rev_nohu,market competition,23,Share of the 4 largest organizations,Share of the 4 largest organizations; revenue; excl. hospitals and universities
+mkt_gini_con_c3,market competition,23,Gini of organization resources,Gini of organization resources; contributions; all 501(c)(3)
+mkt_gini_con_local,market competition,23,Gini of organization resources,"Gini of organization resources; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_gini_con_nohu,market competition,23,Gini of organization resources,Gini of organization resources; contributions; excl. hospitals and universities
+mkt_gini_rev_c3,market competition,23,Gini of organization resources,Gini of organization resources; revenue; all 501(c)(3)
+mkt_gini_rev_local,market competition,23,Gini of organization resources,"Gini of organization resources; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_gini_rev_nohu,market competition,23,Gini of organization resources,Gini of organization resources; revenue; excl. hospitals and universities
+mkt_small_con_c3,market competition,23,Share of resources held by organizations under $1M,Share of resources held by organizations under $1M (2022 $); contributions; all 501(c)(3)
+mkt_small_con_local,market competition,23,Share of resources held by organizations under $1M,"Share of resources held by organizations under $1M (2022 $); contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_small_con_nohu,market competition,23,Share of resources held by organizations under $1M,Share of resources held by organizations under $1M (2022 $); contributions; excl. hospitals and universities
+mkt_small_rev_c3,market competition,23,Share of resources held by organizations under $1M,Share of resources held by organizations under $1M (2022 $); revenue; all 501(c)(3)
+mkt_small_rev_local,market competition,23,Share of resources held by organizations under $1M,"Share of resources held by organizations under $1M (2022 $); revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_small_rev_nohu,market competition,23,Share of resources held by organizations under $1M,Share of resources held by organizations under $1M (2022 $); revenue; excl. hospitals and universities
+mkt_shhi_con_c3,market competition,23,Resource-weighted mean HHI of metro x NTEE major-group markets,Resource-weighted mean HHI of metro x NTEE major-group markets; contributions; all 501(c)(3)
+mkt_shhi_con_local,market competition,23,Resource-weighted mean HHI of metro x NTEE major-group markets,"Resource-weighted mean HHI of metro x NTEE major-group markets; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_shhi_con_nohu,market competition,23,Resource-weighted mean HHI of metro x NTEE major-group markets,Resource-weighted mean HHI of metro x NTEE major-group markets; contributions; excl. hospitals and universities
+mkt_shhi_rev_c3,market competition,23,Resource-weighted mean HHI of metro x NTEE major-group markets,Resource-weighted mean HHI of metro x NTEE major-group markets; revenue; all 501(c)(3)
+mkt_shhi_rev_local,market competition,23,Resource-weighted mean HHI of metro x NTEE major-group markets,"Resource-weighted mean HHI of metro x NTEE major-group markets; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_shhi_rev_nohu,market competition,23,Resource-weighted mean HHI of metro x NTEE major-group markets,Resource-weighted mean HHI of metro x NTEE major-group markets; revenue; excl. hospitals and universities
+mkt_shhio_con_c3,market competition,23,Organization-weighted mean HHI of metro x NTEE major-group markets,Organization-weighted mean HHI of metro x NTEE major-group markets; contributions; all 501(c)(3)
+mkt_shhio_con_local,market competition,23,Organization-weighted mean HHI of metro x NTEE major-group markets,"Organization-weighted mean HHI of metro x NTEE major-group markets; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_shhio_con_nohu,market competition,23,Organization-weighted mean HHI of metro x NTEE major-group markets,Organization-weighted mean HHI of metro x NTEE major-group markets; contributions; excl. hospitals and universities
+mkt_shhio_rev_c3,market competition,23,Organization-weighted mean HHI of metro x NTEE major-group markets,Organization-weighted mean HHI of metro x NTEE major-group markets; revenue; all 501(c)(3)
+mkt_shhio_rev_local,market competition,23,Organization-weighted mean HHI of metro x NTEE major-group markets,"Organization-weighted mean HHI of metro x NTEE major-group markets; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_shhio_rev_nohu,market competition,23,Organization-weighted mean HHI of metro x NTEE major-group markets,Organization-weighted mean HHI of metro x NTEE major-group markets; revenue; excl. hospitals and universities
+mkt_scr4o_con_c3,market competition,23,Organization-weighted mean CR4 of metro x NTEE major-group markets,Organization-weighted mean CR4 of metro x NTEE major-group markets; contributions; all 501(c)(3)
+mkt_scr4o_con_local,market competition,23,Organization-weighted mean CR4 of metro x NTEE major-group markets,"Organization-weighted mean CR4 of metro x NTEE major-group markets; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_scr4o_con_nohu,market competition,23,Organization-weighted mean CR4 of metro x NTEE major-group markets,Organization-weighted mean CR4 of metro x NTEE major-group markets; contributions; excl. hospitals and universities
+mkt_scr4o_rev_c3,market competition,23,Organization-weighted mean CR4 of metro x NTEE major-group markets,Organization-weighted mean CR4 of metro x NTEE major-group markets; revenue; all 501(c)(3)
+mkt_scr4o_rev_local,market competition,23,Organization-weighted mean CR4 of metro x NTEE major-group markets,"Organization-weighted mean CR4 of metro x NTEE major-group markets; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_scr4o_rev_nohu,market competition,23,Organization-weighted mean CR4 of metro x NTEE major-group markets,Organization-weighted mean CR4 of metro x NTEE major-group markets; revenue; excl. hospitals and universities
+mkt_mix_con_c3,market competition,23,HHI of metro resources across NTEE major groups,HHI of metro resources across NTEE major groups; contributions; all 501(c)(3)
+mkt_mix_con_local,market competition,23,HHI of metro resources across NTEE major groups,"HHI of metro resources across NTEE major groups; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_mix_con_nohu,market competition,23,HHI of metro resources across NTEE major groups,HHI of metro resources across NTEE major groups; contributions; excl. hospitals and universities
+mkt_mix_rev_c3,market competition,23,HHI of metro resources across NTEE major groups,HHI of metro resources across NTEE major groups; revenue; all 501(c)(3)
+mkt_mix_rev_local,market competition,23,HHI of metro resources across NTEE major groups,"HHI of metro resources across NTEE major groups; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_mix_rev_nohu,market competition,23,HHI of metro resources across NTEE major groups,HHI of metro resources across NTEE major groups; revenue; excl. hospitals and universities
+mkt_small_n_c3,market competition,23,Share of active filers under $1M,Share of active filers under $1M (2022 $); all 501(c)(3)
+mkt_small_n_local,market competition,23,Share of active filers under $1M,"Share of active filers under $1M (2022 $); excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_small_n_nohu,market competition,23,Share of active filers under $1M,Share of active filers under $1M (2022 $); excl. hospitals and universities
+rel_hhi,religion,18,HHI of adherent shares across religious bodies,"HHI of adherent shares across religious bodies (0-1; higher = more concentrated). Gap-filled: interpolated between observed years; see also rel_hhi_obs, _lin and _locf."
+state_fips,keys,01,State FIPS code,State FIPS code (CBSA: state of the principal county)
+cbsa_title,keys,01,CBSA name,CBSA name
+cbsa_type,keys,01,Metropolitan or micropolitan statistical area,Metropolitan or micropolitan statistical area
+race_hhi,demography,11,Herfindahl index of the 7 race/ethnicity shares,Herfindahl index of the 7 race/ethnicity shares (num: group counts; den: race_den)
+pct_nonwhite,demography,11,1 - n_nhwhite / pop_total,1 - n_nhwhite / pop_total
+pct_65plus,demography,11,pop_65plus / pop_total,pop_65plus / pop_total
+age_sd,demography,11,SD of age from 18 five-year bins,SD of age from 18 five-year bins (midpoints; 85+ = 87.5)
+pct_ba,demography,17,Share 25+ with BA+,"Share 25+ with BA+. Gap-filled: interpolated between observed years; see also pct_ba_obs, _lin and _locf."
+pct_foreign_born,demography,17,Foreign-born share,"Foreign-born share. Gap-filled: interpolated between observed years; see also pct_foreign_born_obs, _lin and _locf."
+pcpi,economy,30,Per-capita personal income,Per-capita personal income = personal_income / bea_pop
+gov_emp_share,government,30,State and local government share of jobs,State and local government share of jobs = gov_emp_sl / emp_total
+gov_earn_share,government,30,State and local government share of earnings,State and local government share of earnings = gov_earn_sl / earn_total
+poverty_rate,need,30,Poverty rate,Poverty rate (share) = pov_n / pov_universe
+med_hh_income,need,30,"Median household income, nominal $","Median household income, nominal $ (copy of mhi; CBSA: population-weighted)"
+unemp_rate,economy,30,Unemployment rate,Unemployment rate (share) = unemp / lf
+contrib_total,giving,30,"Itemized charitable contributions, $","Itemized charitable contributions, $ (= a19700). Gap-filled: interpolated between observed years; see also contrib_total_obs, _lin and _locf."
+contrib_per_return,giving,30,Itemized contributions per tax return,"Itemized contributions per tax return. Gap-filled: interpolated between observed years; see also contrib_per_return_obs, _lin and _locf."
+contrib_share_agi,giving,30,Itemized contributions / AGI,"Itemized contributions / AGI. Gap-filled: interpolated between observed years; see also contrib_share_agi_obs, _lin and _locf."
+pct_adherent,religion,30,Religious adherents / population,"Religious adherents / population. Gap-filled: interpolated between observed years; see also pct_adherent_obs, _lin and _locf."
+pct_catholic,religion,30,Catholic adherents / all adherents,"Catholic adherents / all adherents. Gap-filled: interpolated between observed years; see also pct_catholic_obs, _lin and _locf."
+gdp_per_worker,economy,30,Real GDP per job,Real GDP per job = gdp_real / emp_total
+qcew_avg_pay,economy,30,Average private annual pay,Average private annual pay = qcew_priv_wages / qcew_priv_emp
+turnout,civic,30,Presidential votes / population 18+,"Presidential votes / population 18+. Gap-filled: interpolated between observed years; see also turnout_obs, _lin and _locf."
+dem_margin,civic,16,(votes_dem - votes_rep) / votes_total,"(votes_dem - votes_rep) / votes_total. Gap-filled: interpolated between observed years; see also dem_margin_obs, _lin and _locf."
+pct_ba_obs,demography,17,Share 25+ with BA+ (observed flag),"Share 25+ with BA+. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+pct_ba_lin,demography,17,Share 25+ with BA+ (linear fill),Share 25+ with BA+. Linear interpolation between observed years (no extrapolation past the first or last).
+pct_ba_locf,demography,17,Share 25+ with BA+ (carried forward),Share 25+ with BA+. Last observation carried forward from the most recent observed year.
+pct_foreign_born_obs,demography,17,Foreign-born share (observed flag),"Foreign-born share. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+pct_foreign_born_lin,demography,17,Foreign-born share (linear fill),Foreign-born share. Linear interpolation between observed years (no extrapolation past the first or last).
+pct_foreign_born_locf,demography,17,Foreign-born share (carried forward),Foreign-born share. Last observation carried forward from the most recent observed year.
+gini_obs,demography,17,Household income Gini index (observed flag),"Household income Gini index. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+gini_lin,demography,17,Household income Gini index (linear fill),Household income Gini index. Linear interpolation between observed years (no extrapolation past the first or last).
+gini_locf,demography,17,Household income Gini index (carried forward),Household income Gini index. Last observation carried forward from the most recent observed year.
+turnout_obs,civic,30,Presidential votes / population 18+ (observed flag),"Presidential votes / population 18+. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+turnout_lin,civic,30,Presidential votes / population 18+ (linear fill),Presidential votes / population 18+. Linear interpolation between observed years (no extrapolation past the first or last).
+turnout_locf,civic,30,Presidential votes / population 18+ (carried forward),Presidential votes / population 18+. Last observation carried forward from the most recent observed year.
+dem_margin_obs,civic,16,(votes_dem - votes_rep) / votes_total (observed flag),"(votes_dem - votes_rep) / votes_total. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+dem_margin_lin,civic,16,(votes_dem - votes_rep) / votes_total (linear fill),(votes_dem - votes_rep) / votes_total. Linear interpolation between observed years (no extrapolation past the first or last).
+dem_margin_locf,civic,16,(votes_dem - votes_rep) / votes_total (carried forward),(votes_dem - votes_rep) / votes_total. Last observation carried forward from the most recent observed year.
+contrib_total_obs,giving,30,"Itemized charitable contributions, $ (observed flag)","Itemized charitable contributions, $ (= a19700). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+contrib_total_lin,giving,30,"Itemized charitable contributions, $ (linear fill)","Itemized charitable contributions, $ (= a19700). Linear interpolation between observed years (no extrapolation past the first or last)."
+contrib_total_locf,giving,30,"Itemized charitable contributions, $ (carried forward)","Itemized charitable contributions, $ (= a19700). Last observation carried forward from the most recent observed year."
+contrib_per_return_obs,giving,30,Itemized contributions per tax return (observed flag),"Itemized contributions per tax return. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+contrib_per_return_lin,giving,30,Itemized contributions per tax return (linear fill),Itemized contributions per tax return. Linear interpolation between observed years (no extrapolation past the first or last).
+contrib_per_return_locf,giving,30,Itemized contributions per tax return (carried forward),Itemized contributions per tax return. Last observation carried forward from the most recent observed year.
+contrib_share_agi_obs,giving,30,Itemized contributions / AGI (observed flag),"Itemized contributions / AGI. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+contrib_share_agi_lin,giving,30,Itemized contributions / AGI (linear fill),Itemized contributions / AGI. Linear interpolation between observed years (no extrapolation past the first or last).
+contrib_share_agi_locf,giving,30,Itemized contributions / AGI (carried forward),Itemized contributions / AGI. Last observation carried forward from the most recent observed year.
+rel_hhi_obs,religion,18,HHI of adherent shares across religious bodies (observed flag),"HHI of adherent shares across religious bodies (0-1; higher = more concentrated). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+rel_hhi_lin,religion,18,HHI of adherent shares across religious bodies (linear fill),HHI of adherent shares across religious bodies (0-1; higher = more concentrated). Linear interpolation between observed years (no extrapolation past the first or last).
+rel_hhi_locf,religion,18,HHI of adherent shares across religious bodies (carried forward),HHI of adherent shares across religious bodies (0-1; higher = more concentrated). Last observation carried forward from the most recent observed year.
+pct_adherent_obs,religion,30,Religious adherents / population (observed flag),"Religious adherents / population. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+pct_adherent_lin,religion,30,Religious adherents / population (linear fill),Religious adherents / population. Linear interpolation between observed years (no extrapolation past the first or last).
+pct_adherent_locf,religion,30,Religious adherents / population (carried forward),Religious adherents / population. Last observation carried forward from the most recent observed year.
+pct_catholic_obs,religion,30,Catholic adherents / all adherents (observed flag),"Catholic adherents / all adherents. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+pct_catholic_lin,religion,30,Catholic adherents / all adherents (linear fill),Catholic adherents / all adherents. Linear interpolation between observed years (no extrapolation past the first or last).
+pct_catholic_locf,religion,30,Catholic adherents / all adherents (carried forward),Catholic adherents / all adherents. Last observation carried forward from the most recent observed year.
+rel_adh_obs,religion,18,adherents (observed flag),"adherents (count). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+rel_adh_lin,religion,18,adherents (linear fill),adherents (count). Linear interpolation between observed years (no extrapolation past the first or last).
+rel_adh_locf,religion,18,adherents (carried forward),adherents (count). Last observation carried forward from the most recent observed year.
+rel_cng_obs,religion,18,congregations (observed flag),"congregations (count). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+rel_cng_lin,religion,18,congregations (linear fill),congregations (count). Linear interpolation between observed years (no extrapolation past the first or last).
+rel_cng_locf,religion,18,congregations (carried forward),congregations (count). Last observation carried forward from the most recent observed year.
+rel_cath_adh_obs,religion,18,Catholic adherents (observed flag),"Catholic adherents (count). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+rel_cath_adh_lin,religion,18,Catholic adherents (linear fill),Catholic adherents (count). Linear interpolation between observed years (no extrapolation past the first or last).
+rel_cath_adh_locf,religion,18,Catholic adherents (carried forward),Catholic adherents (count). Last observation carried forward from the most recent observed year.
+socap_assn_n_obs,social capital,19,association establishments (observed flag),"association establishments (sum of 10 categories; CBP). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+socap_assn_n_lin,social capital,19,association establishments (linear fill),association establishments (sum of 10 categories; CBP). Linear interpolation between observed years (no extrapolation past the first or last).
+socap_assn_n_locf,social capital,19,association establishments (carried forward),association establishments (sum of 10 categories; CBP). Last observation carried forward from the most recent observed year.
+socap_respn_obs,social capital,19,Census mail response rate (observed flag),"Census mail response rate. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+socap_respn_lin,social capital,19,Census mail response rate (linear fill),Census mail response rate. Linear interpolation between observed years (no extrapolation past the first or last).
+socap_respn_locf,social capital,19,Census mail response rate (carried forward),Census mail response rate. Last observation carried forward from the most recent observed year.
+socap_sk_obs,social capital,19,published Rupasingha index (observed flag),"published Rupasingha index (contains nccs = nonprofit density and pvote; validation / kitchen only). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+socap_sk_lin,social capital,19,published Rupasingha index (linear fill),published Rupasingha index (contains nccs = nonprofit density and pvote; validation / kitchen only). Linear interpolation between observed years (no extrapolation past the first or last).
+socap_sk_locf,social capital,19,published Rupasingha index (carried forward),published Rupasingha index (contains nccs = nonprofit density and pvote; validation / kitchen only). Last observation carried forward from the most recent observed year.
+socap_sk2_obs,social capital,19,"PC1 of log assn rate and respn, re-estimated per wave without nccs ... (observed flag)","PC1 of log assn rate and respn, re-estimated per wave without nccs and pvote. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+socap_sk2_lin,social capital,19,"PC1 of log assn rate and respn, re-estimated per wave without nccs ... (linear fill)","PC1 of log assn rate and respn, re-estimated per wave without nccs and pvote. Linear interpolation between observed years (no extrapolation past the first or last)."
+socap_sk2_locf,social capital,19,"PC1 of log assn rate and respn, re-estimated per wave without nccs ... (carried forward)","PC1 of log assn rate and respn, re-estimated per wave without nccs and pvote. Last observation carried forward from the most recent observed year."
+cog_curop_obs,government,22,"Local current operations, excl. utilities and liquor stores (observed flag)","Local current operations, excl. utilities and liquor stores (E codes). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_curop_lin,government,22,"Local current operations, excl. utilities and liquor stores (linear fill)","Local current operations, excl. utilities and liquor stores (E codes). Linear interpolation between observed years (no extrapolation past the first or last)."
+cog_curop_locf,government,22,"Local current operations, excl. utilities and liquor stores (carried forward)","Local current operations, excl. utilities and liquor stores (E codes). Last observation carried forward from the most recent observed year."
+cog_capital_obs,government,22,"Local capital outlay, excl. utilities (observed flag)","Local capital outlay, excl. utilities (F+G). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_capital_lin,government,22,"Local capital outlay, excl. utilities (linear fill)","Local capital outlay, excl. utilities (F+G). Linear interpolation between observed years (no extrapolation past the first or last)."
+cog_capital_locf,government,22,"Local capital outlay, excl. utilities (carried forward)","Local capital outlay, excl. utilities (F+G). Last observation carried forward from the most recent observed year."
+cog_assist_obs,government,22,Local assistance and subsidies (observed flag),"Local assistance and subsidies (J). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_assist_lin,government,22,Local assistance and subsidies (linear fill),Local assistance and subsidies (J). Linear interpolation between observed years (no extrapolation past the first or last).
+cog_assist_locf,government,22,Local assistance and subsidies (carried forward),Local assistance and subsidies (J). Last observation carried forward from the most recent observed year.
+cog_interest_obs,government,22,Local interest on general debt (observed flag),"Local interest on general debt (I89). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_interest_lin,government,22,Local interest on general debt (linear fill),Local interest on general debt (I89). Linear interpolation between observed years (no extrapolation past the first or last).
+cog_interest_locf,government,22,Local interest on general debt (carried forward),Local interest on general debt (I89). Last observation carried forward from the most recent observed year.
+cog_educ_curop_obs,government,22,"Local current operations, education (observed flag)","Local current operations, education (E12, E16, E18, E21). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_educ_curop_lin,government,22,"Local current operations, education (linear fill)","Local current operations, education (E12, E16, E18, E21). Linear interpolation between observed years (no extrapolation past the first or last)."
+cog_educ_curop_locf,government,22,"Local current operations, education (carried forward)","Local current operations, education (E12, E16, E18, E21). Last observation carried forward from the most recent observed year."
+cog_welfare_obs,government,22,Local public welfare spending (observed flag),"Local public welfare spending (E/J 67, 68, 74, 75, 77, 79). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_welfare_lin,government,22,Local public welfare spending (linear fill),"Local public welfare spending (E/J 67, 68, 74, 75, 77, 79). Linear interpolation between observed years (no extrapolation past the first or last)."
+cog_welfare_locf,government,22,Local public welfare spending (carried forward),"Local public welfare spending (E/J 67, 68, 74, 75, 77, 79). Last observation carried forward from the most recent observed year."
+cog_health_curop_obs,government,22,Local health and hospitals current operations (observed flag),"Local health and hospitals current operations (E32, E36, E38). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_health_curop_lin,government,22,Local health and hospitals current operations (linear fill),"Local health and hospitals current operations (E32, E36, E38). Linear interpolation between observed years (no extrapolation past the first or last)."
+cog_health_curop_locf,government,22,Local health and hospitals current operations (carried forward),"Local health and hospitals current operations (E32, E36, E38). Last observation carried forward from the most recent observed year."
+cog_salaries_obs,government,22,Local salaries and wages (observed flag),"Local salaries and wages (Z00; not published for 2022). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_salaries_lin,government,22,Local salaries and wages (linear fill),Local salaries and wages (Z00; not published for 2022). Linear interpolation between observed years (no extrapolation past the first or last).
+cog_salaries_locf,government,22,Local salaries and wages (carried forward),Local salaries and wages (Z00; not published for 2022). Last observation carried forward from the most recent observed year.
+cog_fed_igr_obs,government,22,Local intergovernmental revenue from federal government (observed flag),"Local intergovernmental revenue from federal government (B). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_fed_igr_lin,government,22,Local intergovernmental revenue from federal government (linear fill),Local intergovernmental revenue from federal government (B). Linear interpolation between observed years (no extrapolation past the first or last).
+cog_fed_igr_locf,government,22,Local intergovernmental revenue from federal government (carried forward),Local intergovernmental revenue from federal government (B). Last observation carried forward from the most recent observed year.
+cog_state_igr_obs,government,22,Local intergovernmental revenue from state government (observed flag),"Local intergovernmental revenue from state government (C). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_state_igr_lin,government,22,Local intergovernmental revenue from state government (linear fill),Local intergovernmental revenue from state government (C). Linear interpolation between observed years (no extrapolation past the first or last).
+cog_state_igr_locf,government,22,Local intergovernmental revenue from state government (carried forward),Local intergovernmental revenue from state government (C). Last observation carried forward from the most recent observed year.
+cog_dge_obs,government,22,Local direct general expenditure (observed flag),"Local direct general expenditure = curop + capital + assist + interest. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+cog_dge_lin,government,22,Local direct general expenditure (linear fill),Local direct general expenditure = curop + capital + assist + interest. Linear interpolation between observed years (no extrapolation past the first or last).
+cog_dge_locf,government,22,Local direct general expenditure (carried forward),Local direct general expenditure = curop + capital + assist + interest. Last observation carried forward from the most recent observed year.
+tr_total_obs,economy,12,Personal current transfer receipts (observed flag),"Personal current transfer receipts. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_total_lin,economy,12,Personal current transfer receipts (linear fill),Personal current transfer receipts. Linear interpolation between observed years (no extrapolation past the first or last).
+tr_total_locf,economy,12,Personal current transfer receipts (carried forward),Personal current transfer receipts. Last observation carried forward from the most recent observed year.
+tr_gov_obs,economy,12,Transfer receipts of individuals from governments (observed flag),"Transfer receipts of individuals from governments. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_gov_lin,economy,12,Transfer receipts of individuals from governments (linear fill),Transfer receipts of individuals from governments. Linear interpolation between observed years (no extrapolation past the first or last).
+tr_gov_locf,economy,12,Transfer receipts of individuals from governments (carried forward),Transfer receipts of individuals from governments. Last observation carried forward from the most recent observed year.
+tr_socsec_obs,economy,12,Social Security benefits (observed flag),"Social Security benefits. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_socsec_lin,economy,12,Social Security benefits (linear fill),Social Security benefits. Linear interpolation between observed years (no extrapolation past the first or last).
+tr_socsec_locf,economy,12,Social Security benefits (carried forward),Social Security benefits. Last observation carried forward from the most recent observed year.
+tr_medical_obs,economy,12,Medical benefits (observed flag),"Medical benefits (Medicare + Medicaid + military). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_medical_lin,economy,12,Medical benefits (linear fill),Medical benefits (Medicare + Medicaid + military). Linear interpolation between observed years (no extrapolation past the first or last).
+tr_medical_locf,economy,12,Medical benefits (carried forward),Medical benefits (Medicare + Medicaid + military). Last observation carried forward from the most recent observed year.
+tr_medicare_obs,economy,12,Medicare benefits (observed flag),"Medicare benefits. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_medicare_lin,economy,12,Medicare benefits (linear fill),Medicare benefits. Linear interpolation between observed years (no extrapolation past the first or last).
+tr_medicare_locf,economy,12,Medicare benefits (carried forward),Medicare benefits. Last observation carried forward from the most recent observed year.
+tr_medicaid_obs,economy,12,Public assistance medical care (observed flag),"Public assistance medical care (mostly Medicaid). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_medicaid_lin,economy,12,Public assistance medical care (linear fill),Public assistance medical care (mostly Medicaid). Linear interpolation between observed years (no extrapolation past the first or last).
+tr_medicaid_locf,economy,12,Public assistance medical care (carried forward),Public assistance medical care (mostly Medicaid). Last observation carried forward from the most recent observed year.
+tr_income_maint_obs,economy,12,Income maintenance (observed flag),"Income maintenance (SSI, EITC, SNAP, other). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_income_maint_lin,economy,12,Income maintenance (linear fill),"Income maintenance (SSI, EITC, SNAP, other). Linear interpolation between observed years (no extrapolation past the first or last)."
+tr_income_maint_locf,economy,12,Income maintenance (carried forward),"Income maintenance (SSI, EITC, SNAP, other). Last observation carried forward from the most recent observed year."
+tr_snap_obs,economy,12,SNAP benefits (observed flag),"SNAP benefits. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_snap_lin,economy,12,SNAP benefits (linear fill),SNAP benefits. Linear interpolation between observed years (no extrapolation past the first or last).
+tr_snap_locf,economy,12,SNAP benefits (carried forward),SNAP benefits. Last observation carried forward from the most recent observed year.
+tr_unemp_obs,economy,12,Unemployment insurance compensation (observed flag),"Unemployment insurance compensation. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_unemp_lin,economy,12,Unemployment insurance compensation (linear fill),Unemployment insurance compensation. Linear interpolation between observed years (no extrapolation past the first or last).
+tr_unemp_locf,economy,12,Unemployment insurance compensation (carried forward),Unemployment insurance compensation. Last observation carried forward from the most recent observed year.
+tr_veterans_obs,economy,12,Veterans' benefits (observed flag),"Veterans' benefits. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_veterans_lin,economy,12,Veterans' benefits (linear fill),Veterans' benefits. Linear interpolation between observed years (no extrapolation past the first or last).
+tr_veterans_locf,economy,12,Veterans' benefits (carried forward),Veterans' benefits. Last observation carried forward from the most recent observed year.
+tr_education_obs,economy,12,Education and training assistance (observed flag),"Education and training assistance. Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_education_lin,economy,12,Education and training assistance (linear fill),Education and training assistance. Linear interpolation between observed years (no extrapolation past the first or last).
+tr_education_locf,economy,12,Education and training assistance (carried forward),Education and training assistance. Last observation carried forward from the most recent observed year.
+tr_nonprofit_obs,economy,12,Transfer receipts of nonprofit institutions (observed flag),"Transfer receipts of nonprofit institutions (descriptive only). Observed flag: TRUE where the base value was observed that year, FALSE where it was filled."
+tr_nonprofit_lin,economy,12,Transfer receipts of nonprofit institutions (linear fill),Transfer receipts of nonprofit institutions (descriptive only). Linear interpolation between observed years (no extrapolation past the first or last).
+tr_nonprofit_locf,economy,12,Transfer receipts of nonprofit institutions (carried forward),Transfer receipts of nonprofit institutions (descriptive only). Last observation carried forward from the most recent observed year.
+tr_medmaint,government,30,Medicare + Medicaid + income-maintenance transfers,Medicare + Medicaid + income-maintenance transfers
+acs_pct_gov,government,30,Share of employed residents working for any government,Share of employed residents working for any government (ACS)
+acs_pct_lgov,government,30,Share of employed residents working for local government,Share of employed residents working for local government (ACS)
+qcew_lgov_share,government,30,Local government share of QCEW employment,Local government share of QCEW employment (government + private)
+gov_labor_intensity,government,30,Local government wages / local current operations,Local government wages / local current operations
+gov_indirect_share,government,30,Indirect government,"Indirect government (Medicare, Medicaid, income maintenance) / (indirect + state and local wages)"
+hist_pre1970,history,25,Share of the 2000 public-charity stock ruled before 1970,Share of the 2000 public-charity stock ruled before 1970 (NA where > 0.6)
+lag_g5,history,26,"Population growth kernel, 5-year lag","Population growth kernel, 5-year lag"
+lag_g10,history,26,"Population growth kernel, 10-year lag","Population growth kernel, 10-year lag"
+gini_m,need,27,Metro household-income Gini from summed ACS brackets,Metro household-income Gini from summed ACS brackets (2010-24)

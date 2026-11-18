@@ -104,9 +104,47 @@ The build produces two analysis tables, one per geographic unit. Both are annual
 | `data/analysis/county_year.parquet` | 3,144 counties (2023 delineation, Connecticut planning regions) | 78,600 | 354 |
 | `data/analysis/cbsa_year.parquet` | 925 core-based statistical areas: 387 metropolitan, 538 micropolitan [@data_omb_cbsa] | 23,125 | 422 |
 
-Covariates observed only in some years come in up to three versions: `_obs` (observed
-values only), `_lin` (linear interpolation between observed years) and `_locf` (last
-observation carried forward). The dictionary marks these with *gap-fill*.
+Covariates observed only in some years come with up to three companions: `_obs` (a
+flag, TRUE where the value was observed that year), `_lin` (linear interpolation
+between observed years) and `_locf` (last observation carried forward). The
+dictionary marks these with *gap-fill*.
+
+# Research guides
+
+Each research frame has a research guide: a profile of every variable, with its
+definition, data type, summary statistics, a preview of values, and a graphic suited
+to its type. The guides are built with datagoodr [@pkg_datagoodr] from the frames as
+released in `data/`.
+
+- [CBSA-year research guide](guides/cbsa_year.html): 925 CBSAs × 25 years, 422
+  variables.
+- [County-year research guide](guides/county_year.html): 3,144 county-equivalents ×
+  25 years, 354 variables.
+
+**How they are built.** Each guide is driven by a Data Governance File (DGF), one row
+per variable, in `docs/research-guide/<frame>/DGF.xlsx`:
+
+1. `docs/make_research_guides.R` profiles each frame with `create_dgf()`. It fills
+   each variable's label and definition from the variable dictionary below.
+   Gap-fill companions get their base variable's definition plus a note on the
+   companion.
+2. `docs/check_research_guide_types.R` checks the data type datagoodr guessed for
+   every variable against the variable's storage type, its values and its role in
+   the dictionary, and corrects wrong guesses with `retype_dgf()`:
+   - geographic codes stay text identifiers, so leading zeros survive;
+   - `year` is temporal;
+   - 0/1 flags are boolean;
+   - other numeric columns are numbers.
+
+   The script stops if any variable still carries an unexpected type, then validates
+   the DGF with `inspect_dgf()`. Each frame's `type_review.csv` lists the guessed,
+   expected and final type of every variable.
+3. `docs/render_research_guides.R` renders each guide with `create_rg()` and copies
+   it here.
+
+Some columns are identical by construction. For example, `race_den` (the sum of
+the seven race and ethnicity groups) and `pop_total` both equal `population`. The
+guides note each one in its definition, and `duplicates.csv` lists them.
 
 # Variable dictionary
 

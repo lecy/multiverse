@@ -48,3 +48,4 @@ pubs/
 # research frames shipped in the repo (data/README.md); the build folder stays outside git
 !/data/**/*.parquet
 /replication/
+!site/guides/*.html

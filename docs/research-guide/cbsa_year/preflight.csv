@@ -1,0 +1,64 @@
+var_name,rule,severity,detail,suggestion
+socap_respn,non_finite,warn,112 row(s) hold 'NaN',"not a usable number: recode to blank, or find where it was produced"
+socap_sk,non_finite,warn,112 row(s) hold 'NaN',"not a usable number: recode to blank, or find where it was produced"
+socap_sk2,non_finite,warn,112 row(s) hold 'NaN',"not a usable number: recode to blank, or find where it was produced"
+socap_respn_lin,non_finite,warn,192 row(s) hold 'NaN',"not a usable number: recode to blank, or find where it was produced"
+socap_sk_lin,non_finite,warn,192 row(s) hold 'NaN',"not a usable number: recode to blank, or find where it was produced"
+socap_sk2_lin,non_finite,warn,192 row(s) hold 'NaN',"not a usable number: recode to blank, or find where it was produced"
+pop_total,duplicate_column,warn,identical to the earlier column 'population',keep one; the copy is profiled again for nothing
+race_den,duplicate_column,warn,identical to the earlier column 'population',keep one; the copy is profiled again for nothing
+med_hh_income,duplicate_column,warn,identical to the earlier column 'mhi',keep one; the copy is profiled again for nothing
+contrib_total,duplicate_column,warn,identical to the earlier column 'a19700',keep one; the copy is profiled again for nothing
+pct_ba_lin,duplicate_column,warn,identical to the earlier column 'pct_ba',keep one; the copy is profiled again for nothing
+pct_foreign_born_obs,duplicate_column,warn,identical to the earlier column 'pct_ba_obs',keep one; the copy is profiled again for nothing
+pct_foreign_born_lin,duplicate_column,warn,identical to the earlier column 'pct_foreign_born',keep one; the copy is profiled again for nothing
+gini_lin,duplicate_column,warn,identical to the earlier column 'gini',keep one; the copy is profiled again for nothing
+turnout_lin,duplicate_column,warn,identical to the earlier column 'turnout',keep one; the copy is profiled again for nothing
+dem_margin_obs,duplicate_column,warn,identical to the earlier column 'turnout_obs',keep one; the copy is profiled again for nothing
+dem_margin_lin,duplicate_column,warn,identical to the earlier column 'dem_margin',keep one; the copy is profiled again for nothing
+contrib_total_lin,duplicate_column,warn,identical to the earlier column 'a19700',keep one; the copy is profiled again for nothing
+contrib_per_return_obs,duplicate_column,warn,identical to the earlier column 'contrib_total_obs',keep one; the copy is profiled again for nothing
+contrib_per_return_lin,duplicate_column,warn,identical to the earlier column 'contrib_per_return',keep one; the copy is profiled again for nothing
+contrib_share_agi_obs,duplicate_column,warn,identical to the earlier column 'contrib_total_obs',keep one; the copy is profiled again for nothing
+contrib_share_agi_lin,duplicate_column,warn,identical to the earlier column 'contrib_share_agi',keep one; the copy is profiled again for nothing
+pct_adherent_obs,duplicate_column,warn,identical to the earlier column 'rel_hhi_obs',keep one; the copy is profiled again for nothing
+pct_catholic_obs,duplicate_column,warn,identical to the earlier column 'rel_hhi_obs',keep one; the copy is profiled again for nothing
+rel_adh_obs,duplicate_column,warn,identical to the earlier column 'rel_hhi_obs',keep one; the copy is profiled again for nothing
+rel_cng_obs,duplicate_column,warn,identical to the earlier column 'rel_hhi_obs',keep one; the copy is profiled again for nothing
+rel_cath_adh_obs,duplicate_column,warn,identical to the earlier column 'rel_hhi_obs',keep one; the copy is profiled again for nothing
+socap_respn_obs,duplicate_column,warn,identical to the earlier column 'socap_assn_n_obs',keep one; the copy is profiled again for nothing
+socap_sk_obs,duplicate_column,warn,identical to the earlier column 'socap_assn_n_obs',keep one; the copy is profiled again for nothing
+socap_sk2_obs,duplicate_column,warn,identical to the earlier column 'socap_assn_n_obs',keep one; the copy is profiled again for nothing
+cog_capital_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+cog_assist_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+cog_interest_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+cog_educ_curop_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+cog_welfare_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+cog_health_curop_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+cog_fed_igr_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+cog_state_igr_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+cog_dge_obs,duplicate_column,warn,identical to the earlier column 'cog_curop_obs',keep one; the copy is profiled again for nothing
+tr_total_locf,duplicate_column,warn,identical to the earlier column 'tr_total',keep one; the copy is profiled again for nothing
+tr_gov_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_gov_locf,duplicate_column,warn,identical to the earlier column 'tr_gov',keep one; the copy is profiled again for nothing
+tr_socsec_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_socsec_locf,duplicate_column,warn,identical to the earlier column 'tr_socsec',keep one; the copy is profiled again for nothing
+tr_medical_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_medical_locf,duplicate_column,warn,identical to the earlier column 'tr_medical',keep one; the copy is profiled again for nothing
+tr_medicare_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_medicare_locf,duplicate_column,warn,identical to the earlier column 'tr_medicare',keep one; the copy is profiled again for nothing
+tr_medicaid_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_medicaid_locf,duplicate_column,warn,identical to the earlier column 'tr_medicaid',keep one; the copy is profiled again for nothing
+tr_income_maint_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_income_maint_locf,duplicate_column,warn,identical to the earlier column 'tr_income_maint',keep one; the copy is profiled again for nothing
+tr_snap_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_snap_locf,duplicate_column,warn,identical to the earlier column 'tr_snap',keep one; the copy is profiled again for nothing
+tr_unemp_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_unemp_locf,duplicate_column,warn,identical to the earlier column 'tr_unemp',keep one; the copy is profiled again for nothing
+tr_veterans_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_veterans_locf,duplicate_column,warn,identical to the earlier column 'tr_veterans',keep one; the copy is profiled again for nothing
+tr_education_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_education_locf,duplicate_column,warn,identical to the earlier column 'tr_education',keep one; the copy is profiled again for nothing
+tr_nonprofit_obs,duplicate_column,warn,identical to the earlier column 'tr_total_obs',keep one; the copy is profiled again for nothing
+tr_nonprofit_locf,duplicate_column,warn,identical to the earlier column 'tr_nonprofit',keep one; the copy is profiled again for nothing
+state_fips,leading_zero_code,info,"2900 value(s) (12.5%) are digit strings with a leading zero, e.g. '08'","keep as text: type it identifier or categorical, never number"
