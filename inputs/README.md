@@ -26,7 +26,7 @@ hub, the S3 mirror of the build caches, and the publishers' terms pages (checked
 | [census-hist](census-hist/SOURCE.md) | Census county estimates 1970–99 | **manual** | yes | no |
 | [census-geo](census-geo/SOURCE.md) | TIGER 2023 counties, OMB 2023 CBSA crosswalk | package / hub | yes | no |
 | [bea-regional](bea-regional/SOURCE.md) | BEA regional accounts (CAINC, CAEMP, CAGDP) | script | yes | no |
-| [bea-pcepi](bea-pcepi/SOURCE.md) | PCE price index (currently from FRED) | script | **not the FRED copy**; use BEA | no |
+| [bea-pcepi](bea-pcepi/SOURCE.md) | PCE price index, BEA NIPA 2.8.4 (FRED until 2026-11-17) | script | yes | no |
 | [bls-qcew](bls-qcew/SOURCE.md) | BLS QCEW county files 2000–24 | **pre-placed, origin unrecorded** | yes | no |
 | [bls-nonprofits](bls-nonprofits/SOURCE.md) | BLS nonprofit research data 2013–22 | **manual** | yes | no |
 | [ers-laus](ers-laus/SOURCE.md) | LAUS via USDA ERS 2000–23 | script | yes | no |
@@ -62,7 +62,7 @@ hub, the S3 mirror of the build caches, and the publishers' terms pages (checked
 
 **Licences to settle before publishing:**
 - **ASARB (RCMS) and NERCRD (social capital):** permission to bundle was received (recorded 2026-11-17). File each written permission as `PERMISSION.md` in its folder, and ship it with the data.
-- **FRED:** replace with BEA.
+- **FRED:** done 2026-11-17. 06 reads the same series from BEA (`bea-pcepi/SOURCE.md`); outputs unchanged.
 - **NCCS e-file:** confirm that its catalog licence is ODC-BY.
 
 **Inputs outside the hub and the build folder:** the RCMS .SAV files sit in

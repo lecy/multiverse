@@ -1,0 +1,322 @@
+variable,group,step,table,gapfill,description
+geoid,keys,01,county,FALSE,"County-equivalent FIPS code, 2023 delineation (Connecticut planning regions)"
+year,keys,01,both,FALSE,Calendar / tax year
+population,population,01,both,FALSE,"Resident population, Census PEP July 1"
+src_990,nonprofit flags,06,both,FALSE,"Source of the 990/990-EZ series that year: CORE 2000-10, SOI 2011-19, e-file 2020-24"
+src_pf,nonprofit flags,06,both,FALSE,Source of the 990-PF series that year
+n_filer_all,nonprofit filers,06,both,FALSE,"Active filers, all 501(c) subsections (max(revenue, expenses) >= $50k in 2010 $)"
+n_filer_c3,nonprofit filers,06,both,FALSE,Active 501(c)(3) 990/990-EZ filers (same floor; 990-PF excluded)
+n_filer_c3_nohu,nonprofit filers,06,both,FALSE,"Active c3 filers excluding hospitals (NTEE E20-E24) and universities (B40-B43, B50)"
+n_filer_c3_hs,nonprofit filers,06,both,FALSE,Active c3 filers in human services (NTEE major groups I-P)
+n_filer_c3_nofloor,nonprofit filers,06,both,FALSE,"All c3 990/990-EZ records, no size floor"
+exp_all,nonprofit resources,06,both,FALSE,"Total expenses of active filers, all subsections (2022 $)"
+exp_c3,nonprofit resources,06,both,FALSE,Total expenses of active c3 filers (2022 $)
+exp_c3_nohu,nonprofit resources,06,both,FALSE,Total expenses of active c3 filers excluding hospitals and universities (2022 $)
+exp_c3_hs,nonprofit resources,06,both,FALSE,Total expenses of active human-services c3 filers (2022 $)
+rev_c3,nonprofit resources,06,both,FALSE,Total revenue of active c3 filers (2022 $)
+rev_c3_nohu,nonprofit resources,06,both,FALSE,"Total revenue, excluding hospitals and universities (2022 $)"
+grants_org_c3,nonprofit resources,09,both,FALSE,Grants paid to domestic organizations and governments (990 Part IX line 1; 2012+; 2022 $)
+exp_c3_net,nonprofit resources,06,both,FALSE,exp_c3 minus grants_org_c3 (pass-through removed; 2012+)
+exp_c3_nohu_net,nonprofit resources,06,both,FALSE,exp_c3_nohu minus grants paid (2012+)
+rev_c3_net,nonprofit resources,06,both,FALSE,rev_c3 minus grants paid (2012+)
+rev_c3_nohu_net,nonprofit resources,06,both,FALSE,rev_c3_nohu minus grants paid (2012+)
+con_c3,nonprofit resources,06,both,FALSE,"Contributions, gifts and grants received by active c3 filers (2022 $)"
+assets_c3,nonprofit resources,06,both,FALSE,"Total assets, end of year, active c3 filers (2022 $)"
+n_pf,foundations,06,both,FALSE,Private foundations filing a 990-PF (no floor)
+pf_assets,foundations,06,both,FALSE,"Foundation assets, book value end of year (2022 $)"
+pf_grants,foundations,06,both,FALSE,Foundation contributions and grants paid (2022 $)
+pf_interp,nonprofit flags,06,both,FALSE,1 = foundation values interpolated (2016-18)
+n_bmf_all,registered orgs,02b,both,FALSE,"Registered exempt organizations, all subsections (reconstructed BMF stock)"
+n_bmf_c3,registered orgs,02b,both,FALSE,Registered 501(c)(3) organizations (reconstructed stock)
+n_bmf_c3pc,registered orgs,02b,both,FALSE,Registered 501(c)(3) public charities (foundation code not 02/03/04)
+n_bmf_c3pc_nohu,registered orgs,02b,both,FALSE,Registered public charities excluding hospitals and universities
+n_bmf_c3pc_hs,registered orgs,02b,both,FALSE,Registered human-services public charities (NTEE I-P)
+n_bmf_pf,registered orgs,02b,both,FALSE,Registered private foundations
+n_bmf_all_snap,registered orgs,02,both,FALSE,"Raw BMF snapshot count, all subsections (no gap filling)"
+n_bmf_c3_snap,registered orgs,02,both,FALSE,"Raw snapshot count, 501(c)(3)"
+n_bmf_c3pc_snap,registered orgs,02,both,FALSE,"Raw snapshot count, c3 public charities"
+n_bmf_c3pc_nohu_snap,registered orgs,02,both,FALSE,"Raw snapshot count, public charities excluding hospitals and universities"
+n_bmf_c3pc_hs_snap,registered orgs,02,both,FALSE,"Raw snapshot count, human-services public charities"
+n_bmf_pf_snap,registered orgs,02,both,FALSE,"Raw snapshot count, private foundations"
+bmf_months_off,registered orgs,02,county,FALSE,Months between the snapshot used and Dec 31 of the year
+bmf_src_monthly,registered orgs,02b,both,FALSE,1 = 2023-24 counts from the NCCS monthly BMF
+n_entry_c3,entries,08,both,FALSE,New 501(c)(3) registrations by ruling year
+n_entry_c3pc,entries,08,both,FALSE,New public-charity registrations
+n_entry_c3pc_nohu,entries,08,both,FALSE,New public-charity registrations excluding hospitals and universities
+n_entry_pf,entries,08,both,FALSE,New private-foundation registrations (NA for 2016-21)
+entry_src_monthly,entries,08,both,FALSE,1 = 2022-24 entries from the Dec 2024 monthly BMF (survivors only)
+post_splice_soi,nonprofit flags,06,county,FALSE,1 = year on or after the CORE -> SOI splice (2011)
+post_splice_efile,nonprofit flags,06,county,FALSE,1 = year on or after the SOI -> e-file splice (2020)
+edu_den,demography,17,both,FALSE,Population 25+
+edu_ba_num,demography,17,both,FALSE,Population 25+ with BA or higher
+fb_num,demography,17,both,FALSE,Foreign-born population
+fb_den,demography,17,both,FALSE,Total population (place of birth universe)
+gini,demography,17,both,TRUE,"Household income Gini index [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+pct_ba,demography,17,both,TRUE,"Share 25+ with BA+ [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+pct_foreign_born,demography,17,both,TRUE,"Foreign-born share [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+acs_mid_year,demography,17,county,FALSE,Midpoint year of the ACS 5-year window
+personal_income,economy,12,both,FALSE,Personal income
+bea_pop,economy,12,both,FALSE,"Population (BEA, midyear)"
+earn_total,economy,12,both,FALSE,Earnings by place of work
+wages_total,economy,12,both,FALSE,Wages and salaries
+gov_earn_total,economy,12,both,FALSE,Earnings: government and government enterprises
+gov_earn_federal_civ,economy,12,both,FALSE,Earnings: federal civilian government
+gov_earn_military,economy,12,both,FALSE,Earnings: military
+gov_earn_sl,economy,12,both,FALSE,Earnings: state and local government
+emp_total,economy,12,both,FALSE,Total employment (jobs)
+gov_emp_total,economy,12,both,FALSE,Employment: government and government enterprises
+gov_emp_sl,economy,12,both,FALSE,Employment: state and local government
+gdp_real,economy,12,both,FALSE,Real GDP (chained 2017 dollars)
+gdp_nominal,economy,12,both,FALSE,Current-dollar GDP
+tr_total,economy,12,both,TRUE,"Personal current transfer receipts [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_gov,economy,12,both,TRUE,"Transfer receipts of individuals from governments [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_socsec,economy,12,both,TRUE,"Social Security benefits [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_medical,economy,12,both,TRUE,"Medical benefits (Medicare + Medicaid + military) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_medicare,economy,12,both,TRUE,"Medicare benefits [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_medicaid,economy,12,both,TRUE,"Public assistance medical care (mostly Medicaid) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_income_maint,economy,12,both,TRUE,"Income maintenance (SSI, EITC, SNAP, other) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_snap,economy,12,both,TRUE,"SNAP benefits [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_unemp,economy,12,both,TRUE,"Unemployment insurance compensation [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_veterans,economy,12,both,TRUE,"Veterans' benefits [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_education,economy,12,both,TRUE,"Education and training assistance [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_nonprofit,economy,12,both,TRUE,"Transfer receipts of nonprofit institutions (descriptive only) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+votes_total,civic,16,both,FALSE,Total presidential votes cast (all candidates)
+votes_dem,civic,16,both,FALSE,Democratic presidential votes
+votes_rep,civic,16,both,FALSE,Republican presidential votes
+dem_share,civic,16,county,FALSE,votes_dem / votes_total
+rep_share,civic,16,county,FALSE,votes_rep / votes_total
+dem_margin,civic,16,both,TRUE,"(votes_dem - votes_rep) / votes_total [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+competitiveness,civic,16,county,FALSE,1 - |dem_margin|
+qcew_fgov_emp,government,22,both,FALSE,"QCEW federal government employment (annual average, place of work)"
+qcew_sgov_emp,government,22,both,FALSE,QCEW state government employment
+qcew_lgov_emp,government,22,both,FALSE,QCEW local government employment (incl. public schools and hospitals)
+qcew_fgov_wages,government,22,both,FALSE,QCEW federal government total annual wages ($)
+qcew_sgov_wages,government,22,both,FALSE,QCEW state government wages ($)
+qcew_lgov_wages,government,22,both,FALSE,QCEW local government wages ($)
+qcew_fgov_imputed,government,22,both,FALSE,"1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: federal"
+qcew_sgov_imputed,government,22,both,FALSE,"1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: state"
+qcew_lgov_imputed,government,22,both,FALSE,"1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: local"
+acs_cow_den,government,22,both,FALSE,ACS civilian employed residents 16+ (B24080 universe)
+acs_cow_npo,government,22,both,FALSE,ACS residents working for private not-for-profits
+acs_cow_lgov,government,22,both,FALSE,ACS residents working for local government
+acs_cow_sgov,government,22,both,FALSE,ACS residents working for state government
+acs_cow_fgov,government,22,both,FALSE,ACS residents working for federal government
+cog_curop,government,22,both,TRUE,"Local current operations, excl. utilities and liquor stores (E codes) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_capital,government,22,both,TRUE,"Local capital outlay, excl. utilities (F+G) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_assist,government,22,both,TRUE,"Local assistance and subsidies (J) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_interest,government,22,both,TRUE,"Local interest on general debt (I89) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_educ_curop,government,22,both,TRUE,"Local current operations, education (E12, E16, E18, E21) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_welfare,government,22,both,TRUE,"Local public welfare spending (E/J 67, 68, 74, 75, 77, 79) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_health_curop,government,22,both,TRUE,"Local health and hospitals current operations (E32, E36, E38) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_salaries,government,22,both,TRUE,"Local salaries and wages (Z00; not published for 2022) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_fed_igr,government,22,both,TRUE,"Local intergovernmental revenue from federal government (B) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_state_igr,government,22,both,TRUE,"Local intergovernmental revenue from state government (C) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+cog_dge,government,22,both,TRUE,"Local direct general expenditure = curop + capital + assist + interest [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+n1,giving,15,both,FALSE,Number of returns
+a00100,giving,15,both,FALSE,Adjusted gross income ($)
+n04470,giving,15,both,FALSE,Returns with itemized deductions
+a04470,giving,15,both,FALSE,Total itemized deductions ($)
+n19700,giving,15,both,FALSE,Returns claiming itemized charitable contributions
+a19700,giving,15,both,FALSE,Itemized charitable contributions ($)
+agi_per_return,giving,15,county,FALSE,AGI per return ($)
+itemizer_share,giving,15,county,FALSE,Share of returns itemizing
+contrib_claim_share,giving,15,county,FALSE,Share of returns claiming charitable contributions
+contrib_per_return,giving,30,both,TRUE,"Itemized contributions per tax return [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+contrib_per_claim,giving,15,county,FALSE,Contributions per claiming return ($)
+contrib_share_agi,giving,30,both,TRUE,"Itemized contributions / AGI [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+lf,economy,14,both,FALSE,"Civilian labor force, annual average"
+emp,economy,14,both,FALSE,"Employed, annual average"
+unemp,economy,14,both,FALSE,"Unemployed, annual average"
+unemp_rate_pub,economy,14,county,FALSE,"Published unemployment rate, percent"
+unemp_rate,economy,30,both,FALSE,Unemployment rate (share) = unemp / lf
+patents_frac,innovation,21,both,FALSE,"Utility patents by application year, fractional inventor counts"
+patents_corp,innovation,21,both,FALSE,Patents with a corporate assignee (fractional)
+patents_univnp,innovation,21,both,FALSE,Patents with a university or nonprofit assignee (fractional)
+patents_other,innovation,21,both,FALSE,Patents with another or no assignee (fractional)
+patents_truncated,innovation,21,both,FALSE,1 = application year 2021+ (grant lag truncates counts)
+pop_total,demography,11,both,FALSE,Total resident population (PEP July 1)
+pop_under18,demography,11,both,FALSE,Population under 18 (exact 2010+; 2000-2009 from 5-year bins calibrated to county 2010 ratio; see u18_method)
+pop_18plus,demography,11,both,FALSE,Population 18+ (= pop_total - pop_under18); voting-age denominator
+pop_65plus,demography,11,both,FALSE,Population 65+ (AGEGRP 14-18)
+n_nhwhite,demography,11,both,FALSE,Count: non-Hispanic White alone
+n_nhblack,demography,11,both,FALSE,Count: non-Hispanic Black alone
+n_nhaian,demography,11,both,FALSE,Count: non-Hispanic AIAN alone
+n_nhasian,demography,11,both,FALSE,Count: non-Hispanic Asian alone
+n_nhnhpi,demography,11,both,FALSE,Count: non-Hispanic NHPI alone
+n_nhtwo,demography,11,both,FALSE,Count: non-Hispanic two or more races
+n_hisp,demography,11,both,FALSE,Count: Hispanic (any race)
+race_den,demography,11,both,FALSE,Sum of the 7 race/ethnicity groups (= pop_total)
+pop_age_00_04,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_05_09,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_10_14,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_15_19,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_20_24,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_25_29,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_30_34,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_35_39,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_40_44,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_45_49,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_50_54,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_55_59,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_60_64,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_65_69,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_70_74,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_75_79,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_80_84,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+pop_age_85_plus,demography,11,both,FALSE,Count in five-year age bin (numerators for age_sd / age_hhi)
+race_hhi,demography,11,both,FALSE,Herfindahl index of the 7 race/ethnicity shares (num: group counts; den: race_den)
+race_diversity,demography,11,county,FALSE,1 - race_hhi
+pct_nonwhite,demography,11,both,FALSE,1 - n_nhwhite / pop_total
+pct_hispanic,demography,11,county,FALSE,n_hisp / pop_total
+pct_black,demography,11,county,FALSE,n_nhblack / pop_total (non-Hispanic Black alone)
+pct_65plus,demography,11,both,FALSE,pop_65plus / pop_total
+pct_under18,demography,11,county,FALSE,pop_under18 / pop_total
+age_mean,demography,11,county,FALSE,Mean age from 18 five-year bins (midpoints; 85+ = 87.5)
+age_sd,demography,11,both,FALSE,SD of age from 18 five-year bins (midpoints; 85+ = 87.5)
+age_hhi,demography,11,county,FALSE,Herfindahl index over the 18 five-year age bins
+qcew_priv_estab,economy,20,both,FALSE,private establishments (annual average)
+qcew_priv_emp,economy,20,both,FALSE,private employment (annual average)
+qcew_priv_wages,economy,20,both,FALSE,private total annual wages ($)
+qcew_813_estab,economy,20,both,FALSE,"NAICS 813 membership-organization establishments, private (NA = suppressed)"
+qcew_813_emp,economy,20,both,FALSE,"NAICS 813 employment, private"
+qcew_813_wages,economy,20,both,FALSE,"NAICS 813 wages, private ($)"
+qcew_privx813_estab,economy,20,both,FALSE,Private establishments excluding NAICS 813
+qcew_privx813_emp,economy,20,both,FALSE,Private employment excluding NAICS 813
+qcew_privx813_wages,economy,20,both,FALSE,Private wages excluding NAICS 813 ($)
+qcew_813_suppressed,economy,20,both,FALSE,1 = county's 813 cell suppressed
+rel_cng,religion,18,both,TRUE,"congregations (count) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+rel_adh,religion,18,both,TRUE,"adherents (count) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+rel_cath_adh,religion,18,both,TRUE,"Catholic adherents (count) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+rel_hhi,religion,18,both,TRUE,"HHI of adherent shares across religious bodies (0-1; higher = more concentrated) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+rel_groups,religion,18,county,FALSE,religious bodies with adherents in the county
+rel_2000_noblack,religion,18,both,FALSE,1 = 2000 file (historically Black bodies largely missing)
+pov_n,need,13,both,FALSE,"Persons in poverty, all ages (SAIPE point estimate)"
+pov_universe,need,13,both,FALSE,"Poverty universe, all ages (SAEPOVU_ALL)"
+pov_rate_pub,need,13,county,FALSE,"SAIPE published poverty rate, percent"
+mhi,need,13,both,FALSE,"Median household income, nominal dollars"
+pov_rate,need,13,county,FALSE,"Poverty rate, percent = 100 * pov_n / pov_universe"
+socap_assn_n,social capital,19,both,TRUE,"association establishments (sum of 10 categories; CBP) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+socap_n_relig,social capital,19,both,FALSE,Religious organizations (CBP establishments)
+socap_n_civic,social capital,19,both,FALSE,Civic and social associations
+socap_n_bus,social capital,19,both,FALSE,Business associations
+socap_n_pol,social capital,19,both,FALSE,Political organizations
+socap_n_prof,social capital,19,both,FALSE,Professional organizations
+socap_n_labor,social capital,19,both,FALSE,Labor organizations
+socap_n_bowl,social capital,19,both,FALSE,Bowling centers
+socap_n_fitness,social capital,19,both,FALSE,Fitness and recreational sports centers
+socap_n_golf,social capital,19,both,FALSE,Golf courses and country clubs
+socap_n_sport,social capital,19,both,FALSE,Sports teams and clubs
+socap_respn,social capital,19,both,TRUE,"Census mail response rate [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+socap_sk,social capital,19,both,TRUE,"published Rupasingha index (contains nccs = nonprofit density and pvote; validation / kitchen only) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+socap_sk2,social capital,19,both,TRUE,"PC1 of log assn rate and respn, re-estimated per wave without nccs and pvote [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+socap_interp2000,social capital,19,both,FALSE,1 = 2000 interpolated from 1997 and 2005
+cbsa,keys,01,both,FALSE,"CBSA code, OMB 2023 delineation"
+cbsa_type,keys,01,both,FALSE,Metropolitan or micropolitan statistical area
+state_fips,keys,01,both,FALSE,State FIPS code (CBSA: state of the principal county)
+pcpi,economy,30,both,FALSE,Per-capita personal income = personal_income / bea_pop
+gov_emp_share,government,30,both,FALSE,State and local government share of jobs = gov_emp_sl / emp_total
+gov_earn_share,government,30,both,FALSE,State and local government share of earnings = gov_earn_sl / earn_total
+poverty_rate,need,30,both,FALSE,Poverty rate (share) = pov_n / pov_universe
+med_hh_income,need,30,both,FALSE,"Median household income, nominal $ (copy of mhi; CBSA: population-weighted)"
+contrib_total,giving,30,both,TRUE,"Itemized charitable contributions, $ (= a19700) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+pct_adherent,religion,30,both,TRUE,"Religious adherents / population [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+pct_catholic,religion,30,both,TRUE,"Catholic adherents / all adherents [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+gdp_per_worker,economy,30,both,FALSE,Real GDP per job = gdp_real / emp_total
+qcew_avg_pay,economy,30,both,FALSE,Average private annual pay = qcew_priv_wages / qcew_priv_emp
+turnout,civic,30,both,TRUE,"Presidential votes / population 18+ [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+tr_medmaint,government,30,both,FALSE,Medicare + Medicaid + income-maintenance transfers
+acs_pct_gov,government,30,both,FALSE,Share of employed residents working for any government (ACS)
+acs_pct_lgov,government,30,both,FALSE,Share of employed residents working for local government (ACS)
+qcew_lgov_share,government,30,both,FALSE,Local government share of QCEW employment (government + private)
+gov_labor_intensity,government,30,both,FALSE,Local government wages / local current operations
+gov_indirect_share,government,30,both,FALSE,"Indirect government (Medicare, Medicaid, income maintenance) / (indirect + state and local wages)"
+n_counties,keys,30,cbsa,FALSE,Number of county-equivalents in the CBSA
+bls_npo_estab,BLS nonprofit,07,cbsa,FALSE,"501(c)(3) establishments, QCEW-IRS match (MSA, 2013-22)"
+bls_npo_emp,BLS nonprofit,07,cbsa,FALSE,501(c)(3) annual average employment
+bls_npo_wages,BLS nonprofit,07,cbsa,FALSE,501(c)(3) total annual wages ($)
+bls_priv_estab,BLS nonprofit,07,cbsa,FALSE,All private establishments
+bls_priv_emp,BLS nonprofit,07,cbsa,FALSE,All private employment
+bls_priv_wages,BLS nonprofit,07,cbsa,FALSE,All private total annual wages ($)
+bls_pct_npo,BLS nonprofit,07,cbsa,FALSE,Nonprofit share of private employment
+bls_wage_ratio,BLS nonprofit,07,cbsa,FALSE,Nonprofit / private average annual wage (raw)
+bls_wage_ratio_adj,BLS nonprofit,07,cbsa,FALSE,Composition-adjusted wage ratio (fixed 2018 national sector weights)
+bls_wage_ratio_cov,BLS nonprofit,07,cbsa,FALSE,Share of national sector weight available for the adjusted ratio
+bls_pct_npo_61,BLS nonprofit,07,cbsa,FALSE,"Nonprofit share of employment, educational services (NAICS 61)"
+bls_pct_npo_62,BLS nonprofit,07,cbsa,FALSE,"Nonprofit share of employment, health care and social assistance (62)"
+bls_pct_npo_624,BLS nonprofit,07,cbsa,FALSE,"Nonprofit share of employment, social assistance (624)"
+bls_pct_npo_71,BLS nonprofit,07,cbsa,FALSE,"Nonprofit share of employment, arts and recreation (71)"
+bls_delin_flag,BLS nonprofit,07,cbsa,FALSE,1 = MSA code absent from the 2023 delineation or its county set changed
+mkt_hhi_con_c3,market competition,23,cbsa,FALSE,"HHI of organization shares (0-1), whole metro; contributions; all 501(c)(3)"
+mkt_hhi_con_local,market competition,23,cbsa,FALSE,"HHI of organization shares (0-1), whole metro; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_hhi_con_nohu,market competition,23,cbsa,FALSE,"HHI of organization shares (0-1), whole metro; contributions; excl. hospitals and universities"
+mkt_hhi_rev_c3,market competition,23,cbsa,FALSE,"HHI of organization shares (0-1), whole metro; revenue; all 501(c)(3)"
+mkt_hhi_rev_local,market competition,23,cbsa,FALSE,"HHI of organization shares (0-1), whole metro; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_hhi_rev_nohu,market competition,23,cbsa,FALSE,"HHI of organization shares (0-1), whole metro; revenue; excl. hospitals and universities"
+mkt_nhhi_con_c3,market competition,23,cbsa,FALSE,Normalized HHI (hhi - 1/n)/(1 - 1/n); contributions; all 501(c)(3)
+mkt_nhhi_con_local,market competition,23,cbsa,FALSE,"Normalized HHI (hhi - 1/n)/(1 - 1/n); contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_nhhi_con_nohu,market competition,23,cbsa,FALSE,Normalized HHI (hhi - 1/n)/(1 - 1/n); contributions; excl. hospitals and universities
+mkt_nhhi_rev_c3,market competition,23,cbsa,FALSE,Normalized HHI (hhi - 1/n)/(1 - 1/n); revenue; all 501(c)(3)
+mkt_nhhi_rev_local,market competition,23,cbsa,FALSE,"Normalized HHI (hhi - 1/n)/(1 - 1/n); revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_nhhi_rev_nohu,market competition,23,cbsa,FALSE,Normalized HHI (hhi - 1/n)/(1 - 1/n); revenue; excl. hospitals and universities
+mkt_xs_con_c3,market competition,23,cbsa,FALSE,Excess concentration n x HHI; contributions; all 501(c)(3)
+mkt_xs_con_local,market competition,23,cbsa,FALSE,"Excess concentration n x HHI; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_xs_con_nohu,market competition,23,cbsa,FALSE,Excess concentration n x HHI; contributions; excl. hospitals and universities
+mkt_xs_rev_c3,market competition,23,cbsa,FALSE,Excess concentration n x HHI; revenue; all 501(c)(3)
+mkt_xs_rev_local,market competition,23,cbsa,FALSE,"Excess concentration n x HHI; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_xs_rev_nohu,market competition,23,cbsa,FALSE,Excess concentration n x HHI; revenue; excl. hospitals and universities
+mkt_cr1_con_c3,market competition,23,cbsa,FALSE,Share of the largest organization; contributions; all 501(c)(3)
+mkt_cr1_con_local,market competition,23,cbsa,FALSE,"Share of the largest organization; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_cr1_con_nohu,market competition,23,cbsa,FALSE,Share of the largest organization; contributions; excl. hospitals and universities
+mkt_cr1_rev_c3,market competition,23,cbsa,FALSE,Share of the largest organization; revenue; all 501(c)(3)
+mkt_cr1_rev_local,market competition,23,cbsa,FALSE,"Share of the largest organization; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_cr1_rev_nohu,market competition,23,cbsa,FALSE,Share of the largest organization; revenue; excl. hospitals and universities
+mkt_cr4_con_c3,market competition,23,cbsa,FALSE,Share of the 4 largest organizations; contributions; all 501(c)(3)
+mkt_cr4_con_local,market competition,23,cbsa,FALSE,"Share of the 4 largest organizations; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_cr4_con_nohu,market competition,23,cbsa,FALSE,Share of the 4 largest organizations; contributions; excl. hospitals and universities
+mkt_cr4_rev_c3,market competition,23,cbsa,FALSE,Share of the 4 largest organizations; revenue; all 501(c)(3)
+mkt_cr4_rev_local,market competition,23,cbsa,FALSE,"Share of the 4 largest organizations; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_cr4_rev_nohu,market competition,23,cbsa,FALSE,Share of the 4 largest organizations; revenue; excl. hospitals and universities
+mkt_gini_con_c3,market competition,23,cbsa,FALSE,Gini of organization resources; contributions; all 501(c)(3)
+mkt_gini_con_local,market competition,23,cbsa,FALSE,"Gini of organization resources; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_gini_con_nohu,market competition,23,cbsa,FALSE,Gini of organization resources; contributions; excl. hospitals and universities
+mkt_gini_rev_c3,market competition,23,cbsa,FALSE,Gini of organization resources; revenue; all 501(c)(3)
+mkt_gini_rev_local,market competition,23,cbsa,FALSE,"Gini of organization resources; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_gini_rev_nohu,market competition,23,cbsa,FALSE,Gini of organization resources; revenue; excl. hospitals and universities
+mkt_small_con_c3,market competition,23,cbsa,FALSE,Share of resources held by organizations under $1M (2022 $); contributions; all 501(c)(3)
+mkt_small_con_local,market competition,23,cbsa,FALSE,"Share of resources held by organizations under $1M (2022 $); contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_small_con_nohu,market competition,23,cbsa,FALSE,Share of resources held by organizations under $1M (2022 $); contributions; excl. hospitals and universities
+mkt_small_rev_c3,market competition,23,cbsa,FALSE,Share of resources held by organizations under $1M (2022 $); revenue; all 501(c)(3)
+mkt_small_rev_local,market competition,23,cbsa,FALSE,"Share of resources held by organizations under $1M (2022 $); revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_small_rev_nohu,market competition,23,cbsa,FALSE,Share of resources held by organizations under $1M (2022 $); revenue; excl. hospitals and universities
+mkt_shhi_con_c3,market competition,23,cbsa,FALSE,Resource-weighted mean HHI of metro x NTEE major-group markets; contributions; all 501(c)(3)
+mkt_shhi_con_local,market competition,23,cbsa,FALSE,"Resource-weighted mean HHI of metro x NTEE major-group markets; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_shhi_con_nohu,market competition,23,cbsa,FALSE,Resource-weighted mean HHI of metro x NTEE major-group markets; contributions; excl. hospitals and universities
+mkt_shhi_rev_c3,market competition,23,cbsa,FALSE,Resource-weighted mean HHI of metro x NTEE major-group markets; revenue; all 501(c)(3)
+mkt_shhi_rev_local,market competition,23,cbsa,FALSE,"Resource-weighted mean HHI of metro x NTEE major-group markets; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_shhi_rev_nohu,market competition,23,cbsa,FALSE,Resource-weighted mean HHI of metro x NTEE major-group markets; revenue; excl. hospitals and universities
+mkt_shhio_con_c3,market competition,23,cbsa,FALSE,Organization-weighted mean HHI of metro x NTEE major-group markets; contributions; all 501(c)(3)
+mkt_shhio_con_local,market competition,23,cbsa,FALSE,"Organization-weighted mean HHI of metro x NTEE major-group markets; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_shhio_con_nohu,market competition,23,cbsa,FALSE,Organization-weighted mean HHI of metro x NTEE major-group markets; contributions; excl. hospitals and universities
+mkt_shhio_rev_c3,market competition,23,cbsa,FALSE,Organization-weighted mean HHI of metro x NTEE major-group markets; revenue; all 501(c)(3)
+mkt_shhio_rev_local,market competition,23,cbsa,FALSE,"Organization-weighted mean HHI of metro x NTEE major-group markets; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_shhio_rev_nohu,market competition,23,cbsa,FALSE,Organization-weighted mean HHI of metro x NTEE major-group markets; revenue; excl. hospitals and universities
+mkt_scr4o_con_c3,market competition,23,cbsa,FALSE,Organization-weighted mean CR4 of metro x NTEE major-group markets; contributions; all 501(c)(3)
+mkt_scr4o_con_local,market competition,23,cbsa,FALSE,"Organization-weighted mean CR4 of metro x NTEE major-group markets; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_scr4o_con_nohu,market competition,23,cbsa,FALSE,Organization-weighted mean CR4 of metro x NTEE major-group markets; contributions; excl. hospitals and universities
+mkt_scr4o_rev_c3,market competition,23,cbsa,FALSE,Organization-weighted mean CR4 of metro x NTEE major-group markets; revenue; all 501(c)(3)
+mkt_scr4o_rev_local,market competition,23,cbsa,FALSE,"Organization-weighted mean CR4 of metro x NTEE major-group markets; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_scr4o_rev_nohu,market competition,23,cbsa,FALSE,Organization-weighted mean CR4 of metro x NTEE major-group markets; revenue; excl. hospitals and universities
+mkt_mix_con_c3,market competition,23,cbsa,FALSE,HHI of metro resources across NTEE major groups; contributions; all 501(c)(3)
+mkt_mix_con_local,market competition,23,cbsa,FALSE,"HHI of metro resources across NTEE major groups; contributions; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_mix_con_nohu,market competition,23,cbsa,FALSE,HHI of metro resources across NTEE major groups; contributions; excl. hospitals and universities
+mkt_mix_rev_c3,market competition,23,cbsa,FALSE,HHI of metro resources across NTEE major groups; revenue; all 501(c)(3)
+mkt_mix_rev_local,market competition,23,cbsa,FALSE,"HHI of metro resources across NTEE major groups; revenue; excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_mix_rev_nohu,market competition,23,cbsa,FALSE,HHI of metro resources across NTEE major groups; revenue; excl. hospitals and universities
+mkt_small_n_c3,market competition,23,cbsa,FALSE,Share of active filers under $1M (2022 $); all 501(c)(3)
+mkt_small_n_local,market competition,23,cbsa,FALSE,"Share of active filers under $1M (2022 $); excl. hospitals, universities, support orgs (B11), health (E-H), international (Q), research (U), grantmakers (T), uncoded"
+mkt_small_n_nohu,market competition,23,cbsa,FALSE,Share of active filers under $1M (2022 $); excl. hospitals and universities
+cbsa_title,keys,01,cbsa,FALSE,CBSA name
+hist_pre1970,history,25,cbsa,FALSE,Share of the 2000 public-charity stock ruled before 1970 (NA where > 0.6)
+lag_g5,history,26,cbsa,FALSE,"Population growth kernel, 5-year lag"
+lag_g10,history,26,cbsa,FALSE,"Population growth kernel, 10-year lag"
+gini_m,need,27,cbsa,FALSE,Metro household-income Gini from summed ACS brackets (2010-24)
