@@ -482,6 +482,100 @@ years, which no US study does.
 
 :::
 
+# All studies by population, outcome and form
+
+The table classifies every place-level study on this page on three of the
+multiverse's decisions:
+
+- **Population counted (D1):**
+  - **Grassroots:** registered organizations that do not file a full return. No
+    study isolates them, so the column marks studies of *new registrations*, which
+    are mostly future grassroots.
+  - **Filers:** organizations filing a Form 990 or 990-EZ, including studies that
+    count employers or establishments.
+  - **All registered:** the full registered stock, which is mostly grassroots.
+- **Outcome measured:** counts, expenses, revenue or assets. Other outcomes are in
+  the notes.
+- **Form (D4):** how the outcome handles population.
+  - **Raw:** no population adjustment, or population entered only linearly.
+  - **Per capita:** the outcome divided by population, logged or not, including
+    Poisson models with a population offset. All of these impose a scaling exponent
+    of 1.
+  - **Log, no log P:** a logged outcome with population absent or entered linearly.
+  - **SAMI or log with log P:** a logged outcome with log population on the right,
+    so the exponent is estimated, or the residual from that fit.
+
+✓ = yes; ? = not confirmed from the paper.
+
+Column key:
+- **Population:** Grass = grassroots (new registrations); Filer = filers; All = all
+  registered.
+- **Outcome:** Cnt = counts; Exp = expenses; Rev = revenue; Ast = assets.
+- **Form:** Raw; PC = per capita; Log = log, no log P; SAMI = SAMI or log with
+  log P.
+
+::: {.table-compact .table-matrix}
+
+| Study | Grass | Filer | All | Cnt | Exp | Rev | Ast | Raw | PC | Log | SAMI | Notes |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| @benner1992empirical |  | ✓ |  |  |  |  |  |  |  | ? | ? | Employment; log-linear system, population term not confirmed |
+| @corbin1999study |  | ✓ |  | ✓ |  |  |  | ✓ |  |  |  | Social-service establishments; no population term |
+| @bielefeld2000metropolitan |  | ✓ |  | ✓ |  | ✓ |  |  | ✓ |  |  | Rank correlations, 9 metros |
+| @gronbjerg2001community |  |  | ✓ | ✓ |  |  |  |  | ✓ |  |  | By 501(c) type |
+| @matsunaga2004government |  | ✓ |  | ✓ |  |  |  |  | ✓ |  |  | Log per capita, state fixed effects |
+| @saxton2005social | ✓ |  |  | ✓ |  |  |  | ✓ |  |  |  | Foundings; count model, population as a control |
+| @lecy2013nonprofit |  | ✓ |  | ✓ |  |  |  | ✓ |  |  |  | Human services; population and its square |
+| @marquis2013golfing |  | ✓ |  | ✓ |  |  |  | ✓ |  |  |  | Only \$10M+ assets; lagged count, population as a control |
+| @kim2015socioeconomic |  |  | ✓ | ✓ |  |  |  |  | ✓ |  |  | Whole sector and 10 subsectors |
+| @bae2018factors |  | ✓ |  |  |  |  |  |  |  | ✓ |  | Log employment; population linear |
+| @shapiro2026racial |  | ✓ |  |  | ✓ |  |  |  | ✓ |  |  | Human services, log per capita |
+| @kim2026interdependence |  |  | ✓ | ✓ |  |  |  |  |  | ? | ? | Environmental; log count, population as a control (form not confirmed) |
+| @mcdonnell2026development |  |  | ✓ | ✓ |  |  |  |  | ✓ |  |  | England and Wales register |
+| @allard2023volatility |  | ✓ |  |  | ✓ |  |  |  | ✓ |  |  | Per capita and per poor person |
+| @kim2022prevalence | ? | ? | ? | ✓ |  |  |  | ? | ? | ? | ? | Ethnic, cultural and folk organizations |
+| @shapiro2021inequality |  | ✓ |  |  | ✓ |  |  |  | ✓ |  |  | Log per person in poverty |
+| @wu2021geography |  |  |  | ✓ |  | ✓ | ✓ |  | ✓ |  |  | Community foundations; grants, donations and assets per capita |
+| @jeong2020density |  |  | ✓ | ✓ |  |  |  |  | ✓ |  |  | Log per 10,000; arts, health, human services |
+| @mcdonnell2020charity |  |  | ✓ | ✓ |  |  |  |  | ✓ |  |  | England and Wales register |
+| @vanpuyvelde2016determinants |  |  | ✓ | ✓ |  |  |  |  | ✓ |  |  | Texas counties |
+| @mayer2025connecting | ✓ |  | ✓ | ✓ |  |  |  |  | ✓ |  |  | Foundings (registrations) and dissolutions; population offset |
+| @shon2024demographic |  | ✓ |  | ✓ |  |  |  | ✓ |  |  |  | Dissolutions; population as a control |
+| @wo2018density | ? | ? | ? | ✓ |  |  |  | ? | ? | ? | ? | Census tracts, Los Angeles |
+| @never2016place |  | ✓ |  |  | ✓ |  |  | ? | ? | ? | ? | Spatial Durbin model |
+| @yan2014antipoverty | ? | ? | ? | ✓ |  |  |  | ? | ? | ? | ? | Census tracts; spatial Poisson |
+| @peck2008antipoverty | ? | ? | ? | ✓ | ✓ |  |  | ? | ? | ? | ? | Phoenix |
+| **This project's multiverse** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |  |  | ✓ |  |  ✓ | Every combination crossed (Part 6) |
+
+: Populations, outcomes and forms of the place-level studies. Not classified: the organization-level survival and location studies (@lee2025exploring; @clifford2024passing; @lu2020dissolution; @garrow2015racial; @lee2017sustainability; @marwell2026configuring; @mayer2024location), the conservation study (@willse2023geography, whose outcome is whether a county has a support nonprofit), and the two meta-analyses (@lu2020population; @lu2018complementary). {#tbl-design-matrix}
+
+:::
+
+**What the table shows:**
+
+- **Per capita dominates.** Thirteen of the 26 classified studies divide by
+  population, which imposes a scaling exponent of 1. For *counts* that is close to
+  right at the metro level (Fact 1).
+- **Per capita misleads for spending.** Spending scales faster than population
+  (β ≈ 1.27 across metros, 1.46 across counties), so spending per resident rises
+  with size by construction. Every spending study here uses per capita or per poor
+  person: @shapiro2026racial, @shapiro2021inequality and @allard2023volatility.
+  Their rural and suburban gaps are therefore partly what scaling alone predicts
+  for smaller places (D4). Shapiro (2021) finds the *most* populous rural counties
+  spend relatively more, which fits that reading. That does not make the gaps
+  unimportant to a funder, but it changes their interpretation: some of the gap
+  is size, and some is underprovision.
+- **No study estimates the exponent.** None uses a SAMI or log population on the
+  right, except possibly Ben-Ner & Van Hoomissen and Kim, Zhang & Liu (not
+  confirmed). The multiverse is the only design here that lets the data decide how
+  density scales.
+- **Raw counts remain.** Five studies model raw counts with population only as a
+  linear control, or not at all. Corbin is the extreme case.
+- **Grassroots are never isolated.** Grassroots appear only inside "all registered"
+  or as new registrations. The diversity, poverty and government conflicts resolved
+  above each involve studies that counted different populations without saying so.
+- **Assets are almost never the outcome.** Only Wu (2021) measures assets, for
+  community foundations.
+
 # Do they strengthen our claims, or compete with them?
 
 Each claim below comes from this page or from the multiverse.
