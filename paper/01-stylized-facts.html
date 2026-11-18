@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jesse Lecy and Jeremy P. Thornton">
+<meta name="dcterms.date" content="2026-11-18">
+
+<title>Stylized Facts about Nonprofit Density Data – Nonprofit Density: Data and Multiverse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../site/07-multiverse-run.html" rel="next">
+<link href="../paper/02-variables.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-84b29b4d2a4d852f623629b45368f5f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../paper/03-multiverse-overview.html">Multiverse</a></li><li class="breadcrumb-item"><a href="../paper/01-stylized-facts.html">6. Stylized facts</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Nonprofit Density: Data and Multiverse</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/00-literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Literature review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/01-construction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Dataset construction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/02-files-sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Files, sources and dictionaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/03-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Workflow code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Multiverse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/03-multiverse-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Multiverse overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">5. Multiverse design</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/04-design-decisions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Decision cards</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/02-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Variables and constructs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/01-stylized-facts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">6. Stylized facts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">7. Running the multiverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/07-multiverse-run.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code and execution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/05-findings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Findings</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/08-next.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Where the research goes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-fact1" id="toc-sec-fact1" class="nav-link active" data-scroll-target="#sec-fact1">Fact 1: Counts scale proportionally, spending does not</a></li>
+  <li><a href="#sec-fact2" id="toc-sec-fact2" class="nav-link" data-scroll-target="#sec-fact2">Fact 2: Density is nearly frozen</a></li>
+  <li><a href="#sec-fact3" id="toc-sec-fact3" class="nav-link" data-scroll-target="#sec-fact3">Fact 3: Density runs on two clocks</a></li>
+  <li><a href="#sec-fact4" id="toc-sec-fact4" class="nav-link" data-scroll-target="#sec-fact4">Fact 4: Registered charities are two populations</a></li>
+  <li><a href="#sec-fact5" id="toc-sec-fact5" class="nav-link" data-scroll-target="#sec-fact5">Fact 5: Market share sets the level, not the pace</a></li>
+  <li><a href="#sec-fact6" id="toc-sec-fact6" class="nav-link" data-scroll-target="#sec-fact6">Fact 6: Size is the main source of collinearity</a></li>
+  <li><a href="#sec-fact7" id="toc-sec-fact7" class="nav-link" data-scroll-target="#sec-fact7">Fact 7: Data hazards are frequent and patterned</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/paper/01-stylized-facts.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../paper/03-multiverse-overview.html">Multiverse</a></li><li class="breadcrumb-item"><a href="../paper/01-stylized-facts.html">6. Stylized facts</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Stylized Facts about Nonprofit Density Data</h1>
+<p class="subtitle lead">Seven regularities any density design has to confront</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jesse Lecy and Jeremy P. Thornton </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Seven regularities hold in metro-level 501(c)(3) density data before any covariate enters a model. Each is descriptive, and together they motivate the design decisions in the decision cards (D1–D12, in <code>04-design-decisions.qmd</code>). Data cover 387 US metros, 2000–2024, unless noted.</p>
+<ol type="1">
+<li><strong>Counts scale proportionally; spending scales faster and depends on the unit.</strong>
+<ul>
+<li>Full-sector counts: β ≈ 1.00 at every aggregation (county, metro, metro + micro, CSA) and under OLS and Poisson (range 0.01–0.02).</li>
+<li>Counts look sublinear (β ≈ 0.88) only after conditioning on covariates.</li>
+<li>Spending: county 1.46 → metro 1.27 → CSA 1.23 (OLS). Big-budget organizations sit in core counties.</li>
+<li>Subsectors differ: human services and environment are sublinear (0.90–0.96); education, religion-related and international are superlinear (1.07–1.21).</li>
+</ul></li>
+<li><strong>Density is nearly frozen.</strong>
+<ul>
+<li>Filer SAMIs correlate .94 twenty years apart; 97.5% of their variance is between metros.</li>
+<li>No convergence: the cross-metro SD is .40 in both 2000 and 2024; λ = −.064 over 24 years (half-life about 240 years).</li>
+<li>Filer density is more persistent than metro GDP.</li>
+</ul></li>
+<li><strong>Density lags population, but differently within and across metros.</strong>
+<ul>
+<li>Within a metro, half of size-expected organizations are missing right after growth. The gap closes with a half-life of about 5 years (filers) and 9 years (grassroots) in local projections, and about 10 and 7.5 years in kernel (distributed-lag) models in levels.</li>
+<li>Across metros, the Sunbelt deficit (about −25% for the fastest-growing fifth) predates 2000, tracks 1970–2000 growth, and closes only once growth slows (half-life about 35 years). Stock-flow accounting shows it is a lag, not a trait: fast growers add at least as many entrants per resident as other metros, and growth alone produces the gap.</li>
+<li>Decline is asymmetric: organizations stay at first, then grassroots shed the excess (half-life about 4 years). Relative income losses lower filer density immediately; gains do nothing.</li>
+</ul></li>
+<li><strong>Filers and grassroots are two populations.</strong>
+<ul>
+<li>Grassroots (registered non-filers) are 72–80% of the registered stock and also scale at about 1.0.</li>
+<li>Filers follow the local economy (income, wages, market share) and do not converge across metros.</li>
+<li>Grassroots follow endowment and demography and converge (half-life about 27 years).</li>
+<li>Filer catch-up comes from existing organizations crossing the filing floor, not from new registrations.</li>
+</ul></li>
+<li><strong>Nonprofit market share sets the level, not the pace.</strong>
+<ul>
+<li>Share of private employment (BLS) explains about a third of the density percentile and absorbs the growth-history effect.</li>
+<li>It is at most a soft ceiling on catch-up (grassroots only). Regions differ in its level, not its change.</li>
+<li>It partly measures the outcome: it includes hospitals and universities and rises with density. The regional gap in share is mostly ownership: the Northeast has 61 nonprofit jobs per 1,000 residents, the South 25, with similar for-profit employment.</li>
+<li>Older sectors hold larger shares. Northeast and Midwest filers are about 3.5 years older than those in the South and West, and Northeast filers last longest. Within the South and West, each extra year of average filer age goes with about 6% more share.</li>
+</ul></li>
+<li><strong>Size is the main source of collinearity.</strong>
+<ul>
+<li>In log form, size-scaled covariates correlate .80–.94 with log population (2022 metros); the SAMI transformation removes it (largest VIF 2.2 in the default model).</li>
+<li>Entering every candidate measure at once makes blocks cancel; one composite per block recovers them.</li>
+</ul></li>
+<li><strong>Data hazards are frequent and patterned.</strong>
+<ul>
+<li>Source splices (CORE → SOI in 2011, SOI → e-file in 2020) move spending SAMIs, not counts. TY2020 counts are about 9% low.</li>
+<li>Group exemptions inflate a few metros (Memphis, Mankato).</li>
+<li>Panel covariates are often interpolated (turnout observed in 23% of metro-years; ACS rolling averages).</li>
+<li>Itemized contributions break at the 2018 tax change; association counts and the Rupasingha index partly count nonprofits. A total with zeros (foundation assets in Eagle Pass, TX) becomes a leverage point under log(1 + x).</li>
+</ul></li>
+</ol>
+<section id="sec-fact1" class="level1">
+<h1>Fact 1: Counts scale proportionally, spending does not</h1>
+<p><strong>Organization counts grow in proportion to population; spending grows faster, and how much faster depends on the geographic unit.</strong> This one fact decides whether per-capita measures are safe.</p>
+<p><strong>Evidence 1: two exponents, two verdicts on per capita</strong> (387 metros, 2022).</p>
+<ul>
+<li>Filers scale at β = 0.99. Filers per capita change by −3% per tenfold increase in population, and size explains 0.1% of their variance. The SAMI and log filers per capita correlate .999.</li>
+<li>Spending (excluding hospitals and universities) scales at β = 1.29. Spending per resident rises 95% per tenfold increase in population, and size explains 16% of its variance. The SAMI and log spending per capita correlate only .92.</li>
+</ul>
+<div id="fig-f1-scaling" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f1-scaling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f1_scaling.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f1-scaling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Filers and spending against population on log-log axes, with fitted exponents of 0.99 and 1.29, and the per-capita versions: spending per resident rises with size, filers per resident do not.
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 2: the spending exponent depends on the unit; the count exponent does not.</strong></p>
+<div id="tbl-f1-units" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f1-units-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Scaling exponent β by geographic unit and estimator.
+</figcaption>
+<div aria-describedby="tbl-f1-units-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Full sector, 2022</th>
+<th>County</th>
+<th>Metro</th>
+<th>CSA</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Counts, OLS</td>
+<td>0.98</td>
+<td>0.99</td>
+<td>0.98</td>
+<td>0.01</td>
+</tr>
+<tr class="even">
+<td>Counts, Poisson</td>
+<td>1.00</td>
+<td>1.01</td>
+<td>1.02</td>
+<td>0.02</td>
+</tr>
+<tr class="odd">
+<td>Spending, OLS</td>
+<td>1.46</td>
+<td>1.27</td>
+<td>1.23</td>
+<td>0.23</td>
+</tr>
+<tr class="even">
+<td>Spending, Poisson</td>
+<td>1.25</td>
+<td>1.14</td>
+<td>1.13</td>
+<td>0.12</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Big-budget organizations sit in core counties. At the county level their spending is credited to the core county’s population alone; at the metro level the suburbs share the denominator.</p>
+<div id="fig-f1-aggregation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f1-aggregation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f1_by_aggregation.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f1-aggregation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Scaling exponent by aggregation (county, metro, CSA) for each subsector, counts and expenses, OLS and Poisson.
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 3: the exponent people report depends on what else is in the model.</strong></p>
+<div id="tbl-f1-conditional" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f1-conditional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Scaling exponent with and without covariates.
+</figcaption>
+<div aria-describedby="tbl-f1-conditional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metros</th>
+<th>Bivariate</th>
+<th>Conditional on covariates (cross-section)</th>
+<th>Over time, within metro</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Filers</td>
+<td>0.99</td>
+<td>0.88</td>
+<td>0.79</td>
+</tr>
+<tr class="even">
+<td>Spending excl. hospitals and universities</td>
+<td>1.29</td>
+<td>1.19</td>
+<td>0.77</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Counts look sublinear only after conditioning, and the conditional value moves with the covariates: with logged foundation assets and government earnings on the right it falls to about 0.61, because those variables carry size. Over time within a metro, both scale below 1, consistent with the lags in Fact 3.</p>
+<p><strong>Evidence 4: subsectors and zeros.</strong> With Poisson, subsector count exponents run from 0.90 (environment) to 1.21 (international). OLS on logs drops places with no organizations and biases the exponent down: hospitals at the county level give 0.36 by OLS and 0.81 by Poisson.</p>
+<p><strong>Evidence 5: a county model with metro fixed effects estimates something else.</strong> Within metros, the county exponent is 1.12 for counts and 1.80 for spending. That measures how organizations concentrate in core counties, not urban scaling.</p>
+<p><strong>What it means for practice.</strong></p>
+<ul>
+<li>Report β for the outcome, unit and estimator used, and say whether it is bivariate or conditional.</li>
+<li>Full-sector counts per capita are acceptable at the metro level; spending per capita is not. For spending, use log-log or SAMI forms (D4).</li>
+<li>Compare exponents only across studies that use the same unit: county spending exponents run about 0.2 above metro ones.</li>
+<li>Use Poisson whenever zeros are common (subsectors, small units).</li>
+</ul>
+<p><em>Sources: <code>R/notes/58_outline_analyses.R</code> part F (<code>D:/MULTIVERSE/data/outline/fact1_numbers.csv</code>); <code>notes/scaling-aggregation-results.md</code>; Thornton’s scaling page §3.</em></p>
+</section>
+<section id="sec-fact2" class="level1">
+<h1>Fact 2: Density is nearly frozen</h1>
+<p><strong>Filer density is nearly frozen.</strong> A metro’s density in 2000 predicts its density in 2024 almost perfectly, and the spread between metros has not narrowed. Grassroots and spending move more, but still slowly.</p>
+<p><strong>Evidence 1: persistence by outcome</strong> (387 metros, year-specific SAMIs, 2000–2024).</p>
+<div id="tbl-f2-persistence" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f2-persistence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Persistence of metro SAMIs, with GDP and income as benchmarks.
+</figcaption>
+<div aria-describedby="tbl-f2-persistence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>SAMI</th>
+<th>r, 1 yr</th>
+<th>r, 5 yrs</th>
+<th>r, 10 yrs</th>
+<th>r, 20 yrs</th>
+<th>Rank r, 2000 vs.&nbsp;2024</th>
+<th>Same quintile, 2000 and 2024</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Filers</td>
+<td>.99</td>
+<td>.98</td>
+<td>.97</td>
+<td>.94</td>
+<td>.93</td>
+<td>63%</td>
+</tr>
+<tr class="even">
+<td>Grassroots</td>
+<td>.99</td>
+<td>.95</td>
+<td>.89</td>
+<td>.78</td>
+<td>.70</td>
+<td>37%</td>
+</tr>
+<tr class="odd">
+<td>Spending excl. hospitals, universities</td>
+<td>.96</td>
+<td>.91</td>
+<td>.84</td>
+<td>.74</td>
+<td>.72</td>
+<td>46%</td>
+</tr>
+<tr class="even">
+<td><em>Real GDP (benchmark)</em></td>
+<td>.99</td>
+<td>.94</td>
+<td>.88</td>
+<td>.78</td>
+<td>.80</td>
+<td>51%</td>
+</tr>
+<tr class="odd">
+<td><em>Personal income (benchmark)</em></td>
+<td>.99</td>
+<td>.95</td>
+<td>.90</td>
+<td>.85</td>
+<td>.80</td>
+<td>48%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Filer density is more persistent than the size-adjusted economy itself; grassroots density is about as persistent as GDP.</p>
+<div id="fig-f2-persistence" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f2-persistence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f2_persistence.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f2-persistence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: SAMI correlation by lag, and year-to-year correlation by year, for filers, grassroots, spending, GDP and income.
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 2: almost all the variation is between metros.</strong></p>
+<ul>
+<li>97.5% of the variance in the filer SAMI is between metros. Within a metro its SD is about 0.06 log points, against 0.39 overall.</li>
+<li>A growth-curve model gives an SD of 0.38 for metro levels and 0.06 per decade for metro trends, with no relation between them (r = −.04).</li>
+<li>Covariates are just as fixed: within-metro shares of variance over 2010–2022 are 0.2% for % nonwhite, 0.8% for % BA, 3.3% for turnout and 6.7% for foundation assets, and much of that is interpolation.</li>
+</ul>
+<p><strong>Evidence 3: no convergence for filers.</strong></p>
+<ul>
+<li>The SD of the filer SAMI was .40 in 2000, .38 in 2015 and .40 in 2024.</li>
+<li>Regressing the 2000–2024 change on the 2000 level gives λ = −.064, a half-life of about 240 years. Instrumenting the 2000 level with the independent registered-stock measure gives −.060, so this is not measurement error.</li>
+<li>Grassroots narrowed slightly (SD .31 to .26; half-life about 27 years). Spending widened (.66 to .75).</li>
+</ul>
+<p><strong>Evidence 4: the few large moves.</strong> The top and bottom 10% of metros moved about ±25% relative to expected size in 24 years. Climbers include New Orleans (+33 percentile points), Chico (+31) and Cleveland TN (+28); decliners include Decatur IL and Hagerstown (−33 each) and Tyler (−29). These changes are real but noisy: the 24-year change correlates .62 with the 2011–2024 change and .41 with the change in the registered-stock SAMI.</p>
+<div id="fig-f2-rank-paths" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f2-rank-paths-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f2_rank_paths.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f2-rank-paths-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Percentile rank paths of the filer SAMI, 2000 to 2024: steady metros, the 12 largest climbers and the 12 largest decliners.
+</figcaption>
+</figure>
+</div>
+<p>Who moved, and where (top and bottom 10% by filer SAMI change, 39 metros each):</p>
+<div id="tbl-f2-movers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f2-movers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Profiles of the largest filer-density movers, 2000–02 to 2022–24.
+</figcaption>
+<div aria-describedby="tbl-f2-movers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Δ SAMI</th>
+<th>Start percentile</th>
+<th>Population growth</th>
+<th>South</th>
+<th>West</th>
+<th>Pre-1970 endowment SAMI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Risers</td>
+<td>+.22</td>
+<td>26</td>
+<td>16%</td>
+<td>33%</td>
+<td>44%</td>
+<td>−.19</td>
+</tr>
+<tr class="even">
+<td>Fallers</td>
+<td>−.22</td>
+<td>48</td>
+<td>28%</td>
+<td>49%</td>
+<td>18%</td>
+<td>+.09</td>
+</tr>
+<tr class="odd">
+<td><em>Middle 80%</em></td>
+<td>.00</td>
+<td>52</td>
+<td>18%</td>
+<td>40%</td>
+<td>20%</td>
+<td>+.06</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li><strong>Risers start low and have thin historical endowments.</strong> Fallers start near the middle and grew faster.</li>
+<li><strong>Growth alone does not predict the change</strong> (β = −.05, R² = .002), and no region has a meaningful slope of change on growth (all p &gt; .15).</li>
+<li><strong>Conditional on the starting level, growth and region matter.</strong> With region and census traits held fixed, the change falls with the starting SAMI (−.62 SD) and with population growth (−.44 SD) and rises with growth in % BA (+.32 SD). The West (+.87 SD) and South (+.32 SD) gained relative to the Northeast (R² .34): low-density Western and Southern metros drifted up, slowly.</li>
+</ul>
+<p><strong>Evidence 5: source changes show up in money, not counts.</strong> Year-to-year correlations for filers stay at .98 or above throughout. Spending correlations drop at the CORE-to-SOI splice in 2011 (.87) and again in 2020; grassroots dip in 2017–18, where BMF snapshots omit newly ruled organizations.</p>
+<p><strong>What it means for practice.</strong></p>
+<ul>
+<li>Within-metro designs work with about 2.5% of the outcome’s variance and mostly interpolated covariate change. Treat them as weakly identified (D3).</li>
+<li>Pooling years adds little beyond a single cross-section. Do not count metro-years as independent: cluster by metro and count degrees of freedom in metros.</li>
+<li>A single recent year represents a metro’s long-run filer density well. For spending, average several years and avoid splice years.</li>
+<li>Persistence makes history a confounder in levels models: today’s covariates partly stand in for conditions decades ago (Fact 3, D8).</li>
+</ul>
+<p><em>Sources: <code>notes/catchup-lag-results.qmd</code> section 1; <code>R/notes/50_followups_jeremy.R</code> part 2; <code>R/notes/52_endowment_change.R</code>; <code>notes/collinearity-composites-results.md</code> (within-metro shares).</em></p>
+</section>
+<section id="sec-fact3" class="level1">
+<h1>Fact 3: Density runs on two clocks</h1>
+<p><strong>Density runs on two clocks.</strong> Within a metro, nonprofits catch up with population growth in about five years. Between metros, density gaps left by decades of growth persist for a generation or more.</p>
+<p><strong>Evidence 1: within a metro, the lag is short.</strong> Share of size-expected growth realized, by horizon (Δlog N on Δlog P over h years, start-year FE, metros 2000–2024):</p>
+<div id="tbl-f3-horizon" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f3-horizon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Share of size-expected growth realized, by horizon.
+</figcaption>
+<div aria-describedby="tbl-f3-horizon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Years after growth</th>
+<th>1</th>
+<th>3</th>
+<th>5</th>
+<th>10</th>
+<th>15</th>
+<th>24</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Filers</td>
+<td>.49</td>
+<td>.69</td>
+<td>.76</td>
+<td>.91</td>
+<td>.98</td>
+<td>.96</td>
+</tr>
+<tr class="even">
+<td>Grassroots (registered non-filers)</td>
+<td>.41</td>
+<td>.53</td>
+<td>.58</td>
+<td>.69</td>
+<td>.76</td>
+<td>.78</td>
+</tr>
+<tr class="odd">
+<td>Expenditures</td>
+<td>.45</td>
+<td>.54</td>
+<td>.61</td>
+<td>.68</td>
+<td>.72</td>
+<td>.76</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Local projections give a half-life for the growth gap of about 5 years for filers and 9 for grassroots, measured against each metro’s own trend.</p>
+<div id="fig-f3-gap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f3-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f3_gap_by_direction.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f3-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Density gap in percent in the years after a metro grows 10%, holds steady (within ±1%) or shrinks 10% in three years, for filers, grassroots and expenditures. Within metro (metro + year FE). Below 0: fewer organizations than the new population implies; above 0: more; 0 = fully adjusted. After growth, filers close the gap by about year 8 and grassroots by year 12. Metros whose population barely moved show no lag. After decline, grassroots shed their excess by year 7.
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 2: between metros, the gap persists.</strong> Mean filer SAMI by quintile of 2000–2010 population growth:</p>
+<div id="tbl-f3-quintiles" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f3-quintiles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Mean filer SAMI by 2000s growth quintile.
+</figcaption>
+<div aria-describedby="tbl-f3-quintiles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Growth quintile</th>
+<th>Growth 2000s</th>
+<th>Share South or West</th>
+<th>2000</th>
+<th>2010</th>
+<th>2024</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Q1 (slowest)</td>
+<td>0.5%</td>
+<td>27%</td>
+<td>.05</td>
+<td>.07</td>
+<td>.07</td>
+</tr>
+<tr class="even">
+<td>Q3</td>
+<td>9.7%</td>
+<td>66%</td>
+<td>.02</td>
+<td>.01</td>
+<td>.02</td>
+</tr>
+<tr class="odd">
+<td>Q5 (fastest)</td>
+<td>23%</td>
+<td>96%</td>
+<td>−.25</td>
+<td>−.27</td>
+<td>−.26</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-f3-trajectories" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f3-trajectories-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f3_trajectories.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f3-trajectories-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Mean SAMI by 2000s population-growth quintile, 2000 to 2024, for expenditures, filers and grassroots.
+</figcaption>
+</figure>
+</div>
+<div id="fig-f3-trajectories-change" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f3-trajectories-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f3_trajectories_change.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f3-trajectories-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Change in mean SAMI since 2000 by growth quintile, on one shared scale. Each quintile is re-based to 0 in 2000. Filers stay within ±2% over 24 years in every quintile: fast growers kept pace with their own growth but never closed the inherited gap. Grassroots fan out by about ±9%.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li>The fastest-growing fifth sits about 25% below size-expected density in every year, although new growth after 2000 was matched almost one-for-one.</li>
+<li>The same holds in dollars. The median fastest-fifth metro spent $812 per resident in 2000 and $1,803 in 2024 (real 2022 dollars, excluding hospitals and universities), 30–45% below the other quintiles in both years. Its spending grew as fast as everyone else’s (+133% vs.&nbsp;+126% for all metros): no catch-up and no further falling behind.</li>
+<li>The 2000 gap tracks 1970–2000 growth (−.36 per log point, with region and census traits controlled; R² .63). Recent decades weigh more than older ones, as a lag would.</li>
+<li>The within-metro rates explain only about a quarter of the fastest fifth’s filer gap. Fast growers whose growth slowed after 2000 closed about a third of their gap in 24 years (half-life about 35 years); those still growing fast closed none.</li>
+<li>The growth-history gap does not survive nonprofit market share: fast growers also have small nonprofit workforces, and the two cannot be separated in a cross-section.</li>
+</ul>
+<p><strong>Evidence 2b: lag or trait? The flows say lag.</strong> A stock gains entrants and loses exits: dN/dt = fP − dN, where f is entrants per resident and d the exit rate. A metro whose flows held steady would settle at density f / (d + g), where g is population growth. That steady state splits exactly into three parts: entry per resident, the exit rate, and growth. Only the growth part is a lag: the stock trails a population that keeps arriving. A trait of in-migration would show as fewer entrants per resident or faster exit. The test uses 2012–13 to 2018–19, within one data source (SOI), so no splice enters.</p>
+<div id="tbl-f3-steady-state" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f3-steady-state-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7: Steady-state decomposition of filer density. Log points relative to the average metro. Fast growers = top fifth of 1970–2000 growth, split at the median of 2000–24 growth. The average metro adds 0.040 filers per 1,000 residents a year and loses 3.6% of its filers a year.
+</figcaption>
+<div aria-describedby="tbl-f3-steady-state-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Filers, 2012–19</th>
+<th>Metros</th>
+<th>Population growth per year</th>
+<th>Observed density vs.&nbsp;average metro</th>
+<th>Steady state implied by the flows</th>
+<th>of which: entry</th>
+<th>exit</th>
+<th>growth</th>
+<th>Observed minus steady state</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fast growers, still growing</td>
+<td>39</td>
+<td>2.1%</td>
+<td>−.20</td>
+<td>−.22</td>
+<td>+.13</td>
+<td>−.06</td>
+<td>−.28</td>
+<td>+.04</td>
+</tr>
+<tr class="even">
+<td>Fast growers, slowed down</td>
+<td>38</td>
+<td>0.7%</td>
+<td>−.10</td>
+<td>+.02</td>
+<td>+.00</td>
+<td>+.02</td>
+<td>−.00</td>
+<td>−.10</td>
+</tr>
+<tr class="odd">
+<td>All other metros</td>
+<td>305</td>
+<td>0.5%</td>
+<td>+.04</td>
+<td>+.05</td>
+<td>−.02</td>
+<td>+.01</td>
+<td>+.06</td>
+<td>+.01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-f3-lag-trait" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f3-lag-trait-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f3_gap_lag_trait.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f3-lag-trait-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Steady-state decomposition of filer and registered density for fast growers, distance from each metro’s own steady state, and entry per resident against 1970–2000 growth.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Still-growing fast growers are short because of growth alone.</strong> They add more entrants per resident than other metros (+.13), not fewer, and lose them a little faster (−.06). Growth (−.28) accounts for the whole gap. They sit at their own steady state (+.04, n.s.): the gap stays as long as growth does.</li>
+<li><strong>Slowed growers have normal flows but an inherited deficit.</strong> Entry and exit match other metros, so their flows would sustain average density. They sit about 10% below that level (−.10, SE .06; −.11 with region fixed effects). That is the signature of a lag: the gap should close, at a half-life of about 16 years if 2012–19 flows hold. That is faster than the roughly 35 years observed over 2000–2024.</li>
+<li><strong>1970–2000 growth leaves no trace in the flows.</strong> Entry per resident rises with current growth and dips after growth in 2000–12, as newcomers take time to form or join organizations. Net of both and of region, 1970–2000 growth predicts nothing: +.01 (SE .10) for filers and +.01 (SE .06) for registrations. Exit rates track none of the growth measures.</li>
+<li><strong>Registrations tell the same story with one twist.</strong> Still-growing fast growers sit 13% above the steady state their flows imply, so their registered density should keep falling while growth continues, as the grassroots trajectories show.</li>
+<li><strong>Entry carries most cross-metro differences.</strong> The steady state correlates .79 with observed filer density; entry alone correlates .78. The lowest-entry metros are border metros (Laredo, McAllen, Eagle Pass, Yuma), a trait not tied to growth history.</li>
+<li><strong>Limits.</strong> Entry counts new organizations, moves in and, for filers, organizations crossing the revenue floor. The test rules out lower entry or faster exit as the source of the fast growers’ gap. It cannot rule out a trait that works only through growth itself, and it says nothing about why fast growers have small nonprofit market shares.</li>
+</ul>
+<p><strong>Evidence 3: decline and income losses work differently.</strong></p>
+<ul>
+<li><strong>Population decline:</strong> organizations stay at first, so density rises. Filers realize only a third of the size-expected decline within five years, against three quarters of expected growth; grassroots then shed the excess, which halves in about 4 years and is gone by year 8, roughly twice as fast as they fill a growth shortfall.</li>
+<li><strong>Relative income loss:</strong> a 10% loss lowers filer density by about 1.5–2% at once, recovering with a half-life of about 10 years. Relative income gains do nothing, and registrations do not respond either way.</li>
+</ul>
+<p><strong>Evidence 4: catch-up runs through existing organizations.</strong> After growth, new registrations do not rise within a metro. Instead, the share of registered organizations that file climbs for 6–10 years: existing organizations grow past the filing thresholds and appear in the 990 data.</p>
+<p><strong>Evidence 5: one specification for the lag.</strong> Replace current population with a geometrically weighted memory of past changes, log N = β·log P + γ·G with metro and year fixed effects, where G[t] = a·G[t−1] + Δlog P[t] and a = 0.5^(1/half-life). 382 metros, 2000–2024; half-life chosen by fit, 95% intervals from 300 metro bootstrap draws:</p>
+<div id="tbl-f3-kernel" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f3-kernel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8: Kernel (distributed-lag) estimates of the adjustment to population change.
+</figcaption>
+<div aria-describedby="tbl-f3-kernel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Half-life (years)</th>
+<th>Long-run within-metro β</th>
+<th>Missing at impact</th>
+<th>Missing at 10 years</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Filers</td>
+<td>10 [5.5–20]</td>
+<td>.93</td>
+<td>.45</td>
+<td>.23</td>
+</tr>
+<tr class="even">
+<td>Grassroots</td>
+<td>7.5 [4.5–14.5]</td>
+<td>.72</td>
+<td>.81</td>
+<td>.32</td>
+</tr>
+<tr class="odd">
+<td>Filers, across metros (year FE only)</td>
+<td>30 [9.5–100]</td>
+<td></td>
+<td>.45</td>
+<td>.36</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>A fixed lag is the wrong shape. For filers every single lag of population fits worse than current population, and adding one growth window captures less than half of what the kernel gains.</li>
+<li>Grassroots never fully catch up within a metro (β = .72). Imposing the cross-sectional slope (.99), as a SAMI outcome does, turns that shortfall into slow adjustment and inflates their half-life to 40 years. Put log P and G on the right instead.</li>
+<li>The kernel (about 10 years) and the local projections (about 5) agree for five years after growth, then part: the kernel keeps a small deficit (filers −2.5% at year 10). The difference is metro-specific trends, which 25 years of data cannot separate from a slow tail, so the two estimates bound the within-metro half-life.</li>
+<li>Organizations barely leave after population loss: separate gain and loss kernels fit filers best, with about 90% of an implied decline unrealized at first.</li>
+<li>In the multiverse the kernel enters as a covariate (D8, Evidence 5).</li>
+</ul>
+<p><strong>What it means for practice.</strong></p>
+<ul>
+<li>Annual within-metro models estimate a short-run adjustment that is half closed in about five years. Do not read them as long-run effects.</li>
+<li>For change questions, use differences of 10 years or more, or include a geometric kernel of past population change (half-life 5–10 years) rather than a fixed lag, and model growth and decline separately.</li>
+<li>Cross-sectional comparisons inherit decades of growth history. The stock-flow test shows that the fast growers’ gap is a lag in the stock, not lower entry or faster exit. When the question is about current conditions, control for past growth or the pre-1970 endowment, and do not read the gap as a trait of newcomers.</li>
+<li>Filer counts respond to income shocks through the filing floor; grassroots counts do not. Choose the count to match the question (D1).</li>
+</ul>
+<p><em>Sources: <code>notes/catchup-lag-results.qmd</code> (sections 1, 2, 3.5, 6); <code>R/notes/72_catchup_lag.R</code>, <code>R/notes/73_pre2000_growth.R</code>, <code>R/notes/75_capacity_grid.R</code>; Evidence 2b: <code>R/notes/58_outline_analyses.R</code> part T (<code>D:/MULTIVERSE/data/outline/v10/gap_lag_*</code>; notes section 2.6d); Evidence 5: <code>R/notes/79_kernel_lag.R</code> (<code>data/catchup/c14_*</code>; notes section 2.8).</em></p>
+</section>
+<section id="sec-fact4" class="level1">
+<h1>Fact 4: Registered charities are two populations</h1>
+<p><strong>Registered charities are two populations.</strong> About a quarter file a 990 above the $50k floor and behave like an economic sector. The other three quarters are grassroots organizations whose density follows demography and institutional legacy.</p>
+<p><strong>Evidence 1: composition.</strong> In the 387 metros, the registered stock of 501(c)(3) public charities grew from 563,000 in 2000 to 1.19 million in 2024; filers grew from 158,000 to 288,000. The share filing above the floor drifted from 28% to 24%, with dips at the source changes and a low of 20% in 2020.</p>
+<div id="fig-f4-composition" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f4-composition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f4_composition.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f4-composition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Registered public charities in 387 metros split into filers and grassroots, 2000 to 2024, and the share filing above the floor.
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 2: same scaling, different rankings.</strong> Filers and grassroots both scale with population at about 1.0. Their SAMIs correlate only .65–.73, while the pooled registered stock correlates .97 with grassroots and .82–.87 with filers.</p>
+<p><strong>Evidence 3: different dynamics.</strong></p>
+<div id="tbl-f4-dynamics" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f4-dynamics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9: Filers, grassroots and the pooled registered stock compared.
+</figcaption>
+<div aria-describedby="tbl-f4-dynamics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Filers</th>
+<th>Grassroots</th>
+<th>Registered (pooled)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Persistence, r at 20 years</td>
+<td>.94</td>
+<td>.78</td>
+<td>.85</td>
+</tr>
+<tr class="even">
+<td>Share of expected growth realized at 10 / 24 years</td>
+<td>.91 / .96</td>
+<td>.69 / .78</td>
+<td>.75 / .83</td>
+</tr>
+<tr class="odd">
+<td>Within-metro half-life after growth</td>
+<td>about 5 years</td>
+<td>about 9 years</td>
+<td>about 9 years</td>
+</tr>
+<tr class="even">
+<td>Fastest-growing fifth, SAMI in 2024</td>
+<td>−.26</td>
+<td>−.16</td>
+<td>−.18</td>
+</tr>
+<tr class="odd">
+<td>Deficit convergence per decade (2011 SAMI)</td>
+<td>−.01</td>
+<td>−.23</td>
+<td>−.18</td>
+</tr>
+<tr class="even">
+<td>Effect of a 10% relative income loss, immediate</td>
+<td>about −1.5%</td>
+<td>about 0</td>
+<td>about 0</td>
+</tr>
+<tr class="odd">
+<td>Nonprofit market share, within R²</td>
+<td>.35</td>
+<td>.14</td>
+<td>.23</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>Evidence 4: different drivers.</strong> For 2011–2023 change:</p>
+<ul>
+<li>Filer gains follow the local economy: income growth (partial r .35), private wage growth (.28), % BA (.24) and turnout (.21).</li>
+<li>Grassroots fall where wages and government earnings grow (−.17 and −.28) and rise where poverty rises (+.15). Growth in % BA is the one change that lifts both (+.24 filers, +.19 grassroots).</li>
+<li>Starting levels matter more for grassroots. High poverty and inequality in 2000 predict smaller filer gains (−.19, −.15); high unemployment and immigrant share predict smaller grassroots gains (−.19 each). The pre-1970 endowment predicts smaller gains, much more for grassroots (−.32) than filers (−.11).</li>
+<li>The blocks rank differently. Shapley R²: for filers, change during the decade carries .14 of a total .29 and 2000 levels .05; for grassroots, 2000 levels carry .18 of .55, with the 2011 deficit (.10), region (.10) and growth (.08) next.</li>
+<li>In the pooled registered stock the income effect is .03: the two groups respond in opposite directions and cancel.</li>
+</ul>
+<div id="fig-f4-change" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f4-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f4_change_correlates.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f4-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Partial correlations of covariate changes and 2000 levels with the 2010–12 to 2022–24 SAMI change, for filers, grassroots and expenditures.
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 5: organizations move between the groups.</strong> Within a metro, growth does not raise new registrations. Instead the filing share rises for 6–10 years: grassroots organizations grow past the floor and become filers. Relative income losses do the reverse, pushing filers below the floor.</p>
+<p><strong>What it means for practice.</strong></p>
+<ul>
+<li>Treat filing status as a stage, not a type of organization. The floor moves organizations between the groups as local economies change.</li>
+<li>Analyze filers and grassroots separately. Pooling cancels opposite responses (D1).</li>
+<li>Use the registered stock as a splice-free robustness check; grassroots inherit the filer splices in reverse.</li>
+<li>Check registration practices that distort grassroots counts: LDS congregations that do not register separately (low counts in Utah), group exemptions (Memphis, Mankato), and the many registrations in military towns.</li>
+</ul>
+<p><em>Sources: <code>notes/catchup-lag-results.qmd</code> sections 3, 4 and 5; <code>R/notes/58_outline_analyses.R</code> part H (<code>D:/MULTIVERSE/data/outline/fact4_composition.csv</code>).</em></p>
+</section>
+<section id="sec-fact5" class="level1">
+<h1>Fact 5: Market share sets the level, not the pace</h1>
+<p><strong>Nonprofit market share sets the level of density, not its pace.</strong> The 501(c)(3) share of private employment explains about a third of the cross-metro variation in filer density and two-fifths of the variation in spending. It barely changes within metros and does not predict which metros catch up. It behaves like population: a bound on how large a sector a metro carries, not a lever that moves it.</p>
+<p><strong>Evidence 1: share and density levels</strong> (BLS QCEW nonprofit data, 363 metros, 2013–2022 pooled with year FE).</p>
+<div id="tbl-f5-share" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f5-share-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10: Nonprofit employment share and density levels.
+</figcaption>
+<div aria-describedby="tbl-f5-share-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Filers</th>
+<th>Grassroots</th>
+<th>Spending</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SAMI per log point of share</td>
+<td>.40</td>
+<td>.18</td>
+<td>.78</td>
+</tr>
+<tr class="even">
+<td>R², share alone (net of year)</td>
+<td>.35</td>
+<td>.14</td>
+<td>.38</td>
+</tr>
+<tr class="odd">
+<td>Density percentile on share percentile, R²</td>
+<td>.34</td>
+<td>.13</td>
+<td>.40</td>
+</tr>
+<tr class="even">
+<td>Wage ratio given share, per unit</td>
+<td>−.42</td>
+<td>−.30</td>
+<td>−.28 (n.s.)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>The relation is loose. At a 10% share, metros run from the 5th to the 95th percentile of filer density.</li>
+<li>Sunbelt metros are low on both.</li>
+<li>Health care adds nothing. The nonprofit share within health care and social assistance predicts filer density alone, but not once overall share is in the model (p = .85).</li>
+<li>Holding share fixed, a higher nonprofit/for-profit wage ratio goes with fewer organizations (−.04 filer SAMI per 0.1 of the ratio; −.03 for grassroots): fewer, larger and more professional organizations. Over 2013–2022 it also predicts slower grassroots growth (−.016 per SD) and faster spending growth (+.056 per SD), but not filer change. Where nonprofits pay well, the sector grows by getting bigger, not more numerous.</li>
+</ul>
+<div id="fig-f5-share" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-share-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_share_level.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-share-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Filer, grassroots and spending density percentile against nonprofit employment share percentile, 2013 to 2022, colored by region.
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 2: share absorbs growth history</strong> (358 metros; population growth 1970–2000 by average share 2013–2022, in fifths).</p>
+<div id="fig-f5-grid" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_growth_share_grid.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Mean filer density relative to expected size in a five-by-five grid of 1970–2000 population growth and nonprofit employment share.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li>Every lowest-share cell is 24–35% below expected filer density, whatever its growth history. Every highest-share cell is 24–91% above.</li>
+<li>Shapley R² for filers: share .31, growth history .04 (grassroots .12 and .03; spending .35 and .05). With share fixed, growth history has no effect (−.008 per SD, SE .021).</li>
+<li>The two axes correlate −.41. Of the 72 fastest-growing metros, 44 sit in the two lowest-share fifths and only 3 in the highest, so a cross-section cannot fully separate them.</li>
+<li>A small positive interaction (+.035, p = .02): fast growth goes with lower density only where share is low.</li>
+</ul>
+<p><strong>Evidence 3: share is nearly fixed and does not predict catch-up.</strong></p>
+<ul>
+<li>Across metros the share’s SD is 5.3 percentage points; within a metro it is 0.4. Shares in 2013 and 2022 correlate .95.</li>
+<li>72% of the variance in share change comes from changing establishment size, not from the number of nonprofits. The largest drops (Johnstown −8.3 points, Asheville −5.3) look like hospital systems converting to for-profit ownership.</li>
+<li>Share change correlates −.05 with the change in filer SAMI and .11 with the change in grassroots SAMI.</li>
+<li>Filers show no convergence in any share tercile. Grassroots deficits close half as fast in low-share metros (−.09 per decade vs.&nbsp;−.18 in high-share metros): a soft ceiling, not a cap.</li>
+</ul>
+<p><strong>Regions differ in level, not in change</strong> (balanced panel, 327 metros):</p>
+<div id="tbl-f5-share-region" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f5-share-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;11: Nonprofit share of private employment by region, level and change.
+</figcaption>
+<div aria-describedby="tbl-f5-share-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Region</th>
+<th>Metros</th>
+<th>Median share</th>
+<th>Middle 90% of metros</th>
+<th>Median change, 2013–14 to 2021–22 (points)</th>
+<th>Gained / lost &gt; 1 point</th>
+<th>Variance from establishment size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Northeast</td>
+<td>40</td>
+<td>16.2%</td>
+<td>12.3–22.7%</td>
+<td>+0.41</td>
+<td>13 / 8</td>
+<td>76%</td>
+</tr>
+<tr class="even">
+<td>Midwest</td>
+<td>82</td>
+<td>11.9%</td>
+<td>8.2–19.0%</td>
+<td>−0.07</td>
+<td>12 / 16</td>
+<td>66%</td>
+</tr>
+<tr class="odd">
+<td>South</td>
+<td>133</td>
+<td>7.4%</td>
+<td>2.7–15.2%</td>
+<td>+0.07</td>
+<td>28 / 19</td>
+<td>69%</td>
+</tr>
+<tr class="even">
+<td>West</td>
+<td>72</td>
+<td>9.0%</td>
+<td>3.4–15.2%</td>
+<td>0.00</td>
+<td>13 / 8</td>
+<td>78%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-f5-share-region" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-share-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_share_by_region.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-share-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Nonprofit share of private employment by region, 2013–14 against 2021–22, with the middle 90% of metros marked.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li>The Northeast’s typical share is twice the South’s, but every region’s median moved less than half a point. No region is catching up or pulling away.</li>
+<li>The Northeast and Midwest ranges are narrow and high. The South and West ranges are wide and reach far lower: the South’s 5th percentile (2.7%) is under a quarter of the Northeast’s (12.3%), while their top ends overlap the Northeast median.</li>
+<li>Within each region, large moves are idiosyncratic and mostly about establishment size. The Midwest is the only region where more metros lost a point than gained one.</li>
+</ul>
+<p><strong>Evidence 4: the residuals point to institutions.</strong> Against a fit on share and growth history, filers fall furthest below in military towns (Hinesville, Killeen) and border metros (McAllen, Brownsville, Yuma); grassroots fall furthest below in Utah (Provo, Ogden, Logan). College and amenity towns (Boulder, Santa Fe, Missoula, Charlottesville) sit above.</p>
+<p><strong>Evidence 5: older nonprofit sectors have larger market shares, because older organizations are larger</strong> (2022 BMF: 1.36 million registered public charities, 312,500 of them filers; age = 2022 minus the IRS ruling year).</p>
+<div id="tbl-f5-age-region" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f5-age-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;12: Age of 501(c)(3) public charities by region, 2022 (years since IRS ruling).
+</figcaption>
+<div aria-describedby="tbl-f5-age-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Northeast</th>
+<th>Midwest</th>
+<th>South</th>
+<th>West</th>
+<th>All</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean age, filers</td>
+<td>25.7</td>
+<td>25.3</td>
+<td>22.2</td>
+<td>22.1</td>
+<td>23.6</td>
+</tr>
+<tr class="even">
+<td>Mean age, grassroots</td>
+<td>19.9</td>
+<td>22.1</td>
+<td>19.5</td>
+<td>19.6</td>
+<td>20.2</td>
+</tr>
+<tr class="odd">
+<td>Median age, all registered</td>
+<td>14</td>
+<td>15</td>
+<td>12</td>
+<td>12</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td>Dollar-weighted age, filers</td>
+<td>45.1</td>
+<td>46.4</td>
+<td>41.0</td>
+<td>42.7</td>
+<td>43.7</td>
+</tr>
+<tr class="odd">
+<td>Dollar-weighted age, excl. hospitals and universities</td>
+<td>37.9</td>
+<td>36.0</td>
+<td>33.6</td>
+<td>35.2</td>
+<td>35.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li><strong>Filers are older in the Northeast and Midwest</strong> (mean 25.7 and 25.3 years) than in the South and West (22.2 and 22.1). The oldest filer sectors are in Connecticut (30 years), Rhode Island, Maine, West Virginia, North Dakota, Iowa and Vermont; the youngest are in Nevada (18), Utah, Georgia, Arizona, Florida, Idaho, Texas and Colorado: the fast-growth Sunbelt and Mountain West. The median registered organization is 12–15 years old everywhere, so the gap is among established filers, not grassroots registrations.</li>
+<li><strong>The average dollar is much older than the average organization:</strong> weighted by expenditures, filer age is 44 years, against a mean of 24. The regional ordering holds without hospitals and universities (34–38 years).</li>
+</ul>
+<div id="fig-f5-age-state" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-age-state-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_age_by_state.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-age-state-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Mean age of 501(c)(3) filers by state.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Older sectors hold more of the labor market.</strong> Across metros, mean filer age correlates .50 with log market share (.31 within regions); dollar-weighted age correlates .37 (.26). Within regions, each extra year of dollar-weighted age goes with about a 1% larger share. The youngest sectors are Provo and St.&nbsp;George (14 years) and Las Vegas (15 years; share 2%); the oldest are Wheeling, Elmira and Weirton (33–38). The relationship flattens above an average filer age of about 28 years, where share levels off near 15–20%.</li>
+<li><strong>What counts is the age of the filers, not the share of old registrations.</strong> The share of organizations ruled before 1970 does not correlate with market share (.01; −.02 within regions), and the median age of all registered organizations correlates only .21.</li>
+<li><strong>Region still matters at equal age.</strong> At the same dollar-weighted age, the Northeast’s share is about 33 log points above the Midwest’s and the South’s about 37 below.</li>
+</ul>
+<div id="fig-f5-age-share" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-age-share-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_age_vs_share.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-age-share-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Nonprofit market share against mean filer age and dollar-weighted filer age, metros, colored by region.
+</figcaption>
+</figure>
+</div>
+<p><strong>Age matters most where sectors are young.</strong> Within each region, metros’ log market share on mean filer age:</p>
+<div id="tbl-f5-age-share-region" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f5-age-share-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;13: Market share and filer age within regions.
+</figcaption>
+<div aria-describedby="tbl-f5-age-share-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Region</th>
+<th>Metros</th>
+<th>Mean filer age</th>
+<th>Median share</th>
+<th>r</th>
+<th>Share per extra year of age</th>
+<th>p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Northeast</td>
+<td>45</td>
+<td>25.4</td>
+<td>16.1%</td>
+<td>.35</td>
+<td>+3.3%</td>
+<td>.017</td>
+</tr>
+<tr class="even">
+<td>Midwest</td>
+<td>91</td>
+<td>24.8</td>
+<td>12.0%</td>
+<td>.13</td>
+<td>+1.4%</td>
+<td>.23</td>
+</tr>
+<tr class="odd">
+<td>South</td>
+<td>151</td>
+<td>21.9</td>
+<td>7.6%</td>
+<td>.34</td>
+<td>+6.1%</td>
+<td>&lt; .001</td>
+</tr>
+<tr class="even">
+<td>West</td>
+<td>82</td>
+<td>22.0</td>
+<td>9.2%</td>
+<td>.39</td>
+<td>+6.3%</td>
+<td>&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-f5-age-share-region" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-age-share-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_age_vs_share_by_region.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-age-share-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Nonprofit market share against mean filer age within each region, with fitted lines.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><p><strong>Within the South and West, each extra year of average filer age goes with about 6% more share.</strong> The South’s line runs from about 5% share in metros with 17-year-old sectors to about 15% at 35 years.</p></li>
+<li><p><strong>In the older Northeast and Midwest the slope is modest or flat</strong> (+1–3% per year, not significant in the Midwest), matching the leveling-off above about 28 years: once a sector is old, more age adds little.</p></li>
+<li><p><strong>The age gap separates the Sunbelt from the older regions.</strong> South and West filers are about 3–3.5 years younger, and their metros sit on the steep part of the relationship.</p></li>
+<li><p><strong>Outliers.</strong> Below their region’s line: border and energy metros (Laredo, Odessa), Las Vegas, Idaho Falls and Pocatello, and Columbus IN and Ames IA (large corporate or university-dominated economies). Above it: Durham (Duke) and Ithaca (Cornell; share 48%), where one large institution dominates.</p></li>
+<li><p><strong>Size rises steadily with age.</strong> Median spending is $152k for filers 0–2 years old, $368k at 21–30 years, $783k at 41–50 and $10M at 81 years and over. The elasticity of spending with respect to age is .59 (.53 without hospitals and universities): doubling age goes with about 50% more spending. The spread is wide at every age (the interquartile range spans a factor of 4–5, and 40 for the oldest). Without hospitals and universities the median barely changes through age 60, but for the oldest it falls from $10.0M to $4.9M.</p></li>
+<li><p><strong>Hospitals and universities are the oldest institutions:</strong> under 2% of filers younger than 30, but 14% of those aged 71–80 and 23% of those 81 and over.</p></li>
+</ul>
+<div id="fig-f5-age-size" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-age-size-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_age_size.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-age-size-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17: Median expenditures of 501(c)(3) filers by age band, oldest at top, with and without hospitals and universities; dots sized by number of filers; hospital and university share listed at right.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Reading.</strong> Market share records accumulated institutional growth. Sectors that are older hold more large, long-established institutions, especially hospitals and colleges, and organizations grow over decades. The young Sunbelt and Mountain West sectors have not had that time, or their large institutions were founded as for-profit or public. Closing a share gap therefore takes institutions aging and growing, not more registrations, which fits the slow catch-up in Fact 3.</li>
+<li><strong>Caveats.</strong> The ruling year marks IRS recognition, not founding, and resets when a revoked organization is reinstated (common after the 2011 automatic revocations), which understates age. Group-exemption subordinates carry the group’s date.</li>
+</ul>
+<p><strong>Evidence 6: Northeast filers also last longest</strong> (1.49 million public charities ruled 1990–2021; Kaplan–Meier with right censoring and delayed entry from 2000). A filer “ends” at its last 990 or 990-EZ; a non-filer at its last BMF year.</p>
+<div id="fig-f5-survival" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-survival-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_survival.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-survival-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;18: Kaplan–Meier survival curves by region, filers and non-filers on shared axes.
+</figcaption>
+</figure>
+</div>
+<div id="fig-f5-lifespan" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f5-lifespan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f5_lifespan.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f5-lifespan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;19: Restricted mean lifespan over the first 25 years, median lifespan and mean completed lifespan by region, with 95% intervals, filers and non-filers.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-f5-lifespan" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f5-lifespan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;14: Lifespan of public charities ruled 1990–2021, by region. Mean years active is the restricted mean survival time; 95% intervals are about ±0.1 year. Hazard ratios from a Cox model with delayed entry.
+</figcaption>
+<div aria-describedby="tbl-f5-lifespan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Northeast</th>
+<th>Midwest</th>
+<th>South</th>
+<th>West</th>
+<th>All</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Filers:</strong> mean years active in first 25</td>
+<td>16.4</td>
+<td>15.8</td>
+<td>15.0</td>
+<td>15.3</td>
+<td>15.5</td>
+</tr>
+<tr class="even">
+<td>Filers: median lifespan (years)</td>
+<td>~21</td>
+<td>~18</td>
+<td>~16</td>
+<td>~17</td>
+<td>~17</td>
+</tr>
+<tr class="odd">
+<td>Filers: still filing at 10 / 20 years</td>
+<td>67% / 51%</td>
+<td>65% / 48%</td>
+<td>62% / 45%</td>
+<td>63% / 46%</td>
+<td>64% / 47%</td>
+</tr>
+<tr class="even">
+<td>Filers: hazard of ending vs.&nbsp;Northeast</td>
+<td>1</td>
+<td>1.09</td>
+<td>1.21</td>
+<td>1.17</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Non-filers:</strong> mean years active in first 25</td>
+<td>15.2</td>
+<td>14.8</td>
+<td>14.7</td>
+<td>14.0</td>
+<td>14.6</td>
+</tr>
+<tr class="even">
+<td>Non-filers: median lifespan (years)</td>
+<td>~15</td>
+<td>~14</td>
+<td>~14</td>
+<td>~12</td>
+<td>~14</td>
+</tr>
+<tr class="odd">
+<td>Non-filers: still registered at 10 / 20 years</td>
+<td>63% / 42%</td>
+<td>62% / 39%</td>
+<td>60% / 40%</td>
+<td>58% / 35%</td>
+<td>60% / 39%</td>
+</tr>
+<tr class="even">
+<td>Non-filers: hazard of ending vs.&nbsp;Northeast</td>
+<td>1</td>
+<td>1.06</td>
+<td>1.07</td>
+<td>1.18</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li><strong>Nonprofits are long-lived but not permanent.</strong> About two thirds of filers still file 10 years after ruling and about half after 20; the median filer lasts about 17 years, the median non-filer about 14.</li>
+<li><strong>Northeast filers last longest:</strong> median about 21 years against 16–18 elsewhere, and 1.4 more active years in the first 25 than Southern filers (16.4 vs.&nbsp;15.0). Southern filers stop filing 21% faster at any age, Western filers 17% faster (Cox hazard ratios vs.&nbsp;the Northeast).</li>
+<li><strong>Among non-filers, the West stands out</strong> with the shortest registrations (median about 12 years, hazard +18%); the other three regions are within about half a year of each other.</li>
+<li><strong>This compounds the age result.</strong> Organizations that survive keep growing (Evidence 5), so higher survival builds older, larger sectors and higher market shares.</li>
+<li><strong>Filers and non-filers cross at about 4–5 years.</strong> Early on, filers end faster because many file for a year or two and then drop to the postcard 990-N; after year 5 filers outlast non-filers, by 8–11 points at 20–30 years outside the South and only 3–5 in the South.</li>
+<li><strong>Caveats.</strong> The differences are precise but modest: 1–2 years on a base of about 15. Dropping below the filing threshold counts as ending, so filer lifespans are understated. Completed-spell means (about 7 years) are far shorter than the survival estimates because early closures dominate completed spells.</li>
+</ul>
+<p><strong>Evidence 7: the regional gap is in who owns hospitals and colleges.</strong> Regional medians of metro averages, 2013–2022:</p>
+<div id="tbl-f5-regions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f5-regions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;15: Regional medians of metro averages, 2013–2022. Filer age is the 2022 regional mean (Evidence 5).
+</figcaption>
+<div aria-describedby="tbl-f5-regions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Northeast</th>
+<th>Midwest</th>
+<th>South</th>
+<th>West</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nonprofit share of private employment</td>
+<td>16.1%</td>
+<td>12.0%</td>
+<td>7.5%</td>
+<td>9.2%</td>
+</tr>
+<tr class="even">
+<td>Nonprofit jobs per 1,000 residents</td>
+<td>61</td>
+<td>47</td>
+<td>25</td>
+<td>31</td>
+</tr>
+<tr class="odd">
+<td>For-profit jobs per 1,000 residents</td>
+<td>308</td>
+<td>345</td>
+<td>294</td>
+<td>299</td>
+</tr>
+<tr class="even">
+<td>Nonprofit share within health care and social assistance</td>
+<td>58%</td>
+<td>54%</td>
+<td>34%</td>
+<td>40%</td>
+</tr>
+<tr class="odd">
+<td>Nonprofit share within private education</td>
+<td>85%</td>
+<td>73%</td>
+<td>66%</td>
+<td>55%</td>
+</tr>
+<tr class="even">
+<td>Nonprofit share within social assistance</td>
+<td>53%</td>
+<td>50%</td>
+<td>40%</td>
+<td>35%</td>
+</tr>
+<tr class="odd">
+<td>Nonprofit share within arts and recreation</td>
+<td>17%</td>
+<td>18%</td>
+<td>15%</td>
+<td>15%</td>
+</tr>
+<tr class="even">
+<td>Mean filer age (years)</td>
+<td>25.7</td>
+<td>25.3</td>
+<td>22.2</td>
+<td>22.1</td>
+</tr>
+<tr class="odd">
+<td>Pre-1970 stock, SAMI</td>
+<td>+.13</td>
+<td>+.21</td>
+<td>−.17</td>
+<td>+.06</td>
+</tr>
+<tr class="even">
+<td>Foundation assets, SAMI (2000)</td>
+<td>+.15</td>
+<td>+.51</td>
+<td>−.23</td>
+<td>−.33</td>
+</tr>
+<tr class="odd">
+<td>Population growth 1970–2000</td>
+<td>16%</td>
+<td>17%</td>
+<td>51%</td>
+<td>100%</td>
+</tr>
+<tr class="even">
+<td>Religious adherents</td>
+<td>45%</td>
+<td>45%</td>
+<td>52%</td>
+<td>40%</td>
+</tr>
+<tr class="odd">
+<td>Catholic share of adherents</td>
+<td>57%</td>
+<td>32%</td>
+<td>14%</td>
+<td>43%</td>
+</tr>
+<tr class="even">
+<td>S&amp;L government share of employment</td>
+<td>10.0%</td>
+<td>10.0%</td>
+<td>10.4%</td>
+<td>11.3%</td>
+</tr>
+<tr class="odd">
+<td>% BA / % 65+</td>
+<td>31% / 17.7%</td>
+<td>28% / 16.3%</td>
+<td>25% / 15.9%</td>
+<td>29% / 15.9%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>The gap is in the numerator.</strong> For-profit employment per resident is about the same everywhere (294–345 per 1,000). The South and West have well under half the Northeast’s nonprofit jobs per resident: the question is why nonprofits supply fewer services there, not why for-profits are bigger. Candidate explanations, roughly in order of weight:</p>
+<ol type="1">
+<li><strong>Ownership of hospitals and colleges.</strong> Health care is about half of nonprofit employment and higher education the next largest piece. The same services exist in the South and West, but more are run by for-profit chains (HCA and Tenet grew up in the South), public hospital districts and state college systems. This fits the finding that share shifts come from single large employers.</li>
+<li><strong>Institutional age and religious sponsorship.</strong> Northeast hospitals, settlement houses, immigrant-aid societies and colleges date from the 19th and early 20th centuries, many with Catholic or mainline sponsors. Filers are older there (Evidence 5) and last longer (Evidence 6). Adherence is higher in the South, but Southern Protestant religious life runs largely through congregations rather than separately incorporated service agencies.</li>
+<li><strong>Growth timing.</strong> South and West metros grew 50–100% over 1970–2000. Density lags growth slowly across metros (Fact 3), and much of the Sunbelt’s build-out came after 1970, when for-profit chains and public community colleges were the expanding models.</li>
+<li><strong>Philanthropic capital.</strong> Foundation assets are well above size-expected in the Midwest and Northeast and below it in the South and West, reflecting old industrial fortunes and community foundations that fund nonprofit providers.</li>
+<li><strong>How government funds services.</strong> Northeast states have long paid nonprofits to deliver publicly funded health and social services; many Southern states spend less or provide services directly. The gap in nonprofit shares within social assistance (53% vs.&nbsp;35–40%) fits this. State and local government’s share of employment is similar everywhere (10–11%), so public provision is not an obvious substitute in the aggregate.</li>
+<li><strong>Demand</strong> differences are modest: the Northeast is somewhat more educated and older.</li>
+</ol>
+<p>Not tested: hospital ownership (AHA survey, CMS Provider of Services) and state Medicaid and contracting policy.</p>
+<p><strong>What it means for practice.</strong></p>
+<ul>
+<li>Share is partly the outcome. It includes hospitals and universities and rises with the number of established organizations. Do not use it as an ordinary control in a levels model of filer density or spending: it will absorb the effects of other covariates. Use it as a benchmark or bound, as population is used.</li>
+<li>A covariate that predicts density but not share points to an organizational mechanism; one that predicts both may only measure sector size.</li>
+<li>Check growth-history and regional results in levels against share. The Sunbelt’s low density and its low share are the same fact seen two ways.</li>
+<li>Read region effects in levels as institutional history (who owns hospitals and colleges, how old and long-lived the filer sector is), not as regional differences in demand. Regions differ in the level of share, not its change.</li>
+<li>In change models, share is fixed enough to treat as a metro trait. It belongs with the starting conditions, not with time-varying covariates.</li>
+<li>The BLS window is short (2013–2022) and starts midway through the catch-up decade; treat these results as cross-sectional.</li>
+</ul>
+<p><em>Sources: <code>notes/catchup-lag-results.qmd</code> sections 4, 4.5, 4.6, 4.7, 4.8 and 6; <code>R/notes/75_capacity_grid.R</code>; <code>R/notes/76_bls_share_change.R</code> (<code>c11_by_region.csv</code>, <code>c11_region_profile.csv</code>); <code>R/notes/77_nonprofit_age.R</code>, <code>R/notes/78_nonprofit_lifespan.R</code>; <code>R/notes/58_outline_analyses.R</code> part O (age-size chart); figures from <code>notes/catchup-figures/</code>.</em></p>
+</section>
+<section id="sec-fact6" class="level1">
+<h1>Fact 6: Size is the main source of collinearity</h1>
+<p><strong>Metro size is one latent factor behind most density covariates, and mishandling it changes coefficients by up to a factor of eight.</strong> The collinearity in density models is mostly not between theory blocks; it is every size-scaled covariate moving with population.</p>
+<p><strong>Evidence 1: size-scaled covariates are near-copies of population.</strong> In log form, government earnings, contributions, foundation counts, congregations and private wages correlate .89–.97 with log population and .85–.99 with each other. Intensive rates correlate only moderately (% BA .38–.40, % nonwhite .38). After residualizing on log population, most cross-block pairs fall below |r| = .1; government employment vs.&nbsp;congregations goes from .89 to −.01.</p>
+<p><strong>Evidence 2: a SAMI outcome with an unadjusted covariate shrinks the covariate’s effect by exactly 1 − R².</strong> 2022, 387 metros, filer counts, one covariate at a time:</p>
+<div id="tbl-f6-attenuation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f6-attenuation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;16: Coefficients under three ways of handling size, one covariate at a time.
+</figcaption>
+<div aria-describedby="tbl-f6-attenuation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>r with log P</th>
+<th>SAMI on logged X</th>
+<th>SAMI on SAMI-form X</th>
+<th>log N on log P + X</th>
+<th>Share retained (= 1 − R²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S&amp;L govt earnings</td>
+<td>.94</td>
+<td>.043</td>
+<td>.357</td>
+<td>.357</td>
+<td>.12</td>
+</tr>
+<tr class="even">
+<td>Itemized contributions</td>
+<td>.93</td>
+<td>.028</td>
+<td>.225</td>
+<td>.225</td>
+<td>.13</td>
+</tr>
+<tr class="odd">
+<td>No.&nbsp;of foundations</td>
+<td>.90</td>
+<td>.080</td>
+<td>.426</td>
+<td>.426</td>
+<td>.19</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.80</td>
+<td>.064</td>
+<td>.176</td>
+<td>.176</td>
+<td>.36</td>
+</tr>
+<tr class="odd">
+<td>% nonwhite</td>
+<td>.38</td>
+<td>−.927</td>
+<td>−1.081</td>
+<td>−1.081</td>
+<td>.86</td>
+</tr>
+<tr class="even">
+<td>% BA</td>
+<td>.40</td>
+<td>2.62</td>
+<td>3.12</td>
+<td>3.12</td>
+<td>.84</td>
+</tr>
+<tr class="odd">
+<td>Poverty rate</td>
+<td>−.23</td>
+<td>−4.46</td>
+<td>−4.71</td>
+<td>−4.71</td>
+<td>.95</td>
+</tr>
+<tr class="even">
+<td>Turnout</td>
+<td>−.01</td>
+<td>2.31</td>
+<td>2.31</td>
+<td>2.31</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The two correct specifications give identical coefficients (Frisch–Waugh–Lovell). The incorrect one keeps 12% of the government-earnings effect.</p>
+<p><strong>Evidence 3: in the full model, how size is handled can flip signs.</strong> Partial r, default covariates, 2022:</p>
+<div id="tbl-f6-full-model" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f6-full-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;17: Partial r of the default covariates under three ways of handling size.
+</figcaption>
+<div aria-describedby="tbl-f6-full-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>log N on log P + covariates (= all-SAMI)</th>
+<th>SAMI on logged covariates, no size control</th>
+<th>log N on logged covariates, no log P</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S&amp;L govt earnings</td>
+<td>.33</td>
+<td><strong>−.20</strong></td>
+<td>.83</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.41</td>
+<td>.26</td>
+<td>.52</td>
+</tr>
+<tr class="odd">
+<td>% BA</td>
+<td>.24</td>
+<td>.53</td>
+<td>−.06</td>
+</tr>
+<tr class="even">
+<td>Poverty rate</td>
+<td>−.10</td>
+<td>.02</td>
+<td>−.20</td>
+</tr>
+<tr class="odd">
+<td>% nonwhite</td>
+<td>−.26</td>
+<td>−.23</td>
+<td>−.23</td>
+</tr>
+<tr class="even">
+<td>Turnout</td>
+<td>.09</td>
+<td>.06</td>
+<td>.10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Without log population, government earnings becomes a proxy for size (.83) and % BA disappears. With a SAMI outcome but unadjusted covariates, government earnings turns negative.</p>
+<p><strong>Evidence 4: variance inflation flags the wrong problem.</strong> In the log-log model with log P on the right, government earnings has a VIF of 13.0 and log P 12.7, yet its coefficient is identical to the all-SAMI model, where the largest VIF is 2.2. Real collinearity appears only when several measures of one construct enter together: all 30 candidate items give a VIF of 78.</p>
+<p><strong>What it means for practice.</strong></p>
+<ul>
+<li>Handle size once and consistently: residualize every size-scaled covariate on log population, or keep log population on the right. The two are equivalent.</li>
+<li>Never pair a size-adjusted outcome with raw or logged size-scaled covariates.</li>
+<li>Diagnose collinearity in SAMI form; high VIFs in the log-log model reflect size, not instability.</li>
+<li>Within a construct, use one measure or a composite (see <code>02-variables.qmd</code>).</li>
+</ul>
+<p><em>Sources: <code>R/notes/58_outline_analyses.R</code> part B (<code>D:/MULTIVERSE/data/outline/v10/fact6_*</code>); <code>notes/collinearity-composites-results.md</code>.</em></p>
+</section>
+<section id="sec-fact7" class="level1">
+<h1>Fact 7: Data hazards are frequent and patterned</h1>
+<p><strong>Data hazards are frequent and patterned.</strong> Three source changes, one tax law and two registration practices leave marks large enough to pass for findings. They are predictable: each hits specific years, measures or metros.</p>
+<p><strong>Evidence 1: totals jump at the source changes.</strong> Year-over-year change in the 387-metro totals:</p>
+<div id="tbl-f7-splices" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-f7-splices-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;18: Year-over-year change in 387-metro totals at the source changes.
+</figcaption>
+<div aria-describedby="tbl-f7-splices-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>2011 (CORE → SOI)</th>
+<th>2018 (tax law)</th>
+<th>2020 (SOI → e-file)</th>
+<th>2021</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Filers, $50k real floor</td>
+<td>+13.3%</td>
+<td>+1.5%</td>
+<td>−8.8%</td>
+<td>+12.9%</td>
+</tr>
+<tr class="even">
+<td>Filers, no floor</td>
+<td>+25.9%</td>
+<td>+1.3%</td>
+<td>−7.7%</td>
+<td>+10.3%</td>
+</tr>
+<tr class="odd">
+<td>Registered stock (BMF)</td>
+<td>−6.0%</td>
+<td>+3.3%</td>
+<td>+3.2%</td>
+<td>+0.7%</td>
+</tr>
+<tr class="even">
+<td>Spending excl. hospitals, universities</td>
+<td>+6.4%</td>
+<td>+4.7%</td>
+<td>+13.1%</td>
+<td>+6.0%</td>
+</tr>
+<tr class="odd">
+<td>Itemized contributions</td>
+<td>+2.2%</td>
+<td>−21.7%</td>
+<td>+5.0%</td>
+<td>+30.4%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>The 2011 filer jump is the switch from NCCS CORE to the IRS SOI extracts; the registered stock fell the same year because of the IRS automatic revocations.</li>
+<li>Tax year 2020 counts are about 9% low in both SOI and e-file (the 990-EZ e-file mandate lag and COVID), and recover in 2021.</li>
+<li>The $50k real revenue floor excludes about a quarter of 990/990-EZ filers (27% in 2012, 23% in 2022) and halves the 2011 splice jump, but it barely changes which metros have more filers. The filer SAMI with and without it correlates .987 in 2022.
+<ul>
+<li>In the 93 default-model 2022 cross-sections with the 13 covariates, a term moves by a median |Δr| of .018 (largest .087).</li>
+<li>No term’s median moves by more than .04. The largest moves are foundation assets (.14 → .10) and % 65+ (−.04 → .00).</li>
+</ul></li>
+<li>Itemized contributions fall 22% at the 2018 tax law. Nationally the share of returns itemizing fell from 31% (2017) to 11.5% (2018), and in the median county from 20% to 5%; the share claiming a charitable deduction from 25% to 10% (IRS SOI county files).</li>
+</ul>
+<p><strong>Evidence 2: the splices move spending rankings, not count rankings.</strong> The correlation of each metro’s SAMI with the year before stays at .985 or above for filers in every year, including 2011 (.985) and 2020 (.991). For spending it drops to .87 in 2011 (.90 excluding hospitals and universities) and .94 in 2020, against .99 in other years and .98–.99 for metro GDP and income. Grassroots dip to .95 in 2017–18, where BMF snapshots omit newly ruled organizations.</p>
+<p><strong>Evidence 3: most covariate-years are filled in.</strong> Share of metro-years observed rather than interpolated or carried forward, 2000–2024:</p>
+<ul>
+<li>% BA, % foreign born and Gini: 64% (ACS five-year estimates in recent years, the census before that).</li>
+<li>Contributions: 56%, and only 2010–2023.</li>
+<li>Turnout and Democratic margin: 28% (presidential election years only).</li>
+<li>The 2020 and 2024 returns come from a news-feed compilation and match official sources. Harris and Trump county votes equal MIT’s official 2024 precinct returns; metro votes, margins and SAMI-form turnout correlate 1.000 (296 metros). The compilation omits some minor-candidate votes, so a few state totals run 0.5–2% low in 2024 (New York 2.2%), and Kansas runs 1.8% low in 2020. The check found one real error, in the 2016 official file: Bedford County, VA was double-counted, which made Lynchburg the highest-turnout metro in 2016 (.83 instead of .62). It is now fixed; correlations with filer density move by .002 at most.</li>
+<li>Social capital measures: 16% (waves through 2014). Religion: 12% (decennial).</li>
+</ul>
+<p>Within-metro and lag models fit mostly interpolated change in these covariates (D3).</p>
+<p><strong>Evidence 4: registration practices distort the registered stock.</strong> Group-exemption subordinates registered at a headquarters address inflate Memphis and Mankato. Military towns (Augusta, Hinesville, Fayetteville, Warner Robins, Sumter) register far more charities than their filer counts imply. LDS congregations that do not register separately keep Utah low. These distort counts, not covariate results: dropping Memphis and Mankato moves no benchmark (D2, Evidence 5).</p>
+<p><strong>Evidence 5: some covariates partly count the outcome.</strong> The Rupasingha social-capital index includes NCCS nonprofit density and turnout; its revised version and CBP association counts still include membership organizations, which are mostly nonprofits. Market share counts the employees of the organizations being counted (Fact 5).</p>
+<p><strong>Evidence 6: the 2018 tax law moves contribution coefficients, though not contribution rankings.</strong> The 13-covariate default model was refit as a metro cross-section in every year 2010–2022, with each contribution measure in place of foundation assets:</p>
+<ul>
+<li>Metro rankings survive the break. Year-to-year rank correlations across metros are .966 for contributions per return and per capita across 2017–18, against about .98 in other years (.936 vs.&nbsp;.97 for contributions as a share of AGI).</li>
+<li><strong>Coefficients shift, more than in the six-covariate model.</strong>
+<ul>
+<li>For filer counts, total contributions go from a partial r of .01 before 2018 to .16 after (OLS), and from −.01 to .14 with division FE. These jumps are 5–7 times their year-to-year SD before 2018; the six-covariate model gave .005 → .058.</li>
+<li>Contributions per return and as a share of AGI go from slightly negative (−.03 to −.08) to positive (.04 to .11), so their sign depends on the year.</li>
+<li>For spending the jumps are .08–.10.</li>
+<li>The other covariates in the same models move by at most .05 (2.8 SD; turnout and % nonwhite in spending models). Foundation assets in the default model move by .03 or less (1 SD).</li>
+</ul></li>
+<li>Within metros the break carries part of the estimate. A contribution × post-2018 term is significant for share of AGI (t = 3.5, counts) and for total contributions (t = 3.4 for spending, −2.2 for counts).</li>
+<li>Every multiverse cross-section (2019, 2022) is after the law, so its contribution results describe the post-2018 itemizing slice. The pooled (2015–22) and within (2010–22) contribution specifications span the break.</li>
+</ul>
+<p><strong>Evidence 6b: what the law does to the multiverse.</strong> Every contribution specification in run v11 (34,914, excluding 2019 cross-sections; 13-covariate model) was refit on a pre-2018 window: a 2017 cross-section instead of 2022, pooled 2015–17 instead of 2015–22, within 2010–17 instead of 2010–22. Each default twin (foundation assets) was refit the same way, so the window’s own effect can be subtracted.</p>
+<ul>
+<li><strong>Contribution terms, cross-section, counts:</strong> +.06 to +.08 after the law and about 0 before it (−.003 to .014). Net of the window effect, the law adds .05; the six-covariate model gave .03–.04. Signs flip in 11–22% of specifications.
+<ul>
+<li>The share significant rises most for share of AGI (17% → 34%) and less for the other two measures (30–39% → 37–46%).</li>
+</ul></li>
+<li><strong>Pooled counts:</strong> the law adds .03–.035. <strong>Spending:</strong> the law lowers the contribution terms by .02 or less.</li>
+<li><strong>Within metros:</strong> contribution estimates are unstable whatever the window. Their partial r correlates only −.40 to .40 between the two windows for counts and .47 to .65 for spending, so within-metro contribution results should not be reported as findings.</li>
+<li><strong>The other 12 covariates:</strong> swapping contributions in for foundation assets moves them by at most .023 more under the full window than under the pre-2018 one (the Gini in count cross-sections); the median shift is .01 or less.</li>
+<li><strong>For the paper:</strong> one note. Individual giving is weak in every window. Post-2018 cross-sections make it look stronger, because itemizers became a smaller, richer group. Within-metro giving effects are not identified.</li>
+</ul>
+<p><strong>Evidence 7: zeros in a size-scaled covariate create leverage points.</strong> Eagle Pass, TX has no foundation assets in any year; under log(1 + x) it sat about 11 SD below the metro mean and drove spurious interactions (D6, Evidence 6).</p>
+<div id="fig-f7-hazards" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-f7-hazards-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/f7_hazards.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-f7-hazards-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;20: Data hazards. (A) 387-metro totals indexed to 2010 for filers, filers without a floor, registered stock, spending and contributions, with source changes marked. (B) Year-to-year SAMI correlations by year. (C) Share of metro-years observed for each covariate. (D) Registered-stock SAMI against filer SAMI in 2022, with outliers labeled.
+</figcaption>
+</figure>
+</div>
+<p><strong>What it means for practice.</strong></p>
+<ul>
+<li>Use year fixed effects in every panel and never read a change across 2011 or 2020 as real without a check against counts.</li>
+<li>For spending cross-sections, avoid 2011 and 2020, or average several years.</li>
+<li>Treat tax year 2020 counts as low; drop or flag them in change and lag models.</li>
+<li>Do not let contributions models span 2018, and do not compare contribution coefficients across it. Read the multiverse’s pooled and within contribution specifications as flagged.</li>
+<li>Report the observed share of each covariate, and prefer models that use observed years (election years, census years) over interpolated panels.</li>
+<li>Exclude covariates built from nonprofit counts (Rupasingha index, association counts) from models of nonprofit density.</li>
+<li>Check registered and grassroots outcomes for group-exemption and military-town outliers before interpreting them.</li>
+</ul>
+<p><em>Sources: <code>R/notes/58_outline_analyses.R</code> parts Q and R (<code>D:/MULTIVERSE/data/outline/fact7_*</code>, <code>v10/gap_floor_*</code>); <code>R/notes/101_lean_open_checks.R</code> part F (floor, 13 covariates; <code>v11/open_checks/f_*.csv</code>); <code>R/notes/50_followups_jeremy.R</code> part 2 (year-to-year correlations); <code>R/notes/84_tcja_contrib.R</code> with <code>MV_MODEL=lean</code> (Evidence 6; <code>D:/MULTIVERSE/data/tcja_v11/</code>); <code>R/notes/86_sensitivity_tcja_size.R</code> part A with <code>MV_MODEL=lean</code> (Evidence 6b; <code>D:/MULTIVERSE/data/sensitivity_v11/a_*.csv</code>); <code>R/README.md</code> and the data-construction notes.</em></p>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bettencourt2007growth" class="csl-entry" role="listitem">
+Bettencourt, L. M. A., Lobo, J., Helbing, D., Kühnert, C., &amp; West, G. B. (2007). Growth, innovation, scaling, and the pace of life in cities. <em>Proceedings of the National Academy of Sciences</em>, <em>104</em>(17), 7301–7306. <a href="https://doi.org/10.1073/pnas.0610172104">https://doi.org/10.1073/pnas.0610172104</a>
+</div>
+<div id="ref-bettencourt2010urban" class="csl-entry" role="listitem">
+Bettencourt, L. M. A., Lobo, J., Strumsky, D., &amp; West, G. B. (2010). Urban scaling and its deviations: Revealing the structure of wealth, innovation and crime across cities. <em>PLoS ONE</em>, <em>5</em>(11), e13541. <a href="https://doi.org/10.1371/journal.pone.0013541">https://doi.org/10.1371/journal.pone.0013541</a>
+</div>
+<div id="ref-bettencourt2020interpretation" class="csl-entry" role="listitem">
+Bettencourt, L. M. A., Yang, V. C., Lobo, J., Kempes, C. P., Rybski, D., &amp; Hamilton, M. J. (2020). The interpretation of urban scaling analysis in time. <em>Journal of the Royal Society Interface</em>, <em>17</em>(163), 20190846. <a href="https://doi.org/10.1098/rsif.2019.0846">https://doi.org/10.1098/rsif.2019.0846</a>
+</div>
+<div id="ref-depersin2018global" class="csl-entry" role="listitem">
+Depersin, J., &amp; Barthelemy, M. (2018). From global scaling to the dynamics of individual cities. <em>Proceedings of the National Academy of Sciences</em>, <em>115</em>(10), 2317–2322. <a href="https://doi.org/10.1073/pnas.1718690115">https://doi.org/10.1073/pnas.1718690115</a>
+</div>
+<div id="ref-data_irs_soi_eo" class="csl-entry" role="listitem">
+Internal Revenue Service, Statistics of Income. (2025). <em>Annual extract of tax-exempt organization financial data, filing years 2012–2024</em> [Data set]. <a href="https://www.irs.gov/statistics/soi-tax-stats-annual-extract-of-tax-exempt-organization-financial-data">https://www.irs.gov/statistics/soi-tax-stats-annual-extract-of-tax-exempt-organization-financial-data</a>
+</div>
+<div id="ref-lecy2013nonprofit" class="csl-entry" role="listitem">
+Lecy, J. D., &amp; Van Slyke, D. M. (2013). Nonprofit sector growth and density: Testing theories of government support. <em>Journal of Public Administration Research and Theory</em>, <em>23</em>(1), 189–214.
+</div>
+<div id="ref-leitao2016scaling" class="csl-entry" role="listitem">
+Leitão, J. C., Miotto, J. M., Gerlach, M., &amp; Altmann, E. G. (2016). Is this scaling nonlinear? <em>Royal Society Open Science</em>, <em>3</em>(7), 150649. <a href="https://doi.org/10.1098/rsos.150649">https://doi.org/10.1098/rsos.150649</a>
+</div>
+<div id="ref-lobo2013urban" class="csl-entry" role="listitem">
+Lobo, J., Bettencourt, L. M. A., Strumsky, D., &amp; West, G. B. (2013). Urban scaling and the production function for cities. <em>PLoS ONE</em>, <em>8</em>(3), e58407. <a href="https://doi.org/10.1371/journal.pone.0058407">https://doi.org/10.1371/journal.pone.0058407</a>
+</div>
+<div id="ref-data_nccs_bmf_legacy" class="csl-entry" role="listitem">
+Urban Institute, National Center for Charitable Statistics. (2023). <em>Legacy business master files, 2000–2022</em> [Data set]. <a href="https://nccs.urban.org/nccs/catalogs/catalog-bmf.html">https://nccs.urban.org/nccs/catalogs/catalog-bmf.html</a>
+</div>
+<div id="ref-data_nccs_core" class="csl-entry" role="listitem">
+Urban Institute, National Center for Charitable Statistics. (2024). <em>Harmonized <span>CORE</span> files (990, 990-<span>EZ</span>, 990-<span>PF</span>), tax years 2000–2019</em> [Data set]. <a href="https://nccs.urban.org/nccs/catalogs/catalog-core.html">https://nccs.urban.org/nccs/catalogs/catalog-core.html</a>
+</div>
+<div id="ref-data_nccs_bmf_monthly" class="csl-entry" role="listitem">
+Urban Institute, National Center for Charitable Statistics. (2025). <em>Processed monthly business master file, december 2023 and december 2024</em> [Data set]. <a href="https://nccs.urban.org/nccs/catalogs/catalog-bmf.html">https://nccs.urban.org/nccs/catalogs/catalog-bmf.html</a>
+</div>
+<div id="ref-data_nccs_efile" class="csl-entry" role="listitem">
+Urban Institute, National Center for Charitable Statistics. (2026). <em><span>NCCS</span> e-file data, releases efile_v3_1 and efilepf_v3_1</em> [Data set]. <a href="https://nccs-efile.s3.us-east-1.amazonaws.com/public/">https://nccs-efile.s3.us-east-1.amazonaws.com/public/</a>
+</div>
+<div id="ref-data_bls_nonprofits" class="csl-entry" role="listitem">
+U.S. Bureau of Labor Statistics. (2024). <em>Research data on the nonprofit sector, 2013–2022</em> [Data set]. <a href="https://www.bls.gov/bdm/nonprofits/nonprofits.htm">https://www.bls.gov/bdm/nonprofits/nonprofits.htm</a>
+</div>
+<div id="ref-data_census_popest" class="csl-entry" role="listitem">
+U.S. Census Bureau. (2026). <em>Population estimates program: County population totals (intercensal 2000–2010 and 2010–2020; vintage 2025)</em> [Data set]. <a href="https://www.census.gov/programs-surveys/popest/data/data-sets.html">https://www.census.gov/programs-surveys/popest/data/data-sets.html</a>
+</div>
+<div id="ref-uslaner1976pitfalls" class="csl-entry" role="listitem">
+Uslaner, E. M. (1976). The pitfalls of per capita. <em>American Journal of Political Science</em>, <em>20</em>(1), 125–133. <a href="https://doi.org/10.2307/2110513">https://doi.org/10.2307/2110513</a>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../paper/02-variables.html" class="pagination-link" aria-label="Variables and constructs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Variables and constructs</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../site/07-multiverse-run.html" class="pagination-link" aria-label="Code and execution">
+        <span class="nav-page-text">Code and execution</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/paper/01-stylized-facts.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

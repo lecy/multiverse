@@ -1,0 +1,3085 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jesse Lecy and Jeremy P. Thornton">
+<meta name="dcterms.date" content="2026-11-18">
+
+<title>Design Decisions – Nonprofit Density: Data and Multiverse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../paper/02-variables.html" rel="next">
+<link href="../paper/03-multiverse-overview.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-84b29b4d2a4d852f623629b45368f5f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../paper/03-multiverse-overview.html">Multiverse</a></li><li class="breadcrumb-item"><a href="../paper/04-design-decisions.html">5. Multiverse design</a></li><li class="breadcrumb-item"><a href="../paper/04-design-decisions.html">Decision cards</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Nonprofit Density: Data and Multiverse</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/00-literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Literature review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/01-construction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Dataset construction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/02-files-sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Files, sources and dictionaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/03-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Workflow code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Multiverse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/03-multiverse-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Multiverse overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">5. Multiverse design</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/04-design-decisions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Decision cards</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/02-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Variables and constructs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/01-stylized-facts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Stylized facts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">7. Running the multiverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/07-multiverse-run.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code and execution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../paper/05-findings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Findings</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/08-next.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Where the research goes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-d1" id="toc-sec-d1" class="nav-link active" data-scroll-target="#sec-d1">D1. Outcome population: filers, grassroots, registered stock, or spending</a></li>
+  <li><a href="#sec-d2" id="toc-sec-d2" class="nav-link" data-scroll-target="#sec-d2">D2. Unit of analysis: county, metro, metro + micro, CSA</a></li>
+  <li><a href="#sec-d3" id="toc-sec-d3" class="nav-link" data-scroll-target="#sec-d3">D3. Identification: cross-section, between, within, long difference</a></li>
+  <li><a href="#sec-d4" id="toc-sec-d4" class="nav-link" data-scroll-target="#sec-d4">D4. DV form: per capita, log-log, SAMI, Poisson</a></li>
+  <li><a href="#sec-d5" id="toc-sec-d5" class="nav-link" data-scroll-target="#sec-d5">D5. Estimator with zeros: OLS on logs vs.&nbsp;Poisson</a></li>
+  <li><a href="#sec-d6" id="toc-sec-d6" class="nav-link" data-scroll-target="#sec-d6">D6. Predictor form for size-scaled covariates</a></li>
+  <li><a href="#sec-d7" id="toc-sec-d7" class="nav-link" data-scroll-target="#sec-d7">D7. Measurement: one item or an index</a></li>
+  <li><a href="#sec-d8" id="toc-sec-d8" class="nav-link" data-scroll-target="#sec-d8">D8. Historical controls: endowment, growth history and market share</a></li>
+  <li><a href="#sec-d9" id="toc-sec-d9" class="nav-link" data-scroll-target="#sec-d9">D9. Geography fixed effects and standard errors</a></li>
+  <li><a href="#sec-d10" id="toc-sec-d10" class="nav-link" data-scroll-target="#sec-d10">D10. Money measure and exclusions</a></li>
+  <li><a href="#sec-d11" id="toc-sec-d11" class="nav-link" data-scroll-target="#sec-d11">D11. Subsector scope</a></li>
+  <li><a href="#sec-d12" id="toc-sec-d12" class="nav-link" data-scroll-target="#sec-d12">D12. Sector age as a control</a></li>
+  <li><a href="#sec-matrix" id="toc-sec-matrix" class="nav-link" data-scroll-target="#sec-matrix">Summary: the decision matrix</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/paper/04-design-decisions.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../paper/03-multiverse-overview.html">Multiverse</a></li><li class="breadcrumb-item"><a href="../paper/04-design-decisions.html">5. Multiverse design</a></li><li class="breadcrumb-item"><a href="../paper/04-design-decisions.html">Decision cards</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Design Decisions</h1>
+<p class="subtitle lead">Twelve decision cards, read on the 13-covariate model</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jesse Lecy and Jeremy P. Thornton </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Twelve cards, ordered from the choices that define the question to the choices that only refine it. Every card is read on the 13-covariate model of <code>02-variables.qmd</code>: poverty and % 65+ (need); the metro Gini, % nonwhite, religious fractionalization and age SD (heterogeneity); foundation assets, % BA and turnout (supply); the 10-year growth kernel, state and local government earnings, Medicaid and the pre-1970 endowment (market niche). The evidence comes from two sources. Single models refit each option with the 13 covariates on 385 metros (Memphis and Mankato have no endowment value). Run v11 of the multiverse supplies the distributions: the same forks as before, with the 13-covariate model as the default, one-at-a-time measurement swaps and drop-one-block contrasts, 432,432 specifications in all.</p>
+<p><strong>What the 13-covariate model changes across the cards.</strong></p>
+<ul>
+<li><strong>Poverty is clearly negative for filers</strong> (partial r −.29, against −.10 in the old six-covariate model). It no longer changes sign between filers and grassroots (D1), and it no longer reverses with metro size (D2).</li>
+<li><strong>Foundation assets roughly halve</strong> (.41 → .21 for filers, .26 → .11 for spending). No single term absorbs them; the endowment, Medicaid and the heterogeneity terms share it.</li>
+<li><strong>Turnout is a grassroots covariate.</strong> It is about zero for filers (.01) and spending (.04) and .24 for grassroots.</li>
+<li><strong>% BA strengthens</strong> (.24 → .37 for filers), and <strong>% nonwhite weakens a little</strong> (−.26 → −.20) and turns positive for grassroots (+.13).</li>
+<li><strong>The most estimator-sensitive terms are now the new state-patterned ones:</strong> Medicaid (.24 under OLS, .06 within states) and religious fractionalization (.12 → .00).</li>
+</ul>
+<p>Old values are from the six-covariate cards; refitting the old model on the current data and the same 385 metros moves them by .02 or less, so the changes are the model’s, not the data’s.</p>
+<div id="tbl-cards" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cards-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The twelve decisions.
+</figcaption>
+<div aria-describedby="tbl-cards-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Decision</th>
+<th>Type</th>
+<th>Card</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Outcome population</td>
+<td>Estimand choice</td>
+<td>D1</td>
+</tr>
+<tr class="even">
+<td>Unit of analysis</td>
+<td>Estimand choice</td>
+<td>D2</td>
+</tr>
+<tr class="odd">
+<td>Identification</td>
+<td>Estimand choice</td>
+<td>D3</td>
+</tr>
+<tr class="even">
+<td>DV form</td>
+<td>Avoidable error</td>
+<td>D4</td>
+</tr>
+<tr class="odd">
+<td>Estimator with zeros</td>
+<td>Avoidable error (subsectors, small units); weighting choice (full-sector metros)</td>
+<td>D5</td>
+</tr>
+<tr class="even">
+<td>Predictor form for size-scaled totals</td>
+<td>Avoidable error (raw, logged without log P); discretion otherwise</td>
+<td>D6</td>
+</tr>
+<tr class="odd">
+<td>Measurement: one item or an index</td>
+<td>Analyst discretion</td>
+<td>D7</td>
+</tr>
+<tr class="even">
+<td>Historical controls</td>
+<td>Estimand choice, bad-control risk</td>
+<td>D8</td>
+</tr>
+<tr class="odd">
+<td>Geography fixed effects and SEs</td>
+<td>Analyst discretion that can flip signs</td>
+<td>D9</td>
+</tr>
+<tr class="even">
+<td>Money measure and exclusions</td>
+<td>Analyst discretion</td>
+<td>D10</td>
+</tr>
+<tr class="odd">
+<td>Subsector scope</td>
+<td>Estimand choice</td>
+<td>D11</td>
+</tr>
+<tr class="even">
+<td>Sector age</td>
+<td>Bad-control risk</td>
+<td>D12</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="sec-d1" class="level1">
+<h1>D1. Outcome population: filers, grassroots, registered stock, or spending</h1>
+<p><strong>Decision.</strong> Which population of organizations “density” counts: established filers, grassroots organizations, the whole registered stock, or the money they spend.</p>
+<p><strong>Type.</strong> Estimand choice. Each population answers a different question, and the choice changes signs.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li><strong>Filers:</strong> 501(c)(3) public charities filing a 990 or 990-EZ with revenue or expenses of at least $50k (2010 dollars). The established, economically active sector.</li>
+<li><strong>Grassroots:</strong> registered public charities that do not file at that level: postcard (990-N) filers, small filers, registered churches and dormant registrations. 72–80% of the registered stock.</li>
+<li><strong>Registered stock:</strong> the IRS Business Master File (BMF), both groups together.</li>
+<li><strong>Spending:</strong> expenses or revenue, gross or net of pass-through grants, with or without hospitals and universities.</li>
+<li>Congregations that never register are outside every count.</li>
+</ul>
+<p><strong>Mechanism.</strong> The populations grow for different reasons. Filers follow the local economy, because organizations cross the filing floor as their revenue grows. Grassroots follow demography and institutional legacy. Spending is dominated by a few large organizations and scales faster than population.</p>
+<p><strong>Evidence 1: the populations rank metros differently</strong> (387 metros, 2022).</p>
+<ul>
+<li>Filer and grassroots SAMIs correlate .67. The registered stock correlates .97 with grassroots but .83 with filers, so it mostly measures grassroots.</li>
+<li>Spending correlates .71 with filers and .41 with grassroots.</li>
+<li>All three counts scale at about 1.0 (filers 0.99, grassroots 1.01, registered 1.00); spending scales at 1.29. The SAMI spreads differ: SD .39 for filers, .26 for grassroots, .73 for spending.</li>
+</ul>
+<p><strong>Evidence 2: the same model gives different answers.</strong> Partial r from the 13-covariate log-log cross-section, 385 metros, 2022, fitted to each population (<a href="#fig-d1" class="quarto-xref">Figure&nbsp;1</a>):</p>
+<div id="tbl-d1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Partial r of the 13 covariates by outcome population.
+</figcaption>
+<div aria-describedby="tbl-d1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>Filers</th>
+<th>Grassroots</th>
+<th>Registered stock</th>
+<th>Spending</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>% BA</td>
+<td>.37</td>
+<td>.14</td>
+<td>.24</td>
+<td>.26</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.21</td>
+<td>.12</td>
+<td>.18</td>
+<td>.11</td>
+</tr>
+<tr class="odd">
+<td>% nonwhite</td>
+<td>−.20</td>
+<td>.13</td>
+<td>.05</td>
+<td>−.08</td>
+</tr>
+<tr class="even">
+<td>Turnout</td>
+<td>.01</td>
+<td>.24</td>
+<td>.21</td>
+<td>.04</td>
+</tr>
+<tr class="odd">
+<td>Poverty rate</td>
+<td>−.29</td>
+<td>−.06</td>
+<td>−.14</td>
+<td>−.04</td>
+</tr>
+<tr class="even">
+<td>S&amp;L govt earnings</td>
+<td>.23</td>
+<td>.08</td>
+<td>.13</td>
+<td>.10</td>
+</tr>
+<tr class="odd">
+<td>Medicaid</td>
+<td>.24</td>
+<td>.00</td>
+<td>.06</td>
+<td>.18</td>
+</tr>
+<tr class="even">
+<td>Growth kernel</td>
+<td>−.05</td>
+<td>−.08</td>
+<td>−.10</td>
+<td>−.05</td>
+</tr>
+<tr class="odd">
+<td>Pre-1970 endowment</td>
+<td>.32</td>
+<td>.26</td>
+<td>.30</td>
+<td>.16</td>
+</tr>
+<tr class="even">
+<td>Gini (metro)</td>
+<td>.13</td>
+<td>.15</td>
+<td>.16</td>
+<td>.08</td>
+</tr>
+<tr class="odd">
+<td>Religious fractionalization</td>
+<td>.12</td>
+<td>.51</td>
+<td>.48</td>
+<td>−.01</td>
+</tr>
+<tr class="even">
+<td>Age SD</td>
+<td>.15</td>
+<td>.07</td>
+<td>.10</td>
+<td>.13</td>
+</tr>
+<tr class="odd">
+<td>% 65+</td>
+<td>−.04</td>
+<td>−.01</td>
+<td>−.02</td>
+<td>−.06</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d1_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The 13-covariate log-log model fitted to filers, grassroots, the registered stock and spending excluding hospitals and universities (385 metros, 2022). Left: the four populations combined (median, range of estimates, envelope of 95% intervals; blue when all four are significant with the same sign). Right: each population as a shape, blue when p &lt; .05.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>% nonwhite splits by population:</strong> negative for filers (−.20) and spending (−.08), positive for grassroots (+.13).</li>
+<li><strong>Poverty no longer changes sign.</strong> It is negative for all four populations and strongest for filers (−.29). In the six-covariate model it was −.10 for filers and +.14 for grassroots.</li>
+<li><strong>Grassroots have their own predictors.</strong> Religious fractionalization (.51) and turnout (.24) carry grassroots density and do nothing for filers or spending (.01–.12). Medicaid is the reverse: .24 for filers, .18 for spending, .00 for grassroots.</li>
+<li>% BA, foundation assets, the endowment and S&amp;L earnings agree in sign everywhere.</li>
+</ul>
+<p><strong>Evidence 3: in the multiverse, outcome population is the largest decision for filers.</strong> Grassroots were added to the multiverse by refitting every registered-stock specification of run v11 with registered non-filers as the outcome.</p>
+<ul>
+<li><strong>η²:</strong> filers vs.&nbsp;grassroots explains .69 of the spread for % nonwhite, .58 for turnout, .57 for religious fractionalization, .46 for % BA, .42 for poverty and .29 for age SD. Counts vs.&nbsp;spending explains .57 for poverty and .36 for % 65+.</li>
+<li><strong>Default-model medians, filers vs.&nbsp;grassroots:</strong> % nonwhite −.07 vs.&nbsp;+.11, turnout .08 vs.&nbsp;.21, religious fractionalization .09 vs.&nbsp;.28, % BA .31 vs.&nbsp;.16, poverty −.17 vs.&nbsp;−.07.</li>
+<li><strong>Impact:</strong> changing only the population changes 41% of covariate verdicts (|Δr| = .098), more than any other decision for filers. Between counts and spending it changes 37% (<a href="#sec-matrix" class="quarto-xref">Section&nbsp;13</a>).</li>
+</ul>
+<p><strong>Evidence 4: the populations move differently over time</strong> (Facts 2 to 4).</p>
+<ul>
+<li>Filers are more persistent (r = .94 at 20 years, vs.&nbsp;.78 for grassroots).</li>
+<li>Filer gains follow income growth (partial r .35); grassroots gains do not (−.07).</li>
+<li>Only filers respond to income losses: organizations drop below the filing floor into the grassroots count.</li>
+<li>Grassroots deficits converge across metros (half-life about 27 years); filer deficits do not.</li>
+<li>Nonprofit market share explains 35% of filer density but 14% of grassroots density.</li>
+</ul>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Match the population to the theory. Service capacity and economic-sector questions call for filers; civic participation and associational life call for grassroots, noting that unregistered congregations are missing; questions about the scale of resources call for spending.</li>
+<li>Report filers and grassroots separately. The pooled registered stock is mostly grassroots and hides the cases where the two disagree (% nonwhite, Medicaid, religious fractionalization).</li>
+<li>When counts and spending disagree, the finding concerns the number versus the size of organizations; it is not a robustness failure.</li>
+<li>Check registered and grassroots counts for group-exemption artifacts (Memphis, Mankato).</li>
+</ul>
+<p><strong>What to report.</strong> The population definition (forms, floor, exclusions) and the key results for both filers and grassroots.</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>D:/MULTIVERSE/data/outline/v11/single/d1_outcome_models.csv</code>); <code>R/multiverse/97_v11_decision_summary.R</code> (<code>D:/MULTIVERSE/data/outline/v11/mv/</code>); <code>R/notes/58_outline_analyses.R</code> part G (SAMI correlations); <code>notes/catchup-lag-results.md</code> sections 3 and 5.</em></p>
+</section>
+<section id="sec-d2" class="level1">
+<h1>D2. Unit of analysis: county, metro, metro + micro, CSA</h1>
+<p><strong>Decision.</strong> Which geographic unit carries the analysis: counties, metropolitan CBSAs, metro plus micropolitan CBSAs, micropolitan areas alone, CSAs, or counties compared within their metro.</p>
+<p><strong>Type.</strong> Estimand choice. Each unit asks a different question: how dense a market is, or where organizations locate inside one.</p>
+<p><strong>Options</strong> (2022):</p>
+<ul>
+<li>Counties: 3,144, of which 3,090 have a filer.</li>
+<li>Metro CBSAs: 387. Metro plus micro CBSAs: 925. Micropolitan only: 538.</li>
+<li>CSA or metro (CSA where the metro belongs to one, else the metro): 271.</li>
+<li>Counties within metros: 1,183 counties with metro fixed effects.</li>
+</ul>
+<p><strong>Mechanism.</strong> Counties split labor and service markets: an organization serving a whole metro is counted in its core county, and the 990 credits all its spending to its headquarters. Small units create zeros. Counties compared within a metro measure how organizations are arranged inside a market, not how many a market supports.</p>
+<p><strong>Evidence 1: the count exponent is stable; the spending exponent is not.</strong> Bivariate β for filers is 0.97–0.99 at every unit (1.10 for counties within metros). For spending it is 1.25–1.42 across units and 1.60 for counties within metros (Fact 1).</p>
+<p><strong>Evidence 2: the same model at six units.</strong> Partial r, filer counts, 13-covariate log-log model. Every term was rebuilt from county data for each unit (the rebuilt metro values correlate 1.000 with the panel):</p>
+<div id="tbl-d2-units" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d2-units-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Partial r of the 13-covariate model at six units, filer counts, 2022 (nine of the 13 terms shown).
+</figcaption>
+<div aria-describedby="tbl-d2-units-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>County</th>
+<th>Metro</th>
+<th>Metro + micro</th>
+<th>Micro only</th>
+<th>CSA or metro</th>
+<th>Counties within metros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>% BA</td>
+<td>.30</td>
+<td>.37</td>
+<td>.29</td>
+<td>.28</td>
+<td>.36</td>
+<td>.41</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.17</td>
+<td>.21</td>
+<td>.18</td>
+<td>.17</td>
+<td>.23</td>
+<td>.24</td>
+</tr>
+<tr class="odd">
+<td>% nonwhite</td>
+<td>−.04</td>
+<td>−.20</td>
+<td>−.07</td>
+<td>−.04</td>
+<td>−.13</td>
+<td>−.07</td>
+</tr>
+<tr class="even">
+<td>Turnout</td>
+<td>.04</td>
+<td>.01</td>
+<td>.10</td>
+<td>.13</td>
+<td>.08</td>
+<td>.07</td>
+</tr>
+<tr class="odd">
+<td>Poverty rate</td>
+<td>−.06</td>
+<td>−.29</td>
+<td>−.21</td>
+<td>−.19</td>
+<td>−.34</td>
+<td><strong>.12</strong></td>
+</tr>
+<tr class="even">
+<td>S&amp;L govt earnings</td>
+<td>.21</td>
+<td>.23</td>
+<td>.11</td>
+<td>.08</td>
+<td>.16</td>
+<td>.13</td>
+</tr>
+<tr class="odd">
+<td>Medicaid</td>
+<td>.10</td>
+<td>.24</td>
+<td>.17</td>
+<td>.13</td>
+<td>.25</td>
+<td>.04</td>
+</tr>
+<tr class="even">
+<td>Growth kernel</td>
+<td>−.02</td>
+<td>−.05</td>
+<td>−.03</td>
+<td>−.02</td>
+<td>−.15</td>
+<td>−.07</td>
+</tr>
+<tr class="odd">
+<td>Pre-1970 endowment</td>
+<td>.16</td>
+<td>.32</td>
+<td>.23</td>
+<td>.21</td>
+<td>.34</td>
+<td>.30</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d2-units" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d2-units-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d2_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d2-units-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The same model at six geographic units, filer counts and spending. Left column of each pair: the six units combined; right: each unit as a shape, blue when p &lt; .05.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Poverty reverses only inside metros.</strong> Across markets (metros, CSAs, micropolitan areas) poorer places have fewer filers (−.19 to −.34); across all counties the association is small (−.06). Within a metro, poorer counties have more organizations (+.12 for counts, +.20 for spending), because organizations locate in the core county where need and headquarters concentrate. The within-metro reversal is half its six-covariate size (+.27).</li>
+<li><strong>The endowment and Medicaid are strongest at the market level:</strong> the endowment .32–.34 for metros and CSAs against .16–.23 for counties and micropolitan units, Medicaid .24–.25 against .04–.17. Foundation assets now differ little by unit (.17–.24).</li>
+<li><strong>% BA, foundation assets and S&amp;L earnings</strong> keep their sign and rough size at every unit; age SD does not (−.08 to .15).</li>
+</ul>
+<p><strong>Evidence 3: in the multiverse,</strong> the unit choice (metro vs.&nbsp;metro plus micro) moves different terms in each population (run v11):</p>
+<ul>
+<li><strong>Filers:</strong> η² = .48 for % nonwhite, .39 for % 65+, .38 for age SD and .19 for % BA.</li>
+<li><strong>Grassroots:</strong> .45 for % 65+, .33 for poverty, .30 for religious fractionalization and .28 for turnout.</li>
+<li><strong>Spending:</strong> .31 for age SD.</li>
+</ul>
+<p>It moves the average covariate by |Δr| = .059 and changes 26% of verdicts for filers (grassroots .050, 20%).</p>
+<p><strong>Evidence 4: zeros.</strong> 53 counties have no filer, and subsector zeros are far more common (58% of counties have no hospital filer). OLS on logs drops them (D5).</p>
+<p><strong>Evidence 5: which places inside the unit.</strong> The 1,470 default-model specifications (filers, registrations and spending excluding hospitals and universities; cross-section 2022, pooled and within; every DV form, predictor form, unit and estimator) re-fit on restricted samples. Shift in the 13 covariates’ partial r against the same specification on all places (cross-section and pooled):</p>
+<div id="tbl-d2-excl" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d2-excl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Sample restrictions, 13-covariate default model. Sign flips count only pairs in which either |r| exceeds .05.
+</figcaption>
+<div aria-describedby="tbl-d2-excl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sample</th>
+<th>Median |Δr|</th>
+<th>90th percentile |Δr|</th>
+<th>Sign flips</th>
+<th>Significance changes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Drop Washington DC</td>
+<td>.002</td>
+<td>.02</td>
+<td>0.1%</td>
+<td>3%</td>
+</tr>
+<tr class="even">
+<td>Drop Alaska and Hawaii</td>
+<td>.004</td>
+<td>.02</td>
+<td>0%</td>
+<td>3%</td>
+</tr>
+<tr class="odd">
+<td>Drop Memphis and Mankato (group exemptions)</td>
+<td>already out</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Drop covariate outliers (any |z| &gt; 4)</td>
+<td>.009</td>
+<td>.05</td>
+<td>2.9%</td>
+<td>10%</td>
+</tr>
+<tr class="odd">
+<td>Drop the 5 largest and 20 smallest</td>
+<td>.011</td>
+<td>.04</td>
+<td>0.5%</td>
+<td>7%</td>
+</tr>
+<tr class="even">
+<td>All case exclusions together</td>
+<td>.013</td>
+<td>.04</td>
+<td>0.5%</td>
+<td>8%</td>
+</tr>
+<tr class="odd">
+<td><em>Winsorize 1% (already a fork, for comparison)</em></td>
+<td><em>.016</em></td>
+<td><em>.06</em></td>
+<td><em>1.7%</em></td>
+<td><em>13%</em></td>
+</tr>
+<tr class="even">
+<td>Population ≥ 100k</td>
+<td>.015</td>
+<td>.08</td>
+<td>2.0%</td>
+<td>13%</td>
+</tr>
+<tr class="odd">
+<td>Population ≥ 250k (about half the metros)</td>
+<td>.053</td>
+<td>.14</td>
+<td>8.5%</td>
+<td>24%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>Case exclusions still change results less than winsorizing does. Memphis and Mankato have no endowment value, so the 13-covariate model already leaves them out.</li>
+<li>The covariate-outlier trim now matters for the age terms. With % 65+, age SD and religious fractionalization in the model, the trim drops the Utah metros (Provo, St.&nbsp;George, Logan) and retirement metros (The Villages, Punta Gorda, Homosassa Springs). Among filers it moves % 65+ by .07 at the median, with sign flips in 24% of pairs, and age SD by .05. Report the age terms with and without these metros.</li>
+<li>A population threshold changes which places the question is about. Among metros of 250k or more, poverty for filers moves toward zero by .10 at the median (sign flips in 29% of pairs) and % BA strengthens by .09. Evidence 6 shows this is a weakening, not a reversal.</li>
+</ul>
+<p><strong>Evidence 6: city size no longer reverses poverty.</strong> The 13-covariate SAMI model, 2022, fitted separately on the 193 metros under 250,000 residents and the 192 above, and with a quadratic size interaction (x × c + x × c², c = centred log P):</p>
+<div id="tbl-d2-size" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d2-size-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Benchmarks by metro size, 13-covariate model, filers, 2022.
+</figcaption>
+<div aria-describedby="tbl-d2-size-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Benchmark, filers</th>
+<th>Under 250k</th>
+<th>250k and over</th>
+<th>Quadratic: joint p</th>
+<th>t at 100k / 250k / 1M / 4M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Poverty rate</td>
+<td>−.33</td>
+<td>−.22</td>
+<td>.018</td>
+<td>−5.4 / −4.8 / −2.5 / −3.0</td>
+</tr>
+<tr class="even">
+<td>% BA</td>
+<td>.43</td>
+<td>.29</td>
+<td>.47</td>
+<td>7.4 / 7.1 / 5.3 / 5.6</td>
+</tr>
+<tr class="odd">
+<td>Foundation assets</td>
+<td>.22</td>
+<td>.25</td>
+<td>.38</td>
+<td>2.1 / 4.4 / 2.9 / 0.6</td>
+</tr>
+<tr class="even">
+<td>% nonwhite</td>
+<td>−.20</td>
+<td>−.20</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>Turnout</td>
+<td>−.08</td>
+<td>.16</td>
+<td>.72</td>
+<td>0.5 / 0.0 / −0.1 / 0.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d2-size" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d2-size-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d2_lean_size.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d2-size-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: t of each benchmark’s effect at 100k, 250k, 1M and 4M residents from a quadratic size interaction in the 13-covariate SAMI model, filers, grassroots and spending (385 metros, 2022).
+</figcaption>
+</figure>
+</div>
+<p>The multiverse agrees. The 1,212 default-model specifications per outcome (2022 and 2019 cross-sections and pooled; every DV form, predictor form, unit, estimator except state random effects, and winsorizing) were refit with the quadratic size interaction. For filers, poverty’s effect is concave in 94% of specifications and the size terms are jointly significant in 86%, but the effect is negative at every size: median t −4.7 at 100k (significantly negative in 93% of specifications), −2.7 at 250k, −0.8 at 1M and −0.7 at 4M. It is significantly positive at 1M in 2% of specifications, against 16% with six covariates. For grassroots poverty is negative in small metros (t −2.1 at 100k) and near zero above 250k; for spending it is near zero at every size.</p>
+<ul>
+<li><strong>The reversal was an omitted-variable pattern.</strong> In the six-covariate model poverty for filers was −.11 to −.14 in smaller metros and +.08 to +.13 in larger ones. With the 13 covariates it is negative and significant at every size; the curvature remains (concave, joint p .018) but bends a negative effect toward zero instead of across it. No single term does this: poverty correlates .34 with Medicaid and .36 with the Gini in SAMI form, and dropping either leaves large-metro poverty at −.16 to −.22.</li>
+<li><strong>Two size differences remain.</strong> Foundation assets for spending still peak at mid-size (concave, joint p .015). Turnout for filers is negative in smaller metros and positive in larger ones (−.08 vs .16, z = 2.4).</li>
+</ul>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>For questions about density, use metro CBSAs or CSAs. They match labor and service markets, have no zeros and give similar answers.</li>
+<li>Use counties only for questions about location within a market, with metro fixed effects, and say so: a positive poverty coefficient there means organizations sit where need concentrates inside a metro.</li>
+<li>Do not pool micropolitan areas with metros without testing whether they behave alike.</li>
+<li>Treat a population threshold like the unit: a choice of which places the claim covers. If a claim is meant for large cities, report it for metros of 250k or more as well.</li>
+<li>Do not report the poverty-by-size reversal as a finding: it disappears once need, heterogeneity and indirect government are measured. Report the size split as a check.</li>
+<li>Do not add case exclusions as a fork. One robustness line (dropping DC, Alaska and Hawaii, group-exemption metros and the size extremes) covers them.</li>
+<li>Compare spending exponents only across studies that use the same unit.</li>
+</ul>
+<p><strong>What to report.</strong> The unit and its delineation vintage, the number of units and zeros, and key results at one alternative unit and, for claims about large cities, above a population threshold.</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d2_units.csv</code>, <code>d2_size_split.csv</code>, <code>d2_size_quadratic.csv</code>); <code>R/multiverse/97_v11_decision_summary.R</code>; size screen on the 13-covariate default: <code>R/notes/90_size_moderation_screen.R</code> with <code>MV_MODEL=lean</code> (<code>D:/MULTIVERSE/data/interactions/size_moderation_v11/</code>); six-covariate size analyses: <code>R/notes/86_sensitivity_tcja_size.R</code> part B, <code>R/notes/90_size_moderation_screen.R</code>; sample exclusions: <code>R/notes/83_sample_exclusions.R</code> with <code>MV_MODEL=lean</code> (<code>D:/MULTIVERSE/data/sample_excl_v11/</code>); <code>notes/scaling-aggregation-results.md</code>.</em></p>
+</section>
+<section id="sec-d3" class="level1">
+<h1>D3. Identification: cross-section, between, within, long difference</h1>
+<p><strong>Decision.</strong> Which variation identifies a covariate’s association: differences between metros (a cross-section, or pooled years with year FE), changes within metros (metro and year FE), or long-run change (long differences, growth curves), and whether to estimate between and within effects together (correlated random effects, hybrid models).</p>
+<p><strong>Type.</strong> Estimand choice. Between and within estimators answer different questions. They are not more and less robust versions of one answer.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li><strong>Cross-section:</strong> one year, or an average of several.</li>
+<li><strong>Pooled panel with year FE:</strong> all years; mixes between and within variation, but between variation dominates.</li>
+<li><strong>Within:</strong> metro and year FE; only deviations from each metro’s own mean. The endowment drops out.</li>
+<li><strong>Long differences:</strong> change over 10–20 years regressed on covariate change, with the starting level.</li>
+<li><strong>Growth curves and hybrid models:</strong> metro means and deviations entered together, giving between and within effects in one model.</li>
+<li>State or division FE (D9) sit in between: they remove regional levels but keep differences among metros within a state.</li>
+</ul>
+<p><strong>Mechanism.</strong> Density and its covariates are nearly fixed (Fact 2). A within estimator discards the 95–99% of variance that lies between metros and fits what is left: interpolated ACS change, source splices, and short-run adjustment that lags population change by years (Fact 3). A pooled estimator keeps the between variance and so reproduces the cross-section; counting metro-years as independent overstates the sample 8 to 13 times.</p>
+<p><strong>Evidence 1: pooling changes little; within estimates shrink or flip, differently for filers and grassroots.</strong> Median partial r across default-model specifications, degrees of freedom counted in metros (run v11):</p>
+<div id="tbl-d3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Median partial r by identification and outcome population, default-model specifications of run v11 (1,540 per population; grassroots refit on the registered-stock specifications). <span style="color:#2a78d6">Blue</span>: more than half the specifications significant (p &lt; .05) with the median’s sign; <span style="color:#9aa0a8">gray</span>: half or fewer. Bold: within-metro median differs from the cross-section by .10 or more. Spending excludes hospitals and universities.
+</figcaption>
+<div aria-describedby="tbl-d3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>Filers: cross-section / pooled / within</th>
+<th>Grassroots: cross-section / pooled / within</th>
+<th>Spending: cross-section / pooled / within</th>
+<th>Within − cross-section: filers / grassroots / spending</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>% BA</td>
+<td><span style="color:#2a78d6">.31</span> / <span style="color:#2a78d6">.33</span> / <span style="color:#2a78d6">.08</span></td>
+<td><span style="color:#2a78d6">.15</span> / <span style="color:#2a78d6">.17</span> / <span style="color:#2a78d6">.14</span></td>
+<td><span style="color:#2a78d6">.23</span> / <span style="color:#2a78d6">.25</span> / <span style="color:#9aa0a8">.06</span></td>
+<td><strong>−.23</strong> / .00 / <strong>−.17</strong></td>
+</tr>
+<tr class="even">
+<td>Turnout</td>
+<td><span style="color:#9aa0a8">.07</span> / <span style="color:#9aa0a8">.08</span> / <span style="color:#9aa0a8">.07</span></td>
+<td><span style="color:#2a78d6">.20</span> / <span style="color:#2a78d6">.21</span> / <span style="color:#2a78d6">.10</span></td>
+<td><span style="color:#9aa0a8">.02</span> / <span style="color:#9aa0a8">.04</span> / <span style="color:#9aa0a8">.05</span></td>
+<td>−.01 / <strong>−.10</strong> / .03</td>
+</tr>
+<tr class="odd">
+<td>Foundation assets</td>
+<td><span style="color:#2a78d6">.11</span> / <span style="color:#2a78d6">.12</span> / <span style="color:#9aa0a8">.07</span></td>
+<td><span style="color:#9aa0a8">.04</span> / <span style="color:#9aa0a8">.05</span> / <span style="color:#9aa0a8">.01</span></td>
+<td><span style="color:#9aa0a8">.06</span> / <span style="color:#9aa0a8">.08</span> / <span style="color:#9aa0a8">.03</span></td>
+<td>−.04 / −.03 / −.03</td>
+</tr>
+<tr class="even">
+<td>S&amp;L govt earnings</td>
+<td><span style="color:#2a78d6">.09</span> / <span style="color:#2a78d6">.09</span> / <span style="color:#9aa0a8">−.01</span></td>
+<td><span style="color:#9aa0a8">.07</span> / <span style="color:#9aa0a8">.07</span> / <span style="color:#2a78d6">−.13</span></td>
+<td><span style="color:#9aa0a8">.05</span> / <span style="color:#9aa0a8">.06</span> / <span style="color:#9aa0a8">.01</span></td>
+<td>−.10 / <strong>−.20</strong> / −.05</td>
+</tr>
+<tr class="odd">
+<td>Medicaid</td>
+<td><span style="color:#9aa0a8">.04</span> / <span style="color:#9aa0a8">.05</span> / <span style="color:#9aa0a8">−.01</span></td>
+<td><span style="color:#9aa0a8">−.02</span> / <span style="color:#9aa0a8">.00</span> / <span style="color:#9aa0a8">.00</span></td>
+<td><span style="color:#9aa0a8">.05</span> / <span style="color:#9aa0a8">.07</span> / <span style="color:#2a78d6">.08</span></td>
+<td>−.05 / .02 / .03</td>
+</tr>
+<tr class="even">
+<td>Poverty rate</td>
+<td><span style="color:#2a78d6">−.17</span> / <span style="color:#2a78d6">−.17</span> / <span style="color:#9aa0a8">−.02</span></td>
+<td><span style="color:#9aa0a8">−.07</span> / <span style="color:#9aa0a8">−.06</span> / <span style="color:#2a78d6">.09</span></td>
+<td><span style="color:#9aa0a8">−.03</span> / <span style="color:#9aa0a8">−.04</span> / <span style="color:#9aa0a8">−.05</span></td>
+<td><strong>.15</strong> / <strong>.16</strong> / −.02</td>
+</tr>
+<tr class="odd">
+<td>% nonwhite</td>
+<td><span style="color:#9aa0a8">−.06</span> / <span style="color:#9aa0a8">−.07</span> / <span style="color:#2a78d6">−.10</span></td>
+<td><span style="color:#2a78d6">.12</span> / <span style="color:#2a78d6">.09</span> / <span style="color:#2a78d6">−.09</span></td>
+<td><span style="color:#9aa0a8">−.04</span> / <span style="color:#9aa0a8">−.03</span> / <span style="color:#9aa0a8">.00</span></td>
+<td>−.04 / <strong>−.21</strong> / .03</td>
+</tr>
+<tr class="even">
+<td>Growth kernel</td>
+<td><span style="color:#2a78d6">−.09</span> / <span style="color:#9aa0a8">−.06</span> / <span style="color:#2a78d6">−.15</span></td>
+<td><span style="color:#2a78d6">−.15</span> / <span style="color:#2a78d6">−.12</span> / <span style="color:#2a78d6">−.20</span></td>
+<td><span style="color:#2a78d6">−.09</span> / <span style="color:#2a78d6">−.09</span> / <span style="color:#9aa0a8">−.02</span></td>
+<td>−.06 / −.04 / .07</td>
+</tr>
+<tr class="odd">
+<td>Pre-1970 endowment</td>
+<td><span style="color:#2a78d6">.20</span> / <span style="color:#2a78d6">.22</span> / —</td>
+<td><span style="color:#2a78d6">.18</span> / <span style="color:#2a78d6">.19</span> / —</td>
+<td><span style="color:#2a78d6">.09</span> / <span style="color:#2a78d6">.10</span> / —</td>
+<td>— / — / —</td>
+</tr>
+<tr class="even">
+<td>Religious fractionalization</td>
+<td><span style="color:#2a78d6">.09</span> / <span style="color:#2a78d6">.09</span> / <span style="color:#9aa0a8">−.02</span></td>
+<td><span style="color:#2a78d6">.28</span> / <span style="color:#2a78d6">.26</span> / <span style="color:#2a78d6">.10</span></td>
+<td><span style="color:#9aa0a8">.04</span> / <span style="color:#9aa0a8">.06</span> / <span style="color:#9aa0a8">−.03</span></td>
+<td><strong>−.11</strong> / <strong>−.18</strong> / −.08</td>
+</tr>
+<tr class="odd">
+<td>Gini (metro)</td>
+<td><span style="color:#2a78d6">.09</span> / <span style="color:#2a78d6">.10</span> / <span style="color:#9aa0a8">.02</span></td>
+<td><span style="color:#9aa0a8">.07</span> / <span style="color:#9aa0a8">.06</span> / <span style="color:#9aa0a8">.01</span></td>
+<td><span style="color:#9aa0a8">.08</span> / <span style="color:#2a78d6">.11</span> / <span style="color:#9aa0a8">.04</span></td>
+<td>−.07 / −.07 / −.04</td>
+</tr>
+<tr class="even">
+<td>Age SD</td>
+<td><span style="color:#2a78d6">.08</span> / <span style="color:#2a78d6">.09</span> / <span style="color:#9aa0a8">−.08</span></td>
+<td><span style="color:#9aa0a8">.02</span> / <span style="color:#9aa0a8">.02</span> / <span style="color:#2a78d6">.13</span></td>
+<td><span style="color:#2a78d6">.10</span> / <span style="color:#2a78d6">.10</span> / <span style="color:#9aa0a8">−.01</span></td>
+<td><strong>−.16</strong> / <strong>.11</strong> / <strong>−.11</strong></td>
+</tr>
+<tr class="odd">
+<td>% 65+</td>
+<td><span style="color:#9aa0a8">.02</span> / <span style="color:#9aa0a8">.01</span> / <span style="color:#9aa0a8">.04</span></td>
+<td><span style="color:#9aa0a8">.03</span> / <span style="color:#9aa0a8">.03</span> / <span style="color:#2a78d6">−.14</span></td>
+<td><span style="color:#9aa0a8">−.07</span> / <span style="color:#9aa0a8">−.07</span> / <span style="color:#9aa0a8">.04</span></td>
+<td>.02 / <strong>−.17</strong> / <strong>.11</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d3-ident" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d3-ident-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d3_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d3-ident-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: The same medians as <a href="#tbl-d3" class="quarto-xref">Table&nbsp;6</a>, by covariate (rows) and outcome population: filers, grassroots, expenditures excluding hospitals and universities. For each population, the left column shows the three identifications (triangle cross-section, square pooled, circle within metros), filled blue when more than half the specifications are significant with the median sign. The right column shows an arrow from the cross-section estimate (gray value) to the within-metro estimate (circle). The arrow and the within value are blue when the within estimate is mostly significant.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Pooling years changes little.</strong> Pooled and cross-section medians differ by .04 at most for every population.</li>
+<li><strong>Filers and grassroots must be read separately.</strong> Several terms have opposite signs in the two populations, so a “counts” summary that pools them averages the two away. % nonwhite is −.06 for filers and +.12 for grassroots; the earlier pooled table showed .03. Turnout and religious fractionalization are grassroots covariates (.20, .28) more than filer covariates (.07, .09). Poverty is a filer covariate (−.17 vs.&nbsp;−.07). The registered stock behaves like grassroots, which are three quarters of it.</li>
+<li><strong>Within metros, filers lose the between-metro story.</strong> % BA keeps a quarter of its cross-section strength (.31 → .08), poverty vanishes (−.17 → −.02), and religious fractionalization and age SD turn slightly negative. Only the growth kernel (−.09 → −.15, significant in 84% of specifications) and % nonwhite (−.06 → −.10) get stronger.</li>
+<li><strong>Grassroots keep more within-metro signal.</strong> Their SAMI varies four times as much within metros as filers’ does (4.9% vs.&nbsp;1.2% of variance). % BA holds (.15 → .14), turnout halves (.20 → .10), and the growth kernel strengthens (−.15 → −.20, significant in 95%).</li>
+<li><strong>Several grassroots terms change sign within metros:</strong> poverty (−.07 → +.09), % nonwhite (+.12 → −.09), S&amp;L earnings (+.07 → −.13), % 65+ (+.03 → −.14) and age SD (+.02 → +.13). Read these as short-run change, not as the cross-section’s mechanism in reverse. Metros that age or lose government employment over the decade add registrations in the same years.</li>
+<li><strong>Spending:</strong> % BA falls from .23 to .07 within metros, and age SD and religious fractionalization turn negative. Medicaid is the one spending term that stays and is significant in half the within specifications (.05 → .08).</li>
+<li>The endowment is fixed and drops out.</li>
+</ul>
+<p><strong>Evidence 2: little variation is left within metros.</strong> Share of variance within metros, 2010–2022, after removing year means:</p>
+<ul>
+<li>Outcomes: filer SAMI 1.2%, grassroots 4.9%, spending 7.2%.</li>
+<li>Covariates: % nonwhite 0.2%, % BA 0.8%, S&amp;L govt earnings 1.4%, turnout 3.3%, foundation assets 6.7%, per capita income 7.4%, poverty 9.0%. The endowment is fixed. Population growth is the exception at 21%, which is why the growth kernel is the main within-metro term (−.20 for filers, −.26 for grassroots in the 13-covariate model).</li>
+<li>The within estimates for % BA and % nonwhite rest on less than 1% of their variance, much of it the smoothing of ACS five-year averages. The covariates that do move are cyclical: growth, poverty and income.</li>
+</ul>
+<p><strong>Evidence 3: more years do not buy precision.</strong> Every within specification of run v11 was refit on 2000–2022 and on 2010–2022 (20,160 specifications). Contribution measures and net outcomes start in 2010–12, so they are left out. Both windows use the county-weighted Gini, because the metro Gini starts in 2010. On 2010–2022 that swap moves no other term (correlation with v11 ≥ .989).</p>
+<ul>
+<li>The longer window adds 77% more metro-years, but standard errors do not shrink: the median ratio is 1.08 for counts (filers and the registered stock together) and 1.03 for spending. The median |t| falls for counts (1.75 → 1.57) and is unchanged for spending (1.06).</li>
+<li>Estimates agree in sign in 84% of pairs for counts and 73% for spending (partial r correlates .85 and .64).</li>
+<li><strong>Counts:</strong> only the growth kernel gains (−.16 → −.20, |t| 4.0 → 5.0). % nonwhite (−.11 → −.07), age SD and foundation assets weaken.</li>
+<li><strong>Spending:</strong> the Gini doubles (.05 → .09), and the growth kernel changes sign (−.03 → +.02).</li>
+<li>The extra years cross the 2011 source splice and rest mostly on covariates interpolated from the 2000 census, so they add noise as fast as they add observations.</li>
+</ul>
+<p><strong>Evidence 4: hybrid models separate the two cleanly.</strong> In correlated random effects models with the 13 covariates (385 metros, 2010–2022), between-metro effects are .13–.42 SD per SD of the covariate for filers and spending; % BA is the largest (.39 and .42) and turnout is about zero. Within effects are .03 SD or less for filers and spending and at most .06 for grassroots.</p>
+<div id="tbl-d3-cre" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d3-cre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7: Between and within effects (SD of the SAMI per SD of the covariate), hybrid models, 2010–2022.
+</figcaption>
+<div aria-describedby="tbl-d3-cre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>Filers: between / within</th>
+<th>Spending: between / within</th>
+<th>Grassroots: between / within</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>% BA</td>
+<td>.39 / .025</td>
+<td>.42 / .023</td>
+<td>.11 / .025</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.16 / .004</td>
+<td>.13 / −.002</td>
+<td>.13 / −.001</td>
+</tr>
+<tr class="odd">
+<td>% nonwhite</td>
+<td>−.23 / −.023</td>
+<td>−.20 / −.027</td>
+<td>.07 / −.041</td>
+</tr>
+<tr class="even">
+<td>Turnout</td>
+<td>−.01 / .012</td>
+<td>.02 / .018</td>
+<td>.28 / .026</td>
+</tr>
+<tr class="odd">
+<td>Poverty rate</td>
+<td>−.21 / .007</td>
+<td>.00 / −.003</td>
+<td>−.05 / .022</td>
+</tr>
+<tr class="even">
+<td>S&amp;L govt earnings</td>
+<td>.20 / −.001</td>
+<td>.15 / .002</td>
+<td>.14 / −.029</td>
+</tr>
+<tr class="odd">
+<td>Medicaid</td>
+<td>.15 / .003</td>
+<td>.19 / .025</td>
+<td>.02 / .002</td>
+</tr>
+<tr class="even">
+<td>Growth kernel</td>
+<td>.00 / −.027</td>
+<td>−.07 / −.022</td>
+<td>.01 / −.048</td>
+</tr>
+<tr class="odd">
+<td>Pre-1970 endowment</td>
+<td>.23 / —</td>
+<td>.13 / —</td>
+<td>.32 / —</td>
+</tr>
+<tr class="even">
+<td>Age SD</td>
+<td>.22 / −.016</td>
+<td>.15 / −.019</td>
+<td>.09 / .064</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>Evidence 5: identification is a major decision in the multiverse, and the largest for grassroots.</strong> Its η² (run v11):</p>
+<ul>
+<li><strong>Filers:</strong> .37 for age SD, .36 for % BA, .31 for poverty and .24 for religious fractionalization.</li>
+<li><strong>Grassroots:</strong> .58 for % nonwhite, .47 for S&amp;L earnings, .44 for poverty, .34 for % 65+ and .33 for age SD. These are the terms that change sign within metros.</li>
+<li><strong>Spending:</strong> .37 for age SD, .30 for % 65+ and .30 for % BA.</li>
+</ul>
+<p>Changing only the identification moves the average covariate by |Δr| = .106 and changes 42% of verdicts for grassroots, the largest decision for them. For filers it is .088 and 38%, for spending .059 and 29%.</p>
+<p><strong>Evidence 6: within-metro change is short-run adjustment.</strong> After population growth, filer density takes about five years to close half the gap and grassroots about nine (Fact 3). A within model with same-year covariates measures this lag and reports it as an association.</p>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Decide the question first. For levels (why some metros have more nonprofits), use a cross-section or the between part of a hybrid model, with the endowment and the growth kernel.</li>
+<li>For change (what makes density grow), use long differences or growth curves over ten years or more, controlling for the starting level and for growth not yet absorbed.</li>
+<li>Treat metro-FE estimates as weakly identified. Report them as a check, not as the causal answer.</li>
+<li>In pooled panels, cluster by metro and count degrees of freedom in metros. A pooled panel is a cross-section measured repeatedly, not a larger sample.</li>
+<li>Use the longer 2000–2022 window only as robustness; it crosses the 2011 source splice.</li>
+</ul>
+<p><strong>What to report.</strong> Which variation identifies each estimate; the within-metro share of variance for the outcome and key covariates; the clustering level and effective sample size; and, for panels, between and within effects side by side.</p>
+<p><em>Sources: <code>R/multiverse/97_v11_decision_summary.R</code> (<code>v11/mv_split/option_medians.csv</code>, <code>stability.csv</code>); <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d3_hybrid_cre.csv</code>); <code>R/paper/94_variables_panel_model.R</code> (within shares); <code>R/notes/101_lean_open_checks.R</code> part W (<code>v11/open_checks/w_*.csv</code>); <code>notes/catchup-lag-results.md</code> section 2.</em></p>
+</section>
+<section id="sec-d4" class="level1">
+<h1>D4. DV form: per capita, log-log, SAMI, Poisson</h1>
+<p><strong>Decision.</strong> How size enters the outcome: counts or dollars per capita (linear), log per capita, log Y with log P on the right (log-log), or the SAMI (the residual of log Y on log P).</p>
+<p><strong>Type.</strong> Avoidable error. A per capita form is a constraint on the size coefficient. When the constraint is wrong, the error flows into every covariate correlated with size.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li><strong>Per capita, linear:</strong> organizations per 10,000 residents, dollars per resident. The most common form in the literature.</li>
+<li><strong>Log per capita:</strong> log(Y/P).</li>
+<li><strong>Log-log:</strong> log Y on log P plus covariates.</li>
+<li><strong>SAMI:</strong> the residual of log Y on log P, with covariates also in SAMI form. Identical to log-log by FWL (Fact 6).</li>
+<li><strong>Poisson</strong> with log P or a population offset: see D5.</li>
+</ul>
+<p><strong>Mechanism.</strong> log(Y/P) = log Y − log P, so a per capita model is a log-log model with the coefficient on log P fixed at 1. The constraint fails in two ways.</p>
+<ul>
+<li>The outcome may not scale at 1. Spending scales at 1.29, so per capita spending still carries 0.29 × log P.</li>
+<li>Even when Y scales at 1, the coefficient on log P is no longer 1 once size-bearing covariates enter the model (per capita foundation assets, government earnings, Medicaid). The constraint then pushes weight onto them.</li>
+</ul>
+<p>In both cases the omitted size term biases each covariate in proportion to its correlation with size: % BA r = .40 with log P, foundation assets .42, % nonwhite .38, poverty −.23; among the new terms, the Gini .42, age SD −.33, the growth kernel .22 and the per capita endowment −.25.</p>
+<p><strong>Evidence 1: per capita ranks metros like the SAMI for counts, but by size for spending.</strong></p>
+<ul>
+<li>Filer counts scale at β = 0.99. Log per capita filers is flat in population (R² = .00), and per capita and SAMI ranks correlate .999.</li>
+<li>Spending scales at 1.29. Per capita spending rises with population (R² = .16), and the ranks correlate .90.</li>
+<li>The ten largest metros average the 77th percentile of per capita spending but the 39th percentile by SAMI. New York is 94th per capita vs.&nbsp;51st by SAMI, Dallas 66th vs.&nbsp;20th, Houston 54th vs.&nbsp;12th.</li>
+</ul>
+<p><strong>Evidence 2: per capita forms change covariate results, for counts as well as spending.</strong> Partial r, 385 metros, 2022. Log per capita uses per capita totals and no log P; linear per capita likewise.</p>
+<div id="tbl-d4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8: Partial r under three DV forms (nine of the 13 terms).
+</figcaption>
+<div aria-describedby="tbl-d4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>Counts: log-log / log per capita / per capita</th>
+<th>Spending: log-log / log per capita / per capita</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>% BA</td>
+<td>.37 / .32 / .30</td>
+<td>.26 / .29 / .20</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.21 / .16 / .12</td>
+<td>.11 / .18 / .15</td>
+</tr>
+<tr class="odd">
+<td>S&amp;L govt earnings</td>
+<td>.23 / .27 / .15</td>
+<td>.10 / .04 / .02</td>
+</tr>
+<tr class="even">
+<td>% nonwhite</td>
+<td>−.20 / −.28 / −.14</td>
+<td>−.08 / .00 / .07</td>
+</tr>
+<tr class="odd">
+<td>Turnout</td>
+<td>.01 / .00 / .02</td>
+<td>.04 / .04 / .01</td>
+</tr>
+<tr class="even">
+<td>Poverty rate</td>
+<td>−.29 / −.23 / −.18</td>
+<td>−.04 / −.10 / −.09</td>
+</tr>
+<tr class="odd">
+<td>Medicaid</td>
+<td>.24 / .20 / .19</td>
+<td>.18 / .22 / .13</td>
+</tr>
+<tr class="even">
+<td>Growth kernel</td>
+<td>−.05 / −.03 / −.08</td>
+<td>−.05 / −.06 / −.16</td>
+</tr>
+<tr class="odd">
+<td>Pre-1970 endowment</td>
+<td>.32 / .38 / .34</td>
+<td>.16 / .09 / −.03</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d4_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: The 13 covariates under four DV forms (log-log, which equals the SAMI; log per capita with and without log P; linear per capita), filer counts and spending (385 metros, 2022). Left of each pair: the forms combined; right: each form, blue when p &lt; .05.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li>% nonwhite strengthens for counts in log per capita (−.20 → −.28) and disappears for spending (−.08 → .00 → .07).</li>
+<li>For spending, S&amp;L earnings falls from .10 to .02 and the endowment from .16 to −.03 in the linear form.</li>
+<li>The per capita forms move results less for counts than they did with six covariates (% nonwhite −.26 → −.43 then), because the 13 terms leave less size for the constraint to misplace.</li>
+<li>Adding log P to the right of the log per capita model reproduces log-log exactly, and the SAMI model gives the same partial r.</li>
+</ul>
+<p><strong>Evidence 3: DV form matters in the multiverse, more for spending.</strong> Its η² (run v11; these include the Poisson forms, D5):</p>
+<ul>
+<li><strong>Filers:</strong> .38 for age SD, .34 for the Gini, .33 for religious fractionalization and .31 for poverty.</li>
+<li><strong>Grassroots:</strong> .48 for % BA, .39 for age SD and .34 for the Gini.</li>
+<li><strong>Spending:</strong> .47 for the Gini, .25 for % nonwhite, .20 for religious fractionalization and .16 for the endowment.</li>
+</ul>
+<p>Changing only the DV form changes 23% of verdicts for filers, 16% for grassroots and 27% for spending.</p>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Use log-log or the SAMI. If per capita is wanted for presentation, estimate log per capita with log P on the right, which is the same model.</li>
+<li>Do not compare per capita spending across metros of different size without adjustment; it ranks metros by size.</li>
+<li>Treat size-scaled covariates like the outcome (D6). Per capita covariates without log P re-create the constraint.</li>
+<li>Keep linear per capita for description. It adds skew and heteroskedasticity to the constraint.</li>
+</ul>
+<p><strong>What to report.</strong> The outcome’s form; β with its interval; whether log P is on the right-hand side; and the form of size-scaled covariates.</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d4_forms.csv</code>, <code>d4_size_cor.csv</code>); <code>R/multiverse/97_v11_decision_summary.R</code>; <code>R/notes/58_outline_analyses.R</code> part J (rankings).</em></p>
+</section>
+<section id="sec-d5" class="level1">
+<h1>D5. Estimator with zeros: OLS on logs vs.&nbsp;Poisson</h1>
+<p><strong>Decision.</strong> How to estimate when some units have no organizations or no dollars: OLS on log Y with zeros dropped, OLS on log(Y + 1), or Poisson pseudo-maximum likelihood (PML) with log P or a population offset.</p>
+<p><strong>Type.</strong> Avoidable error for subsectors, small units and changes in counts. For full-sector metro models, a weighting choice.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li><strong>OLS on log Y, zeros dropped.</strong></li>
+<li><strong>OLS on log(Y + 1)</strong> or another added constant.</li>
+<li><strong>Poisson PML</strong> with log P on the right (β estimated) or as an offset (β = 1), with robust SEs. It estimates the elasticity of the mean consistently without assuming the data are Poisson.</li>
+<li><strong>Negative binomial, hurdle or zero-inflated models</strong>, when the zero process is itself of interest.</li>
+</ul>
+<p><strong>Mechanism.</strong></p>
+<ul>
+<li>Dropping zeros keeps only the small places that happen to have an organization, which are the small places with unusually many. That flattens the slope.</li>
+<li>log(Y + 1) pulls small counts toward zero and flattens it further.</li>
+<li>Poisson keeps the zeros and models the mean on the original scale. It also weights units by their expected count, so large places dominate. That weighting matters even when there are no zeros.</li>
+</ul>
+<p><strong>Evidence 1: the OLS bias tracks the share of zeros.</strong> Across 12 NCCS groups and five geographic units, the gap between the OLS (zeros dropped) and Poisson β correlates −.98 with the share of units with no filer in the group. The gap is under .05 where zeros are rare and reaches −.8 for mutual/membership organizations in counties, 90% of which have none.</p>
+<p><strong>Evidence 2: only Poisson keeps β stable.</strong> County models with the 13 covariates in SAMI form (3,124 counties, 2022):</p>
+<div id="tbl-d5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9: County scaling exponents by estimator, 13-covariate model.
+</figcaption>
+<div aria-describedby="tbl-d5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group (share of counties with none)</th>
+<th>OLS, zeros dropped</th>
+<th>OLS, log(n + 1)</th>
+<th>Poisson</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Full sector (2%)</td>
+<td>0.98</td>
+<td>0.93</td>
+<td>1.00</td>
+</tr>
+<tr class="even">
+<td>Human services (6%)</td>
+<td>0.93</td>
+<td>0.86</td>
+<td>0.95</td>
+</tr>
+<tr class="odd">
+<td>Health (25%)</td>
+<td>0.77</td>
+<td>0.68</td>
+<td>0.99</td>
+</tr>
+<tr class="even">
+<td>Arts (30%)</td>
+<td>0.76</td>
+<td>0.67</td>
+<td>1.01</td>
+</tr>
+<tr class="odd">
+<td>Hospitals (57%)</td>
+<td>0.35</td>
+<td>0.27</td>
+<td>0.81</td>
+</tr>
+<tr class="even">
+<td>Universities (72%)</td>
+<td>0.39</td>
+<td>0.25</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td>Mutual/membership (90%)</td>
+<td>0.19</td>
+<td>0.10</td>
+<td>1.06</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>OLS β falls from about 1 to 0.2 as zeros rise; log(n + 1) is lower still at every level.</li>
+<li>Poisson β stays between 0.81 and 1.27 for every group.</li>
+</ul>
+<p><strong>Evidence 3: covariate effects change too.</strong> For the sparse groups, OLS finds essentially no foundation-asset effect (−.01 to −.03 SD) where Poisson finds .06–.17. The mean absolute OLS–Poisson gap in standardized coefficients rises from .05 for the full sector to .09–.14 for the sparse groups, about as large as the Poisson coefficients themselves.</p>
+<p><strong>Evidence 4: with no zeros, Poisson is a weighting choice.</strong></p>
+<ul>
+<li>For full-sector metro filer counts, OLS and Poisson agree: β 0.99 vs.&nbsp;1.00, every covariate within .04.</li>
+<li>For spending, Poisson SEs are 1.7 to 2.9 times larger and the results depend on the largest metros. Dropping the top 5% by population moves % BA from .45 to .07 and the endowment from .25 to .04, while turnout (.05 → .15) and S&amp;L earnings (.07 → .17) rise.</li>
+<li>In the multiverse, Poisson vs.&nbsp;OLS matters most for grassroots (run v11):
+<ul>
+<li><strong>Grassroots:</strong> η² = .48 for % BA (OLS .17 against Poisson .04), .34 for age SD and .26 for the Gini.</li>
+<li><strong>Filers:</strong> .23 for poverty (−.19 vs.&nbsp;−.13), .18 for the Gini, .17 for age SD and .10 for % BA (.33 vs.&nbsp;.25).</li>
+<li><strong>Spending:</strong> .39 for the Gini.</li>
+</ul></li>
+</ul>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Use Poisson PML with robust SEs whenever more than a few percent of units are zero: subsectors, counties, micro areas and changes in counts.</li>
+<li>Do not use log(Y + 1).</li>
+<li>With log P on the right, Poisson β compares directly with OLS β. An offset imposes β = 1, as per capita does (D4).</li>
+<li>For full-sector metro models, report OLS and Poisson side by side, and check Poisson spending results without the largest metros.</li>
+<li>For change, model the later count by Poisson with the earlier count’s log on the right (or with metro FE), not as a log difference that is undefined at zero.</li>
+</ul>
+<p><strong>What to report.</strong> The share of zeros; the estimator and how zeros were handled; and, for Poisson, sensitivity to the largest units.</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d5_county_models.csv</code>, <code>d5_metro_ols_pois.csv</code>, <code>d5_disagreement.csv</code>); <code>R/multiverse/97_v11_decision_summary.R</code>; <code>notes/scaling-aggregation-results.md</code> (<code>R/notes/74_scaling_aggregation.R</code>).</em></p>
+</section>
+<section id="sec-d6" class="level1">
+<h1>D6. Predictor form for size-scaled covariates</h1>
+<p><strong>Decision.</strong> How to enter covariates that are totals and so grow with population (foundation assets, government earnings, Medicaid, the endowment, contributions, numbers of foundations): raw dollars, per capita, logged totals, or SAMI form (logged and residualized on log P).</p>
+<p><strong>Type.</strong> Avoidable error for raw dollars, and for logged totals without log P on the right. Discretion among per capita, logged totals with log P, and SAMI form.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li><strong>Raw dollars or counts.</strong></li>
+<li><strong>Per capita:</strong> the total divided by population.</li>
+<li><strong>Logged total</strong>, with zeros raised to a per-capita floor before logging (see Evidence 6).</li>
+<li><strong>SAMI form:</strong> the logged total residualized on log P, as for the outcome. With log P on the right, logged totals and SAMI form give the same partial r (FWL).</li>
+</ul>
+<p>Rates and shares (% BA, poverty, turnout, % nonwhite, the Gini, age SD, the growth kernel) need no transformation, but they shift when their neighbors change form. The 13-covariate model has four totals: foundation assets, S&amp;L earnings, Medicaid and the endowment.</p>
+<p><strong>Mechanism.</strong></p>
+<ul>
+<li>A total is mostly population. Logged foundation assets correlate .80 with log P and logged government earnings .94. Without log P on the right, a logged total acts as a second size measure. It takes on the outcome’s size gradient, and the rates that also track size (% BA) absorb what is left.</li>
+<li>Raw dollars are extremely skewed (skew 9.4 for foundation assets; the five largest metros hold 43% of the total). A linear term then fits a handful of metros.</li>
+<li>Per capita removes size from government earnings (r = −.01) but only partly from foundation assets (.15), and it is even more skewed (11.6).</li>
+</ul>
+<p><strong>Evidence 1: form changes the covariate’s own result.</strong> Median partial r across cross-section specifications of filer counts, with / without log P on the right (run v11):</p>
+<div id="tbl-d6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10: Median partial r by predictor form, with / without log P on the right; filer counts, cross-section, run v11.
+</figcaption>
+<div aria-describedby="tbl-d6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Form</th>
+<th>Foundation assets</th>
+<th>S&amp;L govt earnings</th>
+<th>Medicaid</th>
+<th>Pre-1970 endowment</th>
+<th>% BA (unchanged form)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Raw dollars</td>
+<td>−.02 / .01</td>
+<td>.04 / .04</td>
+<td>−.06 / −.04</td>
+<td>.07 / −.03</td>
+<td>.40 / .39</td>
+</tr>
+<tr class="even">
+<td>Per capita</td>
+<td>.10 / .09</td>
+<td>.11 / .15</td>
+<td>.10 / .06</td>
+<td>.27 / .33</td>
+<td>.28 / .25</td>
+</tr>
+<tr class="odd">
+<td>Logged total</td>
+<td>.18 / .13</td>
+<td>.11 / −.04</td>
+<td>.07 / −.16</td>
+<td>.24 / .08</td>
+<td>.27 / .30</td>
+</tr>
+<tr class="even">
+<td>SAMI form</td>
+<td>.19 / .19</td>
+<td>.12 / .12</td>
+<td>.11 / .11</td>
+<td>.26 / .26</td>
+<td>.30 / .28</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>Raw dollars erase foundation assets (−.02 against .19 in SAMI form), Medicaid and, without log P, the endowment.</li>
+<li>Logged totals without log P turn Medicaid negative (−.16) and S&amp;L earnings to −.04, against +.11 and +.12 in SAMI form.</li>
+<li>SAMI form is the only form that gives the same answer with and without log P on the right, for all four totals.</li>
+<li>Grassroots show the same pattern, more weakly. Foundation assets are −.08 in raw dollars against .09 in SAMI form, and Medicaid without log P is −.20 against .02.</li>
+</ul>
+<p><strong>Evidence 2: form changes the neighbors.</strong> % BA does not change form, but its partial r moves with how the totals enter. When the totals fail to absorb size or are swamped by outliers, % BA takes over, because it is the rate most correlated with size (r = .40). For filers, % BA is .39–.40 when the totals enter as raw dollars and .25–.30 under every other form. For grassroots it is .24–.25 against .10–.15 (<a href="#tbl-d6" class="quarto-xref">Table&nbsp;10</a>).</p>
+<p><strong>Evidence 3: predictor form is one of the largest decisions in the multiverse.</strong> Its η² (run v11):</p>
+<ul>
+<li><strong>Filers:</strong> .70 for foundation assets, .61 for the endowment, .59 for the growth kernel, .41 for Medicaid, .37 for S&amp;L earnings and .30 for % BA.</li>
+<li><strong>Grassroots:</strong> .64 for foundation assets, .63 for the growth kernel, .48 for the endowment and .40 for Medicaid.</li>
+<li><strong>Spending:</strong> .45, .40, .36 and .35 for the growth kernel, Medicaid, foundation assets and S&amp;L earnings.</li>
+</ul>
+<p>Turnout, poverty and the heterogeneity terms respond less (η² ≤ .17 for filers, ≤ .11 for grassroots). Changing only the predictor form changes 32% of verdicts for filers, 22% for grassroots and 26% for spending.</p>
+<p><strong>Evidence 4: size dependence predicts which covariates the predictor form moves, not which ones the DV form moves.</strong> This is the design’s pre-registered meta-hypothesis, tested on 27 covariates in each of the 12 strata (25 within metros; run v11). The Spearman correlation between a covariate’s R² on log P and its predictor-form sensitivity (the spread of its median partial r across the four forms) is .38–.79 in every stratum (.47 for counts and .61 for spending excluding hospitals and universities, cross-section). Against DV-form sensitivity it is −.58 to +.17 (.04 and .17). The DV form barely reorders covariates: in count strata covariate t-statistics correlate .83–1.00 across DV forms, lowest between log-log and Poisson.</p>
+<p><strong>Evidence 5: interactions and squares are second-order.</strong> In the 13-covariate default (385 metros, 2022), 10 of 104 pairwise interactions, squares and x × log P terms survive Benjamini–Hochberg for counts and 4 for spending, with partial r .15–.24 against .20–.38 for the leading count main effects. The four interactions that looked stable with six covariates (turnout², turnout × poverty, turnout × % nonwhite, % BA × % nonwhite) were standing in for omitted main effects: across 108 count specifications they now keep their sign in only 62–76% and are significant in 7–10%. The stable terms now involve the new covariates (foundation assets × growth kernel: same sign in 100% of specifications, significant in 93%; % 65+ × Medicaid for spending: 100% and 82%). Adding the survivors raises adjusted R² by at most .006; with the selection repeated inside each cross-validation fold, they raise prediction error 2.7% for counts and 0.9% for spending, and no significant main effect changes sign. No x × log P term is stable for counts; poverty × size is concave but no longer reverses (D2, Evidence 6).</p>
+<div id="fig-d6-int" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d6-int-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d6_lean_interactions.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d6-int-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Interaction screen in the 13-covariate model: partial r of each pairwise interaction, square and x × log P term added one at a time, filers and spending (385 metros, 2022).
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 6: zeros need a floor, not log(1 + x).</strong> Eagle Pass, TX reports no foundation assets in any year, and 89 CBSAs have zero or near-zero assets ($0.002 per person against a $452 median). log(1 + x) put Eagle Pass about 11 SD below the metro mean, a leverage point that faked strong foundation-asset interactions and halved the spending t (2.65 against 5.2 with the floor). Logged totals use a per-capita floor at the 1st percentile of positive values in the estimation sample.</p>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Enter totals in SAMI form, or as logged totals with log P on the right, which is the same model.</li>
+<li>Never enter raw dollars or raw counts.</li>
+<li>Never log(1 + x) a total that has zeros. Floor it per capita at a low percentile of positive values first, and check the minimum z of every logged covariate.</li>
+<li>Per capita is acceptable for totals that scale at about 1 (government earnings); check the size correlation first, since foundation assets and the endowment still carry size per capita.</li>
+<li>Treat the outcome and the totals alike (D4). A SAMI outcome with logged totals and no log P re-creates the problem.</li>
+<li>Keep the model additive. Report interactions as robustness checks, not forks.</li>
+</ul>
+<p><strong>What to report.</strong> The form of every size-scaled covariate, whether log P is on the right, and each total’s correlation with log P in the form used.</p>
+<p><em>Sources: <code>R/multiverse/97_v11_decision_summary.R</code> (<code>v11/mv_split/option_medians.csv</code>, <code>decision_importance.csv</code>); <code>R/multiverse/45_summarize_run.R</code> on run v11 (meta-hypothesis); interactions: <code>R/paper/99_interaction_screen_v11.R</code> (<code>D:/MULTIVERSE/data/interactions/v11/</code>; <code>notes/interaction-screen-v11-results.md</code>); floor: <code>R/notes/81_compare_floor.R</code>; Fact 6.</em></p>
+</section>
+<section id="sec-d7" class="level1">
+<h1>D7. Measurement: one item or an index</h1>
+<p><strong>Decision.</strong> For each construct, which measure enters the model: one dominant item, an alternative item, or a composite index.</p>
+<p><strong>Type.</strong> Analyst discretion, settled in <code>02-variables.qmd</code>: one item per construct, with diversity and government split into the separate constructs they contain.</p>
+<p><strong>Evidence 1: the item choice.</strong> <code>02-variables.qmd</code> compares each construct’s dominant item with its first principal component and a standardized mean. Where the items are twins (growth, need, education and affluence), the index returns the item’s estimate. Where the items are separate constructs (diversity α .39, social capital .33, government .57), the index cancels effects of opposite sign. Wealth is the one trade-off (α .85): the index gains .04–.05 for filers and spending but is significant in fewer cells. % nonwhite replaced racial fractionalization as the diversity item because fractionalization is not monotone in composition and ranks the border metros least diverse.</p>
+<p><strong>Evidence 2: one-at-a-time swaps in the multiverse.</strong> Run v11 swaps one block’s measure at a time (unemployment for poverty, racial fractionalization or % foreign-born for % nonwhite, four philanthropy measures for foundation assets, census mail response for turnout, the 5-year for the 10-year kernel, S&amp;L jobs or direct general expenditure for S&amp;L earnings, all transfers or local welfare for Medicaid). The swap’s η² on the construct’s own term:</p>
+<ul>
+<li><strong>Turnout</strong> (census mail response in its place): .80 for filers and .92 for grassroots.</li>
+<li><strong>Poverty</strong> (unemployment): .38 for filers and .18 for grassroots.</li>
+<li><strong>S&amp;L earnings:</strong> .11 for filers and .32 for grassroots.</li>
+<li><strong>% nonwhite:</strong> .18 and .26.</li>
+<li><strong>Foundation assets:</strong> .14 for both.</li>
+<li><strong>The kernel’s half-life</strong> (5 vs.&nbsp;10 years): .00.</li>
+</ul>
+<p>Swapping one construct’s measure moves the other terms much less: η² ≤ .21 for filers (largest for the Gini) and ≤ .23 for grassroots (% nonwhite). By impact, measurement is among the largest decisions. Across the seven swappable constructs |Δr| is .088 for filers and .103 for grassroots, and 44% of verdicts change in both. For spending it is .050 and 27% (run v11).</p>
+<p><strong>Recommendation.</strong> Use the 13 items of <code>02-variables.qmd</code>. Report the wealth index as a robustness check for foundation assets, and the racial fractionalization swap for any argument about diversity. Do not build indices across constructs that load in opposite directions.</p>
+<p><strong>What to report.</strong> The item chosen for each construct, its alternatives, and the measurement η² for any covariate the argument rests on.</p>
+<p><em>Sources: <code>paper/02-variables.qmd</code> (<code>R/paper/94_variables_panel_model.R</code>); <code>R/multiverse/97_v11_decision_summary.R</code>.</em></p>
+</section>
+<section id="sec-d8" class="level1">
+<h1>D8. Historical controls: endowment, growth history and market share</h1>
+<p><strong>Decision.</strong> Whether to control for the sector’s own history (the pre-1970 endowment of charities), for the metro’s past population growth (the growth kernel), or for its current size in the labor market (the nonprofit share of private employment).</p>
+<p><strong>Type.</strong> Estimand choice, with a risk of bad controls. The endowment is the same organizations decades earlier, and market share counts the employees of today’s organizations. The growth kernel is built from population and carries no such risk.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li><strong>Pre-1970 endowment:</strong> 501(c)(3) public charities in the 2000 BMF stock with a ruling date before 1970, in SAMI form; group-exemption artifacts (Memphis, Mankato) set to missing. In the 13-covariate default; the multiverse drops it as a contrast.</li>
+<li><strong>Growth kernel:</strong> a geometric memory of past log population change, G[t] = a·G[t−1] + Δlog P[t] with a = 0.5^(1/half-life), at a 10-year half-life (5-year as the swap), built from 1970–2024 population. In the default; it varies over time, so it also runs within metros.</li>
+<li><strong>Market share:</strong> the BLS 501(c)(3) share of private employment, averaged over 2013–2022. Not in the default.</li>
+</ul>
+<p><strong>Mechanism.</strong> Density is persistent (Fact 2), so any covariate that was high decades ago, and is still high, gets credit for density that arose then. The endowment soaks that up, and so it changes the question from “where is density high?” to “where is density higher than its history predicts?” Growth history does the same for the Sunbelt lag (Fact 3). Market share goes further: it overlaps the outcome in the present, so it absorbs any covariate that works through the size of the sector.</p>
+<p><strong>Evidence 1: the endowment adds less once the other 12 terms are in.</strong> 360 metros, SAMI form, 2022:</p>
+<div id="tbl-d8" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;11: Historical controls in the 13-covariate model.
+</figcaption>
+<div aria-describedby="tbl-d8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>13 covariates without endowment</th>
+<th>13 covariates</th>
+<th>Without endowment, + market share</th>
+<th>13 + market share</th>
+<th>13 without growth kernel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R², filer counts</td>
+<td>.773</td>
+<td>.792</td>
+<td>.784</td>
+<td>.801</td>
+<td>.790</td>
+</tr>
+<tr class="even">
+<td>R², spending</td>
+<td>.496</td>
+<td>.508</td>
+<td>.557</td>
+<td>.565</td>
+<td>.507</td>
+</tr>
+<tr class="odd">
+<td>Endowment, partial r (counts / spending)</td>
+<td></td>
+<td>.29 / .15</td>
+<td></td>
+<td>.28 / .13</td>
+<td>.37 / .21</td>
+</tr>
+<tr class="even">
+<td>Market share, partial r</td>
+<td></td>
+<td></td>
+<td>.23 / .33</td>
+<td>.22 / .32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Growth kernel, partial r</td>
+<td>−.25 / −.15</td>
+<td>−.09 / −.05</td>
+<td>−.18 / −.05</td>
+<td>−.05 / .02</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>In the six-covariate model the endowment had partial r .45 for counts and added .09 to R²; with the other 12 terms it is .29 and adds .02.</p>
+<p><strong>Evidence 2: what each absorbs.</strong> Partial r for filer counts:</p>
+<ul>
+<li><strong>The endowment and the growth kernel are one fact in levels.</strong> They correlate −.62 in SAMI form: fast-growing metros have little pre-1970 stock. Adding the endowment moves the kernel from −.25 to −.09; dropping the kernel moves the endowment from .29 to .37.</li>
+<li><strong>The endowment absorbs a little philanthropy and government:</strong> foundation assets .27 → .20, S&amp;L earnings .28 → .22, % BA .41 → .38. With six covariates it took nearly half of each (.40 → .23; .33 → .20).</li>
+<li><strong>Market share absorbs Medicaid</strong> (.28 → .22 for filers, .18 → .07 for spending) and part of % BA for spending (.29 → .19). Share and the endowment correlate .50, but adding share leaves the endowment almost intact (.29 → .28).</li>
+</ul>
+<div id="fig-d8" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d8_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: The 13 covariates under the history arms (the 13-covariate model, without the endowment, + market share, without the endowment + share, without the growth kernel), filers and spending (360 metros, 2022). Left of each pair: the arms combined; right: each arm, blue when p &lt; .05.
+</figcaption>
+</figure>
+</div>
+<p><strong>Evidence 3: the same pattern holds across the multiverse.</strong> The comparison uses 964 matched cross-section pairs and 432 pooled pairs of specifications for each count population (run v11):</p>
+<ul>
+<li><strong>How often the endowment is positive:</strong>
+<ul>
+<li>Filers: 91–93% of default specifications, significant in 77–83% (median partial r .21–.23).</li>
+<li>Grassroots: 96%, significant in 87–89% (.19–.20).</li>
+<li>Spending: 90%, significant in 59–60% (.10–.11).</li>
+</ul></li>
+<li><strong>Dropping the endowment</strong> moves the growth kernel from −.09 to −.24 for filers and from −.15 to −.29 for grassroots (cross-section). Kernel signs flip in 9% of filer pairs (19% pooled) and 1% of grassroots pairs.
+<ul>
+<li>It also raises religious fractionalization (+.05 filers, +.03 grassroots), foundation assets (+.02, +.03) and S&amp;L earnings (+.02).</li>
+<li>It lowers turnout (−.02 filers, −.04 grassroots).</li>
+</ul></li>
+<li><strong>Dropping the growth kernel</strong> raises the endowment from .20 to .26 for filers and from .18 to .27 for grassroots. It moves poverty toward zero (filers −.17 → −.14; grassroots −.07 → −.03, with 15% of pairs changing sign).</li>
+<li><strong>Both are small decisions overall.</strong> Dropping the endowment changes 13% of verdicts for filers and 11% for grassroots (|Δr| .031 and .032). Dropping the kernel changes 10% and 11% (.023 and .027).</li>
+</ul>
+<p><strong>Evidence 4: market share is nearly fixed and partly the outcome (Fact 5).</strong> It includes hospitals and universities, rises with the number of established organizations, and correlates .95 between 2013 and 2022. Its 2013–2022 window starts after the outcome’s history.</p>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Decide whether the question is about current conditions or about origins. For current conditions (what predicts density given a metro’s history), include the endowment. For how endowments arose, leave it out, since it is the outcome’s own past. Report the model both ways.</li>
+<li>Include the growth kernel. It is built from population, not from the outcome, and it is the main within-metro term. In levels, read it together with the endowment: the two split one Sunbelt fact, and neither alone measures it.</li>
+<li>Report foundation assets and government earnings with and without the endowment.</li>
+<li>Do not use market share as a control in models of density levels. Use it as a benchmark or bound (Fact 5), or as an outcome in its own right.</li>
+<li>In change models, the endowment belongs with the starting conditions (D3).</li>
+</ul>
+<p><strong>What to report.</strong> Which historical controls are included and why; the covariates that change most when they are added; and for the endowment, how it was built (ruling-date cutoff, artifacts removed).</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d8_models.csv</code>, <code>d8_correlations.csv</code>); <code>R/multiverse/97_v11_decision_summary.R</code> (<code>v11/mv_split/drop_shift.csv</code>); <code>R/multiverse/55_endowment_fork.R</code>; <code>R/multiverse/82_lag_fork.R</code>; <code>notes/catchup-lag-results.md</code> sections 2.8, 4 and 6.</em></p>
+</section>
+<section id="sec-d9" class="level1">
+<h1>D9. Geography fixed effects and standard errors</h1>
+<p><strong>Decision.</strong> In a cross-section, whether to compare every metro with every other (OLS), only with metros in the same Census division or state (fixed effects), or partially pool by state (random intercepts); and how to cluster standard errors.</p>
+<p><strong>Type.</strong> Analyst discretion that can flip signs. In practice it decides whether a covariate’s regional differences count as evidence.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li>OLS with robust SEs: all variation, between and within states.</li>
+<li>Census division FE: nine regions; the comparison is within region.</li>
+<li>State FE: within-state comparisons only; four single-metro states drop out.</li>
+<li>State random intercepts: a weighted compromise between OLS and state FE.</li>
+<li>SEs: robust, or clustered by state (about 50 clusters).</li>
+</ul>
+<p><strong>Mechanism.</strong> Fixed effects remove the between-state (or between-division) part of every variable. A covariate whose variation is mostly between states, through state tax law, Medicaid policy, election rules or regional demography, loses most of its identifying variation and can change sign. Clustering by state recognizes that metros in one state share shocks, which widens SEs.</p>
+<p><strong>Evidence 1: the share of variance between states predicts how much the estimator matters, with exceptions.</strong> 385 metros, 2022, model form; η² from run v11:</p>
+<div id="tbl-d9-share" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d9-share-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;12: Between-state variance and the estimator’s η², by outcome population.
+</figcaption>
+<div aria-describedby="tbl-d9-share-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>Variance between states</th>
+<th>Between divisions</th>
+<th>η² of estimator: filers / grassroots</th>
+<th>η² of estimator, spending</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Turnout</td>
+<td>.65</td>
+<td>.29</td>
+<td>.22 / .32</td>
+<td>.04</td>
+</tr>
+<tr class="even">
+<td>% nonwhite</td>
+<td>.64</td>
+<td>.32</td>
+<td>.01 / .54</td>
+<td>.17</td>
+</tr>
+<tr class="odd">
+<td>Religious fractionalization</td>
+<td>.58</td>
+<td>.25</td>
+<td>.19 / .51</td>
+<td>.04</td>
+</tr>
+<tr class="even">
+<td>Growth kernel</td>
+<td>.52</td>
+<td>.33</td>
+<td>.04 / .02</td>
+<td>.09</td>
+</tr>
+<tr class="odd">
+<td>Medicaid (SAMI form)</td>
+<td>.50</td>
+<td>.24</td>
+<td>.18 / .00</td>
+<td>.10</td>
+</tr>
+<tr class="even">
+<td>Pre-1970 endowment (SAMI form)</td>
+<td>.46</td>
+<td>.24</td>
+<td>.01 / .11</td>
+<td>.04</td>
+</tr>
+<tr class="odd">
+<td>Poverty rate</td>
+<td>.39</td>
+<td>.18</td>
+<td>.25 / .06</td>
+<td>.23</td>
+</tr>
+<tr class="even">
+<td>% 65+</td>
+<td>.37</td>
+<td>.11</td>
+<td>.06 / .10</td>
+<td>.25</td>
+</tr>
+<tr class="odd">
+<td>Gini (metro)</td>
+<td>.34</td>
+<td>.12</td>
+<td>.16 / .10</td>
+<td>.07</td>
+</tr>
+<tr class="even">
+<td>S&amp;L govt earnings (SAMI form)</td>
+<td>.31</td>
+<td>.14</td>
+<td>.02 / .08</td>
+<td>.04</td>
+</tr>
+<tr class="odd">
+<td>Age SD</td>
+<td>.21</td>
+<td>.04</td>
+<td>.08 / .05</td>
+<td>.09</td>
+</tr>
+<tr class="even">
+<td>% BA</td>
+<td>.21</td>
+<td>.11</td>
+<td>.23 / .04</td>
+<td>.09</td>
+</tr>
+<tr class="odd">
+<td>Foundation assets (SAMI form)</td>
+<td>.19</td>
+<td>.08</td>
+<td>.03 / .01</td>
+<td>.04</td>
+</tr>
+<tr class="even">
+<td><em>Filer SAMI (the outcome)</em></td>
+<td>.39</td>
+<td>.22</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The state-patterned terms are estimator-sensitive, but in different populations:</p>
+<ul>
+<li><strong>Grassroots:</strong> % nonwhite (.54), religious fractionalization (.51) and turnout (.32).</li>
+<li><strong>Filers:</strong> poverty (.25), % BA (.23), turnout (.22) and Medicaid (.18).</li>
+</ul>
+<p>The growth kernel is the exception. Half its variance lies between states, yet the estimator barely moves it (η² ≤ .04 for counts), because its within-state differences point the same way as the regional ones.</p>
+<p><strong>Evidence 2: the direction of change.</strong> Single-model partial r, 13-covariate log-log, 2022: OLS / division FE / state FE / state random intercepts.</p>
+<div id="tbl-d9-est" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d9-est-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;13: Partial r by estimator, 13-covariate model (ten of the 13 terms).
+</figcaption>
+<div aria-describedby="tbl-d9-est-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>Filers</th>
+<th>Spending</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>% BA</td>
+<td>.37 / .33 / .26 / .37</td>
+<td>.26 / .29 / .28 / .26</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.21 / .26 / .24 / .28</td>
+<td>.11 / .11 / .09 / .15</td>
+</tr>
+<tr class="odd">
+<td>% nonwhite</td>
+<td>−.20 / −.18 / −.20 / −.20</td>
+<td>−.08 / −.08 / −.05 / −.09</td>
+</tr>
+<tr class="even">
+<td>Turnout</td>
+<td>.01 / .03 / .09 / .05</td>
+<td>.04 / .01 / .01 / .03</td>
+</tr>
+<tr class="odd">
+<td>Poverty rate</td>
+<td>−.29 / −.24 / −.18 / −.27</td>
+<td>−.04 / .00 / −.01 / −.03</td>
+</tr>
+<tr class="even">
+<td>S&amp;L govt earnings</td>
+<td>.23 / .16 / .15 / .19</td>
+<td>.10 / .07 / .14 / .09</td>
+</tr>
+<tr class="odd">
+<td>Medicaid</td>
+<td>.24 / .15 / .06 / .16</td>
+<td>.18 / .19 / .16 / .17</td>
+</tr>
+<tr class="even">
+<td>Growth kernel</td>
+<td>−.05 / −.11 / −.04 / −.04</td>
+<td>−.05 / .06 / .09 / −.02</td>
+</tr>
+<tr class="odd">
+<td>Pre-1970 endowment</td>
+<td>.32 / .34 / .34 / .35</td>
+<td>.16 / .21 / .26 / .18</td>
+</tr>
+<tr class="even">
+<td>Religious fractionalization</td>
+<td>.12 / .10 / .00 / .09</td>
+<td>−.01 / −.03 / −.08 / −.03</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d9" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d9_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: All 13 covariates under the four estimators (OLS, division FE, state FE, state random intercepts), filers and spending (385 metros, 2022). Left of each pair: the estimators combined; right: each estimator, blue when p &lt; .05.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>The benchmarks are more stable across estimators than with six covariates.</strong> % nonwhite is −.18 to −.20 under all four (−.13 to −.26 before); poverty stays negative within states (−.18; it was .00).</li>
+<li><strong>The new state-patterned terms are the sensitive ones.</strong> Medicaid for filers falls from .24 under OLS to .06 within states: Medicaid generosity is set by states, so within a state there is little left to compare. Religious fractionalization falls from .12 to .00.</li>
+<li>Turnout still gains within states (.01 → .09), but from zero.</li>
+</ul>
+<p><strong>Evidence 3: covariate rankings mostly agree.</strong> Spearman correlation of the 13 covariates’ t-statistics, matched on every other fork (cross-section, default model, run v11):</p>
+<div id="tbl-d9-rank" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d9-rank-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;14: Agreement of covariate rankings across estimators.
+</figcaption>
+<div aria-describedby="tbl-d9-rank-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>OLS vs.&nbsp;state FE</th>
+<th>OLS vs.&nbsp;division FE</th>
+<th>Division vs.&nbsp;state FE</th>
+<th>OLS vs.&nbsp;state RE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Filers</td>
+<td>.83</td>
+<td>.93</td>
+<td>.92</td>
+<td>.91</td>
+</tr>
+<tr class="even">
+<td>Grassroots</td>
+<td>.92</td>
+<td>.95</td>
+<td>.94</td>
+<td>.97</td>
+</tr>
+<tr class="odd">
+<td>Spending excl. H&amp;U</td>
+<td>.85</td>
+<td>.91</td>
+<td>.91</td>
+<td>.96</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>With six covariates the spending rankings agreed far less (.59–.64 for OLS vs.&nbsp;state FE); the 13-covariate model gives the estimators less to disagree about.</p>
+<p><strong>Evidence 4: clustering changes inference, not estimates.</strong> Share of OLS specifications significant with robust vs.&nbsp;state-clustered SEs (run v11):</p>
+<ul>
+<li><strong>Filers:</strong> religious fractionalization 70% vs.&nbsp;40%, turnout 31% vs.&nbsp;20%, % 65+ 17% vs.&nbsp;6%, the Gini 46% vs.&nbsp;35%.</li>
+<li><strong>Grassroots:</strong> the Gini 54% vs.&nbsp;37%, Medicaid 43% vs.&nbsp;30%, % nonwhite 97% vs.&nbsp;88%. Religious fractionalization and turnout stay significant either way (100% and 97–100%).</li>
+<li><strong>Spending:</strong> turnout 11% vs.&nbsp;3%, the Gini 43% vs.&nbsp;26%.</li>
+<li><strong>Unaffected:</strong> % BA (filers 100% vs.&nbsp;100%), the endowment (filers 75% vs.&nbsp;73%, grassroots 92% vs.&nbsp;91%) and foundation assets (57% vs.&nbsp;56%).</li>
+</ul>
+<p><strong>Evidence 5: multi-state metros are a small problem, except for the endowment.</strong> 43 metros cross a state line (27% of metro population; 6.8% of residents live outside their assigned state); only 18 cross a division line (1.1% of residents). The 93 default-model 2022 cross-sections per outcome were refit on single-state metros:</p>
+<ul>
+<li>The typical term barely moves: median |Δr| is .009–.015 under every estimator for filers, registrations and spending. Division FE refit on metros inside one division moves it .004–.007.</li>
+<li><strong>State FE, filers:</strong> the endowment rises from .18 to .25, which is close to its OLS value (.26). Turnout rises from .09 to .14 and foundation assets from .17 to .21. Under OLS the same sample change moves no filer median by more than .03. State assignment therefore does matter for these three terms: with the multi-state metros in, state FE understates the endowment.</li>
+<li><strong>Spending:</strong> the endowment roughly halves without the multi-state metros under every estimator (OLS .11 → .05, division FE .15 → .07, state FE .12 → .08). This is a sample effect, not a state-assignment effect. The 43 include most of the largest old metros (New York, Philadelphia, Boston, Washington), and they carry much of the endowment’s association with spending.</li>
+<li>No other term’s median moves by more than .04.</li>
+</ul>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Report OLS, division FE and state FE side by side for the covariates the argument rests on. Do not choose one silently.</li>
+<li>Report each key covariate’s between-state variance share. Above about .3, the estimator choice is part of the finding: say whether the claim is about regional or within-state differences. Medicaid, religious fractionalization, the growth kernel, turnout and % nonwhite are all above .5.</li>
+<li>Cluster SEs by state in cross-sections. With about 50 clusters, a wild cluster bootstrap is the safer test.</li>
+<li>Check state-FE results without multi-state metros, or use division FE where state assignment is ambiguous. Report the endowment’s spending effect with and without them.</li>
+</ul>
+<p><strong>What to report.</strong> The between-state share table, the three-estimator estimates for key covariates, and significance under robust and state-clustered SEs.</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d9_between_state_share.csv</code>, <code>d9_estimators.csv</code>); <code>R/multiverse/97_v11_decision_summary.R</code> with <code>MV_SPLIT=1</code> (<code>v11/mv_split/</code>: <code>decision_importance.csv</code>, <code>est_spearman.csv</code>, <code>stability.csv</code>, <code>option_medians.csv</code>); <code>R/notes/101_lean_open_checks.R</code> part M (multi-state metros; <code>v11/open_checks/m_*.csv</code>).</em></p>
+</section>
+<section id="sec-d10" class="level1">
+<h1>D10. Money measure and exclusions</h1>
+<p><strong>Decision.</strong> Which money to count: expenses or revenue; gross, or net of grants passed through to other organizations; and with or without hospitals and universities.</p>
+<p><strong>Type.</strong> Analyst discretion, of very different weight. The hospital and university exclusion changes results. The money measure mostly changes levels.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li><strong>Expenses or revenue.</strong> Revenue is lumpier: 43% of organization-years change by more than 20%, against 36% for expenses.</li>
+<li><strong>Gross or net of pass-through:</strong> net subtracts grants paid to domestic organizations and governments (Form 990 Part IX line 1). Available from 2012.</li>
+<li><strong>All 501(c)(3) filers, or excluding hospitals and universities</strong> (NTEE E20–E24, B40–B43, B50, and the e-file industry codes; e-file NTEE codes backfilled from the BMF since 2026-11-17).</li>
+</ul>
+<p><strong>Mechanism.</strong></p>
+<ul>
+<li>Hospitals and universities are 47% of 501(c)(3) spending nationally, but the share ranges from almost nothing to 75% across metros (10th to 90th percentile). Whether a metro’s hospital and university count at all depends on ownership: public universities and government hospitals file no 990, and system hospitals may file at a headquarters elsewhere. An all-sector spending SAMI is largely a measure of that.</li>
+<li>Pass-through money is concentrated in a few intermediaries (the top 1% of grantmaking charities pay 85–89% of grants to organizations), which sit disproportionately in large and educated metros.</li>
+<li>Revenue and expenses differ year to year but describe the same organizations over a cross-section.</li>
+</ul>
+<p><strong>Evidence 1: excluding hospitals and universities changes which metros are high.</strong> Spending SAMIs with and without hospitals and universities correlate .80, and the hospital and university share correlates .65 with the all-sector SAMI but .09 with the SAMI that excludes them. Metros with one dominant nonprofit hospital or private university fall (Rochester, MN from the 100th to the 34th percentile); metros whose hospital and university are public or file elsewhere rise (Missoula 55th to 91st). Counts are unaffected (r = .999).</p>
+<p><strong>Evidence 2: covariate results follow the exclusion, not the money measure.</strong> Partial r, SAMI form, 385 metros, 2022 (corrected spending series): expenses, all / expenses excl. H&amp;U / excl. H&amp;U, net / revenue excl. H&amp;U.</p>
+<div id="tbl-d10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;15: Partial r by money measure, 13-covariate model (nine of the 13 terms).
+</figcaption>
+<div aria-describedby="tbl-d10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Covariate</th>
+<th>Partial r</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>% BA</td>
+<td>.19 / .26 / .24 / .24</td>
+</tr>
+<tr class="even">
+<td>S&amp;L govt earnings</td>
+<td>−.02 / .10 / .08 / .10</td>
+</tr>
+<tr class="odd">
+<td>% nonwhite</td>
+<td>−.07 / −.08 / −.07 / −.07</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.05 / .11 / .11 / .13</td>
+</tr>
+<tr class="odd">
+<td>Turnout</td>
+<td>.05 / .04 / .04 / .05</td>
+</tr>
+<tr class="even">
+<td>Poverty rate</td>
+<td>−.04 / −.04 / −.06 / −.05</td>
+</tr>
+<tr class="odd">
+<td>Medicaid</td>
+<td>.18 / .18 / .20 / .16</td>
+</tr>
+<tr class="even">
+<td>Pre-1970 endowment</td>
+<td>.13 / .16 / .15 / .17</td>
+</tr>
+<tr class="odd">
+<td>Religious fractionalization</td>
+<td>.12 / −.01 / −.03 / −.02</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d10_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: The 13 covariates for four spending measures (385 metros, 2022). Left: the measures combined; right: each measure, blue when p &lt; .05.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li>Excluding hospitals and universities moves S&amp;L earnings from −.02 to .10, % BA from .19 to .26 and foundation assets from .05 to .11. Religious fractionalization is the reverse: .12 with them, −.01 without.</li>
+<li>Netting pass-through lowers % BA only from .26 to .24 and leaves the rest within .02. Revenue and expenses agree within .03.</li>
+<li>Poverty is slightly negative for every money measure (it was +.05 to +.10 with six covariates).</li>
+</ul>
+<p><strong>Evidence 3: the same split holds in the multiverse.</strong> The hospital and university exclusion explains η² = .39 of the spread for S&amp;L earnings in spending models (median partial r −.02 with them, .05 without), .26 for religious fractionalization (.10 vs.&nbsp;.05), .25 for % BA (.17 vs.&nbsp;.24) and .14 for % nonwhite (run v11). It changes 23% of spending verdicts. Expenses vs.&nbsp;revenue and gross vs.&nbsp;net together explain .02 or less for every covariate and change 5% of verdicts. For counts, the exclusion explains nothing (η² ≤ .001).</p>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Exclude hospitals and universities from spending by default, and report the all-sector version as a robustness check. Their presence measures ownership and filing location as much as local sector size.</li>
+<li>Use expenses rather than revenue: same cross-sectional results, less year-to-year noise.</li>
+<li>Report spending net of pass-through when the question is the size of the local sector or when grantmaking intermediaries matter.</li>
+<li>For counts, the exclusion is immaterial.</li>
+</ul>
+<p><strong>What to report.</strong> The money measure (expenses or revenue, gross or net); how hospitals and universities are identified and whether they are excluded; and their share of spending in the sample.</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d10_models.csv</code>, <code>d10_beta.csv</code>); <code>R/multiverse/97_v11_decision_summary.R</code>; <code>R/notes/58_outline_analyses.R</code> part N (rankings); <code>notes/rev-exp-passthrough-results.md</code>; <code>notes/market-competition-measures.md</code> (the 2026-11-17 NTEE correction).</em></p>
+</section>
+<section id="sec-d11" class="level1">
+<h1>D11. Subsector scope</h1>
+<p><strong>Decision.</strong> Model the whole 501(c)(3) sector, drop subsectors thought to add noise, or model subsectors separately.</p>
+<p><strong>Type.</strong> Estimand choice. A full-sector result is a weighted average of subsectors that scale differently and respond to different conditions; human services alone is 35% of filers.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li>Full sector (all 501(c)(3) filers): the usual choice.</li>
+<li>Full sector minus religion-related (NTEE X) and mutual-benefit (Y) filers.</li>
+<li>Each NCCS subsector separately; or a single subsector chosen by theory, such as human services.</li>
+</ul>
+<p><strong>Mechanism.</strong> Subsectors differ in scaling, in which places host their headquarters, and in what drives them: local service demand for the civic subsectors, congregational networks for religion-related organizations, institutional anchors for hospitals and universities. Many subsectors have zero organizations in small metros, so OLS on logs drops places and biases the estimates.</p>
+<p><strong>Evidence 1: scaling differs by subsector</strong> (Poisson, 387 metros, 2022). Count exponents run from 0.88 (hospitals) and 0.90 (environment) to 1.21 (international); spending exponents from 1.06 (hospitals) to 1.44 (arts). The six civic subsectors (arts, education, environment, health, human services, public benefit) have SAMIs that correlate .56–.79 with each other; religion-related, hospitals, universities and mutual benefit correlate .05–.46 with the rest.</p>
+<p><strong>Evidence 2: covariate conclusions depend on the subsector.</strong> Partial r from Poisson models of 2022 counts with log P and the 13 covariates (per SD):</p>
+<div id="tbl-d11" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;16: Subsector Poisson models, 13-covariate model (nine terms shown).
+</figcaption>
+<div aria-describedby="tbl-d11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Subsector</th>
+<th>% BA</th>
+<th>Foundation assets</th>
+<th>% nonwhite</th>
+<th>Turnout</th>
+<th>Poverty</th>
+<th>S&amp;L earnings</th>
+<th>Medicaid</th>
+<th>Endowment</th>
+<th>Growth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Full sector</td>
+<td>.27</td>
+<td>.12</td>
+<td>−.14</td>
+<td>.07</td>
+<td>−.20</td>
+<td>.12</td>
+<td>.15</td>
+<td>.29</td>
+<td>.00</td>
+</tr>
+<tr class="even">
+<td>Human services</td>
+<td>.17</td>
+<td>.12</td>
+<td>−.22</td>
+<td>.12</td>
+<td>−.21</td>
+<td>.15</td>
+<td>.18</td>
+<td>.22</td>
+<td>−.11</td>
+</tr>
+<tr class="odd">
+<td>Education</td>
+<td>.35</td>
+<td>.15</td>
+<td>.05</td>
+<td>.08</td>
+<td>−.08</td>
+<td>.15</td>
+<td>.05</td>
+<td>.24</td>
+<td>.06</td>
+</tr>
+<tr class="even">
+<td>Public/societal benefit</td>
+<td>.24</td>
+<td>.04</td>
+<td>−.03</td>
+<td>.06</td>
+<td>−.05</td>
+<td>.00</td>
+<td>.01</td>
+<td>.19</td>
+<td>−.02</td>
+</tr>
+<tr class="odd">
+<td>Health</td>
+<td>.19</td>
+<td>.05</td>
+<td>−.21</td>
+<td>.08</td>
+<td>−.07</td>
+<td>.10</td>
+<td>.10</td>
+<td>.23</td>
+<td>−.04</td>
+</tr>
+<tr class="even">
+<td>Arts</td>
+<td>.27</td>
+<td>.24</td>
+<td>−.11</td>
+<td>−.04</td>
+<td>−.19</td>
+<td>.16</td>
+<td>.15</td>
+<td>.24</td>
+<td>−.07</td>
+</tr>
+<tr class="odd">
+<td>Religion-related</td>
+<td>−.01</td>
+<td>.08</td>
+<td>−.06</td>
+<td>−.09</td>
+<td>−.06</td>
+<td>−.08</td>
+<td>.01</td>
+<td>.09</td>
+<td>.11</td>
+</tr>
+<tr class="even">
+<td>Environment/animals</td>
+<td>.11</td>
+<td>.06</td>
+<td>.12</td>
+<td>.22</td>
+<td>−.21</td>
+<td>.23</td>
+<td>.15</td>
+<td>.29</td>
+<td>.27</td>
+</tr>
+<tr class="odd">
+<td>International</td>
+<td>.19</td>
+<td>.08</td>
+<td>.05</td>
+<td>.00</td>
+<td>−.15</td>
+<td>−.02</td>
+<td>.04</td>
+<td>.14</td>
+<td>.17</td>
+</tr>
+<tr class="even">
+<td>Hospitals</td>
+<td>.04</td>
+<td>−.04</td>
+<td>−.27</td>
+<td>−.03</td>
+<td>.00</td>
+<td>−.01</td>
+<td>.01</td>
+<td>.15</td>
+<td>−.05</td>
+</tr>
+<tr class="odd">
+<td>Universities</td>
+<td>.10</td>
+<td>.06</td>
+<td>−.11</td>
+<td>−.04</td>
+<td>−.02</td>
+<td>.11</td>
+<td>.01</td>
+<td>.09</td>
+<td>−.13</td>
+</tr>
+<tr class="even">
+<td>Mutual/membership</td>
+<td>.05</td>
+<td>−.02</td>
+<td>−.10</td>
+<td>−.03</td>
+<td>−.08</td>
+<td>.06</td>
+<td>.03</td>
+<td>.04</td>
+<td>−.06</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d11" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d11_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: All 13 covariates in each subsector (rows) for counts (circles) and spending (squares), Poisson PML with log P, 2022. Blue when p &lt; .05. The shaded top row is all filers; the bottom row counts the subsectors (of 11) that share its sign.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Subsectors sharing the full-sector sign</strong> (of 11): % BA 10, poverty 10, foundation assets 9, % nonwhite 8, S&amp;L earnings 8, turnout 5; Medicaid and the endowment 11 of 11.</li>
+<li><strong>Poverty is now one of the most consistent terms</strong> (10 of 11; 6 with six covariates). Foundation assets lose their universality (9; 11 before), and turnout is the least consistent benchmark.</li>
+<li><strong>Religion-related organizations follow their own rules:</strong> they reverse % BA, S&amp;L earnings and turnout, grow with population growth (.11), track religious fractionalization (.36 against .13 for the full sector), and scale fastest given the covariates (log P coefficient 0.90 vs.&nbsp;0.42 for the full sector).</li>
+<li><strong>The growth kernel splits subsectors:</strong> environment, international and religion-related organizations are denser where growth was recent (.11–.27); human services and universities are sparser.</li>
+</ul>
+<p><strong>Evidence 3: dropping religion-related and mutual-benefit filers changes little on average.</strong> Across 2,000 matched 2022 cross-section specifications of the 13-covariate multiverse (1,200 for filers, 800 for spending), covariate partial r correlates .997 with and without them for filers and .991 for spending (mean change .010 and .012; sign flips in 2% and 5% of pairs). The term that moves most is religious fractionalization for filers (.12 → .09 in the baseline model; significance changes in 16% of matched pairs), as expected when the dropped organizations are the religious ones. The effect is concentrated in metros that host national ministries (Cleveland TN, Tulsa, Colorado Springs).</p>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Use the full sector for questions about overall density, and report which subsectors carry the result.</li>
+<li>When the theory is about one kind of organization (government failure in human services, cultural demand for the arts), model that subsector directly, with Poisson.</li>
+<li>Do not drop subsectors as noise. Dropping religion-related and mutual-benefit filers does not clean the estimates; it only moves a few ministry-heavy metros.</li>
+<li>Treat diversity and turnout findings as subsector-specific until shown otherwise.</li>
+</ul>
+<p><strong>What to report.</strong> The subsector scaling table, the sign-agreement counts per covariate, and the subsector estimates for any covariate the paper’s argument rests on.</p>
+<p>Subsector counts and spending were rebuilt on 2026-11-17 so that invalid BMF codes no longer fill missing NTEE codes; national subsector counts moved by .03% or less and no partial r in the table moved by more than .004.</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d11_subsector_models.csv</code>, <code>d11_sign_agreement.csv</code>); subsector file: <code>R/notes/50_followups_jeremy.R</code> part 3 (<code>D:/MULTIVERSE/data/followup/p3_*</code>); <code>R/notes/58_outline_analyses.R</code> part C (scaling); <code>R/notes/56_drop_religion_mutual.R</code> with <code>MV_MODEL=lean</code> (<code>D:/MULTIVERSE/data/followup/p10_v11_*</code>); <code>notes/scaling-aggregation-results.md</code>.</em></p>
+</section>
+<section id="sec-d12" class="level1">
+<h1>D12. Sector age as a control</h1>
+<p><strong>Decision.</strong> Whether to control for the age of a metro’s nonprofit sector (mean years since IRS ruling of its filers, the median age of all registered charities, or expenditure-weighted age), and in which models.</p>
+<p><strong>Type.</strong> Bad-control risk. Sector age is a consequence of the outcome’s own history: new filers are young, so metros that add many filers have young sectors.</p>
+<p><strong>Options.</strong></p>
+<ul>
+<li><strong>No age control.</strong></li>
+<li><strong>Mean age of filers:</strong> the most predictive measure (Fact 5).</li>
+<li><strong>Median age of all registered charities:</strong> mostly grassroots, and close to the same everywhere.</li>
+<li><strong>Expenditure-weighted age:</strong> the age of the average dollar, excluding hospitals and universities.</li>
+<li><strong>The pre-1970 endowment (D8)</strong> as the alternative history measure.</li>
+</ul>
+<p><strong>Mechanism.</strong> Mean filer age goes up when old organizations survive and down when new ones enter. It therefore mixes the sector’s history (correlation .60 with the pre-1970 endowment) with how fast filers were added since. It correlates −.69 with population growth in both 1970–2000 and 2000–2024, and −.33 with the change in filer SAMI since 2000.</p>
+<p><strong>Evidence 1: in levels models, age adds nothing to the 13 covariates.</strong> Filer SAMI, 367 metros, 2022:</p>
+<div id="tbl-d12" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;17: Sector age in the 13-covariate model.
+</figcaption>
+<div aria-describedby="tbl-d12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>13 without endowment</th>
+<th>+ mean filer age</th>
+<th>13 covariates</th>
+<th>+ mean filer age</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R²</td>
+<td>.773</td>
+<td>.773</td>
+<td>.792</td>
+<td>.794</td>
+</tr>
+<tr class="even">
+<td>Mean filer age, partial r</td>
+<td></td>
+<td>−.00</td>
+<td></td>
+<td>−.10</td>
+</tr>
+<tr class="odd">
+<td>Endowment, partial r</td>
+<td></td>
+<td></td>
+<td>.29</td>
+<td>.31</td>
+</tr>
+<tr class="even">
+<td>Foundation assets</td>
+<td>.27</td>
+<td>.26</td>
+<td>.20</td>
+<td>.20</td>
+</tr>
+<tr class="odd">
+<td>S&amp;L govt earnings</td>
+<td>.28</td>
+<td>.29</td>
+<td>.22</td>
+<td>.24</td>
+</tr>
+<tr class="even">
+<td>% BA</td>
+<td>.41</td>
+<td>.40</td>
+<td>.38</td>
+<td>.37</td>
+</tr>
+<tr class="odd">
+<td>Growth kernel</td>
+<td>−.25</td>
+<td>−.20</td>
+<td>−.09</td>
+<td>−.12</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-d12" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/d12_card.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: The 13 covariates and mean filer age under four arms (with and without age, with and without the endowment), filers and spending (367 metros, 2022). Left of each pair: the arms combined; right: each arm, blue when p &lt; .05.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li>With six covariates, age had partial r .26 and moved the other terms the way the endowment does. With the 13 covariates it has nothing left to explain even without the endowment (−.00): the growth kernel, Medicaid and the heterogeneity terms carry what age picked up.</li>
+<li>With the endowment in, age turns weakly negative for filers (−.10) and clearly negative for grassroots (−.21); for spending it is .06. “Older sectors are denser” does not hold net of history.</li>
+<li>The measure matters little now: mean filer age −.10, median age of all registered charities .07, dollar-weighted age .03.</li>
+</ul>
+<p><strong>Evidence 2: in change models, age absorbs the outcome.</strong> Filer SAMI change from 2010–12 to 2022–24, holding the starting level and in-window population growth fixed, with the 13 covariates measured in 2010 (367 metros):</p>
+<div id="tbl-d12-change" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d12-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;18: Sector age in the filer change model, 13 covariates.
+</figcaption>
+<div aria-describedby="tbl-d12-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Without age</th>
+<th>With mean filer age (2022)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R²</td>
+<td>.16</td>
+<td>.33</td>
+</tr>
+<tr class="even">
+<td>Mean filer age, partial r</td>
+<td></td>
+<td>−.41</td>
+</tr>
+<tr class="odd">
+<td>Population growth in the window</td>
+<td>−.32</td>
+<td>−.41</td>
+</tr>
+<tr class="even">
+<td>Growth kernel at the start</td>
+<td>.20</td>
+<td>.10</td>
+</tr>
+<tr class="odd">
+<td>Turnout</td>
+<td>−.01</td>
+<td>−.07</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>Adding age doubles R² for the same reason it did with six covariates (.22 → .40 over 2000–02 to 2022–24). It is mechanical: 2022 filer age correlates −.65 with growth in the window. The metros that gained the most filers relative to size (Logan, Farmington, Santa Rosa, Las Vegas) now have young filer sectors; those that lost (Wheeling, Weirton, Elmira) have old ones.</li>
+<li>Age measured before the window does not do this. The age of the registered stock in 2010 has partial r −.06 and adds at most .01 to R² (−.11 from 2000, −.01 from 2012).</li>
+<li>The same result holds over 2000–02 to 2022–24 with the 12 terms available in 2000 (age −.44; R² .23 → .38). For grassroots, age is weak (−.14; R² .41 → .42).</li>
+</ul>
+<p><strong>Evidence 3: age is also a measurement problem.</strong> The ruling year marks IRS recognition, not founding. It resets when a revoked organization is reinstated, common after the 2011 automatic revocations, and group-exemption subordinates carry the group’s date (Fact 5).</p>
+<p><strong>Recommendation.</strong></p>
+<ul>
+<li>Do not control for current sector age in levels or change models. In levels it adds nothing to the 13 covariates; in change models it is partly the outcome.</li>
+<li>Use the pre-1970 endowment for history: a cleaner measure, fixed before the outcome period.</li>
+<li>Use sector age descriptively, to explain regional differences in market share and organization size (Fact 5).</li>
+</ul>
+<p><strong>What to report.</strong> If age enters a model: which age measure, when it is measured relative to the outcome, and results with and without it.</p>
+<p><em>Sources: <code>R/paper/96_lean_card_evidence.R</code> (<code>v11/single/d12_levels.csv</code>, <code>d12_alt_measures.csv</code>); change models: <code>R/notes/100_d12_change_lean.R</code> (<code>v11/single/d12_change_lean*.csv</code>); <code>R/notes/77_nonprofit_age.R</code>; <code>notes/catchup-lag-results.md</code> section 4.7.</em></p>
+</section>
+<section id="sec-matrix" class="level1">
+<h1>Summary: the decision matrix</h1>
+<p>Each decision’s impact, aggregated over the 13 covariates. <strong>Mean |Δr|</strong> is how far a covariate’s partial r moves when only that decision changes: the average over matched pairs of specifications that differ in nothing else, then over covariates. <strong>Verdicts changed</strong> is the share of those pairs in which the covariate’s verdict differs (significantly positive, not significant, significantly negative). <strong>Covariates</strong> counts those for which the decision explains η² ≥ .06 of the spread. With 10⁴–10⁵ specifications every F test is significant, so η² rather than a p-value is the screen. Run v11.</p>
+<div id="tbl-impact-summary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-impact-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;19: Impact of each decision, run v11, by outcome population. Grassroots are the registered-stock specifications refit with registered non-filers as the outcome.
+</figcaption>
+<div aria-describedby="tbl-impact-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Decision</th>
+<th>Filers: mean |Δr| / verdicts changed / covariates</th>
+<th>Grassroots</th>
+<th>Spending</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identification (D3)</td>
+<td>.088 / 38% / 8 of 13</td>
+<td>.106 / 42% / 8 of 13</td>
+<td>.059 / 29% / 11 of 13</td>
+</tr>
+<tr class="even">
+<td>Measure, own swap (D7)</td>
+<td>.088 / 44% / 6 of 7</td>
+<td>.103 / 44% / 5 of 7</td>
+<td>.050 / 27% / 4 of 7</td>
+</tr>
+<tr class="odd">
+<td>Population (D1: filers vs.&nbsp;grassroots; for spending, counts vs.&nbsp;spending)</td>
+<td>.098 / 41% / 9 of 13</td>
+<td>.098 / 41% / 9 of 13</td>
+<td>.074 / 37% / 8 of 13</td>
+</tr>
+<tr class="even">
+<td>Predictor form (D6)</td>
+<td>.073 / 32% / 9 of 13</td>
+<td>.055 / 22% / 9 of 13</td>
+<td>.049 / 26% / 9 of 13</td>
+</tr>
+<tr class="odd">
+<td>Unit (D2)</td>
+<td>.059 / 26% / 6 of 13</td>
+<td>.050 / 20% / 5 of 13</td>
+<td>.040 / 22% / 5 of 13</td>
+</tr>
+<tr class="even">
+<td>DV form (D4, D5)</td>
+<td>.045 / 23% / 8 of 13</td>
+<td>.038 / 16% / 7 of 13</td>
+<td>.048 / 27% / 10 of 13</td>
+</tr>
+<tr class="odd">
+<td>Estimator (D9)</td>
+<td>.042 / 19% / 7 of 13</td>
+<td>.042 / 14% / 8 of 13</td>
+<td>.037 / 20% / 8 of 13</td>
+</tr>
+<tr class="even">
+<td>log P on the right (D6)</td>
+<td>.039 / 17% / 1 of 13</td>
+<td>.028 / 13% / 0 of 13</td>
+<td>.027 / 14% / 1 of 13</td>
+</tr>
+<tr class="odd">
+<td>Endowment in or out (D8)</td>
+<td>.031 / 13% / 3 of 12</td>
+<td>.032 / 11% / 2 of 12</td>
+<td>.018 / 10% / 2 of 12</td>
+</tr>
+<tr class="even">
+<td>Winsorizing</td>
+<td>.026 / 13% / 0 of 13</td>
+<td>.023 / 12% / 2 of 13</td>
+<td>.026 / 14% / 3 of 13</td>
+</tr>
+<tr class="odd">
+<td>Growth kernel in or out (D8)</td>
+<td>.023 / 10% / 1 of 12</td>
+<td>.027 / 11% / 4 of 12</td>
+<td>.018 / 10% / 2 of 12</td>
+</tr>
+<tr class="even">
+<td>Year (2022 vs.&nbsp;2019)</td>
+<td>.023 / 9% / 0 of 13</td>
+<td>.024 / 13% / 1 of 13</td>
+<td>.031 / 14% / 5 of 13</td>
+</tr>
+<tr class="odd">
+<td>Hospitals and universities (D10)</td>
+<td>.003 / 2% / 0 of 13</td>
+<td></td>
+<td>.041 / 23% / 5 of 13</td>
+</tr>
+<tr class="even">
+<td>Money measure (D10)</td>
+<td></td>
+<td></td>
+<td>.010 / 5% / 0 of 13</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The estimand choices (population, identification, unit) and the measurement and predictor-form choices dominate. The analyst-discretion forks people argue about most (year, winsorizing, log P on the right, the money measure) change 5–17% of verdicts. Population is the largest decision for filers; identification is the largest for grassroots.</p>
+<p>The decision matrix in <code>05-findings.qmd</code> shows the same decisions covariate by covariate.</p>
+<p><em>Sources: <code>R/multiverse/98_decision_matrix.R</code> (<code>D:/MULTIVERSE/data/outline/v11/matrix/</code>); <code>R/multiverse/97_v11_decision_summary.R</code> (<code>D:/MULTIVERSE/data/outline/v11/mv/</code>); run v11 (<code>D:/MULTIVERSE/data/spec/run_principled_v11/</code>, <code>MV_MODEL=lean</code> in <code>R/lib/40_multiverse.R</code>).</em></p>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bettencourt2010urban" class="csl-entry" role="listitem">
+Bettencourt, L. M. A., Lobo, J., Strumsky, D., &amp; West, G. B. (2010). Urban scaling and its deviations: Revealing the structure of wealth, innovation and crime across cities. <em>PLoS ONE</em>, <em>5</em>(11), e13541. <a href="https://doi.org/10.1371/journal.pone.0013541">https://doi.org/10.1371/journal.pone.0013541</a>
+</div>
+<div id="ref-delgiudice2021traveler" class="csl-entry" role="listitem">
+Del Giudice, M., &amp; Gangestad, S. W. (2021). A traveler’s guide to the multiverse: Promises, pitfalls, and a framework for the evaluation of analytic decisions. <em>Advances in Methods and Practices in Psychological Science</em>, <em>4</em>(1).
+</div>
+<div id="ref-gelman2014garden" class="csl-entry" role="listitem">
+Gelman, A., &amp; Loken, E. (2014). The statistical crisis in science. <em>American Scientist</em>, <em>102</em>(6), 460–465.
+</div>
+<div id="ref-leamer1983lets" class="csl-entry" role="listitem">
+Leamer, E. E. (1983). Let’s take the con out of econometrics. <em>American Economic Review</em>, <em>73</em>(1), 31–43.
+</div>
+<div id="ref-lecy2013nonprofit" class="csl-entry" role="listitem">
+Lecy, J. D., &amp; Van Slyke, D. M. (2013). Nonprofit sector growth and density: Testing theories of government support. <em>Journal of Public Administration Research and Theory</em>, <em>23</em>(1), 189–214.
+</div>
+<div id="ref-leitao2016scaling" class="csl-entry" role="listitem">
+Leitão, J. C., Miotto, J. M., Gerlach, M., &amp; Altmann, E. G. (2016). Is this scaling nonlinear? <em>Royal Society Open Science</em>, <em>3</em>(7), 150649. <a href="https://doi.org/10.1098/rsos.150649">https://doi.org/10.1098/rsos.150649</a>
+</div>
+<div id="ref-simonsohn2020specification" class="csl-entry" role="listitem">
+Simonsohn, U., Simmons, J. P., &amp; Nelson, L. D. (2020). Specification curve analysis. <em>Nature Human Behaviour</em>, <em>4</em>(11), 1208–1214.
+</div>
+<div id="ref-steegen2016increasing" class="csl-entry" role="listitem">
+Steegen, S., Tuerlinckx, F., Gelman, A., &amp; Vanpaemel, W. (2016). Increasing transparency through a multiverse analysis. <em>Perspectives on Psychological Science</em>, <em>11</em>(5), 702–712.
+</div>
+<div id="ref-uslaner1976pitfalls" class="csl-entry" role="listitem">
+Uslaner, E. M. (1976). The pitfalls of per capita. <em>American Journal of Political Science</em>, <em>20</em>(1), 125–133. <a href="https://doi.org/10.2307/2110513">https://doi.org/10.2307/2110513</a>
+</div>
+<div id="ref-young2017model" class="csl-entry" role="listitem">
+Young, C., &amp; Holsteen, K. (2017). Model uncertainty and robustness: A computational framework for multimodel analysis. <em>Sociological Methods &amp; Research</em>, <em>46</em>(1), 3–40.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../paper/03-multiverse-overview.html" class="pagination-link" aria-label="4. Multiverse overview">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">4. Multiverse overview</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../paper/02-variables.html" class="pagination-link" aria-label="Variables and constructs">
+        <span class="nav-page-text">Variables and constructs</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/paper/04-design-decisions.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
