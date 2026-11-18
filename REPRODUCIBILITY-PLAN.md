@@ -228,7 +228,7 @@ results.
    tarball).
 
 *Status 2026-11-17:*
-- **Step 1 done.** Git repo on branch `main`, first commit `6e8c3a5` (253 files, 30 MB). `.gitignore` excludes secrets, rendered HTML, Quarto caches, Office/PDF drafts, data and logs. `.gitattributes` keeps LF. No remote yet.
+- **Step 1 done.** Git repo on branch `main`, first commit `6e8c3a5` (253 files, 30 MB). `.gitignore` excludes secrets, rendered HTML, Quarto caches, Office/PDF drafts, data and logs. `.gitattributes` keeps LF. Remote: private GitHub repo `lecy/multiverse` (`origin`, first push 2026-11-17). Code, documents and figures only; data stays on D: and S3.
 - **Step 3 done.** `env/session-info-2026-11-17.txt` and `env/packages-2026-11-17.csv`. `panel990` = GitHub commit `7045d97` (in its DESCRIPTION `RemoteSha`; still HEAD).
 - **Step 2 done.** The code freeze was sent on 2026-11-17 to the 9 local sessions on this project. The rules:
   - Don't commit, branch or reset unless your user asks.
