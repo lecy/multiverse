@@ -438,6 +438,9 @@ if ( "F" %in% PARTS ) {
   ## ---- D7: every measure option, by block (counts, cross-section) -------------
   source( "R/lib/40_multiverse.R" ); source( "R/lib/41_composites.R" )
   cmp <- file.path( OUT$spec, "run_principled_cmp_merged" )
+  ## the measure-comparison run is not part of the release; skip this block when it is absent
+  ## (its outputs, d7_measures_by_block.csv and fig_d7_measures.png, are not cited in paper/)
+  if ( !file.exists( file.path( cmp, "specs.parquet" ) ) ) log_msg( "Part F: D7 block skipped, no ", cmp ) else {
   sp <- as.data.table( read_parquet( file.path( cmp, "specs.parquet" ) ) )[ construct == "count" & hu == "incl" & ident == "cs" & drop == "none" ]
   co <- as.data.table( read_parquet( file.path( cmp, "coefs.parquet" ), col_select = c( "spec_id", "term", "stat", "p", "n" ) ) )[ spec_id %in% sp$spec_id ]
   co <- merge( co, co[ , .( k = .N ), by = spec_id ], by = "spec_id" )
@@ -482,6 +485,7 @@ if ( "F" %in% PARTS ) {
     theme( strip.placement = "outside", strip.text.y.left = element_text( angle = 0, hjust = 1, face = "bold" ), legend.position = "top",
            panel.spacing.y = unit( 6, "pt" ) )
   ggsave( file.path( OD, "fig_d7_measures.png" ), pd, width = 10, height = 8.6, dpi = 170, bg = "white" )
+  }
 }
 
 ## ===========================================================================

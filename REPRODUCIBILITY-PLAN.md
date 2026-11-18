@@ -406,6 +406,30 @@ Update the `source()` paths, the README and the memory notes. Check:
    `R/paper/make_numbers.R` writes the tables the text cites. Optionally convert
    hand-typed numbers to inline `` `r` `` values.
 
+*Status 2026-11-18: figures done in the clean room; the paper text and figures are not yet updated.*
+- **Decision 4: v11.** Part I's run-based exhibits move to run v11, and 58 writes to `outline/v11/`. v10 stays only as the comparison run of 05-findings (`@tbl-v10-v11`, from 97).
+- **`paper/figures.csv` and `R/paper/make_figures.R`.**
+  - The manifest has one row per cited figure (46), plus seven rows for prerequisites that draw no figure: 73, 74, 97 (pooled and split), 103 and 104.
+  - Each row gives the producing script with its args and env, its run order, and the source file. `make_figures.R --run [--from n --to n]` runs the producers, copies each source into `paper/figures/`, and writes `check/figures_manifest.csv`. It fails if any cited figure has no row or no source.
+  - `f4_change_correlates` now comes from the current `catchup/` instead of the pre-flog backup. `f7_hazards` now comes from `outline/v11/` instead of the unversioned `outline/` root.
+- **Hidden dependencies the clean room exposed.**
+  - 75, 76, 94 and 58 read 73's 1970–2024 series.
+  - 96 and 58 read 50 part 3.
+  - 102 reads 103, and 103 needs the `mv/` folder that 97 creates. 103 now creates it itself.
+  - 58 part F also reads the `cmp_merged` run, which is not in the release. That block is now skipped when the run is absent; its outputs are not cited.
+  - `system2( env = )` does nothing on Windows, so `make_figures.R` sets and restores the variables itself.
+- **Runs rebuilt from the clean-room database** (`D:/MV_CLEAN`, 22 workers).
+  - **v11:** 35 minutes for 432,432 specs. Spec ids and n are identical. 94.5% of the coefficients are bit-identical; the largest change in t is 3.6e-5, and no significance verdict changes.
+  - **v10:** 39 minutes for 605,352 specs from a single `44 principled` run, so v10 can be regenerated directly (the open check in 1.6). Outcomes that include hospitals and universities reproduce to about 1e-9. Outcomes that exclude them all move (spending: median change in t .09, 99th percentile 1.5), because the stored v10 predates the NTEE fix.
+- **Figures** (clean room against `paper/figures/`): 30 of 46 are byte-identical, including every v11 card and decision matrix. 16 differ.
+  - 14 are on the corrected database and differ in 0–12% of pixels. The visible change is in the lines for spending excluding hospitals and universities.
+  - The other two show v11 instead of v10: `mv_spec_curve_nonwhite` and `mv_eta2_explainer`.
+- **Tables behind the text** (164 CSVs against the mirror copies): 74 identical and 17 equal cell by cell. 15 differ only below .005. 58 differ by .005 or more, mostly measures that use spending excluding hospitals and universities, or NTEE-split counts. They are in the catch-up, persistence, variables, scaling and v10/v11 benchmark tables. The list is in `D:/MV_CLEAN/paper_new/check/diff_cells.csv`.
+- **Still to do.**
+  - Copy the clean-room figures into `paper/figures/`.
+  - Update the hand-typed numbers that cite the 58 changed tables (chapters 01, 02, 05, and the Part I source notes that cite `outline/v10`). This is an editorial pass on the paper.
+  - `R/paper/make_numbers.R`.
+
 **Phase 7: publish**
 Tag `v1.0`, upload the release prefix with a manifest, set access, deposit on Zenodo,
 and add the data availability statement to the paper.

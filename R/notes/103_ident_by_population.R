@@ -14,7 +14,7 @@ source( "R/lib/40_multiverse.R" )
 suppressPackageStartupMessages( { library( arrow ); library( parallel ) } )
 args <- commandArgs( TRUE ); WORKERS <- if ( length( args ) ) as.integer( args[ 1 ] ) else 4L
 RUN <- file.path( OUT$spec, "run_principled_v11" )
-OD <- file.path( BUILD, "data", "outline", "v11", "mv" )
+OD <- file.path( BUILD, "data", "outline", "v11", "mv" ); dir.create( OD, recursive = TRUE, showWarnings = FALSE )
 POP <- c( n_filer_c3 = "Filers", n_grass = "Grassroots", n_bmf_c3pc = "Registered stock", exp_c3_nohu = "Spending excl. H&U" )
 
 specs <- as.data.table( read_parquet( file.path( RUN, "specs.parquet" ) ) )[ status == "ok" & op == "default" & drop == "none" &

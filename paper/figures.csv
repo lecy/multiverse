@@ -1,0 +1,53 @@
+figure,order,script,args,env,source,notes
+,35,R/notes/104_fit_grassroots_v11.R,22,,,"no figure: the grassroots run that 98 reads (MV_MODEL=lean is set inside)"
+,79,R/notes/74_scaling_aggregation.R,,,,"no figure: data/scaling_agg/ for 74b"
+,72,R/notes/73_pre2000_growth.R,,,,"no figure: data/catchup/c9_* (1970-2024 metro series) for 58, 75, 76, 94; reads 72's c2_half_life"
+,36,R/notes/103_ident_by_population.R,22,,,"no figure: data/outline/v11/mv/ident_by_population*.csv for 102 (MV_MODEL=lean is set inside)"
+d6_lean_interactions.png,10,R/paper/99_interaction_screen_v11.R,,,paper/figures/d6_lean_interactions.png,"written directly; copy in data/interactions/v11/fig_interaction_matrix.png"
+d2_lean_size.png,20,R/paper/96_lean_card_evidence.R,,,paper/figures/d2_lean_size.png,"written directly; 96 also writes the single-model tables in data/outline/v11/single/ that 102 reads"
+d1_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d1_card.png,"reads data/outline/v11/single/ (96) and mv/ident_by_population_long.csv (103)"
+d2_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d2_card.png,
+d3_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d3_card.png,
+d4_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d4_card.png,
+d8_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d8_card.png,
+d9_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d9_card.png,
+d10_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d10_card.png,
+d11_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d11_card.png,
+d12_card.png,37,R/paper/102_card_figures.R,,,paper/figures/d12_card.png,
+decision_matrix_v11_filers_vertical_p1.png,40,R/multiverse/98_decision_matrix.R,principled_v11,MV_SPLIT=1,paper/figures/decision_matrix_v11_filers_vertical_p1.png,"written directly; reads run_principled_v11 and run_principled_v11_grass (R/notes/104_fit_grassroots_v11.R)"
+decision_matrix_v11_filers_vertical_p2.png,40,R/multiverse/98_decision_matrix.R,principled_v11,MV_SPLIT=1,paper/figures/decision_matrix_v11_filers_vertical_p2.png,
+decision_matrix_v11_grassroots_vertical_p1.png,40,R/multiverse/98_decision_matrix.R,principled_v11,MV_SPLIT=1,paper/figures/decision_matrix_v11_grassroots_vertical_p1.png,
+decision_matrix_v11_grassroots_vertical_p2.png,40,R/multiverse/98_decision_matrix.R,principled_v11,MV_SPLIT=1,paper/figures/decision_matrix_v11_grassroots_vertical_p2.png,
+decision_matrix_v11_spending_vertical_p1.png,40,R/multiverse/98_decision_matrix.R,principled_v11,MV_SPLIT=1,paper/figures/decision_matrix_v11_spending_vertical_p1.png,
+decision_matrix_v11_spending_vertical_p2.png,40,R/multiverse/98_decision_matrix.R,principled_v11,MV_SPLIT=1,paper/figures/decision_matrix_v11_spending_vertical_p2.png,
+mv_spec_curve_nonwhite.png,77.5,R/notes/58_outline_analyses.R,B D E F H O Q R T,MV_RUN=run_principled_v11,data/outline/v11/fig_spec_curve_race_hhi.png,"part D; file name kept from v4, the diversity term is % nonwhite from v5 on"
+mv_eta2_explainer.png,77.5,R/notes/58_outline_analyses.R,B D E F H O Q R T,MV_RUN=run_principled_v11,data/outline/v11/fig_eta2_explainer.png,part D
+mv_partial_r_explainer.png,77.5,R/notes/58_outline_analyses.R,B D E F H O Q R T,MV_RUN=run_principled_v11,data/outline/v11/fig_partial_r_explainer.png,part E
+f1_scaling.png,77.5,R/notes/58_outline_analyses.R,B D E F H O Q R T,MV_RUN=run_principled_v11,data/outline/v11/fig_fact1_scaling.png,part F
+f4_composition.png,77.5,R/notes/58_outline_analyses.R,B D E F H O Q R T,MV_RUN=run_principled_v11,data/outline/v11/fig_fact4_composition.png,part H
+f5_age_size.png,77.5,R/notes/58_outline_analyses.R,B D E F H O Q R T,MV_RUN=run_principled_v11,data/outline/v11/fig_fact5_age_size.png,part O
+f7_hazards.png,77.5,R/notes/58_outline_analyses.R,B D E F H O Q R T,MV_RUN=run_principled_v11,data/outline/v11/fig_fact7_hazards.png,"part Q; was copied from the unversioned data/outline/ root"
+f3_gap_lag_trait.png,77.5,R/notes/58_outline_analyses.R,B D E F H O Q R T,MV_RUN=run_principled_v11,data/outline/v11/fig_gap_lag_trait.png,part T
+f2_persistence.png,5,R/notes/50_followups_jeremy.R,2 3,,data/followup/fig_p2_persistence.png,"parts 2 and 3: part 3 writes followup/p3_subsector_metro_year.csv for 96 and 58"
+f2_rank_paths.png,5,R/notes/50_followups_jeremy.R,2 3,,data/followup/fig_p2_rank_paths_split.png,"parts 2 and 3: part 3 writes followup/p3_subsector_metro_year.csv for 96 and 58"
+f3_trajectories.png,70,R/notes/72_catchup_lag.R,,,data/catchup/fig_c3_trajectories.png,
+f3_trajectories_change.png,70,R/notes/72_catchup_lag.R,,,data/catchup/fig_c3_trajectories_change.png,
+f3_gap_by_direction.png,70,R/notes/72_catchup_lag.R,,,data/catchup/fig_c5_decline_by_direction.png,
+f4_change_correlates.png,70,R/notes/72_catchup_lag.R,,,data/catchup/fig_c7_moderators.png,"was copied from the pre-flog backup data/_pre_flog_20261116/catchup/"
+f5_share_level.png,70,R/notes/72_catchup_lag.R,,,data/catchup/fig_c8_share_level.png,
+f5_growth_share_grid.png,75,R/notes/75_capacity_grid.R,,,data/catchup/fig_c10_grid.png,
+f5_share_by_region.png,76,R/notes/76_bls_share_change.R,,,data/catchup/fig_c11_share_by_region.png,
+f5_age_by_state.png,77,R/notes/77_nonprofit_age.R,,,data/catchup/fig_c12_age_by_state.png,
+f5_age_vs_share.png,77,R/notes/77_nonprofit_age.R,,,data/catchup/fig_c12_age_vs_share.png,
+f5_age_vs_share_by_region.png,77,R/notes/77_nonprofit_age.R,,,data/catchup/fig_c12_age_vs_share_by_region.png,
+f5_lifespan.png,78,R/notes/78_nonprofit_lifespan.R,,,data/catchup/fig_c13_lifespan_ci.png,
+f5_survival.png,78,R/notes/78_nonprofit_lifespan.R,,,data/catchup/fig_c13_survival.png,
+f1_by_aggregation.png,80,R/notes/74b_plot_scaling_aggregation.R,,,notes/scaling-aggregation-figures/fig_B_by_aggregation.png,"reads data/scaling_agg/scaling_B_by_unit.csv (R/notes/74_scaling_aggregation.R)"
+var_block_vs_combined.png,90,R/paper/94_variables_panel_model.R,,,data/variables/var_block_vs_combined.png,
+var_cor_demand.png,90,R/paper/94_variables_panel_model.R,,,data/variables/var_cor_demand.png,
+var_cor_niche.png,90,R/paper/94_variables_panel_model.R,,,data/variables/var_cor_niche.png,
+var_cor_supply.png,90,R/paper/94_variables_panel_model.R,,,data/variables/var_cor_supply.png,
+var_item_vs_index.png,90,R/paper/94_variables_panel_model.R,,,data/variables/var_item_vs_index.png,
+var_compete_addone.png,95,R/paper/95_compete_niche.R,,,paper/figures/var_compete_addone.png,written directly
+,85,R/multiverse/97_v11_decision_summary.R,,,,"no figure: data/outline/v11/mv/ tables the text cites (reads run_principled_v10 and v11)"
+,86,R/multiverse/97_v11_decision_summary.R,,MV_SPLIT=1,,"no figure: data/outline/v11/mv_split/ tables of 05-findings (reads v10, v11, v11_grass)"

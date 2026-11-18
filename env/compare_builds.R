@@ -54,7 +54,13 @@ for ( k in seq_along( files ) ) {
       row$status <- "differs"; row$note <- paste( c( notes, "row counts differ" ), collapse = "; " ); row
     } else {
       key <- intersect( KEYS, cols )
-      if ( !length( key ) || uniqueN( r, by = key ) < nrow( r ) ) key <- cols
+      ## not unique: use the label columns (text that does not parse as numbers) as the key,
+      ## so a changed value does not reorder rows; only then fall back to every column
+      if ( !length( key ) || uniqueN( r, by = key ) < nrow( r ) ) {
+        lab <- cols[ vapply( cols, function( v ) { x <- r[[ v ]]
+          !is.numeric( x ) && any( is.na( suppressWarnings( as.numeric( x ) ) ) & !is.na( x ) & x != "" ) }, TRUE ) ]
+        key <- if ( length( lab ) && uniqueN( r, by = lab ) == nrow( r ) && uniqueN( n, by = lab ) == nrow( n ) ) lab else cols
+      }
       setorderv( n, key, na.last = TRUE ); setorderv( r, key, na.last = TRUE )
       nd <- 0L
       for ( v in cols ) {
