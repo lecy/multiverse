@@ -435,8 +435,8 @@ years, which no US study does.
 | @allard2023volatility | NCCS 2000–2017; urban and suburban counties | Health and human-services spending per capita and per poor person | Trends; pooled regressions | Suburban safety nets are weaker and more volatile than urban ones, especially in high-poverty and Black suburbs | full |
 | @willse2023geography | Park and conservation support nonprofits; counties, 2000–2015 | Whether a county has one | *Not confirmed* | More likely in metro counties with well-educated, liberal residents; unrelated to public parks funding | abstract |
 | @kim2022prevalence | Counties, 1995–2015 | Ethnic, cultural and folk nonprofits | County panel | They increase where new immigrant populations grow, unevenly across groups | abstract |
-| @shapiro2021inequality | NCCS; all US counties | Human-services spending | Regression | Rural counties spend least; the negative poverty association is explained by rurality and region | abstract |
-| @wu2021geography | Community foundations; 3,130 counties | Presence and activity | Hurdle negative binomial | Foundations form in urban, White, homogeneous, high-capital counties; once present, they are more active in diverse and unequal ones | abstract |
+| @shapiro2021inequality | NCCS Core 2013 human-services filers; all US counties | Human-services spending, log per person in poverty (and per capita) | Cross-section OLS with region and controls; state fixed effects as a check | Rural counties spend least, the most rural least of all; the negative poverty association is explained by rurality and region | full |
+| @wu2021geography | Service areas of 956 community foundations, 2018; 3,130 counties | Number of foundations serving a county; grants, donations and assets per capita | Hurdle negative binomial | Foundations form in urban, White, homogeneous, high-capital counties; once present, they are more active in diverse and unequal ones | full |
 | @lu2020population | Meta-analysis: 37 studies, 491 effects | Sector size, various | Random-effects meta-analysis | Heterogeneity is positively related to sector size, but weakly; age, education, ethnicity, language and religion fit best | full |
 | @jeong2020density | BMF 2013; US counties | Registered arts, health and human-services charities, log per 10,000 | Cross-section OLS, state dummies | Government size negative, fragmentation positive; racial and educational diversity and religious adherence positive; for-profit providers co-locate | full |
 | @mcdonnell2020charity | Charity register; 328 local authorities, 1971–2011 | Charities per 5,000 | Poisson; within-area change; spatial controls | Density is highest in the least deprived areas, but rises *within* an area as it becomes more deprived | full |
@@ -455,7 +455,7 @@ years, which no US study does.
 |---|---|---|---|---|---|
 | @mayer2025connecting | NCCS BMF public charities; US counties, 2010–2016 (21,756 county-years) | Foundings and dissolutions; population as offset | Quasi-Poisson, county and year fixed effects | Within counties: higher density means fewer foundings and more dissolutions; rising government wages go with more foundings; economic hardship raises dissolutions; dissolutions predict foundings | full |
 | @lee2025exploring | Human-service nonprofits, 2007–2018 | Dissolution | Survival model, county fixed effects | Stronger local economic and social conditions lower risk; higher human-service density raises it | abstract |
-| @shon2024demographic | US counties, 2007–2015 | Dissolution | Longitudinal | More demographically heterogeneous and more liberal counties have more dissolution | abstract |
+| @shon2024demographic | NCCS Core public charities matched to IRS automatic revocations; 3,129 counties, 2007–2015 | Dissolutions per year (revoked after three years of not filing); population, density per 10,000 and competition as controls | Negative binomial, county and year fixed effects | More demographic heterogeneity (age, gender, ethnicity) and more liberal voting go with more dissolutions, in every field but the arts; higher density and competition also raise them | full |
 | @clifford2024passing | Charities and trustees, England and Wales | Dissolution | Survival analysis | Charities in deprived areas dissolve more often, partly because volunteer leadership is harder to replace | abstract |
 | @lu2020dissolution | US public charities, 2005–2015 | Dissolution | Proportional hazards | Organization-level finances matter: revenue diversification and commercial revenue improve survival | abstract |
 | @garrow2015racial | Human-service nonprofits, one metro, 2002–2011 | Disbanding | Logistic panel | Organizations in tracts with more Black and Latino residents disband more often | abstract |
@@ -552,7 +552,9 @@ into its average. That is worth testing.
   negative.
 
 **Adds a mechanism.** The exit studies suggest *why* the two populations differ:
-- diverse counties have more dissolutions [@shon2024demographic];
+- within counties, rising demographic heterogeneity goes with more dissolutions
+  [@shon2024demographic]. Their dissolutions are automatic revocations for three
+  years of not filing, which mostly means small organizations dropping out;
 - organizations in Black and Latino neighborhoods disband more often
   [@garrow2015racial; @lee2017sustainability].
 
