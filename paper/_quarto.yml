@@ -1,0 +1,25 @@
+## Shared settings for the paper sections. Each .qmd renders on its own:
+##   quarto render 01-stylized-facts.qmd
+## Sections (split from the online outline, 2026-11-17):
+##   01-stylized-facts.qmd       descriptive facts about density data (Part I)
+##   02-variables.qmd            key variables, theories, item vs. index (replaces D7)
+##   03-multiverse-overview.qmd  the multiverse process, metrics and grid
+##   04-design-decisions.qmd     decision cards D1-D12 (Part II)
+##   05-findings.qmd             summary exhibits, decision importance, sensitivity notes
+project:
+  type: default
+
+bibliography: ../references.bib
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    embed-resources: true
+    fig-align: center
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    theme: cosmo
+    fontsize: 1rem
+    linestretch: 1.5

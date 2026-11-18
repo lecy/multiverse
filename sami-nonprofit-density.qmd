@@ -1,0 +1,547 @@
+---
+title: "Modeling Nonprofit Density with Scale-Adjusted Metropolitan Indicators"
+subtitle: "Recommendations for regression practice under urban scaling"
+author:
+  - name: Jesse Lecy
+    email: jdlecy@gmail.com
+    affiliations:
+      - id: asu
+        name: Arizona State University
+        department: Watts College of Public Service and Community Solutions
+        city: Phoenix
+        state: AZ
+    attributes:
+      corresponding: true
+  - name: Jeremy P. Thornton
+    email: jpthornt@samford.edu
+    affiliations:
+      - id: samford
+        name: Samford University
+        department: Brock School of Business
+abstract: |
+  Per-capita measures of nonprofit density are not comparable across metropolitan areas because nonprofit counts and resources do not scale in proportion to population. Counts scale sublinearly, so per-capita rates overrate small metros; expenditures scale superlinearly, so per-capita amounts overrate large ones. Following Bettencourt, Lobo, Strumsky and West (2010), we recommend replacing the per-capita ratio with a scale-adjusted metropolitan indicator (SAMI), the residual from a log-log regression of nonprofit counts on population. We then ask how a SAMI should be modeled. We show that regressing the SAMI on raw predictors attenuates their coefficients by the share of predictor variance explained by population; that including log population or residualizing the predictors yields identical partial effects; and that the all-SAMI specification is algebraically equivalent to a full log-log regression by the Frisch--Waugh--Lovell theorem. We distinguish intensive, extensive and population predictors, give an interpretation of each coefficient as an elasticity or semi-elasticity, and extend the framework to panel data, where metro fixed effects replace the cross-sectional scaling exponent with a temporal one unless SAMIs are computed year by year first. We close by contrasting what cross-sectional equilibrium and within-metro change designs each identify.
+keywords:
+  - urban scaling
+  - nonprofit density
+  - scale-adjusted metropolitan indicators
+  - panel data
+  - Frisch--Waugh--Lovell
+date: last-modified
+bibliography: references.bib
+execute:
+  echo: false
+  warning: false
+  message: false
+fig-dpi: 300
+fig-width: 6.5
+fig-height: 3.4
+format:
+  elsevier-pdf:
+    keep-tex: true
+    journal:
+      name: Working paper
+      formatting: preprint
+      cite-style: authoryear
+  html:
+    toc: true
+    html-math-method: katex
+  docx:
+    toc: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library( data.table )
+library( ggplot2 )
+library( ggrepel )
+library( scales )
+
+## metro x year file built by R/build-metro-data.R
+d <- fread( "data/metro-npo-pop.csv",
+            colClasses = list( character = "cbsacode" ) )
+d <- d[ year == 2022 ]
+
+d[ , lP := log( population ) ]
+d[ , lN := log( N ) ]
+d[ , lE := log( exp ) ]
+d[ , pcN := 1e4 * N / population ]    # nonprofits per 10,000 residents
+d[ , pcE := exp / population ]        # nonprofit expenditures per resident
+
+## first-stage scaling laws (natural logs) and their residuals (SAMIs)
+mN <- lm( lN ~ lP, data = d )
+mE <- lm( lE ~ lP, data = d )
+d[ , samiN := resid( mN ) ]
+d[ , samiE := resid( mE ) ]
+
+aN <- coef( mN )[1];  bN <- coef( mN )[2];  sN <- sigma( mN )
+aE <- coef( mE )[1];  bE <- coef( mE )[2]
+
+## exponent below and above 500k residents
+cut.pop <- 5e5
+bN.small <- coef( lm( lN ~ lP, data = d[ population <  cut.pop ] ) )[2]
+bN.large <- coef( lm( lN ~ lP, data = d[ population >= cut.pop ] ) )[2]
+
+d[ , size := cut( population, c( 0, 1e5, 1e6, Inf ),
+                  labels = c( "Under 100k", "100k to 1M", "Over 1M" ) ) ]
+
+fmt <- function( x, k=2 ) formatC( x, format="f", digits=k )
+pct <- function( x ) paste0( round( 100 * x ), "%" )
+
+## figure styling
+ink    <- "#0b0b0b"
+ink2   <- "#52514e"
+dots   <- "#a3a29d"
+blue   <- "#2a78d6"
+orange <- "#eb6834"
+aqua   <- "#1baf7a"
+
+theme_memo <-
+  theme_minimal( base_size = 9 ) +
+  theme( panel.grid.minor = element_blank(),
+         panel.grid.major = element_line( color = "#e6e5e1", linewidth = 0.3 ),
+         axis.title       = element_text( color = ink2 ),
+         axis.text        = element_text( color = ink2 ),
+         strip.text       = element_text( color = ink, face = "bold", hjust = 0 ),
+         plot.title       = element_text( color = ink, face = "bold", size = 9.5 ),
+         legend.position  = "top",
+         legend.title     = element_blank() )
+theme_set( theme_memo )
+
+pop.breaks <- c( 1e4, 3e4, 1e5, 3e5, 1e6, 3e6, 1e7 )
+pop.labels <- c( "10k", "30k", "100k", "300k", "1M", "3M", "10M" )
+x_pop <- function( name = "Metro population (log scale)" )
+  scale_x_log10( name = name, breaks = pop.breaks, labels = pop.labels )
+```
+
+# The problem: per-capita density is not scale-neutral
+
+Nonprofits per 10,000 residents is only a fair comparison across metros if nonprofit counts grow in exact proportion to population. They do not. Urban scaling [@bettencourt2007growth; @bettencourt2010urban] shows that most urban quantities follow a power law in population,
+
+$$
+Y_i = Y_0 \, P_i^{\beta},
+$$ {#eq-powerlaw}
+
+with $\beta < 1$ for infrastructure (sublinear) and $\beta > 1$ for socioeconomic outputs (superlinear). Nonprofit counts are plausibly sublinear: establishment counts of most kinds scale with $\beta$ in the 0.8--1.0 range, and large metros can serve more people per organization. Nonprofit resources (revenues, expenditures, contributions) behave like other socioeconomic outputs and scale superlinearly. Whatever the value, if $\beta \neq 1$ then $Y/P$ trends mechanically with city size, and a per-capita ranking rewards or penalizes metros simply for being small or large [@uslaner1976pitfalls]. Because counts and resources sit on opposite sides of $\beta = 1$, the direction of that bias flips between them.
+
+@fig-levels shows the `r nrow(d)` core-based statistical areas in 2022, with nonprofit counts taken from the SOI panel sample frame. In levels (panel a) the scatter is dominated by a handful of very large metros and the spread fans out as population grows, so a linear fit is driven by New York, Los Angeles and Chicago and says little about the hundreds of metros under 250,000. On log-log axes (panel b) the same data fall along a straight line with roughly constant spread at every size. The estimated exponent is $\hat\beta =$ `r fmt(bN)` ($R^2 =$ `r fmt(summary(mN)$r.squared)`): mildly sublinear, and close enough to one that the gap from the per-capita assumption (dashed line) is easy to miss at this scale.
+
+```{r}
+#| label: fig-levels
+#| fig-cap: "The same nonprofit counts in levels and in logs, 2022 metro and micropolitan areas. Grey points are metros. In (b), the solid line is the fitted scaling law and the dashed line has slope one through the means, the relationship a per-capita measure assumes."
+#| fig-subcap:
+#|   - "Levels, with OLS fit"
+#|   - "Log--log, with scaling fit and per-capita reference"
+#| layout-ncol: 2
+#| fig-width: 3.3
+#| fig-height: 3.1
+
+ggplot( d, aes( population / 1e6, N / 1e3 ) ) +
+  geom_point( color = dots, alpha = 0.55, size = 1.1, stroke = 0 ) +
+  geom_smooth( method = "lm", se = FALSE, color = blue, linewidth = 0.7 ) +
+  labs( x = "Metro population (millions)", y = "Nonprofits (thousands)" )
+
+grid <- data.table( population = 10^seq( 4, 7.35, length.out = 50 ) )
+grid[ , fit := exp( aN + bN * log( population ) ) ]
+grid[ , ref := exp( mean( d$lN ) + ( log( population ) - mean( d$lP ) ) ) ]
+
+ggplot( d, aes( population, N ) ) +
+  geom_point( color = dots, alpha = 0.55, size = 1.1, stroke = 0 ) +
+  geom_line( data = grid, aes( y = ref ), color = orange,
+             linetype = "22", linewidth = 0.7 ) +
+  geom_line( data = grid, aes( y = fit ), color = blue, linewidth = 0.7 ) +
+  annotate( "text", x = 2e6, y = 15, hjust = 0, size = 3, color = blue,
+            label = paste0( "beta == ", fmt( bN ) ), parse = TRUE ) +
+  annotate( "text", x = 2e6, y = 6, hjust = 0, size = 3, color = orange,
+            label = "per~capita*\":\"~beta == 1", parse = TRUE ) +
+  x_pop( "Metro population" ) +
+  scale_y_log10( "Nonprofits", labels = label_comma() )
+```
+
+The per-capita ratio is the special case of the scaling model with $\beta$ forced to 1: $\log(Y/P) = \log Y - 1 \cdot \log P$. A scale-adjusted metropolitan indicator (SAMI) replaces the assumed exponent with the estimated one and uses the residual as the indicator. Because both are log deviations from a benchmark, they can be put on the same axis and compared directly (@fig-percapita). The top row is the per-capita measure, $\log(Y_i/P_i)$ centered on its mean; the bottom row is the SAMI. Each column is a different nonprofit outcome.
+
+```{r}
+#| label: fig-percapita
+#| fig-cap: "Per-capita normalization leaves a size trend; the SAMI does not. Each panel plots a metro's log deviation from a benchmark against its population. Top row: the per-capita benchmark (exponent fixed at one). Bottom row: the estimated scaling law. The blue line is a loess smoother through the points; the dashed line at zero is what an unbiased density measure should show at every size."
+#| fig-height: 4.6
+
+lab.N <- "Number of nonprofits"
+lab.E <- "Nonprofit expenditures"
+lab.pc <- "Per capita (beta fixed at 1)"
+lab.sa <- "SAMI (beta estimated)"
+
+dl <- rbind(
+  d[ , .( population, outcome = lab.N, measure = lab.pc,
+          dev = log( N / population ) - mean( log( N / population ) ) ) ],
+  d[ , .( population, outcome = lab.E, measure = lab.pc,
+          dev = log( exp / population ) - mean( log( exp / population ) ) ) ],
+  d[ , .( population, outcome = lab.N, measure = lab.sa, dev = samiN ) ],
+  d[ , .( population, outcome = lab.E, measure = lab.sa, dev = samiE ) ] )
+dl[ , outcome := factor( outcome, levels = c( lab.N, lab.E ) ) ]
+dl[ , measure := factor( measure, levels = c( lab.pc, lab.sa ) ) ]
+
+ratio.breaks <- log( c( 1/8, 1/4, 1/2, 1, 2, 4, 8 ) )
+ratio.labels <- c( "1/8x", "1/4x", "1/2x", "1x", "2x", "4x", "8x" )
+
+ggplot( dl, aes( population, dev ) ) +
+  geom_hline( yintercept = 0, color = orange, linetype = "22", linewidth = 0.6 ) +
+  geom_point( color = dots, alpha = 0.45, size = 0.9, stroke = 0 ) +
+  geom_smooth( method = "loess", span = 0.6, se = FALSE,
+               color = blue, linewidth = 0.8 ) +
+  facet_grid( measure ~ outcome ) +
+  x_pop() +
+  scale_y_continuous( "Ratio to the benchmark (log scale)",
+                      breaks = ratio.breaks, labels = ratio.labels ) +
+  coord_cartesian( ylim = log( c( 1/8, 8 ) ) )
+```
+
+```{r}
+#| label: rank-shift
+#| include: false
+
+## percentile rank under each measure; shift > 0 means the SAMI ranks the
+## metro higher than its per-capita rate does
+d[ , rank.shift.N := 100 * ( frank( samiN ) - frank( pcN ) ) / .N ]
+d[ , rank.shift.E := 100 * ( frank( samiE ) - frank( pcE ) ) / .N ]
+shift <- d[ , .( N = mean( rank.shift.N ), E = mean( rank.shift.E ) ), keyby = size ]
+```
+
+The two columns of @fig-percapita are biased in opposite directions, and this is the central problem with per-capita models. Because $\log(Y/P) = a + (\beta - 1)\log P + \xi$, the per-capita measure carries a size trend with slope $\beta - 1$. Its sign depends on whether the outcome scales sub- or superlinearly.
+
+*Counts are sublinear, so per-capita rates favor small places.* With $\hat\beta =$ `r fmt(bN)` the per-capita count drifts down as metros grow. The drift is modest on average because the exponent is near one, but it is not uniform across the size range. Fitting the scaling law separately below and above `r comma(cut.pop)` residents gives $\hat\beta =$ `r fmt(bN.small)` and `r fmt(bN.large)`. The sublinearity sits among the several hundred small metros and micropolitan areas; above half a million residents counts grow roughly in proportion to population. A per-capita comparison confined to large metros would show little bias. One that spans the full range of places inflates the density of the smallest areas relative to mid-sized ones.
+
+*Resources are superlinear, so per-capita amounts favor large places.* Nonprofit expenditures scale with $\hat\beta_E =$ `r fmt(bE)`, consistent with the superlinear scaling of revenues and contributions. A metro 100 times larger spends about `r fmt(100^(bE-1),1)` times as much per resident. A per-capita spending measure is largely a measure of city size, and the bias runs the other way: large metros look resource-rich and small metros look resource-poor.
+
+A study that puts nonprofits per capita and spending per capita in the same model therefore carries two size biases with opposite signs, and a predictor that rises with metro size will look negatively related to the first and positively related to the second for reasons that have nothing to do with the nonprofit sector. The SAMI removes the linear trend in both cases, which is the point: it compares each metro to places of its own size. The bottom row of @fig-percapita also shows what it does not remove. The smoothers bend at the extremes, upward for counts among the very largest metros and downward for spending among the smallest. That curvature is the misfit of a single power law, which is why the robustness checks in the Recommendations (a quadratic in $\log P$, dropping the extremes) matter.
+
+The two measures are nearly collinear across all metros, which is why per-capita rates look like a safe proxy. The disagreement is in who gets ranked where. @fig-rank plots, for every metro, how far its percentile rank moves when the per-capita measure is replaced by the SAMI. For counts, metros under 100,000 drop by `r fmt(-shift[size=="Under 100k", N],1)` percentile points on average and metros over one million rise by `r fmt(shift[size=="Over 1M", N],1)`. For spending the movement is reversed and much larger: small metros rise by `r fmt(shift[size=="Under 100k", E],1)` points and large metros fall by `r fmt(-shift[size=="Over 1M", E],1)`.
+
+```{r}
+#| label: fig-rank
+#| fig-cap: "Per-capita measures misrank metros in opposite directions for counts and resources. Each point is a metro's change in percentile rank when its per-capita rate is replaced by its SAMI; positive values mean the per-capita measure had ranked it too low. The blue line is a loess smoother. Counts scale sublinearly, so per-capita rates overrate small metros; expenditures scale superlinearly, so per-capita amounts overrate large ones."
+#| fig-height: 3.2
+
+rl <- rbind(
+  d[ , .( population, outcome = paste0( lab.N, " (beta = ", fmt( bN ), ")" ),
+          shift = rank.shift.N ) ],
+  d[ , .( population, outcome = paste0( lab.E, " (beta = ", fmt( bE ), ")" ),
+          shift = rank.shift.E ) ] )
+rl[ , outcome := factor( outcome, levels = unique( outcome ) ) ]
+
+ggplot( rl, aes( population, shift ) ) +
+  geom_hline( yintercept = 0, color = orange, linetype = "22", linewidth = 0.6 ) +
+  geom_point( color = dots, alpha = 0.45, size = 0.9, stroke = 0 ) +
+  geom_smooth( method = "loess", span = 0.6, se = FALSE,
+               color = blue, linewidth = 0.8 ) +
+  facet_wrap( ~ outcome ) +
+  x_pop() +
+  scale_y_continuous( "Change in percentile rank,\nper capita to SAMI" )
+```
+
+The rest of this memo treats the SAMI as the outcome and asks how to model it without reintroducing the size confound through the predictors.
+
+# Constructing the SAMI
+
+Estimate the scaling law by OLS on the cross-section of metros and keep the residual:
+
+$$
+\log Y_i = a + \beta \log P_i + \xi_i, \qquad
+\widehat{\mathrm{SAMI}}_i = \hat{\xi}_i = \log Y_i - \hat{a} - \hat{\beta}\log P_i .
+$$ {#eq-sami}
+
+The SAMI is the log-deviation of a metro's nonprofit count from what its size alone predicts. A value of 0.20 means roughly 22 percent more nonprofits than expected ($e^{0.20} - 1$); a value of $-0.20$ means 18 percent fewer. Because it is an OLS residual, it has three properties the second-stage models rely on:
+
+1. It has mean zero and is exactly uncorrelated with $\log P$ in the estimation sample.
+2. It is dimensionless and comparable across metros of any size.
+3. It is a linear function of $\log Y$ and $\log P$, so any regression that includes both as regressors can reproduce it (@sec-equivalence).
+
+Three practical notes. Estimate $\beta$ rather than imposing it; $\hat\beta$ for nonprofit counts should be reported alongside the SAMIs because the ranking depends on it. Compute the SAMIs on the same sample you will use in the second stage, otherwise property (1) fails and the equivalence results below hold only approximately. And check that the log-linear fit is adequate across the size range: @leitao2016scaling show that exponent estimates and residuals are sensitive to the fitting assumptions, and a quadratic term in $\log P$ or a different population base (total vs adult vs households) can shift which metros look over- or under-endowed.
+
+## Reading a SAMI across city sizes {#sec-interpret}
+
+The log-log model is better than the per-capita ratio for a second reason besides removing the trend: it puts metros of very different sizes on a common scale of variation. In the 2022 data the residual standard deviation is $\hat\sigma =$ `r fmt(sN)` in natural logs. A metro one standard deviation above the line has $e^{\hat\sigma} - 1 =$ `r pct(exp(sN)-1)` more nonprofits than a typical metro its size, and one standard deviation below has `r pct(1-exp(-sN))` fewer. That statement holds at every population, which is what makes the residual comparable across places.
+
+@tbl-band makes this concrete. It reads the fitted line and the one-standard-deviation band at population sizes from 10,000 to 10 million. In counts the band is very uneven: it spans a handful of organizations in the smallest areas and thousands in the largest. Expressed as a ratio to the conditional mean, the band is identical at every size.
+
+```{r}
+#| label: tbl-band
+#| tbl-cap: "Typical nonprofit counts and the one-standard-deviation range by metro size, from the 2022 scaling fit. Low and high are the fitted count divided and multiplied by $e^{\\hat\\sigma}$."
+
+ref <- data.table( pop = 10^seq( 4, 7, by = 0.5 ) )
+ref[ , ave  := exp( aN + bN * log( pop ) ) ]
+ref[ , low  := ave * exp( -sN ) ]
+ref[ , high := ave * exp(  sN ) ]
+
+knitr::kable(
+  ref[ , .( `Population` = comma( pop ),
+            `Low (-1 sd)` = comma( low ),
+            `Typical` = comma( ave ),
+            `High (+1 sd)` = comma( high ),
+            `Range in counts` = comma( high - low ),
+            `Low / typical` = fmt( low / ave ),
+            `High / typical` = fmt( high / ave ) ) ],
+  align = "rrrrrrr" )
+```
+
+@fig-band draws the same band two ways. On log-log axes (panel a) it is a strip of constant width, and the vertical bars at each reference size are the rows of @tbl-band. On linear axes (panel b) the identical band fans out. A metro of 3.2 million one standard deviation below the line is short about `r comma(ref[6, ave - low])` organizations; a micropolitan area of 32,000 at the same position is short about `r comma(ref[2, ave - low])`. In relative terms they are equally far from typical. The SAMI is the vertical distance in panel (a). It is a ratio, so a value means the same thing for Boise as for Chicago.
+
+```{r}
+#| label: fig-band
+#| fig-cap: "The one-standard-deviation band around the scaling law. The band is a constant ratio of the conditional mean, so it has constant width on log axes (a) and fans out on linear axes (b). Vertical bars mark the reference sizes in @tbl-band."
+#| fig-subcap:
+#|   - "Log--log axes"
+#|   - "Linear axes, metros of 1 to 10 million"
+#| layout-ncol: 2
+#| fig-width: 3.3
+#| fig-height: 3.1
+
+band <- data.table( population = 10^seq( 4, 7.35, length.out = 100 ) )
+band[ , fit  := exp( aN + bN * log( population ) ) ]
+band[ , low  := fit * exp( -sN ) ]
+band[ , high := fit * exp(  sN ) ]
+
+ggplot( d, aes( population, N ) ) +
+  geom_ribbon( data = band, aes( y = fit, ymin = low, ymax = high ),
+               fill = blue, alpha = 0.15 ) +
+  geom_point( color = dots, alpha = 0.55, size = 1, stroke = 0 ) +
+  geom_line( data = band, aes( y = fit ), color = blue, linewidth = 0.7 ) +
+  geom_errorbar( data = ref, aes( x = pop, y = ave, ymin = low, ymax = high ),
+                 color = ink, width = 0.06, linewidth = 0.5 ) +
+  x_pop( "Metro population" ) +
+  scale_y_log10( "Nonprofits", labels = label_comma() )
+
+ggplot( d[ population >= 1e6 ], aes( population / 1e6, N / 1e3 ) ) +
+  geom_ribbon( data = band[ population >= 1e6 ],
+               aes( y = fit / 1e3, ymin = low / 1e3, ymax = high / 1e3 ),
+               fill = blue, alpha = 0.15 ) +
+  geom_point( color = dots, alpha = 0.8, size = 1.3, stroke = 0 ) +
+  geom_line( data = band[ population >= 1e6 ], aes( y = fit / 1e3 ),
+             color = blue, linewidth = 0.7 ) +
+  geom_errorbar( data = ref[ pop >= 1e6 ],
+                 aes( x = pop / 1e6, y = ave / 1e3,
+                      ymin = low / 1e3, ymax = high / 1e3 ),
+                 color = ink, width = 0.25, linewidth = 0.5 ) +
+  coord_cartesian( xlim = c( 1, 10.5 ), ylim = c( 0, 25 ) ) +
+  labs( x = "Metro population (millions)", y = "Nonprofits (thousands)" )
+```
+
+@fig-hist gives the distribution of SAMIs with the tick marks translated into ratios. About `r pct(mean(abs(d$samiN) <= sN))` of metros lie between `r pct(1-exp(-sN))` below and `r pct(exp(sN)-1)` above their size-expected count. The long left tail is small areas with very few filers, where a difference of a few organizations is a large log deviation; these are the cases where a robustness check that drops the smallest metros matters most.
+
+```{r}
+#| label: fig-hist
+#| fig-cap: "Distribution of nonprofit SAMIs, 2022. Axis labels give the SAMI and, below it, the implied ratio to a typical metro of the same size. Dashed lines mark plus and minus one standard deviation."
+#| fig-height: 2.6
+
+hb <- c( -1.5, -1, -0.5, 0, 0.5, 1 )
+hl <- paste0( fmt( hb, 1 ), "\n",
+              ifelse( hb < 0, "", "+" ), round( 100 * ( exp( hb ) - 1 ) ), "%" )
+
+ggplot( d, aes( samiN ) ) +
+  geom_histogram( binwidth = 0.1, boundary = 0, fill = blue, color = "white",
+                  linewidth = 0.3 ) +
+  geom_vline( xintercept = c( -sN, sN ), color = orange, linetype = "22",
+              linewidth = 0.6 ) +
+  scale_x_continuous( "SAMI (and percent above or below a typical metro of the same size)",
+                      breaks = hb, labels = hl ) +
+  coord_cartesian( xlim = c( -2, 1.5 ) ) +
+  scale_y_continuous( "Metros" )
+```
+
+# Three ways to model the residualized indicator {#sec-three}
+
+With $X$ and $Z$ as candidate predictors (giving, GDP growth, poverty, social capital), the three natural second-stage models are summarized in @tbl-models.
+
+| Model | Specification | What the $X, Z$ coefficients estimate | Most useful when |
+|:-----|:-----------------------|:---------------------------------------|:------------------------------|
+| (1) | $\mathrm{SAMI}_N \sim X + Z$ | Raw correlates of being above or below the scaling curve | Descriptive profiling; predictors known to be unrelated to size |
+| (2) | $\mathrm{SAMI}_N \sim \log P + X + Z$ | Partial association of $X, Z$ with nonprofit abundance, holding population fixed | Testing whether a factor matters among metros of the same size |
+| (3) | $\log N \sim \log P + X + Z$ | Identical $X, Z$ coefficients to (2); $\log P$ coefficient is the size exponent net of $X, Z$ | Same as (2), plus a direct reading of how much of the scaling exponent the predictors explain |
+
+: Second-stage specifications for a scale-adjusted outcome {#tbl-models}
+
+**Model (1)** asks: which observable characteristics go with unusually dense nonprofit sectors? It is a correlational profile, and the only test it supports is whether $X$ covaries with the deviation. It does not hold size constant on the predictor side, so if $X$ itself varies with metro size the coefficient is contaminated (@sec-bias).
+
+**Model (2)** asks: among metros of a given population, does more $X$ go with more nonprofits? This is the ceteris paribus question most hypotheses about mechanisms actually pose. Note that the coefficient on $\log P$ in (2) is not the scaling exponent; it is the difference between the partial exponent and the one estimated in the first stage, and it will be near zero unless $X$ and $Z$ are strongly size-correlated.
+
+**Model (3)** asks the same question as (2) but keeps the outcome in its original units. Its advantage is interpretive: the coefficient on $\log P$ is now the conditional scaling exponent, $\beta$ given $X$ and $Z$, and comparing it with the unconditional $\hat\beta$ from @eq-sami tells you how much of the size effect runs through the measured predictors. If $\hat\beta = 0.90$ unconditionally but 0.97 once giving and GDP are controlled, roughly 70 percent of the sublinearity is attributable to those channels.
+
+Residualizing the outcome alone does **not** account for predictors that scale with size. The scale adjustment removes the size component of $Y$, not of $X$. Either keep $\log P$ on the right-hand side (models 2 and 3) or residualize the predictors as well (@sec-allsami). The two routes give the same $X, Z$ estimates; omitting both is the only choice that biases them.
+
+# Why models (2) and (3) are the same regression {#sec-equivalence}
+
+The SAMI is $\log N$ minus a fixed linear function of the regressors already in model (2). Substituting its definition into (2):
+
+$$
+\log N_i - \hat{a} - \hat{\beta}\log P_i = c_0 + c_1 \log P_i + \gamma X_i + \delta Z_i + u_i ,
+$$
+
+and moving the known terms to the right:
+
+$$
+\log N_i = (c_0 + \hat{a}) + (c_1 + \hat{\beta})\log P_i + \gamma X_i + \delta Z_i + u_i .
+$$ {#eq-model3}
+
+This is model (3) with intercept $c_0 + \hat a$ and population coefficient $c_1 + \hat\beta$. Because $\hat a$ and $\hat\beta$ are constants, OLS on the left-hand side and OLS on the right-hand side minimize the same sum of squares over the same column space, so the two regressions have identical $\gamma$, $\delta$, identical residuals, and identical standard errors on $X$ and $Z$. The only numbers that differ are the intercept and the $\log P$ coefficient, which are shifted by exactly $\hat a$ and $\hat\beta$.
+
+The result requires only that every variable used to build the SAMI (the constant and $\log P$) also appears as a regressor in the second stage. If the first stage includes year dummies or a quadratic in $\log P$, those must appear in the second stage too, or the equivalence is approximate. It also means there is no generated-regressor problem in (2): the first-stage estimation error in $\hat\beta$ is absorbed by the free coefficient on $\log P$.
+
+# What goes wrong in model (1) when predictors scale {#sec-bias}
+
+Model (1) omits $\log P$. In an ordinary regression that omission biases coefficients toward whatever $\log P$ contributes. Here the outcome has already been purged of $\log P$, which changes the form of the bias but does not remove it. Split any predictor into its size-related and size-free parts:
+
+$$
+X_i = \pi_0 + \pi_1 \log P_i + \tilde{X}_i, \qquad \mathrm{Cov}(\tilde{X}, \log P) = 0 .
+$$
+
+Because the SAMI is uncorrelated with $\log P$, it is also uncorrelated with the $\pi_1 \log P$ component of $X$. That component adds variance to $X$ without adding any covariance with the outcome. For a single predictor the model (1) slope is therefore
+
+$$
+b_1^{(1)} = \frac{\mathrm{Cov}(\mathrm{SAMI}, \tilde{X})}{\mathrm{Var}(X)}
+          = \gamma \cdot \frac{\mathrm{Var}(\tilde{X})}{\mathrm{Var}(X)}
+          = \gamma \,\bigl(1 - R^2_{X \mid \log P}\bigr),
+$$ {#eq-attenuation}
+
+where $\gamma$ is the coefficient from models (2) and (3). The size component of $X$ acts like measurement error: model (1) shrinks the true partial effect toward zero by the share of the predictor's variance explained by population.
+
+The magnitude depends on how strongly $X$ scales, not on whether it is a count or a rate. Total charitable giving or total GDP scale almost one-for-one with population; $\log P$ explains 90 percent or more of their cross-metro variance, so model (1) would report roughly a tenth of their actual association with nonprofit density. A poverty rate or a social-capital index is weakly size-dependent, perhaps $R^2$ of 0.05 to 0.15, so the attenuation is a few percent. An intensive variable is safer in model (1) only to the extent that it is empirically unrelated to size, which has to be checked rather than assumed.
+
+With several predictors the clean attenuation formula no longer holds and the general omitted-variable expression applies: the model (1) coefficient on $X$ equals $\gamma$ plus $c_1$ times the auxiliary regression coefficient of $\log P$ on $X$ and $Z$, where $c_1$ is the $\log P$ coefficient from model (2). The size component shared across predictors behaves like a common omitted factor, so the misstatement can go in either direction and can flip signs on weakly related predictors. The remedy is the same in every case: put $\log P$ back in, or take it out of the predictors.
+
+# Model (4): residualize everything {#sec-allsami}
+
+The specification that fits the scaling framework best treats every size-dependent variable the same way as the outcome. Fit a scaling law to each extensive predictor and keep its residual:
+
+$$
+\log G_i = a_G + \beta_G \log P_i + e_{G,i}, \qquad
+\log E_i = a_E + \beta_E \log P_i + e_{E,i},
+$$
+
+then estimate
+
+$$
+\mathrm{SAMI}_{N,i} = b_0 + b_1\, \mathrm{SAMI}_{G,i} + b_2\, \mathrm{SAMI}_{E,i} + b_3 X_i + \epsilon_i .
+$$ {#eq-model4}
+
+The question this answers is the one @bettencourt2010urban frame the SAMI around: do metros with more charitable giving than their size predicts also have more nonprofits than their size predicts? Every variable in the equation is a deviation from average scaling behavior, so coefficients are elasticities between local idiosyncrasies, and the agglomeration component shared by all urban quantities is held out on both sides. @lobo2013urban apply exactly this logic to urban productivity, expressing total factor productivity as a combination of the SAMIs for wages and employment and regressing one SAMI on the other.
+
+## Equivalence
+
+By the Frisch--Waugh--Lovell theorem, model (4) yields exactly the same $b_1, b_2$ as the full log-log regression
+
+$$
+\log N_i = c_0 + c_1 \log P_i + b_1 \log G_i + b_2 \log E_i + b_3 X_i + \epsilon_i ,
+$$ {#eq-fullloglog}
+
+provided all residuals come from the same sample and the same first-stage regressors. Residuals are identical; standard errors differ only by one degree of freedom, so there is no generated-regressor correction to make. Adding $\log P$ to model (4) is harmless but pointless: it is orthogonal to every regressor and its coefficient is identically zero. Model (4) is model (3) with the predictors expressed in scaling units, which is why the choice between them is about interpretation and reporting, not estimation.
+
+## Why it is more defensible than model (1)
+
+Model (1) mixes a scale-adjusted outcome with raw totals, which is internally inconsistent: it asserts that size is a nuisance for nonprofits but not for giving or GDP. Model (4) applies one theory of urban quantities uniformly. It also reports the predictors' own exponents ($\beta_G$, $\beta_E$), which are findings in their own right and make the decomposition of $\beta_N$ in @sec-three explicit. And its coefficients survive the attenuation in @eq-attenuation because the size variance has been removed from the regressors rather than left to dilute them.
+
+## Three kinds of predictor
+
+The prescription depends on how a variable relates to size. The extensive/intensive distinction is a useful guide but not the test; the test is whether $\log P$ explains meaningful variance in the variable (@tbl-predictors).
+
+| Type | Examples | How it enters | Caveat |
+|:--------|:---------------------------|:---------------------|:----------------------------------------|
+| A. Intensive | Poverty rate, unemployment, racial composition, social-capital index, policy and institutional variables | Directly, as a level | Many rates do vary with metro size (poverty, education shares, segregation). If $R^2$ on $\log P$ is non-trivial, residualize on $\log P$ in levels or include $\log P$; the two are equivalent |
+| B. Extensive | Total giving, foundations, GDP, establishments, government spending, patents, employment | As a SAMI from its own log-log scaling fit | Never enter the raw total or a per-capita ratio; both carry size. If the fit is poor (zeros, heavy tails), use the log-level with $\log P$ in the model instead |
+| C. Population | $\log P$ | Defines the adjustment; appears in the first stage | Needed in the second stage only if some predictor was not residualized. If every predictor is a SAMI or is size-independent, it is redundant |
+
+: Predictor types and how each enters a SAMI regression {#tbl-predictors}
+
+The residualization of Type A variables is in levels (rate on $\log P$) rather than logs, since a rate is not a power-law quantity. Its residual is still a size-adjusted indicator, interpretable as the gap between a metro's poverty rate and the rate typical for its size. For both A and B, residualizing on the right-hand side and including $\log P$ on the right-hand side are the same regression; the choice is which coefficients you want to read.
+
+# Mechanisms versus policy analysis
+
+Models (3) and (4) are the right starting point for both purposes, but they answer different questions depending on what you do with the $\log P$ coefficient and the predictor set.
+
+**For mechanisms**, the object of interest is the decomposition of the scaling exponent. Start from the unconditional $\hat\beta_N$, then add candidate channels one block at a time and watch how the conditional exponent moves. A channel that moves $\beta_N$ toward one is a mechanism through which size produces (or suppresses) nonprofits; a channel that leaves $\beta_N$ unchanged but has its own coefficient is a size-independent local factor. This requires model (3), because model (4) sets the population coefficient to zero by construction and hides the decomposition. Two extensions matter here. Interactions of each predictor with $\log P$ test whether a factor's effect itself depends on metro size, which is the scaling-framework version of effect heterogeneity. And a quadratic or spline in $\log P$ checks whether the mechanism story is being driven by misfit at the extremes of the size distribution.
+
+**For policy analysis**, the object of interest is the partial effect of a lever a metro can move given its size. That is the coefficient on a Type A policy variable or a Type B SAMI in model (4), read as: a metro that raises giving 10 percent above its size-expected level is associated with $b_1 \times 10$ percent more nonprofits than expected. Model (4) is cleaner here because the policy variable is already stated in the units a local actor controls, namely deviation from the size norm rather than the raw total.
+
+**What neither model delivers.** These are cross-sectional associations among roughly 380 metros. Nonprofit density and the predictors are jointly determined: nonprofits build social capital and attract giving as much as the reverse, and the scaling residuals of economically related quantities (giving, GDP, foundations) are themselves correlated through unmeasured local history. Model (4) removes the common size factor, which is the one confounder the framework identifies, but it does not remove the others. Treat the coefficients as the scale-corrected correlational structure that a causal design would then need to explain, and reach for the panel in @sec-panel when the question is what moves a metro over time.
+
+# Panel data and metro fixed effects {#sec-panel}
+
+The models carry over to a panel, but one thing changes: there are now two scaling exponents, and metro fixed effects pick one of them for you. The cross-sectional exponent $\beta_{cs}$ describes how nonprofit counts differ across metros of different sizes at a point in time. The temporal exponent $\beta_t$ describes how a given metro's count changes as its own population grows. @bettencourt2010urban and later work [@depersin2018global; @bettencourt2020interpretation] show these routinely differ, because cross-sectional scaling reflects long-run equilibrium while within-metro growth reflects adjustment lags and local shocks.
+
+**Fixed effects do not make $\log P$ collinear, but they do change what it estimates.** A metro dummy absorbs the metro's mean log population; $\log P$ remains identified from within-metro change. Since the great majority of $\log P$ variance across a metro panel is between metros, the within variance is small, the coefficient is noisy, and the parameter it converges to is $\beta_t$, not $\beta_{cs}$. Running $\log N \sim \alpha_i + \lambda_t + \log P + X$ therefore silently replaces the scaling benchmark with the temporal one.
+
+The two-step design keeps the scaling framework intact:
+
+1. First stage, year by year: $\log N_{it} = a_t + \beta_t \log P_{it} + \xi_{it}$. Each year's SAMI is a deviation from that year's cross-sectional curve, so the intercept and exponent are free to drift (the sector grew; the exponent may have shifted).
+2. Residualize Type B predictors the same way, year by year.
+3. Second stage:
+   $$
+   \mathrm{SAMI}_{N,it} = \alpha_i + \lambda_t + b_1\, \mathrm{SAMI}_{G,it} + b_2\, \mathrm{SAMI}_{E,it} + b_3 X_{it} + \varepsilon_{it},
+   $$ {#eq-panel}
+   with standard errors clustered by metro.
+
+Here $\alpha_i$ is the persistent part of the metro's deviation, and the $b$ coefficients are identified from changes in the deviation over time: when a metro moves above its size-expected giving, does it also move above its size-expected nonprofit count? Year effects are nearly redundant because the SAMIs are mean-zero each year, but they are harmless and absorb any imbalance.
+
+The @sec-equivalence equivalence no longer holds between this two-step model and the one-step FE regression on $\log N$, because the first stage pins $\beta$ to $\beta_{cs}$ while the FE regression lets it float to $\beta_t$. If you add $\log P$ to the second stage, its coefficient estimates $\beta_t - \beta_{cs}$, which is a direct test of whether temporal and cross-sectional scaling agree. It is weakly identified for the same reason $\beta_t$ is, so expect a wide interval rather than collinearity failure. @tbl-panel summarizes the variants.
+
+| Panel variant | Specification | $\beta$ recovered | Question answered |
+|:--------------|:---------------------------------|:--------------|:----------------------------|
+| Pooled with year FE | $\log N \sim \lambda_t + \log P + X$ | $\beta_{cs}$ (constant over years) | Sections 3--6 questions, more precision |
+| Between | $\overline{\mathrm{SAMI}}_{N,i} \sim \overline{\mathrm{SAMI}}_{X,i}$ | $\beta_{cs}$ | Why are some metros persistently over- or under-endowed |
+| Two-step within | Year-specific SAMIs, then metro + year FE | $\beta_{cs}$ in stage 1 | What changes in $X$ move a metro relative to its scaling benchmark |
+| One-step FE on $\log N$ | $\log N \sim \alpha_i + \lambda_t + \log P + X$ | $\beta_t$ | How a metro's own growth translates into nonprofits |
+| Mundlak / CRE | $\log N \sim \lambda_t + \beta_B \overline{\log P}_i + \beta_W (\log P_{it} - \overline{\log P}_i) + X$ | both | Testing $\beta_{cs}$ against $\beta_t$ in one model |
+
+: Panel specifications and the scaling exponent each recovers {#tbl-panel}
+
+Two things to keep in view. @bettencourt2010urban found SAMIs are highly persistent over decades, so most of the variance in nonprofit density lives in the between dimension; the within model answers a narrower question with less variation, and the between regression deserves to be reported beside it rather than treated as the naive version. And use a fixed metro definition across the panel; delineation changes produce jumps in $\log P$ that masquerade as temporal scaling.
+
+# Reading the coefficients {#sec-reading}
+
+Every coefficient in models (3), (4) and their panel versions is an elasticity or semi-elasticity in nonprofit count. What changes across designs is the comparison it describes: differences between settled metros, or changes within one metro over time. @tbl-coefs gives the reading for each predictor type.
+
+| Predictor | Enters as | Coefficient $b$ reads as | Worked example |
+|:------------------|:--------------|:---------------------------|:-------------------------------|
+| Type B, extensive (foundation grants, GDP, giving) | $\mathrm{SAMI}_X$ or $\log X$ | Elasticity. 1% more $X$ than size predicts goes with $b$% more nonprofits than size predicts; exact change is $1.01^b - 1$ | $b = 0.40$: a metro 10% above its size-expected grant volume has $1.10^{0.40} - 1 \approx 3.9$% more nonprofits than its size predicts |
+| Type A, intensive (poverty rate, social-capital index) | Level, or level residualized on $\log P$ | Semi-elasticity. One unit of $X$ goes with $100 \cdot b$% more or fewer nonprofits | $b = -0.02$ on a poverty rate in percentage points: each extra point of poverty goes with about 2% fewer nonprofits than size predicts |
+| Population in model (3) | $\log P$ | Conditional scaling exponent, $\beta$ given $X$ and $Z$ | $\hat\beta = 0.90$ alone, 0.97 with grants and GDP: those two channels account for most of the sublinearity |
+| Interaction $X \times \log P$ | $\mathrm{SAMI}_X \times \log P$ | Change in the elasticity of $X$ per log-unit of population | $b = 0.40$, interaction 0.05: elasticity is 0.40 at the mean metro, about 0.45 in a metro 2.7$\times$ larger |
+
+: Coefficient interpretation by predictor type {#tbl-coefs}
+
+In model (4) the units are deviations, so the counterfactual is a metro with the same size-expected level of $X$. In model (3) the counterfactual is a metro with the same population. The number is identical either way; only the sentence around it changes.
+
+## Cross-section: what equilibrium looks like
+
+The cross-sectional coefficient compares metros that have had decades to settle into their current configuration. A $b_G$ of 0.40 says that, among metros of the same size, those endowed with 10% more foundation resources sustain about 4% more organizations. This is a statement about how nonprofit capacity is organized across places: how much sector a given resource base supports once founding, closure, giving culture, and institutional density have co-adjusted. It answers questions of the form: why does Minneapolis carry a far larger nonprofit sector than Las Vegas, given their sizes? The limitation is that the coefficient bundles every slow-moving factor that travels with grants: historical wealth, religious composition, the founding dates of the big community foundations, state regulatory regimes. Removing the size factor, which model (4) does, removes the one confounder the scaling framework names and none of the others.
+
+## Fixed effects: how the sector adjusts
+
+The within coefficient compares a metro to itself. A $b_G$ of 0.08 in the two-step panel says that when a metro's grant volume rises 10% relative to its size-expected level, its nonprofit SAMI rises about 0.8% over the same window. Everything fixed about the metro is removed: history, geography, founding era, culture. That is what makes the between estimate suspect, and it is the reason the within estimate is closer to the effect of a policy that moves $X$. But it measures adjustment, not equilibrium. Organizations incorporate and dissolve slowly, so a stock like nonprofit count responds to a resource change over years, and a contemporaneous within coefficient captures only the first part of that response. The within estimate is also built on much less variation, because SAMIs are highly persistent, and it is more vulnerable to attenuation from measurement error and to shocks that move both variables at once, such as a recession that cuts grants and closes organizations together.
+
+## Reading the two together
+
+For a stock outcome, expect $b_{\text{between}}$ to exceed $b_{\text{within}}$, often by a factor of several. A pair like 0.40 and 0.08 is not a contradiction. The between estimate says the long-run size of the sector is strongly tied to philanthropic resources, or to whatever travels with them. The within estimate says the sector moves only a fraction of the way toward that long-run relationship within the panel window. If the within model includes lagged $\mathrm{SAMI}_N$ with coefficient $\rho$, the implied long-run response is $b_{\text{within}} / (1 - \rho)$, and comparing that to $b_{\text{between}}$ is a direct test of whether the cross-sectional association is an equilibrium the sector actually converges to or a historical correlation it does not. Lags of $X$ of two to five years are the other standard check, since a grant surge in year $t$ shows up in incorporations several years later. @tbl-designs collects the designs.
+
+| Design | Variation used | Question answered | Trust it for | Distrust it for |
+|:-------------------|:--------------|:---------------------|:---------------------|:---------------------|
+| Cross-section, models (3) and (4) | Differences between metros | Why is the sector larger in some places than their size predicts | Long-run configuration; magnitudes of equilibrium relationships; decomposing $\beta$ | Causal claims; anything that co-varies with history and place |
+| Between regression on time-averaged SAMIs | Persistent differences only | Same, with transient noise averaged out | The dominant share of SAMI variance | Same as above |
+| Two-step panel with metro FE | Changes within metros | What happened to the sector when $X$ changed | Direction of short-run response; removing fixed confounders | Long-run magnitude; small samples of within variation; measurement error |
+| Dynamic panel (lagged $\mathrm{SAMI}_N$) | Changes, with persistence modeled | How far and how fast the sector adjusts | Reconciling between and within estimates | Nickell bias with short panels; needs many periods or GMM |
+
+: What each design identifies {#tbl-designs}
+
+For the prescription to urban-policy scholars, the practical rule is to report both, and to interpret the gap between them rather than treat one as the robustness check for the other. The cross-section tells you what kind of city has a robust sector; the panel tells you how much of that a city can expect to gain, and how slowly, by changing what it can change.
+
+# Recommendations
+
+1. Report the first stage. Give $\hat\beta_N$, its standard error, the fit, and a plot of $\log N$ against $\log P$ with the top and bottom SAMI metros labeled. The ranking is only as credible as the curve it deviates from.
+2. Never regress a SAMI on raw totals or per-capita ratios. Either residualize every size-dependent predictor (model 4) or include $\log P$ (model 3). The two are the same regression; the first reports in scaling units, the second reports the conditional exponent.
+3. Classify predictors by their empirical size dependence, not by whether they are counts. Regress each candidate on $\log P$ and report $R^2$. Residualize anything with non-trivial $R^2$, in logs for extensive quantities and in levels for rates and indices.
+4. For mechanism questions use model (3) and show how $\beta_N$ moves as channels are added; add $X \times \log P$ interactions to test size-dependent effects.
+5. For policy questions use model (4) and interpret coefficients as elasticities between deviations from the size norm.
+6. In a panel, compute SAMIs year by year before adding metro fixed effects; report the between regression alongside the within one; do not let a one-step FE regression on $\log N$ quietly swap $\beta_{cs}$ for $\beta_t$.
+7. Check robustness of the scaling fit: a quadratic in $\log P$, an alternative population base, and dropping the largest five and smallest twenty metros. If the SAMI ranking or the second-stage coefficients move materially, the finding is about the fit, not the sector.
+8. Cluster standard errors by metro in panels. No generated-regressor correction is needed in any model where the first-stage regressors appear in the second stage, including model (4).
+
+# References {-}

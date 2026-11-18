@@ -1,0 +1,37 @@
+# --- secrets (never commit) ----------------------------------------------
+.Renviron
+*.Renviron
+CENSUS-DATA.R
+*credentials*
+*.pem
+
+# --- rendered outputs and caches (rebuilt from sources) -------------------
+*.html
+*_files/
+.quarto/
+paper/slides/*.pptx
+
+# --- author drafts and exports (kept in Dropbox, not in the repo) ---------
+*.docx
+*.pdf
+*.pptx
+~$*
+
+# --- R session files ------------------------------------------------------
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+renv/staging/
+
+# --- data and logs live on the build drive (MV_BUILD), not here ----------
+*.parquet
+*.csv.gz
+*.log
+
+# --- OS / sync clutter ----------------------------------------------------
+desktop.ini
+Thumbs.db
+.DS_Store
+.dropbox
+.dropbox.attr

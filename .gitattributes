@@ -1,0 +1,5 @@
+# Keep LF in the working tree (scripts are written with LF; avoids CRLF churn on Windows)
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.png binary
+*.xlsx binary
