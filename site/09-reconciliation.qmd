@@ -590,13 +590,20 @@ its grassroots-positive result may not hold in every field.
   *new* organizations: as a county's government wages rise, more nonprofits are
   founded. Government wages are not related to dissolutions once density is modeled
   flexibly.
-  - **Flows versus stocks.** The substitution studies measure stocks, or large
-    organizations; Mayer measures foundings, a flow.
-  - **Possible reconciliation.** A growing government may spur new, small
-    organizations while the established sector shrinks relative to it.
-  - **The multiverse does not settle it.** Its within-metro estimate for direct
-    government is near zero for filers and *negative* for grassroots, the population
-    most like new foundings. That is the opposite of Mayer's sign.
+  - **Which organizations.** Mayer dates a founding by the IRS ruling date, so his
+    foundings are every new registration, whatever its size. Most new registrations
+    stay small and never file a full return: they are new *grassroots*
+    organizations. The three substitution studies measure established organizations:
+    990 filers [@matsunaga2004government], human-service filers
+    [@lecy2013nonprofit], and organizations with \$10M or more in assets
+    [@marquis2013golfing].
+  - **Possible reconciliation.** This is the multiverse's population lesson (D1)
+    again. A growing government may spur new small registrations while the
+    established, filing sector does not grow relative to it.
+  - **What remains unexplained.** The multiverse's within-metro estimate for direct
+    government is near zero for filers and *negative* for the grassroots *stock*.
+    More registrations raise the stock only if the new organizations survive.
+    Reconciling entry with stock needs the stock-flow models proposed in Part 10.
 - **Verdict.**
   - "Funding complements" is now well supported.
   - "Provision substitutes within places" is contested. It is supported by three
