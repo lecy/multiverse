@@ -318,7 +318,7 @@ Update the `source()` paths, the README and the memory notes. Check:
   - The long BMF panel has a methods memo but no script.
   - The QCEW county files and the legacy BMF snapshots have no recorded download URL.
 - **Licences:**
-  - Do not ship RCMS (ASARB forbids reposting) or the NERCRD social capital files (no licence). Ship sha256 and download instructions instead.
+  - RCMS (ASARB) and the NERCRD social capital files have no open licence, but permission to bundle them was received (recorded 2026-11-17). They are frozen with the rest, each with a `PERMISSION.md`.
   - Replace the FRED PCEPI download with BEA: FRED's terms forbid archiving it.
   - Everything else can be redistributed with attribution: NCCS under ODC-BY, tonmcg under MIT, PatentsView under CC BY 4.0, MEDSL under CC0, and the federal sources as public domain.
 

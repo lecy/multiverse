@@ -39,8 +39,8 @@ hub, the S3 mirror of the build caches, and the publishers' terms pages (checked
 | [nccs-core](nccs-core/SOURCE.md) | NCCS harmonized CORE TY2000–19 | script | yes (ODC-BY) | no |
 | [nccs-efile](nccs-efile/SOURCE.md) | NCCS e-file `efile_v3_1` via panel990 | package | yes (ODC-BY, to confirm) | no |
 | [elections](elections/SOURCE.md) | MEDSL 2000–16, tonmcg 2020/24, Alaska | script | yes (CC0 / MIT) | no |
-| [religion-census](religion-census/SOURCE.md) | RCMS 2000, 2010 (ARDA), USRC 2020 | **manual** | **no** | — |
-| [social-capital](social-capital/SOURCE.md) | Rupasingha et al. (NERCRD) | **manual** | **unclear** | — |
+| [religion-census](religion-census/SOURCE.md) | RCMS 2000, 2010 (ARDA), USRC 2020 | **manual** | yes, **by permission** | no |
+| [social-capital](social-capital/SOURCE.md) | Rupasingha et al. (NERCRD) | **manual** | yes, **by permission** | no |
 | [patents](patents/SOURCE.md) | PatentsView (USPTO) 2026-04 release | **manual, login** | yes (CC BY 4.0) | no |
 | [check-only](check-only/SOURCE.md) | 1023-EZ, NTEE-resolved, e-file 2009–19, election checks | various | yes | no |
 
@@ -61,8 +61,7 @@ hub, the S3 mirror of the build caches, and the publishers' terms pages (checked
 - **Long BMF panel:** the Stata code was not found.
 
 **Licences to settle before publishing:**
-- **ASARB (RCMS):** no redistribution. Ask about the derived variables.
-- **NERCRD (social capital):** ask permission.
+- **ASARB (RCMS) and NERCRD (social capital):** permission to bundle was received (recorded 2026-11-17). File each written permission as `PERMISSION.md` in its folder, and ship it with the data.
 - **FRED:** replace with BEA.
 - **NCCS e-file:** confirm that its catalog licence is ODC-BY.
 

@@ -9,14 +9,15 @@
 | Obtained | **Manual download.** The .SAV files are in `38 - resource environments/replication/np_density_refactor/Data/`, outside the project and the data hub. The xlsx files are in `$MV_BUILD/raw/cov/rcms/` |
 | Read by | `R/build/D_cov/18_cov_rcms.R` |
 | Licence | ASARB holds the copyright. The USRC FAQ (usreligioncensus.org/faq) says permission to use the data "does not grant permission to redistribute or repost the data". ARDA download agreements require credit to ARDA and the original collectors, and grant no redistribution right (ARDA's terms page could not be read on 2026-11-17) |
-| Redistribute in release | **No**, unless ASARB gives written permission (info@usreligioncensus.org) |
+| Redistribute in release | **Yes, by permission.** Without it, the FAQ forbids reposting. The project received permission to bundle these files with the release (recorded 2026-11-17). Keep the written permission in this folder as `PERMISSION.md` (or the e-mail as PDF), and ship it with the files |
 | Cite as | Grammich, C., et al. 2023. *2020 U.S. Religion Census: Religious Congregations & Membership Study.* ASARB. For 2000 and 2010, the ARDA citation shown on each dataset's page. |
-| Frozen copy | **Not shipped.** Ship `inputs/religion-census/SOURCE.md`, the sha256 of each file in `MANIFEST.csv`, and download instructions. A user downloads the files and checks them against the sha256 |
+| Frozen copy | `inputs/religion-census/`: the two .SAV files, the two 2020 xlsx files, `PERMISSION.md`, and `MANIFEST.csv` |
 
-**Also check before release:** the derived county variables (`rel_adh`, `rel_cng`,
-`rel_hhi`, `pct_adherent`, `pct_catholic`) are in the database release. These are
-aggregates, not reposted raw data, but the FAQ wording is broad. Ask ASARB to confirm
-that publishing them is fine.
+**Permission scope:** check that the permission covers the public release prefix and
+Zenodo, as well as the S3 bundle. Check also whether it covers the derived county variables
+in `database/` (`rel_adh`, `rel_cng`, `rel_hhi`, `pct_adherent`, `pct_catholic`), and
+whether ASARB or ARDA asked for specific citation or notice wording. Copy any required
+wording into "Cite as" above.
 
 **To do:** move the two .SAV files into the data hub (`<MV_INPUTS>/religion/`) and
 point 18 at `DATA_HUB`. The current `replication/` path is the only input outside
