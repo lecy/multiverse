@@ -385,6 +385,19 @@ Update the `source()` paths, the README and the memory notes. Check:
   - Every other step under 0.3.
   - Downloads were cached; a run with empty caches (e-file, CORE, Census APIs) will take much longer.
 
+*Status 2026-11-18: frozen-input clean room done, with one input gap.*
+- **Setup.**
+  - Code: `git archive` of `45a17eb`.
+  - Library: a fresh one from `renv.lock` (102 packages, plus R's 14 recommended packages).
+  - Inputs: `env/restore_inputs.R --check` into empty `D:/MV_CLEAN/{build,inputs,bls,dropbox}`: 1,214 files (32.8 GB), all sha256 verified, and all 86 declared raw entries resolved. Nothing was read from Dropbox except the Census API key.
+- **Input gap.** Step 01 stopped at once. Its section 4 compares the new CBSA populations with `$INPUTS/population/cbsa_population_2000_2025.csv` (the old interpolated file), which was not declared, so it was not frozen. It feeds only `diagnostics/pop_vs_interpolated.csv`. A grep of every `DATA_HUB`/`DROPBOX`/`BLS_DIR` read in `R/build` and `R/lib` found no other undeclared file.
+  - Fixed in `pipeline.csv`: 01 declares it (`census-popest=$INPUTS/population/...`).
+  - For this run the hub copy was put in place by hand. The file still has to be frozen: `env/freeze_inputs.R --run --folders census-popest`.
+- **Run:** all 30 steps in 19 minutes, with timings the same as the rehearsal.
+- **Diff against the reference** (99 files): 74 byte-identical, 6 equal cell by cell, 2 new, and 17 that differ. Those 17 are the explained set above. The TIGER `.rds` files are now byte-identical, because they were restored from the mirror.
+- **Diff against the rehearsal:** 96 byte-identical. The other three are the `core_extract_manifest` paths and the two TIGER `.rds` files (re-downloaded in the rehearsal).
+- **Still open:** `run.R` ignores `args`/`env` changes, and `core_extract_manifest` records absolute paths. Run 05 and 09a once with empty caches to time the downloads.
+
 **Phase 6: paper exhibits (1–2 days)**
 1. Decide whether Part I moves to v11 / post-NTEE-fix outputs, or v10 is rebuilt
    after the fix.
