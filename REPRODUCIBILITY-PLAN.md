@@ -296,6 +296,19 @@ Update the `source()` paths, the README and the memory notes. Check:
    frozen inputs with provenance notes.
 3. Write `SOURCE.md` (URL, date, licence) for each source.
 
+*Status 2026-11-17:*
+- **Steps 2 and 3 done as documentation.** `inputs/README.md` indexes 25 source folders, each with a `SOURCE.md`: publisher, files, URL, years, how the file is obtained, the scripts that read it, licence, whether it can be redistributed, and citation. Licence terms were checked on 2026-11-17.
+- **Already frozen on S3:** SOI and the unified BMF. Freezing the rest is step 1. sha256 goes into each folder's `MANIFEST.csv` when it is frozen.
+- **Provenance:**
+  - The SOI sample frame has columns that the saved `soi-extract-harmonization` scripts don't produce (`NTEE_IRS`, `LATITUDE`, `LONGITUDE`, `BMF_SUBSECTION_CODE`, …). The frozen file is the record. The S3 SOI README should say so.
+  - The long BMF panel has a methods memo but no script.
+  - The QCEW county files and the legacy BMF snapshots have no recorded download URL.
+- **Licences:**
+  - Do not ship RCMS (ASARB forbids reposting) or the NERCRD social capital files (no licence). Ship sha256 and download instructions instead.
+  - Replace the FRED PCEPI download with BEA: FRED's terms forbid archiving it.
+  - Everything else can be redistributed with attribution: NCCS under ODC-BY, tonmcg under MIT, PatentsView under CC BY 4.0, MEDSL under CC0, and the federal sources as public domain.
+
+
 **Phase 5: clean-room rebuild (1–2 days of compute)**
 1. With `MV_BUILD=D:/MULTIVERSE_REPRO` and `MV_INPUTS=<frozen inputs>`, run
    `Rscript run.R database` on a fresh renv library, ideally on a second machine or
