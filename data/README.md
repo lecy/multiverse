@@ -23,18 +23,18 @@ setorder( cbsa, cbsa, year )
 
 `arrow::open_dataset( "data/cbsa_year" )` gives the same data, lazily. Python can read the folder with `pandas.read_parquet( "data/cbsa_year" )`.
 
-## Run the multiverse from these files
+## Replicate the multiverse
 
-```
-Rscript R/multiverse/run_from_release.R [workers] [out_dir=replication]
-```
+Download [`replicate.R`](../replicate.R) on its own and run it (`Rscript replicate.R`). It:
+1. Creates a local folder (`~/multiverse-replication`; set `MV_DIR` to change it).
+2. Downloads this release's code and data from GitHub.
+3. Installs the needed packages at their `renv.lock` versions in a private library.
+4. Calls `R/multiverse/run_from_release.R`, which:
+   - checks every slice against `MANIFEST.csv`, rebuilds both frames, and checks them against `FRAMES.csv`;
+   - runs the 432,432 specifications of run v11 (`44_run_universe.R` with `MV_MODEL=lean`);
+   - summarizes the run (45), refits grassroots (104), and draws the decision matrices (98).
 
-The script:
-1. Checks every slice against `MANIFEST.csv`, rebuilds both frames, and checks them against `FRAMES.csv`.
-2. Runs the 432,432 specifications of run v11 (`44_run_universe.R` with `MV_MODEL=lean`).
-3. Summarizes the run (`45_summarize_run.R`).
-
-It takes about 35 minutes on 22 workers and needs only this repository and the R packages in `renv.lock` (`renv::restore()`). With `MV_RUN_V10=1` it also runs v10, the paper's comparison run.
+It takes about 35 minutes on 22 workers. With `MV_RUN_V10=TRUE` it also runs v10, the paper's comparison run, and the v10/v11 tables (97). From a clone of the repository, `Rscript R/multiverse/run_from_release.R [workers] [out_dir]` runs step 4 alone.
 
 ## How these files were made
 

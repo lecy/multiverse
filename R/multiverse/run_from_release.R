@@ -11,6 +11,12 @@
 ##      432,432 specifications), batch size 2000, into <out_dir>/data/spec/run_<run>/
 ##      (specs.parquet, coefs.parquet). Resumable: finished batches are skipped on a rerun.
 ##   3. Summarizes: R/multiverse/45_summarize_run.R <run>, written into the same folder.
+##      For v11 also the grassroots refit (R/notes/104_fit_grassroots_v11.R) and the paper's
+##      decision matrices (R/multiverse/98_decision_matrix.R with MV_SPLIT=1, written to
+##      paper/figures/decision_matrix_v11_*.png and <out_dir>/data/outline/v11/matrix_split/).
+##
+## replicate.R (repository root) downloads a release and calls this script; use it to replicate
+## from scratch.
 ##
 ## Run from the repository root with the packages in renv.lock (renv::restore()). Takes about
 ## 35 minutes on 22 workers; workers default to all cores but two. Set MV_RUN_V10=1 to also
@@ -48,9 +54,18 @@ rs <- file.path( R.home( "bin" ), "Rscript" )
 step <- function( ... ) { log_msg( paste( ... ) ); st <- system2( rs, c( ... ) ); if ( st != 0 ) stop( "failed: ", paste( ... ) ) }
 step( "R/multiverse/44_run_universe.R", "principled", "2000", WORKERS, RUN )
 step( "R/multiverse/45_summarize_run.R", RUN )
+if ( RUN == "principled_v11" ) {
+  step( "R/notes/104_fit_grassroots_v11.R", WORKERS )            # grassroots refit -> run_principled_v11_grass
+  Sys.setenv( MV_SPLIT = "1" )
+  step( "R/multiverse/98_decision_matrix.R", RUN )                 # decision matrices -> paper/figures/
+  Sys.unsetenv( "MV_SPLIT" )
+}
 if ( Sys.getenv( "MV_RUN_V10" ) == "1" ) {
   Sys.setenv( MV_MODEL = "default" )
   step( "R/multiverse/44_run_universe.R", "principled", "2000", WORKERS, "principled_v10" )
   step( "R/multiverse/45_summarize_run.R", "principled_v10" )
+  Sys.setenv( MV_MODEL = "lean" )
+  step( "R/multiverse/97_v11_decision_summary.R" )                 # v11 tables, v10 vs v11 benchmarks
+  Sys.setenv( MV_SPLIT = "1" ); step( "R/multiverse/97_v11_decision_summary.R" ); Sys.unsetenv( "MV_SPLIT" )
 }
 log_msg( "done: ", file.path( OUTDIR, "data", "spec", paste0( "run_", RUN ) ) )
