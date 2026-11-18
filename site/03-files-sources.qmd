@@ -1,5 +1,5 @@
 ---
-title: "2. Files, sources and data dictionaries"
+title: "3. Files, sources and data dictionaries"
 subtitle: "Every input the build reads, where it came from, and every variable in the final tables"
 nocite: |
   @data_bea_pcepi, @data_bea_regional, @data_bls_nonprofits, @data_bls_qcew,
@@ -24,13 +24,13 @@ d <- function( f ) fread( file.path( "data", f ), encoding = "UTF-8" )
 src <- d( "sources.csv" ); man <- d( "frozen_manifest.csv" )
 dict <- fread( "../docs/variable_dictionary.csv", encoding = "UTF-8" )
 cites <- function( k ) vapply( strsplit( k, ";\\s*" ), function( x ) paste0( "[@", paste( x, collapse = "; @" ), "]" ), "" )
-md <- function( x ) gsub( "\\|", "/", x )             # keep pipe tables intact
+md <- function( x ) gsub( "\\$", "\\\\$", gsub( "\\|", "/", x ) )   # keep pipe tables intact; "$" is not math
 ```
 
 The database is built from `r nrow( src )` sources. Every file the build reads is
 frozen on Amazon S3 with a SHA-256 checksum, so the published tables can be rebuilt
 exactly even after a publisher revises or removes a file: `r format( nrow( man ), big.mark = "," )`
-files, `r sprintf( "%.1f", sum( man$bytes ) / 1e9 )` GB. Part 3 shows how to restore
+files, `r sprintf( "%.1f", sum( man$bytes ) / 1e9 )` GB. Part 4 shows how to restore
 them. Each source folder in [`inputs/`](https://github.com/lecy/multiverse/tree/main/inputs)
 has a `SOURCE.md` with the publisher, URL, years, how the file is obtained, the build
 steps that read it, the licence and the citation.
@@ -51,10 +51,9 @@ on demand:
 #| label: tbl-sources
 #| tbl-cap: "Data sources. Files and GB are the frozen copy on S3."
 #| output: asis
-t <- src[ , .( Source = sprintf( "**%s**<br>`%s`", md( title ), folder ),
-               Publisher = md( publisher ), Years = md( years ),
-               `Why frozen` = archive, Files = files, GB = sprintf( "%.2f", gb ),
-               Cite = cites( cite ) ) ]
+t <- src[ , .( Source = sprintf( "**%s**<br>`%s` %s", md( title ), folder, cites( cite ) ),
+               Years = md( years ),
+               `Why frozen` = archive, Files = files, GB = sprintf( "%.2f", gb ) ) ]
 cat( knitr::kable( t, format = "pipe" ), sep = "\n" )
 ```
 

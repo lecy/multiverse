@@ -1,0 +1,105 @@
+---
+title: "0. Motivation"
+subtitle: "Why measure nonprofit density, and why do it as a multiverse"
+---
+
+# The question communities ask
+
+Local foundations, community foundations, United Ways and city and county governments
+spend heavily on their nonprofit sectors. They fund organizations directly, contract
+with them for services, and invest in capacity-building, leadership programs and
+shared infrastructure. Behind that spending sit three practical questions:
+
+1. **Is our nonprofit sector large or small for a place like ours?**
+2. **Which local conditions go with a stronger sector, and which of them can we
+   change?**
+3. **How long should it take for an investment to show up in the sector's size?**
+
+The research literature should help answer them, but in practice it gives a funder
+little to act on.
+
+# Why the evidence has not been usable
+
+Nonprofit density has been studied for three decades. The theories are well
+developed:
+- **Government failure:** nonprofits supply public goods where preferences are diverse
+  [@weisbrod1977voluntary].
+- **Contract failure:** nonprofits are trusted where quality is hard to judge
+  [@hansmann1980role].
+- **Interdependence:** government and nonprofits act as partners
+  [@salamon1987market].
+
+The empirical tests disagree. Poverty, diversity, income and government spending have
+each been reported as positive in some studies and negative in others. In one panel
+of metro areas, the sign changed between pooled and fixed-effects models
+[@lecy2013nonprofit].
+
+A funder reading this literature cannot tell whether the disagreements describe real
+differences between communities, or the many design choices each study made:
+
+- which organizations to count;
+- how to adjust for population;
+- whether to compare places or changes over time;
+- which unit and estimator to use.
+
+Every one of those choices is defensible, and together they form a "garden of forking
+paths" [@gelman2014garden]. A single study reports one path through it.
+
+Two further problems make simple comparisons misleading:
+
+- **Size.** Bigger places have more of nearly everything. Counts of nonprofits grow in
+  proportion to population, but spending does not [@bettencourt2007growth]. Comparing
+  per-capita spending across places of different size therefore ranks them by size.
+- **History.** A community's nonprofit sector today largely reflects its past. Density
+  is nearly frozen over decades. Without accounting for history, the effect of
+  inherited size gets attributed to whatever current conditions correlate with it.
+
+# What this project does
+
+The project addresses these problems in three steps:
+
+1. **A national database (Parts 2–4).** It counts every 501(c)(3) public charity in
+   every US county and metro area, 2000–2024, and joins them to about 300 covariates.
+   Every input is frozen so that the database can be rebuilt exactly.
+2. **A fair benchmark (Parts 5 and 7).** Each place is compared with its size-expected
+   level, using scale-adjusted metropolitan indicators [@bettencourt2010urban]. Seven
+   stylized facts describe what any analysis of the data has to confront.
+3. **A multiverse (Parts 6, 8 and 9).** Rather than choosing one design, the analysis
+   fits every defensible combination of choices: about 432,000 specifications
+   [@steegen2016increasing; @young2017model].
+   - It reports which conclusions hold under all of them, and which decisions change
+     the answer.
+   - It then reads ten well-known studies through those results, to show why they
+     disagree and where they agree.
+
+# What a community can take from it
+
+- **A benchmark that compares like with like:** density relative to places of the
+  same size, not raw counts per resident.
+- **A list of robust and fragile associations.**
+  - Robust, positive under nearly every design: education, civic participation and
+    the sector's history.
+  - Fragile: the result depends on which organizations are counted and which question
+    is asked, as with diversity and poverty.
+- **Realistic expectations:** density changes slowly, so sector-building goals and
+  evaluations need long horizons.
+- **A research agenda (Part 10):** the data, methods and analyses needed to move from
+  association to evidence about what local action can change.
+
+# How the site is organized
+
+| Part | |
+|---|---|
+| 0 | Motivation (this page) |
+| 1 | Literature review: nonprofit density, urban scaling and SAMIs, multiverse analysis |
+| 2–4 | The data: construction, files and sources, and the code to rebuild it |
+| 5–6 | The multiverse: overview and design decisions |
+| 7 | Stylized facts about density data |
+| 8 | Running the multiverse, and its findings |
+| 9 | Reconciling ten density studies through the multiverse |
+| 10 | Where the research goes from here |
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

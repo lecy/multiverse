@@ -1,5 +1,5 @@
 ---
-title: "7. Running the multiverse"
+title: "8. Running the multiverse"
 subtitle: "From the specification grid to the decision matrix"
 ---
 
@@ -7,7 +7,7 @@ subtitle: "From the specification grid to the decision matrix"
 Draft, 2026-11-18. Run times are still to be added from the build machine's logs.
 :::
 
-Part 4 explains why the analysis is a multiverse, and Part 5 sets out the decisions it
+Part 5 explains why the analysis is a multiverse, and Part 6 sets out the decisions it
 crosses. This page shows how the multiverse is executed: the code that defines and
 runs the grid, the commands, the output files, and how the outputs become the
 findings. The approach follows multiverse and multimodel analysis
@@ -19,7 +19,7 @@ choices that change the question apart from arbitrary ones
 
 ```{mermaid}
 flowchart LR
-  P["cbsa_year.parquet<br/>(Part 1)"] --> G["40_multiverse.R<br/>grid + model engine"]
+  P["cbsa_year.parquet<br/>(Part 2)"] --> G["40_multiverse.R<br/>grid + model engine"]
   G --> R["44_run_universe.R<br/>432,432 specifications<br/>in resumable batches"]
   R --> O["specs.parquet<br/>coefs.parquet"]
   O --> S["97_v11_decision_summary.R<br/>importance, stability"]
@@ -41,7 +41,7 @@ One file defines the whole universe. It has three parts:
      These enter raw, per capita, logged or as SAMIs.
 
    Every block has a default measure plus alternatives. The current run uses the
-   *lean* default model of 13 covariates (`MV_MODEL=lean`; Part 5, Variables).
+   *lean* default model of 13 covariates (`MV_MODEL=lean`; Part 6, Variables).
 2. **The specification grid.** The grid is built in three layers:
    - **Strata:** choices that change the question are never pooled. That means the
      construct (counts or spending), whether hospitals and universities are included,
@@ -82,7 +82,7 @@ being re-run.
 # Running it
 
 The multiverse is the `multiverse` stage of `pipeline.csv`, so it runs with the same
-runner as the database (Part 3):
+runner as the database (Part 4):
 
 ```sh
 Rscript run.R multiverse
@@ -149,7 +149,7 @@ The full tables, the decision matrix and the sensitivity analyses are in
 
 # Reproducing a run
 
-1. Build the database (Part 3), or restore `cbsa_year.parquet`.
+1. Build the database (Part 4), or restore `cbsa_year.parquet`.
 2. `Rscript run.R multiverse`. A full run is CPU-bound, and the number of workers is
    the third argument of step 44v11 in `pipeline.csv`.
 3. Compare with the published run: `specs.parquet` and `coefs.parquet` should match

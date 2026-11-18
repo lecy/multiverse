@@ -1,5 +1,5 @@
 ---
-title: "Literature review"
+title: "1. Literature review"
 subtitle: "Nonprofit density, urban scaling and SAMIs, and multiverse analysis"
 ---
 
@@ -97,11 +97,11 @@ between ratios that share it [@uslaner1976pitfalls].
 
 Both cautions recur in our design: the unit of analysis, the estimator, and
 cross-sectional versus within-city identification are decisions in the multiverse
-(Part 5, D2–D5).
+(Part 6, D2–D5).
 
 **What it means for nonprofit density.** Counts of 501(c)(3) organizations scale
 almost exactly linearly with population at every unit of aggregation, but spending
-does not (Part 6, Fact 1). A metro's filer SAMI is therefore a size-neutral measure:
+does not (Part 7, Fact 1). A metro's filer SAMI is therefore a size-neutral measure:
 how many nonprofits it has relative to a typical place of its size. That gives local
 funders and governments a fair benchmark, comparing like with like rather than a
 small town with a large city.
@@ -138,9 +138,9 @@ designs and conflicting published signs.
 - **Design.** The multiverse separates *non-equivalent* decisions (what question is
   asked: filers or spending, metros or counties, levels or changes) from *arbitrary*
   ones (how a construct is measured, which estimator, how gaps are filled). Each
-  decision has a card with its options and a recommendation (Part 5).
+  decision has a card with its options and a recommendation (Part 6).
 - **Execution.** It fits about 432,000 specifications on one common yardstick
-  (Part 7).
+  (Part 8).
 - **Reporting.** It reports which decisions move results and which covariates hold up
   under all of them.
 

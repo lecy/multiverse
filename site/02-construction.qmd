@@ -1,5 +1,5 @@
 ---
-title: "1. Dataset construction"
+title: "2. Dataset construction"
 subtitle: "From IRS registrations and returns to county and metro panels, 2000–2024"
 ---
 
@@ -79,7 +79,7 @@ applied in every step that uses subsectors.
 | Civic life and politics | social capital index, congregations and adherents, presidential vote | @rupasingha2006production; @data_nercrd_socap; @data_rcms_2000_2010; @data_rcms_2020; @data_medsl_county; @data_mcgovern_elections |
 | Innovation | patents per capita | @data_patentsview |
 
-Part 2 lists every source with its years, licence and full citation, and every
+Part 3 lists every source with its years, licence and full citation, and every
 variable in the final tables.
 
 # How the build runs
@@ -109,7 +109,7 @@ step writes. Several dependencies used to be hidden and are now explicit:
 - step 08 reads 02b's ruling cohorts;
 - the NTEE lookup flows from 02 to 02b, 06, 08, 23 and 24.
 
-Part 3 walks through running the build.
+Part 4 walks through running the build.
 
 # Known breaks in the series
 
@@ -125,10 +125,10 @@ Three breaks matter for analysis:
   - the social capital index 4 times;
   - the Census of Governments every 5.
 
-  Each comes in `_obs`, `_lin` and `_locf` versions (Part 2).
+  Each comes in `_obs`, `_lin` and `_locf` versions (Part 3).
 
 Use year fixed effects in every panel model, and check any change across 2011 or 2020
-against counts before reading it as real (Part 6, Fact 7).
+against counts before reading it as real (Part 7, Fact 7).
 
 # References {.unnumbered}
 

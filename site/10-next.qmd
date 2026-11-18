@@ -1,5 +1,5 @@
 ---
-title: "8. Where the research goes from here"
+title: "10. Where the research goes from here"
 subtitle: "Toward a framework for local foundations and governments"
 ---
 
@@ -31,7 +31,7 @@ and what new data, methods and analyses would move the work toward that goal.
     followed by foundation assets and government money that flows through Medicaid
     and public payroll.
   - Others flip sign with the design. A community should not build strategy on the
-    fragile ones (Part 7, Findings).
+    fragile ones (Part 8, Findings).
 - **Two sectors, not one.** Established filers follow the local economy. Grassroots
   organizations follow endowment and demography. Each responds to different
   conditions, and investments may reach one and not the other.

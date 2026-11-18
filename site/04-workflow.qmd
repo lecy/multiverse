@@ -1,5 +1,5 @@
 ---
-title: "3. Workflow code and executable steps"
+title: "4. Workflow code and executable steps"
 subtitle: "Restore the frozen inputs, run the build, check the result"
 execute:
   echo: false
@@ -69,14 +69,14 @@ Rscript env/restore_inputs.R --build D:/MV_CLEAN/build --inputs D:/MV_CLEAN/inpu
 
 About 1,200 files and 33 GB. `--check` then runs `run.R --raw` against the restored
 folders, and fails if any declared input resolves to no file. `--folders a,b`
-restores only some sources. Part 2 lists what each folder holds.
+restores only some sources. Part 3 lists what each folder holds.
 
 # Step 2: run the build
 
 ```sh
 Rscript run.R database          # the 30 build steps (default)
 Rscript run.R checks            # source-coverage and validation checks
-Rscript run.R multiverse        # the multiverse run and its summaries (Part 7)
+Rscript run.R multiverse        # the multiverse run and its summaries (Part 8)
 Rscript run.R all               # all three stages
 ```
 
@@ -177,7 +177,7 @@ multiverse/
 ├── R/
 │   ├── lib/              shared helpers: paths, constants, NTEE rule, multiverse engine
 │   ├── build/            A_geo, B_npo, C_npo_panel, D_cov, E_assemble, F_checks
-│   ├── multiverse/       the multiverse run, forks and summaries (Part 7)
+│   ├── multiverse/       the multiverse run, forks and summaries (Part 8)
 │   └── paper/            figures and tables for the paper chapters
 ├── env/                  freeze, restore and compare scripts; lockfile tools
 ├── docs/                 build diagram, inventory, dictionary, site data script
