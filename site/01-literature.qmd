@@ -81,6 +81,7 @@ The exponents are explained by the way social interactions grow with city size
 on whether the outcome scales linearly. *Scale-adjusted metropolitan indicators*
 (SAMIs) solve this: each city's deviation from the scaling line, the log of observed
 over size-expected [@bettencourt2010urban].
+
 - **Independent of size.** SAMIs remove size from the comparison by construction.
 - **Persistent.** A city's SAMI changes slowly over decades.
 - **Meaningful.** They separate local performance from the effect of size.
@@ -90,6 +91,7 @@ scale one-for-one with the denominator, and they can induce spurious correlation
 between ratios that share it [@uslaner1976pitfalls].
 
 **Cautions.**
+
 - Estimated exponents are sensitive to the definition of the unit and the estimator,
   and apparent nonlinearity has to be tested, not assumed [@leitao2016scaling].
 - Cross-sectional exponents need not describe how any one city changes over time
@@ -115,6 +117,7 @@ specifications. Later work showed how undisclosed flexibility produces false pos
 "garden of forking paths" [@gelman2014garden].
 
 **The method.**
+
 - **Multiverse analysis** fits every combination of defensible choices and reports the
   whole set [@steegen2016increasing].
 - **Specification curve analysis** adds inference across the set
@@ -126,6 +129,7 @@ specifications. Later work showed how undisclosed flexibility produces false pos
   [@delgiudice2021traveler].
 
 **Evidence that it matters.**
+
 - When many teams analyse the same data to answer the same question, their estimates
   vary widely: in sign, size and significance [@silberzahn2018many].
 - Much of that variation cannot be traced to any team's identifiable choices
@@ -135,6 +139,7 @@ Density research fits this description. It has standard covariates, many defensi
 designs and conflicting published signs.
 
 **How this project uses it.**
+
 - **Design.** The multiverse separates *non-equivalent* decisions (what question is
   asked: filers or spending, metros or counties, levels or changes) from *arbitrary*
   ones (how a construct is measured, which estimator, how gaps are filled). Each

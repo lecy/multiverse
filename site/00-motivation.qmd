@@ -22,6 +22,7 @@ little to act on.
 
 Nonprofit density has been studied for three decades. The theories are well
 developed:
+
 - **Government failure:** nonprofits supply public goods where preferences are diverse
   [@weisbrod1977voluntary].
 - **Contract failure:** nonprofits are trusted where quality is hard to judge

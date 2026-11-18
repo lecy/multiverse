@@ -250,6 +250,7 @@ effect.
     services illustrate D11: heterogeneity findings are subsector-specific.
 
 **Consensus:** emerging but conditional.
+
 - **Racial and religious heterogeneity.** Measured as fractionalization, it goes with
   more *grassroots* organizations. Its relationship with the established, filing
   sector is weak and can be negative. Diversity claims should name the population and
@@ -356,6 +357,7 @@ the literature and the multiverse.
     an outcome.
 
 **Consensus:** emerging, with a distinction.
+
 - **Funding:** government money that flows to nonprofits goes with larger sectors.
 - **Provision:** within places, government's own provision tends to substitute for
   them.
@@ -464,6 +466,7 @@ ours for that. Instead, the discussion that follows asks whether each strand
 strengthens the claims of this page and the multiverse, or competes with them.
 
 **Verification.** Every citation was checked against Crossref.
+
 - **Read in full, or in large part:** studies marked *full*.
 - **Abstract only:** the rest. Their findings come from the abstracts, and their
   data details are sometimes incomplete.
@@ -556,6 +559,7 @@ multiverse's decisions:
 ✓ = yes; ? = not confirmed from the paper.
 
 Column key:
+
 - **Population:** Grass = grassroots (new registrations); Filer = filers; All = all
   registered.
 - **Outcome:** Cnt = counts; Exp = expenses; Rev = revenue; Ast = assets.
@@ -646,6 +650,7 @@ nonprofit density or sector size.
 re-estimates.
 
 Column key:
+
 - **Need and resources:** Pov = poverty or need; Inc = income or wealth; Edu =
   education.
 - **Heterogeneity and religion:** Race = racial or ethnic diversity; RelD =
@@ -741,6 +746,7 @@ Each cell shows whether a study's results support a theory's prediction:
   interdependence, and it does not support it.
 
 **What each theory predicts:**
+
 - **GF, government failure:** more nonprofits where preferences are diverse, and
   fewer where government provides more.
 - **Int, interdependence:** more where government funds or contracts more.
@@ -840,6 +846,7 @@ Each claim below comes from this page or from the multiverse.
   - high-poverty suburbs have weaker and more volatile ones [@allard2023volatility].
 
 **Qualifies.** The relationship need not be linear:
+
 - @wo2018density find a U-shape across Los Angeles tracts.
 - @mcdonnell2026development find middle-deprivation areas densest.
 
@@ -849,6 +856,7 @@ into its average. That is worth testing.
 ## Size has to be handled, and comparisons belong at the metro level
 
 **Strengthens.**
+
 - **Counts track population.** Every recent density study that reports the
   correlation finds raw counts track population almost perfectly, *r* = .98 in
   @vanpuyvelde2016determinants. All of them adjust for population, either per capita
@@ -857,6 +865,7 @@ into its average. That is worth testing.
   the D4 lesson.
 
 **Competes, in part: spatial spillovers.**
+
 - @kim2026interdependence and @never2016place find strong spillovers between
   neighboring *counties*. One county's conditions shape its neighbors' nonprofits,
   and neighbors free-ride on human-services spending.
@@ -869,6 +878,7 @@ into its average. That is worth testing.
 ## Diversity works differently for different organizations
 
 **Strengthens the central point: name the population and the measure.**
+
 - **The meta-analysis.** @lu2020population find a positive but small heterogeneity
   effect across 37 studies. That is what the multiverse predicts when studies pool
   populations whose signs differ.
@@ -889,6 +899,7 @@ into its average. That is worth testing.
   negative.
 
 **Adds a mechanism.** The exit studies suggest *why* the two populations differ:
+
 - within counties, rising demographic heterogeneity goes with more dissolutions
   [@shon2024demographic]. Their dissolutions are automatic revocations for three
   years of not filing, which mostly means small organizations dropping out;
@@ -952,6 +963,7 @@ its grassroots-positive result may not hold in every field.
 ## Density is persistent, and history matters
 
 **Strengthens, strongly.**
+
 - **Persistent levels.** Over 50 years, area densities follow the same trajectory
   while level differences persist [@mcdonnell2026development]. That is Fact 2, seen
   over a longer span than US data allow.
@@ -968,6 +980,7 @@ in Part 10.
 ## Resources, education and civic life
 
 **Strengthens.**
+
 - **Education.** Positive in every model of @vanpuyvelde2016determinants, and linked
   to conservation nonprofits [@willse2023geography].
 - **Religious adherence.** Positive in @jeong2020density.
@@ -994,23 +1007,202 @@ including many small rural ones, versus metros.
   overstate access in poor neighborhoods.
 
 **Overall.** The newer literature mostly *strengthens* the page's claims:
+
 - across places versus within places;
 - size handled explicitly;
 - diversity depends on the population;
 - history and persistence.
 
 It *competes* on two points:
+
 - **Government provision.** Whether direct government substitutes for nonprofits is
   challenged both across counties (Jeong & Cui) and, for new organizations, within
   them (Mayer).
 - **The older population.**
 
 And it identifies three gaps:
+
 - spatial spillovers between metros;
 - rural counties;
 - turnover.
 
 All three are now listed in Part 10.
+
+# Synthesis
+
+Thirty-six studies over three decades have tested much the same theories with much
+the same covariates, and reported conflicting signs on most of them. This page has
+argued that the conflicts come less from communities than from designs. This
+section draws the argument together:
+
+- what the multiverse adds;
+- where the existing specifications fall short;
+- how the literature should proceed.
+
+## How the multiverse fills the gap
+
+**One dataset, every defensible design.** Every study in the literature reports one
+path through the garden of forking paths, on its own data. No two of the original
+ten share the same population, unit and identification, so their disagreements
+cannot be traced to any one choice. The multiverse does the reverse:
+
+- it holds the data fixed, with all US metros from 2000 to 2024;
+- it crosses the decisions those studies made one at a time, about 432,000
+  specifications in all;
+- it reads every covariate on a common yardstick, the partial correlation.
+
+A disagreement between two studies can then be located: it either survives a change
+in one decision, or it does not.
+
+**It ranks the decisions.** Not all choices matter equally (Part 8, Findings):
+
+- **Questions.** The three decisions that define the question (population,
+  identification, unit) change 20–42% of verdicts.
+- **Errors.** Avoidable errors in handling size (predictor form, DV form, log
+  population) change 13–32%.
+- **Routine checks.** The checks papers usually report (year, winsorizing, the
+  money measure) move the average covariate by .04 or less.
+
+So the literature's disagreements are concentrated in the decisions studies make
+silently. The robustness checks they do report rarely move anything.
+
+**It turns divergence into conditional agreement.** Each divergent finding on this
+page resolves into a stable result once the decision behind it is named:
+
+| Divergent finding | Decision that explains it | What the multiverse shows |
+|---|---|---|
+| Poverty: negative in some studies, positive in others | Identification and unit (D2, D3) | Negative across metros for filers (median *r* −.17, 98% sign agreement); near zero within metros; positive for counties within a metro, where organizations locate near need |
+| Racial and ethnic diversity: positive, negative or null | Population (D1) and measure (D7) | Negative for filers (−.07), positive for grassroots (+.11); pooling the two gives the literature's nulls |
+| Religious diversity: positive (Corbin), negative (Grønbjerg & Paarlberg) | Size handling (D4, D6) | A count of denominations measures city size; fractionalization, which does not, is positive, strongly so for grassroots (+.28) |
+| Government: complement or substitute | Measure (funding vs. size) and identification (D3) | Direct government slightly positive across metros, zero or negative within them; funding and provision are different variables |
+| Income: mostly positive, sometimes negative | Identification and outcome | The negatives are within-state estimates or shares of employment, not density across places |
+| Education: split across studies | Measure | % with a BA is the multiverse's most robust covariate (+.32 for filers, positive in 100% of specifications) |
+
+: Each divergent finding, the decision behind it, and the multiverse result. {#tbl-synthesis}
+
+**It adds what the literature omits.** Three things almost never enter existing
+models:
+
+- **Population is a choice to be estimated.** The multiverse estimates how density
+  scales with population instead of assuming per capita (Fact 1).
+- **Filers and grassroots are separated.** The registered stock is mostly grassroots
+  and answers to different conditions (Fact 4).
+- **History is a covariate.** The pre-1970 endowment and the growth kernel absorb
+  inherited density that other models attribute to current conditions (D8). History
+  and existing density are positive in four of the five studies that include them.
+  The fifth is a regional-culture dummy, which is null. Yet most studies leave them
+  out.
+
+**What it does not do.** The multiverse is not a causal design. It is also limited in
+four ways:
+
+- **Units:** it covers metropolitan and micropolitan areas, not rural counties.
+- **Stocks, not flows:** it models stocks, so it cannot separate entry from survival.
+- **Independence:** it treats metros as independent, though neighboring counties are
+  not.
+- **Place and period:** it describes one country in one period.
+
+Each of these is a direction for the next round of work (Part 10).
+
+## Shortfalls in existing specifications
+
+The tables above show eight recurring problems. Most studies have several of them.
+
+1. **The population is unstated, or pooled.**
+   - Studies count registered organizations, filers, employers, large organizations
+     or new registrations, often without saying which matters for their theory.
+   - None isolates grassroots organizations.
+   - Since filers and grassroots answer to diversity, poverty and government in
+     opposite directions, pooling them produces the weak, unstable averages the
+     meta-analyses report [@lu2020population; @lu2018complementary].
+2. **Size is handled by assumption.**
+   - Half the classified studies divide by population, which imposes a scaling
+     exponent of 1. Five more model raw counts with population entered linearly or
+     not at all. None estimates the exponent.
+   - For counts at the metro level the assumption is roughly right. For spending it
+     is wrong: per-capita spending rises with size by construction. Rural and
+     suburban spending gaps are therefore part size and part underprovision, and no
+     study separates the two.
+3. **Identification does not match the question.**
+   - Cross-sections are read as evidence about change, and within-place estimates as
+     evidence about levels.
+   - Poverty changes sign between the two in the same data [@lecy2013nonprofit], and
+     government size does across studies. Most studies report only one design.
+4. **Measures carry size or the outcome.**
+   - Measures that grow with size: counts of denominations; logged dollar totals
+     with population entered linearly.
+   - Measures that contain the outcome: social-capital indexes built from
+     association counts; government grants *received by the organizations being
+     counted*.
+   - Each produces a coefficient that partly measures size or the outcome itself.
+5. **History is omitted.** Existing density, region and a sector's inherited size
+   predict today's sector in four of the five studies that measure them, yet few
+   studies include them.
+   Without them, a region's history is attributed to its current income, diversity
+   or politics.
+6. **Government is measured as size when the theory concerns funding.**
+   Interdependence theory is about money paid to nonprofits. Many tests use
+   government wages or spending, which can support crowding out within places while
+   funding supports complementarity.
+7. **Need is tested on levels when it predicts location.** Across places, need goes
+   with fewer resources. Within places, organizations follow it. Studies that find
+   need theory "rejected" have usually tested it across places.
+8. **One specification is reported.** Each study reports one path, plus robustness
+   checks on the decisions that matter least. The decisions that matter most are
+   made silently. The sample is often one state, a few metros, or a single year.
+
+## How the literature should proceed
+
+**For researchers:**
+
+1. **Name the population, and report filers and grassroots separately** (D1). Treat
+   spending as a third outcome about the *size* of organizations, not their number.
+2. **Estimate scaling instead of assuming it** (D4, D6).
+   - Use log-log models or SAMIs, with log population on the right.
+   - Never compare per-capita spending across places of different size without that
+     adjustment.
+   - Enter size-scaled covariates in the same form.
+3. **State the question, then choose the identification** (D3).
+   - Levels call for cross-sections with history controlled.
+   - Change calls for long differences or within-place designs.
+   - Report both when the claim could be read either way.
+4. **Match the unit to the claim** (D2). Use metros for density. Use counties within
+   metros for questions about where organizations locate, and say so.
+5. **Separate government funding from government provision,** and do not use grants
+   received by the counted organizations as an explanatory variable.
+6. **Use measures that carry neither size nor the outcome.**
+   - Fractionalization rather than counts of groups.
+   - Participation rather than association counts.
+   - Rates or SAMIs rather than totals.
+7. **Control for history** (D8): the sector's inherited size and its recent growth.
+8. **Report the decisions that matter.** At minimum, report key covariates across
+   population, identification and unit. Better, publish a decision table or a small
+   multiverse alongside the main model.
+9. **Model flows as well as stocks.**
+   - Link entry and exit to the stock, so that density dependence, turnover and
+     survival can be separated from level differences [@mayer2025connecting;
+     @shon2024demographic].
+   - This is the most direct way to settle the open government question.
+10. **Extend the frame.** Add the elements the multiverse lacks:
+    - spatial dependence between places;
+    - small-area methods for rural counties;
+    - designs that use shocks or policy changes to move from association to cause.
+11. **Build on shared, frozen data.** Much of the literature's disagreement is a
+    by-product of incomparable data. A common, documented database lets new studies
+    differ only in the decisions they mean to test (Parts 2–4).
+
+**For local foundations and governments.** What can be said with confidence today:
+
+- **Robust:**
+  - more educated and better-resourced places have denser sectors;
+  - sectors are persistent, and history matters;
+  - government funding paid to nonprofits goes with larger sectors;
+  - civic participation goes with more grassroots organizations.
+- **Contingent:** poverty, diversity and government size. Each depends on which
+  organizations are counted and on whether the comparison is across places or within
+  them.
+- **Unknown:** the causal effect of any local investment. That is the gap that the
+  next generation of studies, built on designs like this one, should close.
 
 # References {.unnumbered}
 

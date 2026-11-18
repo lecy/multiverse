@@ -18,6 +18,7 @@ The whole database is rebuilt by one command from frozen inputs. This page goes
 through the setup, each executable step, and how to check that a rebuild matches the
 published tables. Every command runs from the repository root. The build was last
 rebuilt in a clean room on 2026-11-18:
+
 - **Library:** a fresh R library restored from the lockfile.
 - **Inputs:** restored from S3 into empty folders.
 - **Run time:** all 30 steps in 19 minutes on a 24-core machine.
@@ -27,6 +28,7 @@ rebuilt in a clean room on 2026-11-18:
 # Setup
 
 **Software.**
+
 - R 4.5.3 [@r_core] and Quarto [@quarto] (Quarto is needed only for this site).
 - The AWS command-line interface, to download the frozen inputs.
 - Package versions are pinned in `renv.lock` [@pkg_renv]:
