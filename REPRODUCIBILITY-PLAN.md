@@ -230,7 +230,12 @@ results.
 *Status 2026-11-17:*
 - **Step 1 done.** Git repo on branch `main`, first commit `6e8c3a5` (253 files, 30 MB). `.gitignore` excludes secrets, rendered HTML, Quarto caches, Office/PDF drafts, data and logs. `.gitattributes` keeps LF. No remote yet.
 - **Step 3 done.** `env/session-info-2026-11-17.txt` and `env/packages-2026-11-17.csv`. `panel990` = GitHub commit `7045d97` (in its DESCRIPTION `RemoteSha`; still HEAD).
-- **Step 2 is open:** freeze timing and conventions for the other sessions.
+- **Step 2 done.** The code freeze was sent on 2026-11-17 to the 9 local sessions on this project. The rules:
+  - Don't commit, branch or reset unless your user asks.
+  - Leave `00_setup.R`, the helpers, scripts 01–30 and 40/41 alone without telling your user they will be refactored.
+  - New scripts take a free number and a README row.
+  - Keep data on D:.
+  - Note the source of each paper figure.
 - **Note:** the repo lives in Dropbox. Work on it from one machine at a time, because Dropbox can corrupt `.git` when two machines write to it.
 
 **Phase 1: portability, with no change in behaviour (1 day)**
