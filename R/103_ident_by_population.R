@@ -30,7 +30,7 @@ environment( run_one ) <- globalenv(); assign( "gs", gs, envir = globalenv() ); 
 assign( "run_one", run_one, envir = globalenv() )
 cl <- makePSOCKcluster( WORKERS )
 invisible( clusterEvalQ( cl, { Sys.setenv( OMP_NUM_THREADS = "1", MV_MODEL = "lean" )
-  setwd( "C:/Users/jdlec/Dropbox (Personal)/04 - PAPERS/01 - In Progress/38 - resource environments/multiverse" )
+  setwd( Sys.getenv( "MV_PROJECT_ROOT" ) )
   source( "R/00_setup.R" ); source( "R/40_multiverse.R" ); data.table::setDTthreads( 1L ); NULL } ) )
 clusterExport( cl, c( "gs", "panel", "run_one" ) )
 t0 <- proc.time(); gco <- rbindlist( parLapplyLB( cl, seq_len( nrow( gs ) ), run_one, chunk.size = 20 ), fill = TRUE ); stopCluster( cl )

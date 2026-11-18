@@ -10,12 +10,12 @@ suppressPackageStartupMessages( {
 ## ---- paths -------------------------------------------------------------
 
 ## Scripts live in Dropbox; every build product, download cache, temp file,
-## and log lives on D: (C: is nearly full). Read-only source data stays
-## where it is in the Dropbox data hub.
+## and log lives under BUILD. Read-only source data stays where it is in the
+## data hub. The locations come from environment variables (see R/config.R):
+##   DROPBOX, DATA_HUB (MV_INPUTS), BLS_DIR (MV_BLS), BUILD (MV_BUILD),
+##   PROJECT_ROOT, census_key()
 
-DROPBOX  <- "C:/Users/jdlec/Dropbox (Personal)"
-DATA_HUB <- file.path( DROPBOX, "00 - DATA" )          # shared raw-data hub (read only)
-BUILD    <- "D:/MULTIVERSE"                            # all build outputs
+source( "R/config.R" )
 
 TMP <- file.path( BUILD, "tmp" )                       # large temp downloads
 LOGS <- file.path( BUILD, "logs" )
@@ -28,7 +28,7 @@ RAW <- list(
   soi_frame     = file.path( DATA_HUB, "SOI", "02_sample-framework",
                              "SOI-PANEL-SAMPLE-FRAME-COLUMNS-AUGMENTED.CSV" ),
   cbsa_xw       = file.path( DATA_HUB, "population", "cbsa2fipsxw.csv" ),
-  bls           = file.path( DROPBOX, "00 - URBAN", "00-DATA", "bls" )
+  bls           = BLS_DIR
 )
 
 OUT <- list(

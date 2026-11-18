@@ -248,6 +248,14 @@ results.
 4. Check: rerun 30 and a 1,000-spec slice of v11. The outputs must be
    byte-identical (or identical cell by cell).
 
+*Status 2026-11-17 (second machine, user `jlecy`, R 4.5.3):*
+- **Step 1 done.** `R/config.R`, sourced first by `00_setup.R`, reads `MV_BUILD`, `MV_INPUTS` (data hub), `MV_BLS`, `MV_DROPBOX` and `CENSUS_API_KEY`. Defaults keep the original machine's layout: `D:/MULTIVERSE`, and Dropbox = four folders above the project. Set the variables in the user-level `~/.Renviron` (Documents/.Renviron), never in the project, because the project syncs. On this machine `MV_BUILD=C:/Users/jlecy/Documents/MULTIVERSE`. `census_key()` replaces the three copies in 13–16, 17 and 89; it falls back to `../CENSUS-DATA.R`.
+- **Step 2 done.** 21 worker `setwd()` calls in 20 scripts (including 99–104) now use `Sys.getenv("MV_PROJECT_ROOT")`, which `config.R` sets. `D:/MULTIVERSE` is gone from 40 (`load_panel`), 58 and 60.
+- **Step 3 done, without activating renv in the project.** An renv autoloader in the Dropbox folder would switch the other machine's sessions to an empty library. `env/build_renv_lock.R` builds the library in `$MV_BUILD/renv-build` and writes `renv.lock`. It installs every version in `env/packages-2026-11-17.csv` (all 22 match), with `panel990` at `7045d97c` and dependencies from the Posit Package Manager snapshot of 2026-11-16. Use it by setting `R_LIBS_USER` to that library, or with `renv::restore(lockfile = "renv.lock")`. The lockfile records R 4.5.3; the original build used 4.5.1.
+- **Step 4 done.** Inputs and reference outputs came from `s3://lecy/multiverse/data` (needs the `lecy-data` profile).
+  - **30:** `cbsa_year.parquet` (23,125 × 418) and `county_year.parquet` (78,600 × 354) are identical cell by cell (`env/compare_parquet.R`), with the same column order and types. The file hashes differ, which points to parquet metadata.
+  - **v11 slice:** `env/check_v11_slice.R` uses 1,000 specs drawn with seed 20261117. The 432,432-spec grid is identical, and all 1,000 statuses and all 12,991 coefficient rows are reproduced. Every OLS, fixed-effects and Poisson spec is exact. 21 of the 190 `state_re` specs (lme4 random effects) differ, by at most 1e-6 relative. That fits the optimizer converging to within its tolerance, not a change in the code.
+
 **Phase 2: fix the dependency graph (1–2 days)**
 1. Split 07 into `07_npo_bls.R` (build) and `F_checks/07b_bls_validation.R`. Split
    20 into `qcew` (build) and `F_checks/20b_benchmarks.R`.

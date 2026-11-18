@@ -64,7 +64,7 @@ n_workers <- max( 1L, detectCores() - 2L )
 log_msg( "parallel run: 1,000 specs on ", n_workers, " workers" )
 cl <- makePSOCKcluster( n_workers )
 invisible( clusterEvalQ( cl, { Sys.setenv( OMP_NUM_THREADS = "1" )
-                                setwd( "C:/Users/jdlec/Dropbox (Personal)/04 - PAPERS/01 - In Progress/38 - resource environments/multiverse" )
+                                setwd( Sys.getenv( "MV_PROJECT_ROOT" ) )
                                 source( "R/00_setup.R" ); source( "R/40_multiverse.R" )
                                 data.table::setDTthreads( 1L )      # avoid 14 x 16 thread oversubscription
                                 NULL } ) )

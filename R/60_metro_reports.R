@@ -160,7 +160,7 @@ rows <- samp[ , sprintf( '<tr><td><a href="metros/%s.html">%s</a></td><td>%s</td
 vars <- sprintf( '<h3>%s</h3><img src="variables/%s.png" alt="%s">', levels( sl$var ), make.names( levels( sl$var ) ), levels( sl$var ) )
 writeLines( page( "Metro sidecar reports",
   paste0( "<h1>Metro sidecar reports</h1><p>", nrow( samp ), " metros: ", unique( samp$rule )[1],
-          ". Data: D:/MULTIVERSE/data/analysis/cbsa_year.parquet (built ", format( Sys.Date() ), ").</p>",
+          ". Data: ", BUILD, "/data/analysis/cbsa_year.parquet (built ", format( Sys.Date() ), ").</p>",
           "<table><tr><th>Metro</th><th>Size band</th><th>Region</th><th>SAMI cell position</th><th>Filer SAMI rank</th><th>Mean filer SAMI</th></tr>",
           paste( rows, collapse = "" ), "</table><h2>Variables across the sample</h2>", paste( vars, collapse = "" ) ) ),
   file.path( REP, "index.html" ) )

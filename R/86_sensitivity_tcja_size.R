@@ -49,7 +49,7 @@ fit_jobs <- function( jobs, keepsets = list() ) {
   assign( "run_job", run_job, envir = globalenv() )
   cl <- makePSOCKcluster( WORKERS ); on.exit( try( stopCluster( cl ), silent = TRUE ), add = TRUE )
   invisible( clusterEvalQ( cl, { Sys.setenv( OMP_NUM_THREADS = "1" )
-    setwd( "C:/Users/jdlec/Dropbox (Personal)/04 - PAPERS/01 - In Progress/38 - resource environments/multiverse" )
+    setwd( Sys.getenv( "MV_PROJECT_ROOT" ) )
     source( "R/00_setup.R" ); source( "R/40_multiverse.R" ); data.table::setDTthreads( 1L ); NULL } ) )
   clusterExport( cl, c( "panel", "grid", "jobs", "keepsets", "run_job" ), envir = globalenv() )
   res <- rbindlist( parLapplyLB( cl, seq_len( nrow( jobs ) ), run_job, chunk.size = 50 ), fill = TRUE )

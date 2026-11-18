@@ -19,11 +19,8 @@ source( "R/00_setup.R" )
 source( "R/geo_helpers.R" )
 suppressPackageStartupMessages( library( tidycensus ) )
 
-key_line <- grep( "^KEY <-", readLines( file.path( DROPBOX, "04 - PAPERS", "01 - In Progress",
-                                                     "38 - resource environments", "CENSUS-DATA.R" ) ),
-                  value = TRUE )
-KEY <- sub( '^KEY <- "([^"]+)".*$', "\\1", key_line )
-Sys.setenv( CENSUS_API_KEY = KEY ); rm( key_line )
+KEY <- census_key()                                  # R/config.R
+Sys.setenv( CENSUS_API_KEY = KEY )
 options( tigris_use_cache = FALSE )
 cache <- file.path( OUT$raw_cov, "acs" ); dir.create( cache, recursive = TRUE, showWarnings = FALSE )
 

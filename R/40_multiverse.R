@@ -276,24 +276,24 @@ DIVISION <- c( "09" = 1, "23" = 1, "25" = 1, "33" = 1, "44" = 1, "50" = 1, "34" 
   "40" = 7, "48" = 7, "04" = 8, "08" = 8, "16" = 8, "30" = 8, "32" = 8, "35" = 8, "49" = 8,
   "56" = 8, "02" = 9, "06" = 9, "15" = 9, "41" = 9, "53" = 9 )
 
-load_panel <- function( path = file.path( "D:/MULTIVERSE/data/analysis", "cbsa_year.parquet" ) ) {
+load_panel <- function( path = file.path( BUILD, "data", "analysis", "cbsa_year.parquet" ) ) {
   d <- as.data.table( arrow::read_parquet( path ) )
   d[ , logP := log( population ) ]
   d[ , division := unname( DIVISION[ state_fips ] ) ]
   ## time-invariant historical endowment (add-on "history" block)
-  fe <- file.path( "D:/MULTIVERSE/data/cov", "cov_endowment.csv" )
+  fe <- file.path( OUT$cov, "cov_endowment.csv" )
   if ( file.exists( fe ) ) {
     e <- fread( fe, select = c( "cbsa", "hist_pre1970" ), colClasses = list( character = "cbsa" ) )
     d[ e, on = "cbsa", hist_pre1970 := i.hist_pre1970 ]
   }
   ## population-lag kernels (add-on "lag" block)
-  fk <- file.path( "D:/MULTIVERSE/data/cov", "cov_lag_kernel.csv" )
+  fk <- file.path( OUT$cov, "cov_lag_kernel.csv" )
   if ( file.exists( fk ) ) {
     k <- fread( fk, select = c( "cbsa", "year", "lag_g5", "lag_g10" ), colClasses = list( character = "cbsa" ) )
     d[ k, on = c( "cbsa", "year" ), `:=`( lag_g5 = i.lag_g5, lag_g10 = i.lag_g10 ) ]
   }
   ## metro Gini from summed county brackets (add-on "inequality" block)
-  fg <- file.path( "D:/MULTIVERSE/data/cov", "cov_gini_metro.csv" )
+  fg <- file.path( OUT$cov, "cov_gini_metro.csv" )
   if ( file.exists( fg ) ) {
     gm <- fread( fg, colClasses = list( character = "cbsa" ) )
     d[ gm, on = c( "cbsa", "year" ), gini_m := i.gini_m ]

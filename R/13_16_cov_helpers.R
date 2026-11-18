@@ -2,14 +2,8 @@
 ## Local helpers for the SAIPE / LAUS / IRS SOI / election covariate scripts
 ## (13-16). Sourced after 00_setup.R and geo_helpers.R.
 
-## Census API key, read at runtime from the project's CENSUS-DATA.R (never
-## printed or written anywhere)
-census_key <- function() {
-  f <- file.path( DROPBOX, "04 - PAPERS", "01 - In Progress", "38 - resource environments",
-                  "CENSUS-DATA.R" )
-  l <- suppressWarnings( readLines( f ) )
-  sub( '^KEY <- "([^"]+)".*$', "\\1", grep( '^KEY <- "', l, value = TRUE )[1] )
-}
+## Census API key: census_key() is defined in R/config.R (CENSUS_API_KEY, or
+## ../CENSUS-DATA.R); never printed or written anywhere
 
 ## browser-like download (BLS and IRS reject bare scripted requests)
 UA <- "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"

@@ -40,9 +40,7 @@ ACS_YEARS <- 2010:2024
 if ( MODE == "build" ) {
   source( "R/geo_helpers.R" )
   suppressPackageStartupMessages( library( tidycensus ) )
-  key_line <- grep( "^KEY <-", readLines( file.path( DROPBOX, "04 - PAPERS", "01 - In Progress",
-                                                       "38 - resource environments", "CENSUS-DATA.R" ) ), value = TRUE )
-  Sys.setenv( CENSUS_API_KEY = sub( '^KEY <- "([^"]+)".*$', "\\1", key_line ) ); rm( key_line )
+  Sys.setenv( CENSUS_API_KEY = census_key() )        # R/config.R
   cache <- file.path( OUT$raw_cov, "acs89" ); dir.create( cache, recursive = TRUE, showWarnings = FALSE )
 
   V <- c( setNames( sprintf( "B19001_%03d", 1:17 ), c( "hh_tot", paste0( "hh_", 1:16 ) ) ),
@@ -320,7 +318,7 @@ if ( MODE == "horse" ) {
   t0 <- proc.time()
   cl <- makePSOCKcluster( WORKERS )
   invisible( clusterEvalQ( cl, { Sys.setenv( OMP_NUM_THREADS = "1" )
-    setwd( "C:/Users/jdlec/Dropbox (Personal)/04 - PAPERS/01 - In Progress/38 - resource environments/multiverse" )
+    setwd( Sys.getenv( "MV_PROJECT_ROOT" ) )
     source( "R/00_setup.R" ); source( "R/40_multiverse.R" ); data.table::setDTthreads( 1L ); NULL } ) )
   clusterExport( cl, c( "pnl", "sp", "jobs", "run_job", "COVS", "BLOCKS" ) )
   res <- rbindlist( parLapplyLB( cl, seq_len( nrow( jobs ) ), run_job, chunk.size = 40 ), fill = TRUE )

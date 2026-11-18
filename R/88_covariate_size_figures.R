@@ -62,7 +62,7 @@ if ( "fit" %in% args || !file.exists( fr ) ) {
   for ( nm in c( "jobs", "keepsets", "specs", "run_job3" ) ) assign( nm, get( nm ), envir = globalenv() )
   cl <- makePSOCKcluster( WORKERS )
   invisible( clusterEvalQ( cl, { Sys.setenv( OMP_NUM_THREADS = "1" )
-    setwd( "C:/Users/jdlec/Dropbox (Personal)/04 - PAPERS/01 - In Progress/38 - resource environments/multiverse" )
+    setwd( Sys.getenv( "MV_PROJECT_ROOT" ) )
     source( "R/00_setup.R" ); source( "R/40_multiverse.R" ); data.table::setDTthreads( 1L ); NULL } ) )
   clusterExport( cl, c( "panel", "specs", "jobs", "keepsets", "run_job3", "TERMS" ), envir = globalenv() )
   t0 <- proc.time()

@@ -954,7 +954,7 @@ if ( "M" %in% PARTS ) {
   ## direct models: 2022 cross-section, SAMI form; share = mean BLS share 2013-2022
   pnl <- divx( as.data.table( read_parquet( file.path( BUILD, "data", "analysis", "cbsa_year.parquet" ) ) ) )[ cbsa_type == "metro" ]
   sh <- pnl[ year %in% 2013:2022 & !( bls_delin_flag %in% TRUE ) & bls_pct_npo > 0, .( share = mean( bls_pct_npo ), yrs = .N ), by = cbsa ][ yrs >= 5 ]
-  en <- fread( file.path( "D:/MULTIVERSE/data/cov", "cov_endowment.csv" ), select = c( "cbsa", "hist_pre1970" ), colClasses = list( character = "cbsa" ) )
+  en <- fread( file.path( OUT$cov, "cov_endowment.csv" ), select = c( "cbsa", "hist_pre1970" ), colClasses = list( character = "cbsa" ) )
   m <- merge( merge( pnl[ year == 2022 ], sh, by = "cbsa" ), en, by = "cbsa" )
   m <- m[ is.finite( hist_pre1970 ) & is.finite( turnout ) & is.finite( poverty_rate ) ]
   m[ , logP := log( population ) ]
@@ -1166,7 +1166,7 @@ if ( "P" %in% PARTS ) {
   CU <- file.path( BUILD, "data", "catchup" )
   a <- fread( file.path( CU, "c12_age_by_metro.csv" ), colClasses = list( character = "cbsa" ) )
   gr <- fread( file.path( CU, "c9_metro_1970_2024.csv" ), colClasses = list( character = "cbsa" ) )
-  en <- fread( file.path( "D:/MULTIVERSE/data/cov", "cov_endowment.csv" ), select = c( "cbsa", "hist_pre1970" ), colClasses = list( character = "cbsa" ) )
+  en <- fread( file.path( OUT$cov, "cov_endowment.csv" ), select = c( "cbsa", "hist_pre1970" ), colClasses = list( character = "cbsa" ) )
   m <- divx( as.data.table( read_parquet( file.path( BUILD, "data", "analysis", "cbsa_year.parquet" ) ) ) )[ year == 2022 & cbsa_type == "metro" ]
   m <- merge( m, a[ , .( cbsa, region, mean_age_filers, median_age_all, dollar_weighted_age_nohu ) ], by = "cbsa" )
   m <- merge( m, gr[ , .( cbsa, g7000, g0024, s0n = s0_n_filer_c3, s1n = s1_n_filer_c3, s0g = s0_n_grass_c3pc, s1g = s1_n_grass_c3pc ) ], by = "cbsa" )
