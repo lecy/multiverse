@@ -7,6 +7,15 @@
 ##     --from <id>     force a rebuild from step <id> on (within the chosen stages)
 ##     --only <id,..>  run just these steps (forced)
 ##     --graph         write the step dependency graph (Mermaid) to env/pipeline_graph.md
+##     --raw           list every declared raw input (step, source, files found, bytes)
+##                     and write it to MV_BUILD/raw_inputs.csv
+##
+## Raw inputs (column raw): source files from outside the build, as
+## <inputs folder>=<path>; paths start with $INPUTS/ (data hub, MV_INPUTS), $BLS/
+## (MV_BLS) or $DROPBOX/ (MV_DROPBOX), else are relative to MV_BUILD; a path ending
+## in / is the whole folder. A missing raw input does not stop the run (the step
+## downloads it or stops itself), but raw files newer than a step's outputs make
+## that step rerun.
 ##
 ## Each step runs in a fresh Rscript process from the project folder, with its log
 ## in MV_BUILD/logs/<id>.log. A step is skipped when all its outputs exist and are
@@ -36,7 +45,26 @@ p <- read.csv( "pipeline.csv", colClasses = "character", na.strings = character(
 split_paths <- function( x ) { x <- trimws( strsplit( x, ";", fixed = TRUE )[[ 1 ]] ); x[ nzchar( x ) ] }
 p$ins  <- lapply( p$inputs, split_paths )
 p$outs <- lapply( p$outputs, split_paths )
+if ( is.null( p$raw ) ) p$raw <- ""
+p$raws <- lapply( p$raw, split_paths )
 stopifnot( !anyDuplicated( p$id ), all( file.exists( p$script ) ) )
+RAW_INPUTS <- "--raw" %in% args
+
+## raw input entries: "<source>=<path>" -> source, path, and the files it resolves to
+raw_src  <- function( e ) sub( "=.*$", "", e )
+raw_path <- function( e ) {
+  x <- sub( "^[^=]*=", "", e )
+  for ( r in list( c( "$INPUTS/", DATA_HUB ), c( "$BLS/", BLS_DIR ), c( "$DROPBOX/", DROPBOX ) ) )
+    if ( startsWith( x, r[ 1 ] ) ) return( file.path( r[ 2 ], substring( x, nchar( r[ 1 ] ) + 1 ) ) )
+  file.path( BUILD, x )
+}
+raw_files <- function( e ) {
+  f <- raw_path( e )
+  if ( endsWith( f, "/" ) ) return( list.files( f, recursive = TRUE, full.names = TRUE ) )
+  if ( grepl( "[*?[]", f ) ) return( Sys.glob( f ) )
+  f[ file.exists( f ) ]
+}
+stopifnot( all( grepl( "^[a-z0-9-]+=", unlist( p$raws ) ) ) )
 
 ## producer of each declared output (an output belongs to one step)
 prod <- do.call( rbind, lapply( seq_len( nrow( p ) ), function( i )
@@ -70,6 +98,25 @@ if ( GRAPH ) {
   quit( save = "no" )
 }
 
+## ---- raw inputs --------------------------------------------------------------------------
+if ( RAW_INPUTS ) {
+  r <- do.call( rbind, lapply( seq_len( nrow( p ) ), function( i ) {
+    if ( !length( p$raws[[ i ]] ) ) return( NULL )
+    do.call( rbind, lapply( p$raws[[ i ]], function( e ) {
+      f <- raw_files( e )
+      data.frame( step = p$id[ i ], source = raw_src( e ), entry = sub( "^[^=]*=", "", e ),
+                  files = length( f ), bytes = sum( file.size( f ) ) )
+    } ) )
+  } ) )
+  write.csv( r, file.path( BUILD, "raw_inputs.csv" ), row.names = FALSE )
+  print( r, row.names = FALSE, right = FALSE )
+  cat( sprintf( "\n%d raw entries in %d steps (%d sources); %d resolve to files on this machine, %d do not; %.1f GB found\n",
+                nrow( r ), length( unique( r$step ) ), length( unique( r$source ) ), sum( r$files > 0 ),
+                sum( r$files == 0 ), sum( r$bytes ) / 1e9 ) )
+  cat( "wrote", file.path( BUILD, "raw_inputs.csv" ), "\n" )
+  quit( save = "no" )
+}
+
 ## ---- plan --------------------------------------------------------------------------------
 sel <- which( p$stage %in% stages )
 if ( length( ONLY ) ) {
@@ -97,7 +144,8 @@ for ( k in seq_along( sel ) ) {
          else if ( !exists_all( outs ) ) "output missing"
          else if ( any( ins %in% will_make ) ) "an input is rebuilt in this run"
          else {
-           t_out <- min( mtimes( outs ) ); t_in <- max( c( mtimes( ins ), file.mtime( p$script[ i ] ) ) )
+           t_out <- min( mtimes( outs ) ); t_in <- max( c( mtimes( ins ), file.mtime( p$script[ i ] ),
+                                                 unlist( lapply( p$raws[[ i ]], function( e ) file.mtime( raw_files( e ) ) ) ) ) )
            if ( t_in > t_out ) "inputs or script newer than outputs" else ""
          }
   plan$action[ k ] <- if ( nzchar( why ) ) "run" else "skip"
