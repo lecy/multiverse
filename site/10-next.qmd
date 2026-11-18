@@ -77,6 +77,10 @@ and what new data, methods and analyses would move the work toward that goal.
 - **Nonprofit employment after 2022.** The BLS research series ends in 2022, with no
   update announced before 2029. QCEW ownership codes or state unemployment-insurance
   records could extend it.
+- **Corporate and elite presence.** Public-company headquarters grow large
+  nonprofits, especially elite-oriented ones [@marquis2013golfing]. The multiverse has
+  no measure of corporate presence yet. Headquarters counts, from SEC filings, would
+  test whether local business leadership is a lever for community funders.
 
 # New methods
 

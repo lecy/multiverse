@@ -7,9 +7,9 @@ subtitle: "Ten studies read through the multiverse: why their findings differ, a
 **Draft, 2026-11-18.** The details of each study come from the full text where it was
 available, and otherwise from the abstract and from how later papers describe it.
 
-- **Read in full (9):** every study except one.
-- **Abstract and press coverage only:** Marquis et al. Details marked *unverified*
-  could not be confirmed and should be checked before the page is cited.
+- **Read in full:** all ten studies. One detail is still *unverified*: whether Lecy &
+  Van Slyke's government-wage result comes from their pooled models, their
+  fixed-effects models or both.
 - **Interpretation:** the mapping of each study onto the multiverse decisions is ours,
   and it is an argument, not a re-estimation of their models.
 :::
@@ -39,7 +39,7 @@ say which explanation fits each conflict. This page applies it to the ten studie
 | @matsunaga2004government | NCCS Core Files; 50 states (DC excluded), 1992–1999, 400 state-years | **Filers** per 10,000 residents, logged | Two-way fixed effects (state and year), log-log; 2SLS for government variables | Government failure, complementary financing, social cohesion, contract failure |
 | @saxton2005social | BMF ruling dates; 284 counties in the 2000 Social Capital Benchmark Survey | **Foundings** of 501(c)(3)s in 2001 | Negative binomial; population as a control; state-clustered SEs | Social capital, organizational ecology |
 | @lecy2013nonprofit | NCCS digitized 990s, 1998–2003; counties in 331 MSAs | **Human-service filers**, count | Pooled OLS and two-way fixed effects; population and its square as controls | Government failure vs. interdependence |
-| @marquis2013golfing | NCCS, SEC and Census; 100 largest communities, 1987–2002 | **Growth** in elite-oriented and social-welfare nonprofits | *unverified* | Elite and corporate institutional theory |
+| @marquis2013golfing | NCCS Statistics of Income sample (990 filers with $10M+ in assets); 100 metros with 5+ corporate headquarters; 1987, 1992, 1997, 2002 | Next year's count of **large** elite-oriented and social-welfare nonprofits | Random effects with the lagged count (a change model); fixed-effects check; population as a control | Elite and corporate institutional theory |
 | @kim2015socioeconomic | 2008 BMF; 3,036 US counties, cross-section | **Registered** 501(c)(3) public charities per 10,000; whole sector and 10 subsectors | Multilevel random intercepts (counties in 49 states), linear per capita | Demand heterogeneity (inequality, diversity), government size, political engagement |
 | @bae2018factors | Indiana Nonprofit Employment reports (QCEW); 92 Indiana counties, 2001–2009 | Log total nonprofit **employment** (all 501(c)) | Random effects with year effects; population and its square as linear controls | Government failure, interdependence, social capital |
 
@@ -61,7 +61,7 @@ against the decision cards (Part 6):
 | Matsunaga 2004 | filers | state | within (two-way FE) | log per capita | absorbed by FE | full sector |
 | Saxton 2005 | foundings (a flow) | county | cross-section | count, population on the right | existing density included | full 501(c)(3) |
 | Lecy 2013 | filers | county within MSA | pooled and within (FE) | count, population on the right | absorbed by FE | human services |
-| Marquis 2013 | growth | community (100) | change | *unverified* | *unverified* | elite vs. welfare |
+| Marquis 2013 | large organizations only ($10M+ assets) | metro (100) | change; within (FE) as a check | count, population on the right | Northeast, 1905 business base | elite vs. welfare |
 | Kim 2015 | registered (mostly grassroots) | county (national) | cross-section, state random intercepts | per capita | — | full and 10 subsectors |
 | Bae 2018 | employment | county (one state) | panel, random effects | log total, population linear on the right | — | all 501(c) |
 
@@ -264,7 +264,10 @@ the literature and the multiverse.
     - state and local direct spending, as a share of gross state product, within
       states in Matsunaga & Yamauchi: a 1% rise goes with about 0.22% fewer filers per
       capita;
-    - government wages in Lecy & Van Slyke.
+    - government wages in Lecy & Van Slyke;
+    - total government revenue in Marquis et al.'s fixed-effects models
+      [@marquis2013golfing]. Within a metro, rising government revenue goes with
+      fewer large elite-oriented and social-welfare nonprofits.
   - **Government's size, positive across places:** total government wages per capita
     in @kim2015socioeconomic, at *p* < .10 in the full model. It is strongest for
     hospitals, higher education, international and public-benefit organizations.
@@ -290,7 +293,8 @@ the literature and the multiverse.
     linearly. Federal dollars and library budgets grow with county size, and a linear
     population term does not remove size from a log-log model. Part of their positive
     coefficients is likely size (D6).
-  - **Identification.** The substitution findings are within-place estimates:
+  - **Identification.** The substitution findings are within-place estimates. That
+    includes Marquis et al.'s fixed-effects government revenue result, and:
     - Matsunaga & Yamauchi's direct-spending result, from state fixed effects;
     - Lecy & Van Slyke's government wages (whether pooled, fixed effects or both is
       *unverified*).
@@ -349,6 +353,9 @@ organizations. Generalized trust and association counts do not add.
   - Counts rise at a decreasing rate in @lecy2013nonprofit, with population and its
     square as controls.
   - Existing density predicts foundings in @saxton2005social.
+  - In @marquis2013golfing, large nonprofits grow faster in two kinds of metro: those
+    in the Northeast, and those with an early-established business community (firms
+    incorporated by 1905). Both are strongly positive.
 - **The multiverse:**
   - Counts scale with population with an exponent of about 1.00 at the metro level
     (Fact 1), so per-capita counts are a fair metro yardstick. County-level per-capita
@@ -357,10 +364,11 @@ organizations. Generalized trust and association counts do not add.
     covariates: .21 for filers and .19 for grassroots.
   - Density is nearly frozen over decades (Fact 2).
 - **Reconciliation:**
-  - **History.** Saxton & Benson's positive existing-density term is the same
-    persistence the endowment captures. Models without history attribute part of the
-    inherited level to whatever covariates correlate with it (D8). That includes
-    region-linked ones such as diversity and income.
+  - **History.** Saxton & Benson's existing density, and Marquis et al.'s Northeast and
+    1905 business community, are the same persistence the endowment captures. The
+    Northeast's larger sector is the regional gap in Fact 5. Models without history
+    attribute part of the inherited level to whatever covariates correlate with it
+    (D8). That includes region-linked ones such as diversity and income.
   - **Size.** The apparent density advantage of small counties is partly a feature of
     county units and per-capita measures (D2, D4).
 
@@ -378,6 +386,7 @@ Read through the multiverse, the literature agrees more than its signs suggest:
 | Government | **Funding complements; direct provision substitutes within places** | Causal direction unresolved; money received is partly an outcome |
 | Size | **Population must be in the model** | A raw count without population measures city size (D4, D6) |
 | History | **Strong persistence** | Control for it when the question is current conditions (D8) |
+| Corporate presence | **Positive for large nonprofits** (one study) | Not yet tested in the multiverse; strongest for elite-oriented organizations where upper-class clubs and the Northeast's traditions are present |
 
 What is *not* settled is causality. Every study here, and the multiverse itself,
 describes associations. The next step is designs that use changes a community or
