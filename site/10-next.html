@@ -90,6 +90,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../site/styles.css">
 </head>
@@ -269,6 +298,12 @@ div.csl-indent {
   <li><a href="#open-questions" id="toc-open-questions" class="nav-link" data-scroll-target="#open-questions">Open questions</a></li>
   <li><a href="#new-data" id="toc-new-data" class="nav-link" data-scroll-target="#new-data">New data</a></li>
   <li><a href="#new-methods" id="toc-new-methods" class="nav-link" data-scroll-target="#new-methods">New methods</a></li>
+  <li><a href="#limits-of-current-designs-and-how-to-fix-them" id="toc-limits-of-current-designs-and-how-to-fix-them" class="nav-link" data-scroll-target="#limits-of-current-designs-and-how-to-fix-them">Limits of current designs, and how to fix them</a>
+  <ul class="collapse">
+  <li><a href="#panel-models-cannot-identify-slow-moving-variables" id="toc-panel-models-cannot-identify-slow-moving-variables" class="nav-link" data-scroll-target="#panel-models-cannot-identify-slow-moving-variables">Panel models cannot identify slow-moving variables</a></li>
+  <li><a href="#the-literature-ignores-carrying-capacity-and-path-dependence" id="toc-the-literature-ignores-carrying-capacity-and-path-dependence" class="nav-link" data-scroll-target="#the-literature-ignores-carrying-capacity-and-path-dependence">The literature ignores carrying capacity and path dependence</a></li>
+  <li><a href="#most-studies-do-not-account-for-scaling" id="toc-most-studies-do-not-account-for-scaling" class="nav-link" data-scroll-target="#most-studies-do-not-account-for-scaling">Most studies do not account for scaling</a></li>
+  </ul></li>
   <li><a href="#analyses-that-would-serve-funders-and-governments" id="toc-analyses-that-would-serve-funders-and-governments" class="nav-link" data-scroll-target="#analyses-that-would-serve-funders-and-governments">Analyses that would serve funders and governments</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -367,6 +402,170 @@ Note
 <li><strong>Multiverse for causal designs.</strong> The decision framework applies equally to causal estimates. Treatment timing, comparison group and outcome window are choices that should be crossed and reported <span class="citation" data-cites="steegen2016increasing young2017model">(<a href="#ref-steegen2016increasing" role="doc-biblioref">Steegen et al., 2016</a>; <a href="#ref-young2017model" role="doc-biblioref">Young &amp; Holsteen, 2017</a>)</span>.</li>
 </ul>
 </section>
+<section id="limits-of-current-designs-and-how-to-fix-them" class="level1">
+<h1>Limits of current designs, and how to fix them</h1>
+<p>Three problems run through the density literature, including its best within-place studies. Each has a known fix.</p>
+<section id="panel-models-cannot-identify-slow-moving-variables" class="level2">
+<h2 class="anchored" data-anchor-id="panel-models-cannot-identify-slow-moving-variables">Panel models cannot identify slow-moving variables</h2>
+<p><strong>The problem.</strong> Within-place panels compare each place with itself over time. For variables that barely change within a place, that leaves almost nothing to estimate from:</p>
+<ul>
+<li>racial composition;</li>
+<li>education;</li>
+<li>religious structure;</li>
+<li>regional culture.</li>
+</ul>
+<p>In the multiverse, a within-metro estimator discards the 95–99% of variance that lies <em>between</em> metros (D3). What remains is mostly:</p>
+<ul>
+<li><strong>interpolation:</strong> ACS five-year averages and values carried between census years;</li>
+<li><strong>data breaks:</strong> splices between data sources;</li>
+<li><strong>short-run adjustment</strong> that lags population change.</li>
+</ul>
+<p>In hybrid models, within effects are .03 SD or less for filers and spending, against .13–.42 SD between metros. A null or negative within-place estimate for race or education is therefore not evidence of no effect. It is evidence that the design cannot see one.</p>
+<p>Three further problems compound this:</p>
+<ul>
+<li><strong>Measurement error.</strong> Interpolated covariates move smoothly between real observations, which biases within estimates toward zero.</li>
+<li><strong>Timing.</strong> Composition affects density over decades. A one-year or five-year within-place change cannot capture an effect that takes a generation to build.</li>
+<li><strong>Reverse causation.</strong> Nonprofit infrastructure can attract residents, as immigrant service organizations do, so composition and density shape each other.</li>
+</ul>
+<p><strong>Is there a study that does this well?</strong> Within the density literature, no. The six within-place studies either drop slow-moving variables or estimate them on little variation. Adjacent fields offer designs that work:</p>
+<ul>
+<li><strong>Diversity and public goods.</strong> The canonical cross-city study of diversity and public goods is cross-sectional <span class="citation" data-cites="alesina1999public">(<a href="#ref-alesina1999public" role="doc-biblioref">Alesina et al., 1999</a>)</span>. Its strength is theory and measurement, not identification.</li>
+<li><strong>Education.</strong> Education’s local effects have been identified with historical instruments: the location of land-grant colleges as a source of variation in a city’s college share <span class="citation" data-cites="moretti2004estimating">(<a href="#ref-moretti2004estimating" role="doc-biblioref">Moretti, 2004</a>)</span>.</li>
+<li><strong>Immigration and composition.</strong> Changes in local composition from immigration have been identified with past settlement patterns, which predict where new immigrants go, regardless of current local conditions <span class="citation" data-cites="card2001immigrant">(<a href="#ref-card2001immigrant" role="doc-biblioref">Card, 2001</a>)</span>. These shift-share instruments now have a well-developed theory of when they are valid <span class="citation" data-cites="goldsmithpinkham2020bartik">(<a href="#ref-goldsmithpinkham2020bartik" role="doc-biblioref">Goldsmith-Pinkham et al., 2020</a>)</span>.</li>
+</ul>
+<p><strong>Better specifications for slow-moving variables:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Specification</th>
+<th>What it identifies</th>
+<th>When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hybrid (within-between, correlated random effects)</td>
+<td>Between-place and within-place effects in one model, with the place means of covariates entered alongside their deviations <span class="citation" data-cites="mundlak1978pooling bell2015explaining">(<a href="#ref-bell2015explaining" role="doc-biblioref">Bell &amp; Jones, 2015</a>; <a href="#ref-mundlak1978pooling" role="doc-biblioref">Mundlak, 1978</a>)</span></td>
+<td>Default for panels: reports the long-run (between) and short-run (within) association together instead of discarding one</td>
+</tr>
+<tr class="even">
+<td>Long differences</td>
+<td>Change over 10–20 years regressed on covariate change, controlling for the starting level</td>
+<td>Composition and education, which change meaningfully only over decades</td>
+</tr>
+<tr class="odd">
+<td>Shift-share or historical instruments</td>
+<td>Variation in composition or education driven by past settlement or historical institutions</td>
+<td>Causal claims about diversity or education</td>
+</tr>
+<tr class="even">
+<td>Event studies around discrete shocks</td>
+<td>The response to a sudden change in composition or need: refugee resettlement, plant closures, disasters</td>
+<td>Short-run causal effects with a clear timing</td>
+</tr>
+<tr class="odd">
+<td>Cohort or entry models</td>
+<td>Whether <em>new</em> organizations form where composition is changing</td>
+<td>Separating today’s conditions from the inherited stock</td>
+</tr>
+</tbody>
+</table>
+<p>The multiverse already includes cross-section, between, within and long-difference estimators, and hybrid models as evidence (D3). The literature should treat these as answers to different questions, not as more and less robust versions of one answer.</p>
+</section>
+<section id="the-literature-ignores-carrying-capacity-and-path-dependence" class="level2">
+<h2 class="anchored" data-anchor-id="the-literature-ignores-carrying-capacity-and-path-dependence">The literature ignores carrying capacity and path dependence</h2>
+<p><strong>The problem.</strong> No study in the literature models density as a stock that adjusts, slowly, toward a level set by a place’s size and history. Every model treats the current density as an equilibrium. Two facts from the multiverse show why that misleads.</p>
+<p><strong>Carrying capacity.</strong> Density lags population (Fact 3).</p>
+<ul>
+<li><strong>Within a metro:</strong> after growth, half of the size-expected organizations are missing at first. The gap closes with a half-life of about 5 years for filers and 9 for grassroots.</li>
+<li><strong>Across metros:</strong> the Sunbelt deficit, about 25% for the fastest-growing fifth, closes with a half-life of about 35 years. Stock-flow accounting shows it is a lag, not a trait: fast growers add at least as many entrants per resident.</li>
+<li><strong>Decline is asymmetric.</strong> Organizations stay at first, then grassroots organizations shed the excess.</li>
+</ul>
+<p>A model of density <em>levels</em> that ignores this reads every fast-growing place as “under-served” and every shrinking one as “over-served”. Covariates that go with growth then absorb the lag: in-migration, diversity, Sunbelt location. Ecological theories of organizations have described this kind of dynamic for decades <span class="citation" data-cites="hannan1977population">(<a href="#ref-hannan1977population" role="doc-biblioref">Hannan &amp; Freeman, 1977</a>)</span>, but the density literature has not used them.</p>
+<p><strong>Path dependence in market share.</strong> The nonprofit share of local employment varies widely and persistently (Fact 5).</p>
+<ul>
+<li><strong>Regional gap.</strong> The Northeast has 61 nonprofit jobs per 1,000 residents and the South 25, with similar for-profit employment.</li>
+<li><strong>Age of the sector.</strong> Older sectors hold larger shares.</li>
+<li><strong>History.</strong> The pre-1970 endowment, a sector’s inherited size, is one of the strongest covariates in the multiverse.</li>
+</ul>
+<p>Much of today’s density is the residue of decisions made generations ago: who built the hospitals, universities and charities, and whether government contracted with them. Studies that leave history out attribute that residue to current income, diversity or politics.</p>
+<p><strong>How the literature can proceed:</strong></p>
+<ol type="1">
+<li><strong>Model adjustment, not just levels.</strong> Use error-correction or partial-adjustment models: density moves toward a size-expected level at an estimated speed. Or enter a distributed lag of past population change, the growth kernels of the multiverse (D8).</li>
+<li><strong>Separate growth from decline.</strong> Estimate the response to population gains and losses separately, since the adjustment is asymmetric.</li>
+<li><strong>Control for history when the question is current conditions:</strong> the sector’s inherited size (the pre-1970 endowment), its age, and long-run growth before the study period. Report results with and without it, since history is also partly the outcome’s own past (D8).</li>
+<li><strong>Treat market share as a benchmark or an outcome, not a control.</strong> It includes the hospitals and universities whose history explains it, and it rises with density itself.</li>
+<li><strong>Link stocks and flows.</strong> Model entry, survival and crossing the filing floor together, so that a gap can be traced to too few foundings, too many exits, or a lag that will close on its own.</li>
+</ol>
+</section>
+<section id="most-studies-do-not-account-for-scaling" class="level2">
+<h2 class="anchored" data-anchor-id="most-studies-do-not-account-for-scaling">Most studies do not account for scaling</h2>
+<p><strong>The problem.</strong> Larger places have more of almost everything, but not always in proportion.</p>
+<ul>
+<li><strong>Counts</strong> of filers scale with population at about 1.0 (Fact 1).</li>
+<li><strong>Spending</strong> scales faster: about 1.27 across metros and 1.46 across counties.</li>
+<li><strong>Size-scaled covariates</strong> correlate .80–.94 with log population (Fact 6): total income, government spending, foundation assets, numbers of congregations or corporations.</li>
+</ul>
+<p>Two errors follow when a model ignores this:</p>
+<ul>
+<li><strong>Population-related bias.</strong> Per-capita ratios impose an exponent of 1. Where the true exponent differs, density per capita still rises or falls with size, and every covariate correlated with size absorbs that relationship. This is the classic problem of ratio variables <span class="citation" data-cites="uslaner1976pitfalls kronmal1993spurious">(<a href="#ref-kronmal1993spurious" role="doc-biblioref">Kronmal, 1993</a>; <a href="#ref-uslaner1976pitfalls" role="doc-biblioref">Uslaner, 1976</a>)</span>.</li>
+<li><strong>Size-carrying covariates.</strong> Totals, or logged totals entered without log population, measure city size as much as the construct they are meant to capture.</li>
+</ul>
+<p><strong>How many studies fail to account for it?</strong> Of the 26 place-level studies in Part 9, none confirms estimating the scaling exponent. Of the 19 whose functional form we could confirm:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>How population is handled</th>
+<th>Studies</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Per capita, or a population offset (imposes an exponent of 1)</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td>Raw counts, with population linear or absent</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Logged outcome without log population</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Log-log, or SAMI (exponent estimated)</td>
+<td><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The remaining seven could not be confirmed. Two may use log population as a control, but their papers do not make the form clear. All six within-place studies impose an exponent of 1 or enter population linearly.</p>
+<p>In panels the problem does not go away. When a place grows, its per-capita density falls mechanically while the sector catches up (Fact 3). Any covariate that changes with growth picks up that lag.</p>
+<p><strong>The fix: the SAMI specification.</strong> This project introduces scale-adjusted metropolitan indicators to nonprofit density research. SAMIs come from urban scaling <span class="citation" data-cites="bettencourt2010urban">(<a href="#ref-bettencourt2010urban" role="doc-biblioref">Bettencourt et al., 2010</a>)</span>. The specification has four parts:</p>
+<ol type="1">
+<li><strong>Estimate scaling instead of assuming it.</strong>
+<ul>
+<li>Regress log density on log population, year by year: <span class="math inline">\(\log Y_{it} = \alpha_t + \beta_t \log P_{it}\)</span>.</li>
+<li>Take the residual as the SAMI: how far a place sits above or below the level expected for its size.</li>
+<li>Equivalently, keep log population on the right-hand side of the model, so its exponent is estimated rather than fixed at 1 (D4).</li>
+</ul></li>
+<li><strong>Treat size-scaled covariates the same way.</strong> Enter totals in SAMI form, or as logged totals with log population on the right. Rates such as poverty, % with a BA and turnout enter as they are (D6).</li>
+<li><strong>For counts with zeros, use Poisson regression with log population as a regressor,</strong> not an offset, which re-imposes an exponent of 1. Never use log(1 + x) (D5).</li>
+<li><strong>In panels, use year-specific SAMIs with place and year fixed effects,</strong> so the scaling relationship can shift over time.</li>
+</ol>
+<p><strong>What the fix changes.</strong> In the multiverse, the size-handling decisions change 13–32% of covariate verdicts:</p>
+<ul>
+<li>predictor form changes the most;</li>
+<li>then DV form;</li>
+<li>then whether log population is on the right.</li>
+</ul>
+<p>They are avoidable errors, not matters of judgment. A study that reports per-capita density with untransformed totals on the right is not making a different choice; it is making a fixable mistake.</p>
+</section>
+</section>
 <section id="analyses-that-would-serve-funders-and-governments" class="level1">
 <h1>Analyses that would serve funders and governments</h1>
 <ol type="1">
@@ -389,20 +588,44 @@ Note
 <section id="references" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-alesina1999public" class="csl-entry" role="listitem">
+Alesina, A., Baqir, R., &amp; Easterly, W. (1999). Public goods and ethnic divisions. <em>The Quarterly Journal of Economics</em>, <em>114</em>(4), 1243–1284. <a href="https://doi.org/10.1162/003355399556269">https://doi.org/10.1162/003355399556269</a>
+</div>
+<div id="ref-bell2015explaining" class="csl-entry" role="listitem">
+Bell, A., &amp; Jones, K. (2015). Explaining fixed effects: Random effects modeling of time-series cross-sectional and panel data. <em>Political Science Research and Methods</em>, <em>3</em>(1), 133–153. <a href="https://doi.org/10.1017/psrm.2014.7">https://doi.org/10.1017/psrm.2014.7</a>
+</div>
 <div id="ref-bettencourt2010urban" class="csl-entry" role="listitem">
 Bettencourt, L. M. A., Lobo, J., Strumsky, D., &amp; West, G. B. (2010). Urban scaling and its deviations: Revealing the structure of wealth, innovation and crime across cities. <em>PLoS ONE</em>, <em>5</em>(11), e13541. <a href="https://doi.org/10.1371/journal.pone.0013541">https://doi.org/10.1371/journal.pone.0013541</a>
+</div>
+<div id="ref-card2001immigrant" class="csl-entry" role="listitem">
+Card, D. (2001). Immigrant inflows, native outflows, and the local labor market impacts of higher immigration. <em>Journal of Labor Economics</em>, <em>19</em>(1), 22–64. <a href="https://doi.org/10.1086/209979">https://doi.org/10.1086/209979</a>
 </div>
 <div id="ref-clifford2024passing" class="csl-entry" role="listitem">
 Clifford, D. (2024). Passing or dropping the baton? <span>Local</span> area deprivation, volunteer leadership succession and the survival of charitable organisations. <em>Sociology</em>, <em>58</em>(4), 965–984. <a href="https://doi.org/10.1177/00380385231221440">https://doi.org/10.1177/00380385231221440</a>
 </div>
+<div id="ref-goldsmithpinkham2020bartik" class="csl-entry" role="listitem">
+Goldsmith-Pinkham, P., Sorkin, I., &amp; Swift, H. (2020). Bartik instruments: What, when, why, and how. <em>American Economic Review</em>, <em>110</em>(8), 2586–2624. <a href="https://doi.org/10.1257/aer.20181047">https://doi.org/10.1257/aer.20181047</a>
+</div>
+<div id="ref-hannan1977population" class="csl-entry" role="listitem">
+Hannan, M. T., &amp; Freeman, J. (1977). The population ecology of organizations. <em>American Journal of Sociology</em>, <em>82</em>(5), 929–964. <a href="https://doi.org/10.1086/226424">https://doi.org/10.1086/226424</a>
+</div>
 <div id="ref-kim2026interdependence" class="csl-entry" role="listitem">
 Kim, M. K., Zhang, Z., &amp; Liu, G. (2026). Interdependence of nonprofit and public sectors: A spatial analysis of the <span>U.S.</span> Environmental nonprofits. <em>Applied Spatial Analysis and Policy</em>, <em>19</em>(1), 28. <a href="https://doi.org/10.1007/s12061-025-09792-x">https://doi.org/10.1007/s12061-025-09792-x</a>
+</div>
+<div id="ref-kronmal1993spurious" class="csl-entry" role="listitem">
+Kronmal, R. A. (1993). Spurious correlation and the fallacy of the ratio standard revisited. <em>Journal of the Royal Statistical Society. Series A (Statistics in Society)</em>, <em>156</em>(3), 379–392. <a href="https://doi.org/10.2307/2983064">https://doi.org/10.2307/2983064</a>
 </div>
 <div id="ref-marquis2013golfing" class="csl-entry" role="listitem">
 Marquis, C., Davis, G. F., &amp; Glynn, M. A. (2013). Golfing alone? <span>Corporations</span>, elites, and nonprofit growth in 100 <span>American</span> communities. <em>Organization Science</em>, <em>24</em>(1), 39–57. <a href="https://doi.org/10.1287/orsc.1110.0717">https://doi.org/10.1287/orsc.1110.0717</a>
 </div>
 <div id="ref-mayer2025connecting" class="csl-entry" role="listitem">
 Mayer, D. J. (2025). Connecting founding and dissolution: A demographic study of the <span>US</span> nonprofit sector. <em>Public Administration Review</em>, <em>85</em>(2), 296–307. <a href="https://doi.org/10.1111/puar.13825">https://doi.org/10.1111/puar.13825</a>
+</div>
+<div id="ref-moretti2004estimating" class="csl-entry" role="listitem">
+Moretti, E. (2004). Estimating the social return to higher education: Evidence from longitudinal and repeated cross-sectional data. <em>Journal of Econometrics</em>, <em>121</em>(1–2), 175–212. <a href="https://doi.org/10.1016/j.jeconom.2003.10.015">https://doi.org/10.1016/j.jeconom.2003.10.015</a>
+</div>
+<div id="ref-mundlak1978pooling" class="csl-entry" role="listitem">
+Mundlak, Y. (1978). On the pooling of time series and cross section data. <em>Econometrica</em>, <em>46</em>(1), 69–85. <a href="https://doi.org/10.2307/1913646">https://doi.org/10.2307/1913646</a>
 </div>
 <div id="ref-never2016place" class="csl-entry" role="listitem">
 Never, B., &amp; Westberg, D. (2016). Place matters: The spatial effects of human service expenditures. <em>Nonprofit Policy Forum</em>, <em>7</em>(3), 369–388. <a href="https://doi.org/10.1515/npf-2015-0025">https://doi.org/10.1515/npf-2015-0025</a>
@@ -418,6 +641,9 @@ Shon, J., &amp; Lu, J. (2024). Demographic heterogeneity, political ideology, an
 </div>
 <div id="ref-steegen2016increasing" class="csl-entry" role="listitem">
 Steegen, S., Tuerlinckx, F., Gelman, A., &amp; Vanpaemel, W. (2016). Increasing transparency through a multiverse analysis. <em>Perspectives on Psychological Science</em>, <em>11</em>(5), 702–712.
+</div>
+<div id="ref-uslaner1976pitfalls" class="csl-entry" role="listitem">
+Uslaner, E. M. (1976). The pitfalls of per capita. <em>American Journal of Political Science</em>, <em>20</em>(1), 125–133. <a href="https://doi.org/10.2307/2110513">https://doi.org/10.2307/2110513</a>
 </div>
 <div id="ref-wo2018density" class="csl-entry" role="listitem">
 Wo, J. C. (2018). Understanding the density of nonprofit organizations across <span>Los Angeles</span> neighborhoods: Does concentrated disadvantage and violent crime matter? <em>Social Science Research</em>, <em>71</em>, 56–71. <a href="https://doi.org/10.1016/j.ssresearch.2018.01.001">https://doi.org/10.1016/j.ssresearch.2018.01.001</a>
