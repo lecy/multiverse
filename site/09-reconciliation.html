@@ -285,6 +285,7 @@ div.csl-indent {
   <li><a href="#entry-exit-and-survival" id="toc-entry-exit-and-survival" class="nav-link" data-scroll-target="#entry-exit-and-survival">Entry, exit and survival</a></li>
   <li><a href="#location-within-places" id="toc-location-within-places" class="nav-link" data-scroll-target="#location-within-places">Location within places</a></li>
   </ul></li>
+  <li><a href="#all-studies-by-population-outcome-and-form" id="toc-all-studies-by-population-outcome-and-form" class="nav-link" data-scroll-target="#all-studies-by-population-outcome-and-form">All studies by population, outcome and form</a></li>
   <li><a href="#do-they-strengthen-our-claims-or-compete-with-them" id="toc-do-they-strengthen-our-claims-or-compete-with-them" class="nav-link" data-scroll-target="#do-they-strengthen-our-claims-or-compete-with-them">Do they strengthen our claims, or compete with them?</a>
   <ul class="collapse">
   <li><a href="#across-places-poverty-goes-with-fewer-nonprofits-within-places-organizations-follow-need" id="toc-across-places-poverty-goes-with-fewer-nonprofits-within-places-organizations-follow-need" class="nav-link" data-scroll-target="#across-places-poverty-goes-with-fewer-nonprofits-within-places-organizations-follow-need">Across places, poverty goes with fewer nonprofits; within places, organizations follow need</a></li>
@@ -1210,6 +1211,489 @@ Table&nbsp;5: Spatial studies of nonprofit location.
 </div>
 </div>
 </section>
+</section>
+<section id="all-studies-by-population-outcome-and-form" class="level1">
+<h1>All studies by population, outcome and form</h1>
+<p>The table classifies every place-level study on this page on three of the multiverse’s decisions:</p>
+<ul>
+<li><strong>Population counted (D1):</strong>
+<ul>
+<li><strong>Grassroots:</strong> registered organizations that do not file a full return. No study isolates them, so the column marks studies of <em>new registrations</em>, which are mostly future grassroots.</li>
+<li><strong>Filers:</strong> organizations filing a Form 990 or 990-EZ, including studies that count employers or establishments.</li>
+<li><strong>All registered:</strong> the full registered stock, which is mostly grassroots.</li>
+</ul></li>
+<li><strong>Outcome measured:</strong> counts, expenses, revenue or assets. Other outcomes are in the notes.</li>
+<li><strong>Form (D4):</strong> how the outcome handles population.
+<ul>
+<li><strong>Raw:</strong> no population adjustment, or population entered only linearly.</li>
+<li><strong>Per capita:</strong> the outcome divided by population, logged or not, including Poisson models with a population offset. All of these impose a scaling exponent of 1.</li>
+<li><strong>Log, no log P:</strong> a logged outcome with population absent or entered linearly.</li>
+<li><strong>SAMI or log with log P:</strong> a logged outcome with log population on the right, so the exponent is estimated, or the residual from that fit.</li>
+</ul></li>
+</ul>
+<p>✓ = yes; ? = not confirmed from the paper.</p>
+<p>Column key: - <strong>Population:</strong> Grass = grassroots (new registrations); Filer = filers; All = all registered. - <strong>Outcome:</strong> Cnt = counts; Exp = expenses; Rev = revenue; Ast = assets. - <strong>Form:</strong> Raw; PC = per capita; Log = log, no log P; SAMI = SAMI or log with log P.</p>
+<div class="table-compact table-matrix">
+<div id="tbl-design-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-design-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Populations, outcomes and forms of the place-level studies. Not classified: the organization-level survival and location studies (<span class="citation" data-cites="lee2025exploring">J. Lee &amp; Sullivan (<a href="#ref-lee2025exploring" role="doc-biblioref">2025</a>)</span>; <span class="citation" data-cites="clifford2024passing">Clifford (<a href="#ref-clifford2024passing" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="lu2020dissolution">Lu et al. (<a href="#ref-lu2020dissolution" role="doc-biblioref">2020</a>)</span>; <span class="citation" data-cites="garrow2015racial">Garrow (<a href="#ref-garrow2015racial" role="doc-biblioref">2015</a>)</span>; <span class="citation" data-cites="lee2017sustainability">W. Lee (<a href="#ref-lee2017sustainability" role="doc-biblioref">2017</a>)</span>; <span class="citation" data-cites="marwell2026configuring">Marwell et al. (<a href="#ref-marwell2026configuring" role="doc-biblioref">2026</a>)</span>; <span class="citation" data-cites="mayer2024location">Mayer (<a href="#ref-mayer2024location" role="doc-biblioref">2024</a>)</span>), the conservation study (<span class="citation" data-cites="willse2023geography">Willse (<a href="#ref-willse2023geography" role="doc-biblioref">2023</a>)</span>, whose outcome is whether a county has a support nonprofit), and the two meta-analyses (<span class="citation" data-cites="lu2020population">Lu (<a href="#ref-lu2020population" role="doc-biblioref">2020</a>)</span>; <span class="citation" data-cites="lu2018complementary">Lu &amp; Xu (<a href="#ref-lu2018complementary" role="doc-biblioref">2018</a>)</span>).
+</figcaption>
+<div aria-describedby="tbl-design-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Study</th>
+<th>Grass</th>
+<th>Filer</th>
+<th>All</th>
+<th>Cnt</th>
+<th>Exp</th>
+<th>Rev</th>
+<th>Ast</th>
+<th>Raw</th>
+<th>PC</th>
+<th>Log</th>
+<th>SAMI</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="citation" data-cites="benner1992empirical">Ben-Ner &amp; Van Hoomissen (<a href="#ref-benner1992empirical" role="doc-biblioref">1992</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>?</td>
+<td>?</td>
+<td>Employment; log-linear system, population term not confirmed</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="corbin1999study">Corbin (<a href="#ref-corbin1999study" role="doc-biblioref">1999</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Social-service establishments; no population term</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="bielefeld2000metropolitan">Bielefeld (<a href="#ref-bielefeld2000metropolitan" role="doc-biblioref">2000</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Rank correlations, 9 metros</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="gronbjerg2001community">Grønbjerg &amp; Paarlberg (<a href="#ref-gronbjerg2001community" role="doc-biblioref">2001</a>)</span></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>By 501(c) type</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="matsunaga2004government">Matsunaga &amp; Yamauchi (<a href="#ref-matsunaga2004government" role="doc-biblioref">2004</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Log per capita, state fixed effects</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="saxton2005social">Saxton &amp; Benson (<a href="#ref-saxton2005social" role="doc-biblioref">2005</a>)</span></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Foundings; count model, population as a control</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="lecy2013nonprofit">Lecy &amp; Van Slyke (<a href="#ref-lecy2013nonprofit" role="doc-biblioref">2013</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Human services; population and its square</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="marquis2013golfing">Marquis et al. (<a href="#ref-marquis2013golfing" role="doc-biblioref">2013</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Only $10M+ assets; lagged count, population as a control</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="kim2015socioeconomic">Kim (<a href="#ref-kim2015socioeconomic" role="doc-biblioref">2015</a>)</span></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Whole sector and 10 subsectors</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="bae2018factors">Bae &amp; Sohn (<a href="#ref-bae2018factors" role="doc-biblioref">2018</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>Log employment; population linear</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="shapiro2026racial">Shapiro (<a href="#ref-shapiro2026racial" role="doc-biblioref">2026</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Human services, log per capita</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="kim2026interdependence">M. K. Kim et al. (<a href="#ref-kim2026interdependence" role="doc-biblioref">2026</a>)</span></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>?</td>
+<td>?</td>
+<td>Environmental; log count, population as a control (form not confirmed)</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="mcdonnell2026development">McDonnell et al. (<a href="#ref-mcdonnell2026development" role="doc-biblioref">2026</a>)</span></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>England and Wales register</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="allard2023volatility">Allard &amp; Pelletier (<a href="#ref-allard2023volatility" role="doc-biblioref">2023</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Per capita and per poor person</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="kim2022prevalence">Kim et al. (<a href="#ref-kim2022prevalence" role="doc-biblioref">2022</a>)</span></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>Ethnic, cultural and folk organizations</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="shapiro2021inequality">Shapiro (<a href="#ref-shapiro2021inequality" role="doc-biblioref">2021</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Log per person in poverty</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="wu2021geography">Wu (<a href="#ref-wu2021geography" role="doc-biblioref">2021</a>)</span></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Community foundations; grants, donations and assets per capita</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="jeong2020density">Jeong &amp; Cui (<a href="#ref-jeong2020density" role="doc-biblioref">2020</a>)</span></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Log per 10,000; arts, health, human services</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="mcdonnell2020charity">McDonnell et al. (<a href="#ref-mcdonnell2020charity" role="doc-biblioref">2020</a>)</span></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>England and Wales register</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="vanpuyvelde2016determinants">Van Puyvelde &amp; Brown (<a href="#ref-vanpuyvelde2016determinants" role="doc-biblioref">2016</a>)</span></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Texas counties</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="mayer2025connecting">Mayer (<a href="#ref-mayer2025connecting" role="doc-biblioref">2025</a>)</span></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>Foundings (registrations) and dissolutions; population offset</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="shon2024demographic">Shon &amp; Lu (<a href="#ref-shon2024demographic" role="doc-biblioref">2024</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Dissolutions; population as a control</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="wo2018density">Wo (<a href="#ref-wo2018density" role="doc-biblioref">2018</a>)</span></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>Census tracts, Los Angeles</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="never2016place">Never &amp; Westberg (<a href="#ref-never2016place" role="doc-biblioref">2016</a>)</span></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>Spatial Durbin model</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="yan2014antipoverty">Yan et al. (<a href="#ref-yan2014antipoverty" role="doc-biblioref">2014</a>)</span></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>Census tracts; spatial Poisson</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="peck2008antipoverty">Peck (<a href="#ref-peck2008antipoverty" role="doc-biblioref">2008</a>)</span></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>Phoenix</td>
+</tr>
+<tr class="odd">
+<td><strong>This project’s multiverse</strong></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td>Every combination crossed (Part 6)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>What the table shows:</strong></p>
+<ul>
+<li><strong>Per capita dominates.</strong> Thirteen of the 26 classified studies divide by population, which imposes a scaling exponent of 1. For <em>counts</em> that is close to right at the metro level (Fact 1).</li>
+<li><strong>Per capita misleads for spending.</strong> Spending scales faster than population (β ≈ 1.27 across metros, 1.46 across counties), so spending per resident rises with size by construction. Every spending study here uses per capita or per poor person: <span class="citation" data-cites="shapiro2026racial">Shapiro (<a href="#ref-shapiro2026racial" role="doc-biblioref">2026</a>)</span>, <span class="citation" data-cites="shapiro2021inequality">Shapiro (<a href="#ref-shapiro2021inequality" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="allard2023volatility">Allard &amp; Pelletier (<a href="#ref-allard2023volatility" role="doc-biblioref">2023</a>)</span>. Their rural and suburban gaps are therefore partly what scaling alone predicts for smaller places (D4). Shapiro (2021) finds the <em>most</em> populous rural counties spend relatively more, which fits that reading. That does not make the gaps unimportant to a funder, but it changes their interpretation: some of the gap is size, and some is underprovision.</li>
+<li><strong>No study estimates the exponent.</strong> None uses a SAMI or log population on the right, except possibly Ben-Ner &amp; Van Hoomissen and Kim, Zhang &amp; Liu (not confirmed). The multiverse is the only design here that lets the data decide how density scales.</li>
+<li><strong>Raw counts remain.</strong> Five studies model raw counts with population only as a linear control, or not at all. Corbin is the extreme case.</li>
+<li><strong>Grassroots are never isolated.</strong> Grassroots appear only inside “all registered” or as new registrations. The diversity, poverty and government conflicts resolved above each involve studies that counted different populations without saying so.</li>
+<li><strong>Assets are almost never the outcome.</strong> Only Wu (2021) measures assets, for community foundations.</li>
+</ul>
 </section>
 <section id="do-they-strengthen-our-claims-or-compete-with-them" class="level1">
 <h1>Do they strengthen our claims, or compete with them?</h1>

@@ -23,3 +23,16 @@ main table code {
 .table-compact table {
   font-size: 0.78rem;
 }
+
+/* Design matrix (Part 9): check-mark columns stay narrow and centered. */
+.table-matrix table td,
+.table-matrix table th {
+  padding: 0.25rem 0.2rem;
+  text-align: center;
+}
+.table-matrix table td:first-child,
+.table-matrix table td:last-child,
+.table-matrix table th:first-child,
+.table-matrix table th:last-child {
+  text-align: left;
+}
