@@ -4,14 +4,11 @@ subtitle: "Ten studies read through the multiverse: why their findings differ, a
 ---
 
 ::: {.callout-note}
-**Draft, 2026-11-18.** The details of each study come from the full text where it was
-available, and otherwise from the abstract and from how later papers describe it.
+**Draft, 2026-11-18.** The data, models and results of all ten studies are taken
+from their full published texts.
 
-- **Read in full:** all ten studies. One detail is still *unverified*: whether Lecy &
-  Van Slyke's government-wage result comes from their pooled models, their
-  fixed-effects models or both.
-- **Interpretation:** the mapping of each study onto the multiverse decisions is ours,
-  and it is an argument, not a re-estimation of their models.
+The mapping of each study onto the multiverse decisions is ours. It is an argument,
+not a re-estimation of their models.
 :::
 
 # The puzzle
@@ -296,8 +293,8 @@ the literature and the multiverse.
   - **Identification.** The substitution findings are within-place estimates. That
     includes Marquis et al.'s fixed-effects government revenue result, and:
     - Matsunaga & Yamauchi's direct-spending result, from state fixed effects;
-    - Lecy & Van Slyke's government wages (whether pooled, fixed effects or both is
-      *unverified*).
+    - Lecy & Van Slyke's government wages, which are negative and significant in both
+      of their city fixed-effects models, and largest there.
 
     The cross-place estimate goes the other way: Kim finds government wages per
     capita weakly *positive* across counties. The multiverse shows both patterns for
