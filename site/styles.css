@@ -10,9 +10,16 @@ main table colgroup col {
 main table td,
 main table th {
   white-space: normal;
+  padding: 0.3rem 0.35rem;
+  hyphens: auto;        /* long words in narrow columns hyphenate instead of widening the table */
 }
 /* Long variable and file names may break only where they must. */
 main table code {
   overflow-wrap: anywhere;
   white-space: normal;
+}
+
+/* Wide comparison tables (Part 9): slightly smaller type. */
+.table-compact table {
+  font-size: 0.78rem;
 }

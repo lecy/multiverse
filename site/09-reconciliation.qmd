@@ -7,10 +7,11 @@ subtitle: "Ten studies read through the multiverse: why their findings differ, a
 **Draft, 2026-11-18.** The details of each study come from the full text where it was
 available, and otherwise from the abstract and from how later papers describe it.
 
-- **Read in full:** Ben-Ner & Van Hoomissen, Grønbjerg & Paarlberg, Saxton & Benson,
-  Lecy & Van Slyke.
-- **Abstract, plus later papers' descriptions:** the other six. Details marked
-  *unverified* could not be confirmed and should be checked before the page is cited.
+- **Read in full (7):** Ben-Ner & Van Hoomissen, Corbin, Bielefeld, Grønbjerg &
+  Paarlberg, Matsunaga & Yamauchi, Saxton & Benson, Lecy & Van Slyke.
+- **Abstract, plus later papers' descriptions (3):** Marquis et al., Kim, Bae & Sohn.
+  Details marked *unverified* could not be confirmed and should be checked before the
+  page is cited.
 - **Interpretation:** the mapping of each study onto the multiverse decisions is ours,
   and it is an argument, not a re-estimation of their models.
 :::
@@ -34,10 +35,10 @@ say which explanation fits each conflict. This page applies it to the ten studie
 | Study | Data and unit | Outcome | Identification and model | Theories tested |
 |---|---|---|---|---|
 | @benner1992empirical | NY State Dept. of Labor; 56 New York counties, 1982 and 1987 pooled | Log **employment** by sector and industry | Three equations, three-stage least squares (3SLS), log-linear | Demand heterogeneity, social cohesion, sector interdependence |
-| @corbin1999study | Census and religious census; 285 metro areas; years *unverified* | **Social-service** providers (count or growth *unverified*) | Correlation and multiple regression | Social cohesion, heterogeneity, market failure, resource dependence, philanthropic culture |
-| @bielefeld2000metropolitan | NCCS; 9 metro regions | Sector size, provider mix, support | Descriptive comparison | Political culture, wealth, poverty, heterogeneity |
+| @corbin1999study | 1992 Census of Service Industries, 1990 census and religious census; 285 metros | **Count** of nonprofit social-service establishments (not per capita) | Cross-section OLS; population not in the model; one-tailed tests | Social cohesion, heterogeneity, market failure, resource dependence, philanthropic culture |
+| @bielefeld2000metropolitan | 1996 NCCS Core File (990 filers, $25k+); 9 selected metros | Filers per 10,000; provider mix; finances | Spearman rank correlations, no significance tests | Political culture, wealth, generosity, poverty, heterogeneity |
 | @gronbjerg2001community | 1999 BMF plus Core; 92 Indiana counties, cross-section | **Registered** 501(c) organizations per 10,000 (all, (c)(3), (c)(4), other) | Cross-section OLS, per capita | Demand, supply, community structure |
-| @matsunaga2004government | 50 US states, panel (1992–1999 per a meta-analysis, *unverified*) | Nonprofit density relative to population (exact definition *unverified*) | Two-way fixed effects | Government failure, complementary financing |
+| @matsunaga2004government | NCCS Core Files; 50 states (DC excluded), 1992–1999, 400 state-years | **Filers** per 10,000 residents, logged | Two-way fixed effects (state and year), log-log; 2SLS for government variables | Government failure, complementary financing, social cohesion, contract failure |
 | @saxton2005social | BMF ruling dates; 284 counties in the 2000 Social Capital Benchmark Survey | **Foundings** of 501(c)(3)s in 2001 | Negative binomial; population as a control; state-clustered SEs | Social capital, organizational ecology |
 | @lecy2013nonprofit | NCCS digitized 990s, 1998–2003; counties in 331 MSAs | **Human-service filers**, count | Pooled OLS and two-way fixed effects; population and its square as controls | Government failure vs. interdependence |
 | @marquis2013golfing | NCCS, SEC and Census; 100 largest communities, 1987–2002 | **Growth** in elite-oriented and social-welfare nonprofits | *unverified* | Elite and corporate institutional theory |
@@ -51,20 +52,24 @@ say which explanation fits each conflict. This page applies it to the ten studie
 The studies differ on almost every decision the multiverse varies. Read each column
 against the decision cards (Part 6):
 
-| Study | D1 Population | D2 Unit | D3 Identification | D4 Outcome form | D8 History | D11 Scope |
+::: {.table-compact}
+
+| Study | D1 Population | D2 Unit | D3 Identi­fication | D4 Outcome form | D8 History | D11 Scope |
 |---|---|---|---|---|---|---|
-| Ben-Ner & Van Hoomissen | employment | county (one state) | pooled, 2 years | log level | — | by industry |
-| Corbin | providers | metro | cross-section | *unverified* | — | social services |
-| Bielefeld | several | metro (9) | descriptive | — | — | full sector |
-| Grønbjerg & Paarlberg | registered (mostly grassroots) | county (one state) | cross-section | per capita | — | by 501(c) type |
-| Matsunaga & Yamauchi | *unverified* | state | within (two-way FE) | relative to population (likely per capita) | absorbed by FE | *unverified* |
-| Saxton & Benson | foundings (a flow) | county | cross-section | count, population on the right | existing density included | full 501(c)(3) |
-| Lecy & Van Slyke | filers | county within MSA | pooled and within (FE) | count, population on the right | absorbed by FE | human services |
-| Marquis et al. | growth | community (100) | change | *unverified* | *unverified* | elite vs. welfare |
-| Kim | per resident | county (national) | *unverified* | per capita | *unverified* | full and 10 subsectors |
-| Bae & Sohn | employment (likely) | county | random effects | per capita | — | *unverified* |
+| Ben-Ner 1992 | employment | county (one state) | pooled, 2 years | log level | — | by industry |
+| Corbin 1999 | establish­ments | metro | cross-section | **raw count, no population term** | — | social services |
+| Bielefeld 2000 | filers | metro (9) | rank correlations | per capita | — | full sector and mix |
+| Grønbjerg 2001 | registered (mostly grassroots) | county (one state) | cross-section | per capita | — | by 501(c) type |
+| Matsunaga 2004 | filers | state | within (two-way FE) | log per capita | absorbed by FE | full sector |
+| Saxton 2005 | foundings (a flow) | county | cross-section | count, population on the right | existing density included | full 501(c)(3) |
+| Lecy 2013 | filers | county within MSA | pooled and within (FE) | count, population on the right | absorbed by FE | human services |
+| Marquis 2013 | growth | community (100) | change | *unverified* | *unverified* | elite vs. welfare |
+| Kim 2015 | per resident | county (national) | *unverified* | per capita | *unverified* | full and 10 subsectors |
+| Bae 2018 | employment (likely) | county | random effects | per capita | — | *unverified* |
 
 : Each study's choice on the decisions that the multiverse finds most consequential. "—" means not included. {#tbl-designs}
+
+:::
 
 The multiverse ranks these decisions by how much they move results (Part 8,
 Findings):
@@ -78,16 +83,46 @@ Findings):
 So the disagreements are the expected result. **Most of the conflicts are not
 contradictions. They are answers to different questions.**
 
+::: {.callout-important}
+## One design choice settles several conflicts: is population in the model?
+
+@corbin1999study regresses the *raw count* of nonprofit social-service establishments
+in 285 metros on its covariates, with no population term on either side.
+
+- **What the outcome measures.** Establishment counts scale almost one-for-one with
+  population (Fact 1), so the outcome is mostly city size.
+- **What the covariates pick up.** Any covariate that grows with size comes out
+  positive. Corbin's religious diversity is the *number* of denominations, a count
+  that rises with size. Its bivariate correlation with the outcome is the strongest
+  in the paper (*r* = .70).
+- **The opposite case.** @gronbjerg2001community use the same measure, the number of
+  denominations, against a *per-capita* outcome, and find it *negative*.
+
+Same measure, opposite signs. The difference is decisions D4 and D6: how the outcome
+and the size-scaled covariates handle population. The multiverse shows these
+"avoidable error" decisions (predictor form, DV form, log population on the right)
+change 13–32% of verdicts.
+:::
+
 # Covariate by covariate
 
 ## Poverty: the sign depends on the question
 
 - **The studies:**
-  - Negative in cross-sections of counties and metros: @gronbjerg2001community,
-    @bielefeld2000metropolitan, @bae2018factors, and Lecy & Van Slyke's pooled OLS.
-  - Positive in Lecy & Van Slyke's fixed-effects models [@lecy2013nonprofit].
-  - Positive for social services in @corbin1999study, as summarized by
-    @gronbjerg2001community.
+  - **Negative across places:**
+    - child poverty in Indiana counties [@gronbjerg2001community] and in
+      @bae2018factors;
+    - Lecy & Van Slyke's pooled OLS;
+    - @bielefeld2000metropolitan: across 9 metros, higher poverty goes with a smaller
+      share of human-service providers (rank correlation −.38 for center-city
+      poverty);
+    - Corbin's bivariate correlation, which he reports as significant and of the
+      unexpected sign.
+  - **Positive:**
+    - Lecy & Van Slyke's fixed-effects models [@lecy2013nonprofit];
+    - unemployment, as a need proxy, within states in @matsunaga2004government;
+    - Corbin's regression coefficient [@corbin1999study], estimated on raw counts with
+      no population term.
 - **The multiverse:**
   - Poverty is a robust *negative* covariate for filers across places: median partial
     *r* −.17, sign agreement 98%, significant in 86% of specifications.
@@ -100,8 +135,11 @@ contradictions. They are answers to different questions.**
   - *Across places,* poorer communities have fewer nonprofits for their size.
   - *Within a market,* or as poverty changes over time, organizations follow need.
   - Lecy & Van Slyke's sign flip between OLS and fixed effects is this distinction
-    inside a single paper. Corbin's positive result is for social services, the
-    subsector whose mission is need.
+    inside a single paper. Matsunaga & Yamauchi's positive unemployment effect is
+    also a within-state estimate.
+  - Corbin's poverty sign also flips: negative alone, positive once
+    size-correlated covariates enter a model of raw counts. That is consistent with
+    size rather than need driving the regression coefficient.
 
 **Consensus:** yes, once the question is stated. Across places the poverty sign is
 negative. The positive "need" effect is a location and timing effect, not a level
@@ -110,14 +148,22 @@ effect.
 ## Diversity: two populations, two signs
 
 - **The studies:**
-  - Positive: @bae2018factors (racial), @matsunaga2004government (observable
-    heterogeneity), @corbin1999study (interdenominational), and Ben-Ner & Van
-    Hoomissen for education.
-  - Negative: @gronbjerg2001community (number of denominations, for all, advocacy and
-    mutual-benefit organizations), and Ben-Ner & Van Hoomissen for social services
-    [@benner1992empirical].
-  - Kim reports a positive association for inequality, a different kind of
-    heterogeneity [@kim2015socioeconomic].
+  - **Positive:**
+    - @corbin1999study: number of denominations, strongly positive; racial entropy,
+      positive at *p* < .05 one-tailed. Both are on raw counts.
+    - @bae2018factors: racial diversity (abstract only).
+    - Ben-Ner & Van Hoomissen, for education.
+    - @bielefeld2000metropolitan: the most and least heterogeneous of 9 metros have
+      the largest and smallest sectors. The metros in between show no pattern.
+  - **Negative:**
+    - @gronbjerg2001community: number of denominations, for all, advocacy and
+      mutual-benefit organizations.
+    - Ben-Ner & Van Hoomissen, for social services [@benner1992empirical].
+  - **Null:** @matsunaga2004government find racial heterogeneity *not significant*,
+    with the unexpected sign, within states. Their positive heterogeneity result is
+    for *age* heterogeneity.
+  - **Different construct:** Kim reports a positive association for income
+    inequality [@kim2015socioeconomic].
 - **The multiverse:**
   - % nonwhite has *opposite* signs for the two outcome populations: −.07 for filers
     and +.11 for grassroots. Each sign holds in 83–98% of specifications.
@@ -131,11 +177,17 @@ effect.
     mostly grassroots. Studies of filers or employment (Lecy & Van Slyke; Ben-Ner &
     Van Hoomissen; probably Bae & Sohn) measure the established sector. The two
     populations answer to diversity in opposite directions.
-  - **Measure (our interpretation).** Grønbjerg & Paarlberg's *number* of
-    denominations is a count that grows with county size. It enters against a
-    per-capita outcome, and smaller counties are denser per capita in their own
-    results. A count covariate against a per-capita outcome lets size drive the sign
-    (D6). Their negative result may partly reflect size, not diversity.
+  - **Measure and size.** The number of denominations is a count that grows with
+    population. See the callout above.
+    - Against Corbin's raw-count outcome it is positive by construction.
+    - Against Grønbjerg & Paarlberg's per-capita outcome it is negative, because
+      smaller counties are denser per capita in their data.
+    - Neither result isolates diversity (D4, D6). Fractionalization, which does not
+      grow with size, is the measure the multiverse uses.
+  - **Identification.** Matsunaga & Yamauchi's null race result is a within-state
+    estimate. Racial composition changes slowly, so state fixed effects absorb most
+    of its variation. In the multiverse, % nonwhite also loses its cross-place sign
+    within metros (−.10 for filers, −.08 for grassroots).
   - **Subsector.** Ben-Ner & Van Hoomissen's opposite signs for education and social
     services illustrate D11: heterogeneity findings are subsector-specific.
 
@@ -147,10 +199,18 @@ name the population and the measure.
 ## Income and education: resources matter
 
 - **The studies:**
-  - Income is positive in @corbin1999study (secondary), @bielefeld2000metropolitan,
-    @saxton2005social and @lecy2013nonprofit.
-  - It is negative only in @benner1992empirical, where the outcome is the nonprofit
-    *share* of employment, not its size.
+  - **Income positive across places:**
+    - @bielefeld2000metropolitan: rank correlation of wealth with filers per 10,000,
+      .63;
+    - @saxton2005social;
+    - @lecy2013nonprofit;
+    - @corbin1999study: significant on raw counts, but in his words of "negligible"
+      magnitude.
+  - **Income negative:**
+    - *within* states, in @matsunaga2004government: a 1% rise in income per capita
+      goes with about 0.7% fewer filers per capita;
+    - @benner1992empirical, where the outcome is the nonprofit *share* of employment,
+      not its size.
   - Education is positive in @gronbjerg2001community and in Ben-Ner & Van Hoomissen
     outside health.
 - **The multiverse:**
@@ -158,23 +218,36 @@ name the population and the measure.
     *r* of .32, the same sign in 100% of specifications, and is significant in 100%.
     For spending it is .24, and for grassroots .15.
   - Foundation assets are positive for filers (.11, 86% agreement).
-- **Reconciliation:** the one negative income result measures a share, not density.
-  Richer places can have more nonprofits *and* a smaller nonprofit share of
-  employment, if the for-profit sector grows faster.
+- **Reconciliation:** the negative results answer different questions.
+  - **Share, not density.** Richer places can have more nonprofits *and* a smaller
+    nonprofit share of employment, if the for-profit sector grows faster.
+  - **Within, not across.** Matsunaga & Yamauchi ask what happens as a state's income
+    rises, holding the state fixed. In the multiverse, % BA also shrinks within
+    metros, from .32 to .08 for filers. Resource advantages show up across places,
+    and they build slowly.
 
 **Consensus:** yes. Education, and to a lesser degree wealth, go with denser
 nonprofit sectors under nearly every design. It is the most stable finding in both
 the literature and the multiverse.
 
-## Government: complement, with a caveat on measurement
+## Government: funding complements, provision may substitute
 
 - **The studies:**
-  - Complements: government grants in @lecy2013nonprofit, federal spending in
-    @saxton2005social, federal and local funding in @bae2018factors, and complementary
-    financing in @matsunaga2004government.
-  - Null: federal funding in @gronbjerg2001community.
-  - Negative: government wages in Lecy & Van Slyke.
-  - Mostly no displacement: @benner1992empirical.
+  - **Money paid to nonprofits, positive:**
+    - government grants in @lecy2013nonprofit;
+    - federal spending in @saxton2005social;
+    - federal and local funding in @bae2018factors;
+    - "public subsidies" in @matsunaga2004government. Their measure is total public
+      support from the 990s, which, as they note, includes individual giving.
+    - State welfare generosity (AFDC share) correlates .53 with sector size across 9
+      metros [@bielefeld2000metropolitan].
+  - **Government's own provision, negative (a substitute):**
+    - state and local direct spending, as a share of gross state product, within
+      states in Matsunaga & Yamauchi: a 1% rise goes with about 0.22% fewer filers per
+      capita;
+    - government wages in Lecy & Van Slyke.
+  - **Null:** federal funding in @gronbjerg2001community. Ben-Ner & Van Hoomissen
+    find mostly no displacement [@benner1992empirical].
 - **The multiverse:**
   - **Direct government** (state and local government earnings) is modestly positive
     across places for filers: .09, 82% agreement.
@@ -190,24 +263,34 @@ the literature and the multiverse.
   - **Measurement.** The strongest "complement" findings measure grants *received by
     the nonprofits being counted*. That variable is partly an outcome, and on its own
     it cannot separate cause from accounting.
-  - **Identification.** Lecy & Van Slyke's government-wage term is negative. Whether
-    that holds in their pooled models, their fixed-effects models or both is
-    *unverified*. Our within-metro estimates for direct government are also zero or
-    negative. Across places, larger government payrolls go with slightly more
-    filers. As government grows within a place, there is no gain.
-  - **Delivery channel.** Government support appears to work through money paid to
-    providers, not through government size as such, but that channel is the measure
-    most likely to be endogenous.
+  - **Identification.** The substitution findings are within-place estimates:
+    - Matsunaga & Yamauchi's direct-spending result, from state fixed effects;
+    - Lecy & Van Slyke's government wages (whether pooled, fixed effects or both is
+      *unverified*).
 
-**Consensus:** partial. No study finds that government crowds nonprofits out. Whether
-government *causes* growth is unresolved, and it is the open question most relevant
-to public funders (Part 10).
+    The multiverse shows the same pattern for direct government. Across metros,
+    larger state and local payrolls go with slightly more filers (+.09). Within
+    metros the association is zero for filers (−.01) and negative for grassroots
+    (−.13). Places with big governments have big nonprofit sectors, but as a
+    government grows, it does more itself.
+  - **Delivery channel.** What complements the sector is money paid *to* providers,
+    not government size as such. That is also the measure most likely to be partly
+    an outcome.
+
+**Consensus:** emerging, with a distinction.
+- **Funding:** government money that flows to nonprofits goes with larger sectors.
+- **Provision:** within places, government's own provision tends to substitute for
+  them.
+
+Whether public funding *causes* sector growth is unresolved, and it is the open
+question most relevant to public funders (Part 10).
 
 ## Religion, civic life and social capital
 
 - **The studies:**
-  - Church density or religious cohesion is positive in @benner1992empirical and
-    @corbin1999study.
+  - Church density or religious cohesion is positive in @benner1992empirical and in
+    @corbin1999study's regression. Corbin's church density is negative in the
+    bivariate correlation and positive only in the model of raw counts.
   - Political engagement is positive in @saxton2005social and
     @kim2015socioeconomic.
   - Trust is negative in Saxton & Benson.
@@ -257,9 +340,10 @@ Read through the multiverse, the literature agrees more than its signs suggest:
 |---|---|---|
 | Education and wealth | **Positive** | Holds across designs |
 | Poverty | **Negative across places** | Positive only within markets or over time (D2, D3) |
-| Diversity | **Positive for grassroots; weak or negative for filers** | Name the population (D1) and the measure (D7) |
+| Diversity | **Positive for grassroots; weak or negative for filers** | Name the population (D1) and the measure (D7); never use a count of groups (D4, D6) |
 | Civic participation | **Positive, mainly grassroots** | Use participation, not association counts |
-| Government | **Complement, not substitute** | Causal direction unresolved; grants received are partly an outcome |
+| Government | **Funding complements; direct provision substitutes within places** | Causal direction unresolved; money received is partly an outcome |
+| Size | **Population must be in the model** | A raw count without population measures city size (D4, D6) |
 | History | **Strong persistence** | Control for it when the question is current conditions (D8) |
 
 What is *not* settled is causality. Every study here, and the multiverse itself,
