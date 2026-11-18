@@ -192,8 +192,15 @@ cbsa <- Reduce( function( a, b ) merge( a, b, by = intersect( names( a ), names(
                 Filter( Negate( is.null ), list( agg_sum, agg_w, flags ) ) )
 for ( v in fl_max ) set( cbsa, i = which( !is.finite( cbsa[[ v ]] ) ), j = v, value = NA )
 ## CBSA-level sources (computed at CBSA directly: RCMS HHI from summed group
-## adherents; BLS MSA files): data/cov/cbsa/cbsa_*.csv, keyed cbsa x year
-for ( f in list.files( file.path( OUT$cov, "cbsa" ), pattern = "^cbsa_[a-z_]+\\.csv$", full.names = TRUE ) ) {
+## adherents; BLS MSA files), keyed cbsa x year. An explicit list, not a glob of
+## data/cov/cbsa/, so a stale or extra file there cannot change the panel; the list
+## matches pipeline.csv. Kept in alphabetical order (the order the glob used):
+## a later file's column replaces an earlier one of the same name.
+CBSA_FILES <- c( "cbsa_bls.csv",       # 07
+                 "cbsa_compete.csv",   # 23
+                 "cbsa_rcms.csv" )     # 18
+for ( f in file.path( OUT$cov, "cbsa", CBSA_FILES ) ) {
+  if ( !file.exists( f ) ) stop( "missing input ", f )
   x <- fread( f, colClasses = list( character = "cbsa" ) )[ year %in% YEARS ]
   dup <- intersect( setdiff( names( x ), c( "cbsa", "year" ) ), names( cbsa ) )
   if ( length( dup ) ) cbsa[ , ( dup ) := NULL ]

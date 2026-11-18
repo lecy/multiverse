@@ -45,7 +45,10 @@ x[ , EIN := pad( as.integer( ein ), 9 ) ]
 x[ pf_any, on = "EIN", pf_any := i.pf_any ]
 log_msg( "foundation status filled from snapshots: ", x[ is.na( fndncd_ruleyear ) & pf_any == TRUE, .N ] )
 x[ is.na( fndncd_ruleyear ) & pf_any == TRUE, pf := TRUE ]
-x[ , ntee3 := toupper( substr( nteefinal, 1, 3 ) ) ]
+x[ , ntee3 := nteefinal ]
+## shared invalid-NTEE rule (resolve_ntee() in R/lib/00_setup.R; lookup from 02)
+st <- resolve_ntee( x, "EIN", "ntee3" )
+log_msg( "NTEE invalid ", sum( st != "valid" ), ", backfilled ", sum( st == "filled" ) ); rm( st )
 x[ , geoid := fifelse( !is.na( fips_ruleyear ) & fips_ruleyear > 0, pad( as.integer( fips_ruleyear ), 5 ), NA_character_ ) ]
 x[ , zip5 := fifelse( !is.na( zip5_ruleyear ) & zip5_ruleyear > 0, pad( as.integer( zip5_ruleyear ), 5 ), NA_character_ ) ]
 x[ , geoid := ct_to_planning_region( geoid, city_ruleyear ) ]

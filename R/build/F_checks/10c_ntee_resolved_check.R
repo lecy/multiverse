@@ -10,7 +10,7 @@
 
 source( "R/lib/00_setup.R" )
 suppressPackageStartupMessages( library( arrow ) )
-bad <- function( x ) is.na( x ) | x == "" | substr( toupper( x ), 1, 3 ) %in% c( "UND", "INV", "Z99" )
+bad <- bad_ntee                       # shared rule, R/lib/00_setup.R
 ok  <- function( x ) grepl( "^[A-Z][0-9]{2}", x ) & !bad( x )
 
 cw <- as.data.table( read_parquet( file.path( BUILD, "raw", "ntee_resolved", "ntee_resolved_crosswalk.parquet" ),
@@ -24,10 +24,7 @@ cw <- cw[ ok( ntee_most_recent ), .( ein, ntee_cw = toupper( substr( ntee_most_r
                                      cw_source = ntee_most_recent_source, cw_vintage = ntee_most_recent_vintage, ntee_agreement ) ]
 
 ## legacy-snapshot backfill used by the build
-loc <- fread( file.path( OUT$npo, "ein_location_bmf.csv.gz" ), select = c( "EIN", "year", "ntee3" ),
-              colClasses = list( character = c( "EIN", "ntee3" ) ) )
-best <- unique( loc[ !bad( ntee3 ) ][ order( EIN, -year ) ], by = "EIN" )[ , .( ein = EIN, ntee_bmf = toupper( substr( ntee3, 1, 3 ) ) ) ]
-rm( loc ); gc()
+best <- read_ntee_best()[ , .( ein = EIN, ntee_bmf = ntee_best ) ]   # lookup written by 02
 
 summ <- function( d, label ) {
   d <- merge( d, best, by = "ein", all.x = TRUE )

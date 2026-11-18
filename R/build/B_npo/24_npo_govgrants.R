@@ -32,7 +32,7 @@
 ##
 ## Inputs : raw/panel990/<year>/F9-P08-T00-REVENUE-<year>.parquet (panel990::download_tables,
 ##          log in raw/panel990/logs/), data/npo/orgyear_{soi,efile}.parquet,
-##          data/npo/ein_location_bmf.csv.gz, data/diagnostics/pce_deflator.csv,
+##          data/npo/ein_ntee_best.csv.gz (from 02), data/diagnostics/pce_deflator.csv (from 06),
 ##          data/geo/county_spine.csv
 ## Outputs: D:/MULTIVERSE/data/govgrants/
 ##          orgyear_govgrants.parquet    one row per active c3 filer-year
@@ -101,16 +101,9 @@ for ( v in c( "rev", "exp", "con" ) ) set( org, i = which( abs( org[[ v ]] ) > B
 org[ , size := pmax( rev, exp, na.rm = TRUE ) ]
 org <- org[ !is.na( size ) & size >= floor_nom ]
 
-## invalid NTEE -> latest valid BMF code for the EIN (same rule as 06 and 23)
-bad_ntee <- function( x ) is.na( x ) | x == "" | substr( x, 1, 3 ) %in% c( "UND", "INV", "Z99" )
-loc <- fread( file.path( OUT$npo, "ein_location_bmf.csv.gz" ), select = c( "EIN", "year", "ntee3" ),
-              colClasses = list( character = c( "EIN", "ntee3" ) ) )
-loc[ , ntee3 := toupper( substr( ntee3, 1, 3 ) ) ]
-ntee_bmf <- unique( loc[ !bad_ntee( ntee3 ) ][ order( EIN, -year ) ], by = "EIN" )[ , .( ein = pad( EIN, 9 ), ntee_bmf = ntee3 ) ]
-rm( loc ); invisible( gc() )
-org[ , ntee3 := toupper( substr( ntee3, 1, 3 ) ) ]
-org <- merge( org, ntee_bmf, by = "ein", all.x = TRUE, sort = FALSE )
-org[ bad_ntee( ntee3 ) & !is.na( ntee_bmf ), ntee3 := ntee_bmf ][ , ntee_bmf := NULL ]
+## invalid NTEE -> latest valid BMF code for the EIN (shared rule: resolve_ntee()
+## in R/lib/00_setup.R; lookup from 02; unresolved -> NA, grouped as "?" below)
+invisible( resolve_ntee( org, "ein", "ntee3" ) )
 org[ , hosp_univ := ntee3 %in% c( NTEE_HOSP, NTEE_UNIV ) | ind %in% c( "HOS", "UNI" ) ]
 org[ , major := fifelse( bad_ntee( ntee3 ), "?", substr( ntee3, 1, 1 ) ) ]
 org[ hosp_univ == TRUE & substr( ntee3, 1, 1 ) == "E", major := "Ehosp" ]

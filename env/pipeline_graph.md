@@ -31,6 +31,7 @@ flowchart LR
     s21["21 patents"]
     s22["22 cov_government"]
     s23["23 cov_compete"]
+    s24["24 npo_govgrants"]
     s25["25 cov_endowment"]
     s26["26 cov_lag_kernel"]
     s27["27 cov_acs_metro"]
@@ -49,8 +50,10 @@ flowchart LR
   end
   s01 --> s02
   s02 --> s02b
+  s05 --> s02b
   s01 --> s08
   s02 --> s08
+  s02b --> s08
   s09a --> s09
   s03 --> s06
   s04 --> s06
@@ -80,6 +83,11 @@ flowchart LR
   s02 --> s23
   s06 --> s23
   s01 --> s23
+  s04 --> s24
+  s05 --> s24
+  s02 --> s24
+  s06 --> s24
+  s01 --> s24
   s02 --> s25
   s01 --> s25
   s01 --> s26

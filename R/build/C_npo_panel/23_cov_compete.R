@@ -102,23 +102,19 @@ core[ , ntee3 := fcoalesce( fifelse( ntee3_bmf == "", NA_character_, ntee3_bmf )
                             fifelse( ntee3 == "", NA_character_, toupper( substr( ntee3, 1, 3 ) ) ),
                             ntee3_cur ) ]
 core[ , ind := NA_character_ ]
-## most recent valid BMF NTEE code per EIN: e-file records carry "UND" (undefined)
-## for ~16% of filers 2020-24 (10% of revenue, incl. UPMC); ~90% are recoverable
-bad_ntee <- function( x ) is.na( x ) | x == "" | toupper( substr( x, 1, 3 ) ) %in% c( "UND", "INV", "Z99" )
-ntee_bmf <- unique( loc[ !bad_ntee( ntee3_bmf ) ][ order( ein, -year_bmf ) ], by = "ein" )[ , .( ein, ntee_bmf = toupper( ntee3_bmf ) ) ]
 rm( loc, cur, j ); gc( verbose = FALSE )
 
 org <- rbind( core[ , ..cols ],
               soi[ year %in% 2011:2019 & subsec_group == "c3", ..cols ],
               ef[  year %in% 2020:2024 & subsec_group == "c3", ..cols ] )
 rm( core, soi, ef ); gc( verbose = FALSE )
-org[ , ntee3 := toupper( ntee3 ) ]
-org <- merge( org, ntee_bmf, by = "ein", all.x = TRUE )
-log_msg( "invalid NTEE before / after BMF backfill: ", round( mean( bad_ntee( org$ntee3 ) ), 4 ), " / ",
-         round( mean( bad_ntee( org$ntee3 ) & is.na( org$ntee_bmf ) ), 4 ) )
-org[ bad_ntee( ntee3 ) & !is.na( ntee_bmf ), ntee3 := ntee_bmf ]
-org[ bad_ntee( ntee3 ), ntee3 := NA_character_ ]
-org[ , ntee_bmf := NULL ]
+## invalid NTEE -> the EIN's most recent valid BMF code: e-file records carry "UND"
+## for ~16% of filers 2020-24 (10% of revenue, incl. UPMC); ~90% are recoverable.
+## Shared rule: resolve_ntee() in R/lib/00_setup.R (lookup from 02; unresolved -> NA).
+st <- resolve_ntee( org, "ein", "ntee3" )
+log_msg( "invalid NTEE before / after BMF backfill: ", round( mean( st != "valid" ), 4 ), " / ",
+         round( mean( st == "unresolved" ), 4 ) )
+rm( st )
 for ( v in c( "rev", "exp", "con" ) ) set( org, i = which( abs( org[[ v ]] ) > BIG ), j = v, value = NA_real_ )
 org <- merge( org, pce[ , .( year, to2022, floor_nom ) ], by = "year" )
 org[ , size := pmax( rev, exp, na.rm = TRUE ) ]

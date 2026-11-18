@@ -88,12 +88,14 @@ loc <- rbindlist( loc_list )
 best <- ntee_best_from( loc )
 fwrite( best, NTEE_BEST )
 st <- resolve_ntee( loc, "EIN", "ntee3", best )
-nd <- loc[ , .( n = .N, invalid = sum( st != "valid" ), backfilled = sum( st == "filled" ) ), keyby = .( year, c3pc = c3 & !pf ) ]
+loc[ , ntee_status := st ]; rm( st )
+nd <- loc[ , .( n = .N, invalid = sum( ntee_status != "valid" ), backfilled = sum( ntee_status == "filled" ) ),
+           keyby = .( year, c3pc = c3 & !pf ) ]
 fwrite( nd, file.path( OUT$diag, "bmf_legacy_ntee_backfill.csv" ) )
 print( nd[ c3pc == TRUE ] )
-log_msg( "NTEE lookup: ", nrow( best ), " EINs; snapshot rows invalid ", sum( st != "valid" ),
-         ", backfilled ", sum( st == "filled" ) )
-rm( st, nd )
+log_msg( "NTEE lookup: ", nrow( best ), " EINs; snapshot rows invalid ", loc[ ntee_status != "valid", .N ],
+         ", backfilled ", loc[ ntee_status == "filled", .N ] )
+loc[ , ntee_status := NULL ]; rm( nd )
 
 loc[ , loc_method := fifelse( !is.na( geoid ), "fips", NA_character_ ) ]
 

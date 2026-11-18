@@ -6,7 +6,7 @@
 ## the IRS 2024 link returned 404 on 2026-11-17). Output: data/diagnostics/ntee_missing_vs_1023ez.csv
 source( "R/lib/00_setup.R" )
 suppressPackageStartupMessages( library( arrow ) )
-bad <- function( x ) is.na( x ) | x == "" | substr( toupper( x ), 1, 3 ) %in% c( "UND", "INV", "Z99" )
+bad <- bad_ntee                       # shared rule, R/lib/00_setup.R
 valid_code <- function( x ) grepl( "^[A-Z][0-9]{2}", x ) & !bad( x )
 
 ## ---- 1023-EZ approvals ------------------------------------------------------
@@ -28,10 +28,7 @@ ez <- unique( ez[ order( ein, -file_year ) ], by = "ein" )        # latest appro
 ezv <- ez[ valid_code( ntee_ez ) ]
 
 ## ---- legacy-snapshot backfill source (as in 06 / 02b) ------------------------
-loc <- fread( file.path( OUT$npo, "ein_location_bmf.csv.gz" ), select = c( "EIN", "year", "ntee3" ),
-              colClasses = list( character = c( "EIN", "ntee3" ) ) )
-best <- unique( loc[ !bad( ntee3 ) ][ order( EIN, -year ) ], by = "EIN" )[ , .( ein = EIN, ntee_bmf = toupper( substr( ntee3, 1, 3 ) ) ) ]
-rm( loc ); gc()
+best <- read_ntee_best()[ , .( ein = EIN, ntee_bmf = ntee_best ) ]   # lookup written by 02
 
 summ <- function( d, label ) {
   d <- merge( d, best, by = "ein", all.x = TRUE )

@@ -104,18 +104,16 @@ org[ , ntee3 := toupper( ntee3 ) ]
 ## invalid NTEE codes -> most recent valid BMF code for the EIN (2026-11-17). E-file
 ## records carry "UND" for ~16% of active c3 filers 2020-24; before this fix ~590
 ## hospitals / universities a year stayed in the nohu series (~6.5% of exp_c3_nohu)
-## and human-services counts were 12-13% low. Same rule as 23_cov_compete.R.
-bad_ntee <- function( x ) is.na( x ) | x == "" | substr( x, 1, 3 ) %in% c( "UND", "INV", "Z99" )
-ntee_bmf <- unique( loc[ !bad_ntee( toupper( ntee3_bmf ) ) ][ order( ein, -year_bmf ) ],
-                    by = "ein" )[ , .( ein, ntee_bmf = toupper( substr( ntee3_bmf, 1, 3 ) ) ) ]
-org <- merge( org, ntee_bmf, by = "ein", all.x = TRUE, sort = FALSE )
-fwrite( org[ , .( n = .N, invalid = sum( bad_ntee( ntee3 ) ),
-                  backfilled = sum( bad_ntee( ntee3 ) & !is.na( ntee_bmf ) ) ), keyby = .( source, year ) ],
+## and human-services counts were 12-13% low. Shared rule: resolve_ntee() in
+## R/lib/00_setup.R (lookup from 02; unresolved codes -> NA).
+st <- resolve_ntee( org, "ein", "ntee3" )
+org[ , ntee_status := st ]; rm( st )
+fwrite( org[ , .( n = .N, invalid = sum( ntee_status != "valid" ),
+                  backfilled = sum( ntee_status == "filled" ) ), keyby = .( source, year ) ],
         file.path( OUT$diag, "ntee_backfill.csv" ) )
-log_msg( "invalid NTEE codes: ", sum( bad_ntee( org$ntee3 ) ), "; backfilled from BMF: ",
-         sum( bad_ntee( org$ntee3 ) & !is.na( org$ntee_bmf ) ) )
-org[ bad_ntee( ntee3 ) & !is.na( ntee_bmf ), ntee3 := ntee_bmf ]
-org[ , ntee_bmf := NULL ]
+log_msg( "invalid NTEE codes: ", org[ ntee_status != "valid", .N ], "; backfilled from BMF: ",
+         org[ ntee_status == "filled", .N ] )
+org[ , ntee_status := NULL ]
 
 BIG <- 2e11
 guard <- org[ pmax( abs( rev ), abs( exp ), abs( assets ), na.rm = TRUE ) > BIG,
