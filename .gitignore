@@ -41,3 +41,6 @@ _site/
 /.quarto/
 
 **/*.quarto_ipynb
+
+# --- article PDFs for the literature review (copyrighted; never commit) ----
+pubs/

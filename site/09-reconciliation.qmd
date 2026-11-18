@@ -380,7 +380,7 @@ Read through the multiverse, the literature agrees more than its signs suggest:
 | Diversity | **Positive for grassroots; weak or negative for filers** | Name the population (D1) and the measure (D7); never use a count of groups (D4, D6) |
 | Income inequality | **Modestly positive** | Holds with median income and poverty controlled |
 | Civic participation | **Positive, mainly grassroots** | Use participation, not association counts |
-| Government | **Funding complements; direct provision substitutes within places** | Causal direction unresolved; money received is partly an outcome |
+| Government | **Funding complements; direct provision may substitute within places** | Causal direction unresolved; money received is partly an outcome; substitution is contested by recent work (below) |
 | Size | **Population must be in the model** | A raw count without population measures city size (D4, D6) |
 | History | **Strong persistence** | Control for it when the question is current conditions (D8) |
 | Corporate presence | **Positive for large nonprofits** (one study) | Not yet tested in the multiverse; strongest for elite-oriented organizations where upper-class clubs and the Northeast's traditions are present |
@@ -453,7 +453,7 @@ years, which no US study does.
 
 | Study | Data, unit, years | Outcome | Method | Main finding | Read |
 |---|---|---|---|---|---|
-| @mayer2025connecting | US counties, 2010–2016 (21,756 county-years) | Foundings and dissolutions | Ecological count models | Density dependence, resources and government size shape both; more dissolutions predict more foundings | abstract |
+| @mayer2025connecting | NCCS BMF public charities; US counties, 2010–2016 (21,756 county-years) | Foundings and dissolutions; population as offset | Quasi-Poisson, county and year fixed effects | Within counties: higher density means fewer foundings and more dissolutions; rising government wages go with more foundings; economic hardship raises dissolutions; dissolutions predict foundings | full |
 | @lee2025exploring | Human-service nonprofits, 2007–2018 | Dissolution | Survival model, county fixed effects | Stronger local economic and social conditions lower risk; higher human-service density raises it | abstract |
 | @shon2024demographic | US counties, 2007–2015 | Dissolution | Longitudinal | More demographically heterogeneous and more liberal counties have more dissolution | abstract |
 | @clifford2024passing | Charities and trustees, England and Wales | Dissolution | Survival analysis | Charities in deprived areas dissolve more often, partly because volunteer leadership is harder to replace | abstract |
@@ -583,9 +583,25 @@ its grassroots-positive result may not hold in every field.
   A cross-sectional negative at the county level does not fit cleanly. It may
   reflect county units, where government payroll concentrates in county seats and
   capitals, or a real difference in the claim.
-- **Verdict.** "Funding complements" is now well supported. "Provision substitutes
-  within places" is supported by within-place designs and contested by one
-  cross-sectional one. It should stay a qualified claim.
+- **A within-place challenge.** @mayer2025connecting use county fixed effects, the
+  same within-place design as the substitution studies, and find the opposite for
+  *new* organizations: as a county's government wages rise, more nonprofits are
+  founded. Government wages are not related to dissolutions once density is modeled
+  flexibly.
+  - **Flows versus stocks.** The substitution studies measure stocks, or large
+    organizations; Mayer measures foundings, a flow.
+  - **Possible reconciliation.** A growing government may spur new, small
+    organizations while the established sector shrinks relative to it.
+  - **The multiverse does not settle it.** Its within-metro estimate for direct
+    government is near zero for filers and *negative* for grassroots, the population
+    most like new foundings. That is the opposite of Mayer's sign.
+- **Verdict.**
+  - "Funding complements" is now well supported.
+  - "Provision substitutes within places" is contested. It is supported by three
+    within-place studies of stocks [@matsunaga2004government; @lecy2013nonprofit;
+    @marquis2013golfing], and challenged by one cross-sectional study of stocks and
+    one within-place study of foundings. It should be stated as an open question,
+    not a finding.
 
 ## Density is persistent, and history matters
 
@@ -593,8 +609,10 @@ its grassroots-positive result may not hold in every field.
 - **Persistent levels.** Over 50 years, area densities follow the same trajectory
   while level differences persist [@mcdonnell2026development]. That is Fact 2, seen
   over a longer span than US data allow.
-- **A mechanism for persistence.** Dissolutions predict new foundings
-  [@mayer2025connecting], so organizations that close tend to be replaced.
+- **A mechanism for persistence.** Within counties, a higher density means fewer
+  foundings and more dissolutions, and dissolutions predict new foundings
+  [@mayer2025connecting]. A county's sector is pulled back toward its level: it
+  behaves like a carrying capacity. That is the slow catch-up of Fact 3.
 - **Persistent leadership gaps.** Deprived areas lose charities when volunteer
   leaders are not replaced [@clifford2024passing]. That shows how gaps can persist.
 
@@ -635,9 +653,13 @@ including many small rural ones, versus metros.
 - diversity depends on the population;
 - history and persistence.
 
-It *competes* on two points: whether direct government substitutes for nonprofits
-across counties, and the role of the older population. And it identifies three
-gaps:
+It *competes* on two points:
+- **Government provision.** Whether direct government substitutes for nonprofits is
+  challenged both across counties (Jeong & Cui) and, for new organizations, within
+  them (Mayer).
+- **The older population.**
+
+And it identifies three gaps:
 - spatial spillovers between metros;
 - rural counties;
 - turnover.
