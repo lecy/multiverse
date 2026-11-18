@@ -211,6 +211,12 @@ div.csl-indent {
  <span class="menu-text">Variables and constructs</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://github.com/lecy/multiverse/blob/main/replicate.R" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Replication script (replicate.R)</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item">
@@ -272,6 +278,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#frozen-file-manifest" id="toc-frozen-file-manifest" class="nav-link" data-scroll-target="#frozen-file-manifest">Frozen-file manifest</a></li>
   <li><a href="#final-tables" id="toc-final-tables" class="nav-link" data-scroll-target="#final-tables">Final tables</a></li>
+  <li><a href="#research-guides" id="toc-research-guides" class="nav-link" data-scroll-target="#research-guides">Research guides</a></li>
   <li><a href="#variable-dictionary" id="toc-variable-dictionary" class="nav-link" data-scroll-target="#variable-dictionary">Variable dictionary</a>
   <ul class="collapse">
   <li><a href="#keys" id="toc-keys" class="nav-link" data-scroll-target="#keys">Keys</a></li>
@@ -879,7 +886,29 @@ Table&nbsp;3: Frozen files by source folder.
 </tr>
 </tbody>
 </table>
-<p>Covariates observed only in some years come in up to three versions: <code>_obs</code> (observed values only), <code>_lin</code> (linear interpolation between observed years) and <code>_locf</code> (last observation carried forward). The dictionary marks these with <em>gap-fill</em>.</p>
+<p>Covariates observed only in some years come with up to three companions: <code>_obs</code> (a flag, TRUE where the value was observed that year), <code>_lin</code> (linear interpolation between observed years) and <code>_locf</code> (last observation carried forward). The dictionary marks these with <em>gap-fill</em>.</p>
+</section>
+<section id="research-guides" class="level1">
+<h1>Research guides</h1>
+<p>Each research frame has a research guide: a profile of every variable, with its definition, data type, summary statistics, a preview of values, and a graphic suited to its type. The guides are built with datagoodr <span class="citation" data-cites="pkg_datagoodr">(<a href="#ref-pkg_datagoodr" role="doc-biblioref">Beck &amp; Lecy, 2026</a>)</span> from the frames as released in <code>data/</code>.</p>
+<ul>
+<li><a href="guides/cbsa_year.html">CBSA-year research guide</a>: 925 CBSAs × 25 years, 422 variables.</li>
+<li><a href="guides/county_year.html">County-year research guide</a>: 3,144 county-equivalents × 25 years, 354 variables.</li>
+</ul>
+<p><strong>How they are built.</strong> Each guide is driven by a Data Governance File (DGF), one row per variable, in <code>docs/research-guide/&lt;frame&gt;/DGF.xlsx</code>:</p>
+<ol type="1">
+<li><code>docs/make_research_guides.R</code> profiles each frame with <code>create_dgf()</code>. It fills each variable’s label and definition from the variable dictionary below. Gap-fill companions get their base variable’s definition plus a note on the companion.</li>
+<li><code>docs/check_research_guide_types.R</code> checks the data type datagoodr guessed for every variable against the variable’s storage type, its values and its role in the dictionary, and corrects wrong guesses with <code>retype_dgf()</code>:
+<ul>
+<li>geographic codes stay text identifiers, so leading zeros survive;</li>
+<li><code>year</code> is temporal;</li>
+<li>0/1 flags are boolean;</li>
+<li>other numeric columns are numbers.</li>
+</ul>
+The script stops if any variable still carries an unexpected type, then validates the DGF with <code>inspect_dgf()</code>. Each frame’s <code>type_review.csv</code> lists the guessed, expected and final type of every variable.</li>
+<li><code>docs/render_research_guides.R</code> renders each guide with <code>create_rg()</code> and copies it here.</li>
+</ol>
+<p>Some columns are identical by construction. For example, <code>race_den</code> (the sum of the seven race and ethnicity groups) and <code>pop_total</code> both equal <code>population</code>. The guides note each one in its definition, and <code>duplicates.csv</code> lists them.</p>
 </section>
 <section id="variable-dictionary" class="level1">
 <h1>Variable dictionary</h1>
@@ -3607,6 +3636,9 @@ Association of Statisticians of American Religious Bodies. (2012). <em>Religious
 </div>
 <div id="ref-pkg_datatable" class="csl-entry" role="listitem">
 Barrett, T., Dowle, M., Srinivasan, A., Gorecki, J., Chirico, M., &amp; Hocking, T. (2026). <em><span class="nocase">data.table</span>: Extension of data.frame</em> (Version 1.18.6.1) [Computer software]. <a href="https://CRAN.R-project.org/package=data.table">https://CRAN.R-project.org/package=data.table</a>
+</div>
+<div id="ref-pkg_datagoodr" class="csl-entry" role="listitem">
+Beck, O., &amp; Lecy, J. (2026). <em><span class="nocase">datagoodr</span>: Document and profile research datasets</em> (Version 0.1.0) [Computer software]. <a href="https://github.com/UrbanInstitute/datagoodr">https://github.com/UrbanInstitute/datagoodr</a>
 </div>
 <div id="ref-pkg_fixest" class="csl-entry" role="listitem">
 Bergé, L. (2026). <em><span class="nocase">fixest</span>: Fast fixed-effects estimations</em> (Version 0.14.2) [Computer software]. <a href="https://CRAN.R-project.org/package=fixest">https://CRAN.R-project.org/package=fixest</a>
