@@ -44,3 +44,7 @@ _site/
 
 # --- article PDFs for the literature review (copyrighted; never commit) ----
 pubs/
+
+# research frames shipped in the repo (data/README.md); the build folder stays outside git
+!/data/**/*.parquet
+/replication/

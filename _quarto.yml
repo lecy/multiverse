@@ -54,6 +54,8 @@ website:
                 href: paper/04-design-decisions.qmd
               - text: "Variables and constructs"
                 href: paper/02-variables.qmd
+              - text: "Multiverse script (runs from data/)"
+                href: https://github.com/lecy/multiverse/blob/main/R/multiverse/run_from_release.R
           - text: "7. Stylized facts"
             href: paper/01-stylized-facts.qmd
           - section: "8. Running the multiverse"
