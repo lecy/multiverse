@@ -1,0 +1,169 @@
+---
+title: "Literature review"
+subtitle: "Nonprofit density, urban scaling and SAMIs, and multiverse analysis"
+---
+
+This project draws on three bodies of work. The first explains why some communities
+have more nonprofits than others. The second, urban scaling, sets the yardstick:
+how many nonprofits a place of a given size should be expected to have. The third,
+multiverse analysis, makes visible how much a conclusion depends on the analyst's
+choices. Together they answer a practical question for local foundations and
+governments: **compared with places like it, is our nonprofit sector large or small,
+and which of the levers we control are actually associated with a stronger sector?**
+
+# Nonprofit density
+
+**Why nonprofits exist.** Economic theories explain the nonprofit sector by the
+limits of markets and governments:
+
+- **Government failure.** Government supplies public goods at the level the median
+  voter wants. Where preferences are diverse, nonprofits supply the unmet demand
+  [@weisbrod1977voluntary].
+- **Contract failure.** Where donors or clients cannot judge quality, the
+  nondistribution constraint makes nonprofits more trustworthy providers than firms
+  [@hansmann1980role].
+- **Interdependence.** Voluntary action has its own failures: it is insufficient,
+  particularistic, paternalistic and amateur. Government and nonprofits therefore act
+  as partners, with public money flowing through nonprofit providers
+  [@salamon1987market].
+
+Each theory implies a different set of local conditions associated with a larger
+sector: demand heterogeneity, information problems, or government spending.
+
+**Empirical tests across places.** A line of studies tests these theories by
+comparing nonprofit counts or spending across states, metros and counties:
+
+- the joint size of the for-profit, nonprofit and government sectors
+  [@benner1992empirical];
+- the growth of social-service nonprofits [@corbin1999study];
+- metropolitan nonprofit sectors in NCCS data [@bielefeld2000metropolitan];
+- community variations in the size and scope of the sector
+  [@gronbjerg2001community];
+- a state panel test of government-failure theory [@matsunaga2004government];
+- social capital and sector growth [@saxton2005social];
+- socioeconomic diversity and political engagement across counties
+  [@kim2015socioeconomic];
+- government support and density in a metro panel [@lecy2013nonprofit].
+
+**Inconsistent results.** The covariates in these studies are much the same:
+education, income, poverty, diversity, philanthropy, government, civic culture. Yet
+their signs often disagree from study to study. Poverty and income, for example,
+change sign between pooled and fixed-effects models of the same metros
+[@lecy2013nonprofit].
+
+Studies also differ in many design choices:
+
+- whether they count organizations or dollars;
+- whether they scale by population, and how;
+- the unit of analysis;
+- the years covered;
+- the estimator.
+
+The disagreements could therefore come from the communities or from those choices,
+and the literature has had no way to tell which. That gap motivates the rest of this
+project.
+
+# Urban scaling and SAMIs
+
+**Scaling laws.** Many urban quantities grow as a power of population,
+$Y = Y_0 N^{\beta}$ [@bettencourt2007growth; @west2017scale]:
+
+- **Superlinear** ($\beta > 1$): innovation, wages and GDP grow faster than population.
+- **Sublinear** ($\beta < 1$): infrastructure grows more slowly.
+- **Linear** ($\beta \approx 1$): individual needs, such as housing and jobs, grow in
+  proportion to population.
+
+The exponents are explained by the way social interactions grow with city size
+[@bettencourt2013origins] and are linked to a production-function view of cities
+[@lobo2013urban].
+
+**SAMIs.** If density were judged by raw counts per capita, the result would depend
+on whether the outcome scales linearly. *Scale-adjusted metropolitan indicators*
+(SAMIs) solve this: each city's deviation from the scaling line, the log of observed
+over size-expected [@bettencourt2010urban].
+- **Independent of size.** SAMIs remove size from the comparison by construction.
+- **Persistent.** A city's SAMI changes slowly over decades.
+- **Meaningful.** They separate local performance from the effect of size.
+
+Per-capita ratios have a known flaw. They are biased whenever the numerator does not
+scale one-for-one with the denominator, and they can induce spurious correlations
+between ratios that share it [@uslaner1976pitfalls].
+
+**Cautions.**
+- Estimated exponents are sensitive to the definition of the unit and the estimator,
+  and apparent nonlinearity has to be tested, not assumed [@leitao2016scaling].
+- Cross-sectional exponents need not describe how any one city changes over time
+  [@depersin2018global; @bettencourt2020interpretation].
+
+Both cautions recur in our design: the unit of analysis, the estimator, and
+cross-sectional versus within-city identification are decisions in the multiverse
+(Part 5, D2–D5).
+
+**What it means for nonprofit density.** Counts of 501(c)(3) organizations scale
+almost exactly linearly with population at every unit of aggregation, but spending
+does not (Part 6, Fact 1). A metro's filer SAMI is therefore a size-neutral measure:
+how many nonprofits it has relative to a typical place of its size. That gives local
+funders and governments a fair benchmark, comparing like with like rather than a
+small town with a large city.
+
+# Multiverse analysis
+
+**The problem.** Every estimate depends on a chain of defensible choices. Leamer
+[-@leamer1983lets] argued for reporting how estimates move across reasonable
+specifications. Later work showed how undisclosed flexibility produces false positives
+[@simmons2011false], and that even analysts who never search for results walk a
+"garden of forking paths" [@gelman2014garden].
+
+**The method.**
+- **Multiverse analysis** fits every combination of defensible choices and reports the
+  whole set [@steegen2016increasing].
+- **Specification curve analysis** adds inference across the set
+  [@simonsohn2020specification].
+- **Multimodel analysis** attributes the spread of an estimate to the choices that
+  produce it [@young2017model].
+- **Which choices to fork.** Not every choice belongs in one distribution. Choices
+  that change the question (non-equivalent) should be separated from arbitrary ones
+  [@delgiudice2021traveler].
+
+**Evidence that it matters.**
+- When many teams analyse the same data to answer the same question, their estimates
+  vary widely: in sign, size and significance [@silberzahn2018many].
+- Much of that variation cannot be traced to any team's identifiable choices
+  [@breznau2022observing].
+
+Density research fits this description. It has standard covariates, many defensible
+designs and conflicting published signs.
+
+**How this project uses it.**
+- **Design.** The multiverse separates *non-equivalent* decisions (what question is
+  asked: filers or spending, metros or counties, levels or changes) from *arbitrary*
+  ones (how a construct is measured, which estimator, how gaps are filled). Each
+  decision has a card with its options and a recommendation (Part 5).
+- **Execution.** It fits about 432,000 specifications on one common yardstick
+  (Part 7).
+- **Reporting.** It reports which decisions move results and which covariates hold up
+  under all of them.
+
+# What this means for local funders and governments
+
+The three literatures together suggest how a community can assess its nonprofit
+sector:
+
+1. **Benchmark against size, not per capita.** Compare a place with its size-expected
+   level (its SAMI), not with raw counts per resident. Fact 1 shows counts scale
+   linearly but spending does not, so per-capita spending comparisons mislead.
+2. **Expect slow change.** Density is persistent over decades (Fact 2), and growth
+   leaves a lag that closes slowly (Fact 3). A sector's size today largely reflects
+   its history. Goals and evaluation horizons should match.
+3. **Act only on robust associations.** A factor that changes sign under reasonable
+   alternative designs is not a reliable lever. The multiverse shows which local
+   conditions are associated with a larger sector under every defensible design,
+   and which are artefacts of a particular one.
+4. **Distinguish filers from grassroots.** Most registered charities never file a
+   full return (Fact 4). They respond to different conditions from established
+   filers, so policies aimed at one group may not reach the other.
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

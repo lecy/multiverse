@@ -1,0 +1,121 @@
+---
+title: "8. Where the research goes from here"
+subtitle: "Toward a framework for local foundations and governments"
+---
+
+::: {.callout-note}
+Key points for discussion, 2026-11-18. To be developed into a full section.
+:::
+
+The goal of this work is practical. It aims to give **local foundations and
+governments** that want to strengthen their nonprofit sectors a defensible way to:
+
+- benchmark the sector against comparable places;
+- understand which conditions are associated with a stronger sector;
+- judge what their own investments can and cannot be expected to change.
+
+The database and multiverse are the foundation. This page lists what is still open
+and what new data, methods and analyses would move the work toward that goal.
+
+# What the work already offers a community
+
+- **A fair benchmark.** A place's density relative to its size-expected level (its
+  SAMI) compares like with like, so a small town is not judged against a large city
+  [@bettencourt2010urban]. Counts scale linearly with population but spending does
+  not, so per-capita spending is a misleading yardstick.
+- **Realistic time horizons.** Density is nearly frozen over decades. After population
+  growth, the sector catches up slowly: half the gap closes in about 5 years for filers
+  and 9 for grassroots. A five-year grant cycle should not expect to move the level.
+- **Robust versus fragile levers.**
+  - Some associations are positive in most designs. Education is the most robust,
+    followed by foundation assets and government money that flows through Medicaid
+    and public payroll.
+  - Others flip sign with the design. A community should not build strategy on the
+    fragile ones (Part 7, Findings).
+- **Two sectors, not one.** Established filers follow the local economy. Grassroots
+  organizations follow endowment and demography. Each responds to different
+  conditions, and investments may reach one and not the other.
+
+# Open questions
+
+1. **What is causal?** Nothing here is causal yet. The associations describe where
+   strong sectors are, not what would make a sector stronger. This is the main gap for
+   funders and governments, who need to know the effect of an action.
+2. **Why the regional gap?** The Northeast has more than twice the South's nonprofit
+   employment per resident, with similar for-profit employment. The leading
+   explanation is institutional: who owns hospitals, and how states contract for
+   services [@salamon1987market]. It has not been tested.
+3. **How do grassroots organizations become established ones?** Filer catch-up comes
+   from existing organizations crossing the filing floor, not from new registrations.
+   The pipeline from registration to a sustained, filing organization is the stage most
+   open to local capacity-building, and it is the least understood.
+4. **Do shocks reset the sector?** The metros that rose fastest include several hit by
+   disasters (New Orleans, Gulfport, Santa Rosa, Chico, Redding). Whether disaster
+   recovery builds lasting capacity is still a hypothesis.
+5. **Does giving respond to tax policy locally?** Itemized contributions break at the
+   2018 tax change (the Tax Cuts and Jobs Act), so individual giving's role is unresolved until that break is
+   modelled.
+6. **Size versus number.** Is a community better served by more organizations or by
+   larger ones? Counts and spending answer differently, and the right target depends on
+   the community's goal.
+
+# New data
+
+- **Government funding received by nonprofits.** The Form 990 government-grants line is
+  in the e-file data from 2020. It was missing from the 2011–2019 extracts, so a
+  consistent series has to be built from the e-file years forward. That would measure
+  the delivery channel directly, rather than through Medicaid and public payroll.
+- **Hospital ownership and state contracting.** The American Hospital Association
+  survey, CMS Provider of Services files and Medicaid managed-care contracts would test
+  the institutional explanation of the regional gap.
+- **Small organizations.** Form 990-N (e-Postcard) filings and Form 1023-EZ approvals
+  show which grassroots organizations are active and when new ones form. They would
+  give a direct view of the registration-to-filer pipeline.
+- **Local investments.** Foundation grants by recipient location (990-PF Schedule and
+  990 Schedule I grants), plus community-foundation and local-government
+  capacity-building programs. These are the "treatments" a causal design needs.
+- **Nonprofit employment after 2022.** The BLS research series ends in 2022, with no
+  update announced before 2029. QCEW ownership codes or state unemployment-insurance
+  records could extend it.
+
+# New methods
+
+- **Designs for causal effects:**
+  - event studies around shocks (disasters, plant closures, hospital conversions that
+    create health-conversion foundations);
+  - synthetic control for single communities that launched a sector-building
+    initiative;
+  - difference-in-differences across staggered state policy changes.
+- **Stock-flow models.** Model entry, exit and growth across the filing floor
+  separately, so that a community can see which flow drives its gap.
+- **Small-area estimation.** Most counties are small, and their densities are noisy.
+  Multilevel models with partial pooling would give stable benchmarks for rural places,
+  where funders often have the least information.
+- **Multiverse for causal designs.** The decision framework applies equally to causal
+  estimates. Treatment timing, comparison group and outcome window are choices that
+  should be crossed and reported [@steegen2016increasing; @young2017model].
+
+# Analyses that would serve funders and governments
+
+1. **A community benchmark tool.** Built on this database, it would show:
+   - each county's and metro's filer, grassroots and spending SAMIs, and their
+     trajectories since 2000;
+   - its position among peer places matched on size, region and growth history;
+   - its subsector mix against need (for example, human-services density relative to
+     poverty).
+2. **Gap diagnosis.** Decompose a community's gap into history (the pre-1970 endowment),
+   recent growth (the catch-up lag) and current conditions. Only the last can be acted
+   on.
+3. **Capacity indicators.** Track the share of registered organizations that file, the
+   rate of crossing the filing floor, and survival after formation. These are leading
+   indicators that move faster than density itself.
+4. **Evaluation guidance.** Translate the decision cards into a checklist for funders
+   commissioning research:
+   - which design choices change the answer;
+   - which only look like robustness checks;
+   - what time horizon an evaluation needs.
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

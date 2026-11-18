@@ -3,6 +3,8 @@ title: "Findings"
 subtitle: "What the multiverse says about nonprofit density, and which decisions decide it"
 author: "Jesse Lecy and Jeremy P. Thornton"
 date: last-modified
+nocite: |
+  @steegen2016increasing, @simonsohn2020specification, @young2017model, @delgiudice2021traveler, @silberzahn2018many, @breznau2022observing, @lecy2013nonprofit
 ---
 
 **Five findings.** All results are from run v11: 432,432 specifications of the 13-covariate model of `02-variables.qmd`, over 387 metros and 925 CBSAs, 2010–2022. The registered-stock specifications were also refit with grassroots (registered public charities that do not file above the floor) as the outcome. Every summary here reports filers, grassroots and spending separately. The two count populations disagree on several covariates (D1), so a "counts" summary that pools them averages opposite answers.
@@ -199,3 +201,8 @@ None of these is a fork. Each is smaller than winsorizing, which is itself a for
 - **Not run, by design:** commuting zones, government grants received by nonprofits (Form 990 line 1e, absent from the IRS extracts for 2011–2019), crime, the Elazar typology, alternative population bases, price adjustment, population weights, all block subsets (leave-one-block-out was run) and the kitchen-sink universe (built, not run).
 
 *Sources: run v11 (`D:/MULTIVERSE/data/spec/run_principled_v11/`); `R/notes/104_fit_grassroots_v11.R` (grassroots refit, `run_principled_v11_grass/`); `R/multiverse/97_v11_decision_summary.R` with `MV_SPLIT=1` (`D:/MULTIVERSE/data/outline/v11/mv_split/`: `decision_importance.csv`, `stability.csv`, `v10_v11_benchmarks.csv`, `naive_vs_recommended.csv`); `R/multiverse/98_decision_matrix.R` with `MV_SPLIT=1` (`v11/matrix_split/`); sensitivity: `R/notes/83_sample_exclusions.R`, `R/notes/90_size_moderation_screen.R` and `R/notes/56_drop_religion_mutual.R` with `MV_MODEL=lean`, `R/paper/99_interaction_screen_v11.R`, `R/paper/95_compete_niche.R`, `R/notes/84_tcja_contrib.R` and `R/notes/86_sensitivity_tcja_size.R` part A with `MV_MODEL=lean`, `R/notes/101_lean_open_checks.R` (revenue floor, multi-state metros, 2000–2022 within window).*
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

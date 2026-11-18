@@ -1,0 +1,191 @@
+---
+title: "3. Workflow code and executable steps"
+subtitle: "Restore the frozen inputs, run the build, check the result"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library( data.table )
+pl <- fread( "data/pipeline_steps.csv", colClasses = "character", na.strings = character( 0 ) )
+n_of <- function( x ) vapply( x, function( s ) sum( nzchar( trimws( strsplit( s, ";", fixed = TRUE )[[ 1 ]] ) ) ), 1L )
+```
+
+The whole database is rebuilt by one command from frozen inputs. This page goes
+through the setup, each executable step, and how to check that a rebuild matches the
+published tables. Every command runs from the repository root. The build was last
+rebuilt in a clean room on 2026-11-18:
+- **Library:** a fresh R library restored from the lockfile.
+- **Inputs:** restored from S3 into empty folders.
+- **Run time:** all 30 steps in 19 minutes on a 24-core machine.
+- **Result:** every output was identical to the reference build, equal cell by cell,
+  or different for a documented reason.
+
+# Setup
+
+**Software.**
+- R 4.5.3 [@r_core] and Quarto [@quarto] (Quarto is needed only for this site).
+- The AWS command-line interface, to download the frozen inputs.
+- Package versions are pinned in `renv.lock` [@pkg_renv]:
+
+```r
+install.packages( "renv" )
+renv::restore()          # installs the exact versions in renv.lock
+```
+
+**Folders.** The build reads and writes four locations, set as environment variables
+in `~/.Renviron` (see `R/lib/config.R`):
+
+| Variable | Holds |
+|---|---|
+| `MV_BUILD` | build outputs, download caches, logs |
+| `MV_INPUTS` | read-only source-data hub (BMF snapshots, SOI, population files) |
+| `MV_BLS` | BLS nonprofit research files |
+| `MV_DROPBOX` | the folder holding the religion census files |
+| `CENSUS_API_KEY` | a free Census Data API key, for steps that query the Census API |
+
+```sh
+MV_BUILD=D:/MV_CLEAN/build
+MV_INPUTS=D:/MV_CLEAN/inputs
+MV_BLS=D:/MV_CLEAN/bls
+MV_DROPBOX=D:/MV_CLEAN/dropbox
+CENSUS_API_KEY=<your key>
+```
+
+# Step 1: restore the frozen inputs
+
+`env/restore_inputs.R` downloads every frozen input from
+`s3://lecy/nonprofit-density/inputs/` into the four folders. It then checks each file
+against its SHA-256 checksum and stops on any mismatch. A rerun skips files already in
+place, so an interrupted download resumes.
+
+```sh
+Rscript env/restore_inputs.R --build D:/MV_CLEAN/build --inputs D:/MV_CLEAN/inputs \
+        --bls D:/MV_CLEAN/bls --dropbox D:/MV_CLEAN/dropbox --check
+```
+
+About 1,200 files and 33 GB. `--check` then runs `run.R --raw` against the restored
+folders, and fails if any declared input resolves to no file. `--folders a,b`
+restores only some sources. Part 2 lists what each folder holds.
+
+# Step 2: run the build
+
+```sh
+Rscript run.R database          # the 30 build steps (default)
+Rscript run.R checks            # source-coverage and validation checks
+Rscript run.R multiverse        # the multiverse run and its summaries (Part 7)
+Rscript run.R all               # all three stages
+```
+
+`run.R` runs the steps of `pipeline.csv` in order, each in a fresh R process, with a
+log at `MV_BUILD/logs/<step>.log`.
+
+- **Skipping.** A step is skipped when all its outputs exist and are newer than its
+  inputs, its raw files and its script, as in `make`.
+- **Stopping.** The run stops before anything starts if a declared input is missing,
+  and stops as soon as a step fails or does not write its declared outputs.
+- **Manifest.** At the end it writes `MV_BUILD/MANIFEST.csv` with the size and
+  SHA-256 of every output.
+
+| Option | What it does |
+|---|---|
+| `--dry-run` | list what would run, and why, without running anything |
+| `--only 05,06` | run just these steps (forced) |
+| `--from 06` | force a rebuild from step 06 on |
+| `--graph` | write the step dependency graph (Mermaid) to `env/pipeline_graph.md` |
+| `--raw` | list every declared raw input with the files it resolves to (`MV_BUILD/raw_inputs.csv`) |
+
+Some steps download a source the first time and reuse the cached file afterwards.
+A rebuild from the frozen inputs therefore reproduces the frozen version of each
+source, not whatever is online today. To refresh a source, delete its cache.
+
+## The steps
+
+Every step is a row of [`pipeline.csv`](https://github.com/lecy/multiverse/blob/main/pipeline.csv):
+
+- its script, and its arguments and environment;
+- the build files it reads (inputs);
+- the raw sources it reads, as `<inputs folder>=<path>`;
+- the files it writes (outputs).
+
+```{r}
+#| label: tbl-steps
+#| tbl-cap: "Build steps in run order. Inputs and outputs are counts of declared files; see pipeline.csv for the paths."
+#| output: asis
+s <- pl[ , .( Step = id, Stage = stage, Script = sprintf( "`%s`", sub( "^R/", "", script ) ),
+              Args = fifelse( nzchar( args ), sprintf( "`%s`", args ), "" ),
+              Inputs = n_of( inputs ), Outputs = n_of( outputs ), `What it does` = gsub( "\\|", "/", notes ) ) ]
+cat( knitr::kable( s, format = "pipe" ), sep = "\n" )
+```
+
+**Run time.** The clean-room run took about 19 minutes. The longest steps:
+
+| Step | Minutes |
+|---|---|
+| 02 BMF registrations | 3.7 |
+| 02b ruling cohorts | 2.7 |
+| 06 nonprofit panel | 1.9 |
+| 21 covariates | 1.9 |
+| 23 market competition | 1.4 |
+| 24 government grants | 1.2 |
+| 05 e-file | 1.1 |
+
+Every other step takes less than a minute. A first run with empty download caches
+(e-file, CORE and the Census APIs) takes much longer.
+
+# Step 3: check the result
+
+`env/compare_builds.R` compares a rebuild with a reference build file by file:
+
+- First by SHA-256 checksum.
+- Then, for tables that differ, cell by cell, after sorting by their key columns
+  (EIN, GEOID, CBSA, year). Numbers count as equal within a relative tolerance.
+
+```sh
+Rscript env/compare_builds.R D:/MV_CLEAN/build D:/MULTIVERSE data 1e-9 new
+```
+
+It writes `check/diff_files.csv` (one row per file) and `check/diff_cells.csv` (one
+row per differing column), and exits with an error if any file is missing or
+differs.
+
+**Clean-room result (2026-11-18), against the reference build:**
+
+| Files | Result |
+|---|---|
+| 74 | byte-identical |
+| 6 | equal cell by cell (the org-year panels; row order differs) |
+| 2 | new since the reference: the NTEE lookup and its backfill diagnostic |
+| 17 | different, each explained: the NTEE rule (subsector splits only; national totals unchanged) and four columns added to `cbsa_year` |
+
+The 17 differences are expected. The reference build predates the change that fills
+invalid NTEE codes. A rebuild from the same commit on two machines matched on 96 of
+99 files. The other three differed only in absolute paths recorded in a manifest and in
+re-downloaded boundary files.
+
+# Repository layout
+
+```
+multiverse/
+├── run.R                 single entry point; runs pipeline.csv in order
+├── pipeline.csv          step table: id, stage, script, args, env, inputs, raw, outputs
+├── renv.lock             pinned package versions
+├── inputs/               one folder per source: SOURCE.md (URL, licence, citation)
+├── R/
+│   ├── lib/              shared helpers: paths, constants, NTEE rule, multiverse engine
+│   ├── build/            A_geo, B_npo, C_npo_panel, D_cov, E_assemble, F_checks
+│   ├── multiverse/       the multiverse run, forks and summaries (Part 7)
+│   └── paper/            figures and tables for the paper chapters
+├── env/                  freeze, restore and compare scripts; lockfile tools
+├── docs/                 build diagram, inventory, dictionary, site data script
+├── paper/                Quarto chapters (Parts 4–6 and the findings)
+└── site/                 the other pages of this website
+```
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

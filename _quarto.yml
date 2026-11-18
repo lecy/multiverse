@@ -1,0 +1,82 @@
+## Replication website (docs/SITE-PLAN.md). Render from the repo root:
+##   quarto render          -> _site/
+##   quarto preview
+## Only the files in `render` are part of the site; notes/, docs/workflow.qmd and the
+## SAMI paper are left out. Parts 4-6 are the paper chapters in paper/, rendered as is.
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - site/00-literature.qmd
+    - site/01-construction.qmd
+    - site/02-files-sources.qmd
+    - site/03-workflow.qmd
+    - paper/03-multiverse-overview.qmd
+    - paper/04-design-decisions.qmd
+    - paper/02-variables.qmd
+    - paper/01-stylized-facts.qmd
+    - site/07-multiverse-run.qmd
+    - paper/05-findings.qmd
+    - site/08-next.qmd
+
+website:
+  title: "Nonprofit Density: Data and Multiverse"
+  repo-url: https://github.com/lecy/multiverse
+  repo-actions: [source, issue]
+  page-navigation: true
+  search: true
+  sidebar:
+    style: docked
+    contents:
+      - index.qmd
+      - text: "Literature review"
+        href: site/00-literature.qmd
+      - section: "Data"
+        contents:
+          - text: "1. Dataset construction"
+            href: site/01-construction.qmd
+          - text: "2. Files, sources and dictionaries"
+            href: site/02-files-sources.qmd
+          - text: "3. Workflow code"
+            href: site/03-workflow.qmd
+      - section: "Multiverse"
+        contents:
+          - text: "4. Multiverse overview"
+            href: paper/03-multiverse-overview.qmd
+          - section: "5. Multiverse design"
+            contents:
+              - text: "Decision cards"
+                href: paper/04-design-decisions.qmd
+              - text: "Variables and constructs"
+                href: paper/02-variables.qmd
+          - text: "6. Stylized facts"
+            href: paper/01-stylized-facts.qmd
+          - section: "7. Running the multiverse"
+            contents:
+              - text: "Code and execution"
+                href: site/07-multiverse-run.qmd
+              - text: "Findings"
+                href: paper/05-findings.qmd
+          - text: "8. Where the research goes"
+            href: site/08-next.qmd
+
+execute:
+  freeze: auto          # pages with R chunks re-run only when their source changes (_freeze/ is committed)
+
+bibliography: references.bib
+csl: site/apa.csl
+link-citations: true
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    embed-resources: false
+    fig-align: center
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    fontsize: 1rem
+    linestretch: 1.5

@@ -3,6 +3,8 @@ title: "Design Decisions"
 subtitle: "Twelve decision cards, read on the 13-covariate model"
 author: "Jesse Lecy and Jeremy P. Thornton"
 date: last-modified
+nocite: |
+  @leamer1983lets, @gelman2014garden, @steegen2016increasing, @simonsohn2020specification, @young2017model, @delgiudice2021traveler, @uslaner1976pitfalls, @bettencourt2010urban, @leitao2016scaling, @lecy2013nonprofit
 ---
 
 Twelve cards, ordered from the choices that define the question to the choices that only refine it. Every card is read on the 13-covariate model of `02-variables.qmd`: poverty and % 65+ (need); the metro Gini, % nonwhite, religious fractionalization and age SD (heterogeneity); foundation assets, % BA and turnout (supply); the 10-year growth kernel, state and local government earnings, Medicaid and the pre-1970 endowment (market niche). The evidence comes from two sources. Single models refit each option with the 13 covariates on 385 metros (Memphis and Mankato have no endowment value). Run v11 of the multiverse supplies the distributions: the same forks as before, with the 13-covariate model as the default, one-at-a-time measurement swaps and drop-one-block contrasts, 432,432 specifications in all.
@@ -904,3 +906,8 @@ The estimand choices (population, identification, unit) and the measurement and 
 The decision matrix in `05-findings.qmd` shows the same decisions covariate by covariate.
 
 *Sources: `R/multiverse/98_decision_matrix.R` (`D:/MULTIVERSE/data/outline/v11/matrix/`); `R/multiverse/97_v11_decision_summary.R` (`D:/MULTIVERSE/data/outline/v11/mv/`); run v11 (`D:/MULTIVERSE/data/spec/run_principled_v11/`, `MV_MODEL=lean` in `R/lib/40_multiverse.R`).*
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

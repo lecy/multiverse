@@ -1,0 +1,24 @@
+---
+title: "Nonprofit Density: Data and Multiverse"
+subtitle: "Replication files, data workflow and multiverse analysis"
+author: "Jesse Lecy and Jeremy P. Thornton"
+---
+
+This site documents the database behind our study of nonprofit density in US counties
+and metropolitan areas, 2000–2024, and the multiverse analysis built on it. It covers
+how the data are assembled, every input file and its source, the code that rebuilds the
+database from frozen inputs, and the design, execution and results of the multiverse.
+
+| Part | What it covers |
+|---|---|
+| [1. Dataset construction](site/01-construction.qmd) | Units, build stages, final tables, key measurement choices |
+| [2. Files, sources and dictionaries](site/02-files-sources.qmd) | Every data source with citation and licence, the frozen-file manifest, variable dictionaries |
+| [3. Workflow code](site/03-workflow.qmd) | Restoring inputs, running the build step by step, checking the result |
+| [4. Multiverse overview](paper/03-multiverse-overview.qmd) | Why a multiverse, the specification grid, attributing spread to decisions |
+| [5. Multiverse design](paper/04-design-decisions.qmd) | Decision cards D1–D12; [variables and constructs](paper/02-variables.qmd) |
+| [6. Stylized facts](paper/01-stylized-facts.qmd) | Seven regularities in density data |
+| [7. Running the multiverse](site/07-multiverse-run.qmd) | Code, execution and [findings](paper/05-findings.qmd) |
+| [8. Where the research goes](site/08-next.qmd) | Open gaps and next steps |
+
+Code: [github.com/lecy/multiverse](https://github.com/lecy/multiverse).
+Frozen inputs: `s3://lecy/nonprofit-density/inputs/`.

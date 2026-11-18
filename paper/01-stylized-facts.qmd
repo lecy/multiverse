@@ -3,6 +3,8 @@ title: "Stylized Facts about Nonprofit Density Data"
 subtitle: "Seven regularities any density design has to confront"
 author: "Jesse Lecy and Jeremy P. Thornton"
 date: last-modified
+nocite: |
+  @bettencourt2007growth, @bettencourt2010urban, @lobo2013urban, @leitao2016scaling, @depersin2018global, @bettencourt2020interpretation, @uslaner1976pitfalls, @lecy2013nonprofit, @data_nccs_core, @data_irs_soi_eo, @data_nccs_efile, @data_nccs_bmf_legacy, @data_nccs_bmf_monthly, @data_bls_nonprofits, @data_census_popest
 ---
 
 Seven regularities hold in metro-level 501(c)(3) density data before any covariate enters a model. Each is descriptive, and together they motivate the design decisions in the decision cards (D1–D12, in `04-design-decisions.qmd`). Data cover 387 US metros, 2000–2024, unless noted.
@@ -583,3 +585,8 @@ Within-metro and lag models fit mostly interpolated change in these covariates (
 - Check registered and grassroots outcomes for group-exemption and military-town outliers before interpreting them.
 
 *Sources: `R/notes/58_outline_analyses.R` parts Q and R (`D:/MULTIVERSE/data/outline/fact7_*`, `v10/gap_floor_*`); `R/notes/101_lean_open_checks.R` part F (floor, 13 covariates; `v11/open_checks/f_*.csv`); `R/notes/50_followups_jeremy.R` part 2 (year-to-year correlations); `R/notes/84_tcja_contrib.R` with `MV_MODEL=lean` (Evidence 6; `D:/MULTIVERSE/data/tcja_v11/`); `R/notes/86_sensitivity_tcja_size.R` part A with `MV_MODEL=lean` (Evidence 6b; `D:/MULTIVERSE/data/sensitivity_v11/a_*.csv`); `R/README.md` and the data-construction notes.*
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

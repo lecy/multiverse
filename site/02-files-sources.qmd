@@ -1,0 +1,139 @@
+---
+title: "2. Files, sources and data dictionaries"
+subtitle: "Every input the build reads, where it came from, and every variable in the final tables"
+nocite: |
+  @data_bea_pcepi, @data_bea_regional, @data_bls_nonprofits, @data_bls_qcew,
+  @data_census_acs, @data_census_sf3, @data_census_cog, @data_census_tiger,
+  @data_omb_cbsa, @data_census_hist, @data_census_pep_char, @data_census_popest,
+  @data_census_saipe, @data_medsl_county, @data_mcgovern_elections, @data_ers_laus,
+  @data_irs_soi_county, @data_irs_soi_eo, @data_nccs_bmf_legacy, @data_nccs_bmf_monthly,
+  @data_nccs_bmf_unified, @data_bmf_long_panel, @data_nccs_core, @data_nccs_efile,
+  @data_patentsview, @data_rcms_2000_2010, @data_rcms_2020, @data_nercrd_socap,
+  @rupasingha2006production, @data_nccs_ntee_crosswalk, @data_irs_1023ez,
+  @r_core, @pkg_datatable, @pkg_arrow, @pkg_renv, @pkg_fixest, @quarto
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library( data.table )
+d <- function( f ) fread( file.path( "data", f ), encoding = "UTF-8" )
+src <- d( "sources.csv" ); man <- d( "frozen_manifest.csv" )
+dict <- fread( "../docs/variable_dictionary.csv", encoding = "UTF-8" )
+cites <- function( k ) vapply( strsplit( k, ";\\s*" ), function( x ) paste0( "[@", paste( x, collapse = "; @" ), "]" ), "" )
+md <- function( x ) gsub( "\\|", "/", x )             # keep pipe tables intact
+```
+
+The database is built from `r nrow( src )` sources. Every file the build reads is
+frozen on Amazon S3 with a SHA-256 checksum, so the published tables can be rebuilt
+exactly even after a publisher revises or removes a file: `r format( nrow( man ), big.mark = "," )`
+files, `r sprintf( "%.1f", sum( man$bytes ) / 1e9 )` GB. Part 3 shows how to restore
+them. Each source folder in [`inputs/`](https://github.com/lecy/multiverse/tree/main/inputs)
+has a `SOURCE.md` with the publisher, URL, years, how the file is obtained, the build
+steps that read it, the licence and the citation.
+
+# Sources
+
+**Why frozen** records the reason each source is archived rather than only downloaded
+on demand:
+
+- **archive needed:** not reliably available online. The file was placed by hand, is
+  behind a login, was shared with us, or has no recorded download URL.
+- **on demand (release):** a fixed public release that a script downloads. It is frozen
+  as a safeguard.
+- **on demand (moving):** a public file that the publisher revises in place, so a
+  later download can differ.
+
+```{r}
+#| label: tbl-sources
+#| tbl-cap: "Data sources. Files and GB are the frozen copy on S3."
+#| output: asis
+t <- src[ , .( Source = sprintf( "**%s**<br>`%s`", md( title ), folder ),
+               Publisher = md( publisher ), Years = md( years ),
+               `Why frozen` = archive, Files = files, GB = sprintf( "%.2f", gb ),
+               Cite = cites( cite ) ) ]
+cat( knitr::kable( t, format = "pipe" ), sep = "\n" )
+```
+
+## Licences and redistribution
+
+Federal sources are public domain. NCCS data are under the Open Data Commons
+Attribution License (ODC-BY 1.0), PatentsView under CC BY 4.0, the MEDSL election
+returns under CC0 and the McGovern election files under the MIT License. Two sources
+have no open licence: the Religious Congregations and Membership Study (ASARB) and the
+NERCRD social capital index. We received permission to redistribute both, and each
+frozen folder carries a `PERMISSION.md`.
+
+```{r}
+#| label: tbl-licences
+#| tbl-cap: "Licence of each source, as stated by the publisher."
+#| output: asis
+cat( knitr::kable( src[ , .( Folder = sprintf( "`%s`", folder ), Licence = md( licence ) ) ], format = "pipe" ), sep = "\n" )
+```
+
+# Frozen-file manifest
+
+Frozen inputs live at `s3://lecy/nonprofit-density/inputs/<folder>/`. Each folder holds
+the files, a `MANIFEST.csv` (path, bytes, SHA-256, original path, the build steps that
+read the file, freeze date) and the `SOURCE.md`. The full list of files with checksums
+is in [frozen_manifest.csv](data/frozen_manifest.csv).
+
+```{r}
+#| label: tbl-frozen
+#| tbl-cap: "Frozen files by source folder."
+#| output: asis
+f <- man[ , .( Files = .N, MB = round( sum( bytes ) / 1e6, 1 ),
+               `Read by steps` = paste( sort( unique( unlist( strsplit( steps[ nzchar( steps ) ], ";" ) ) ) ), collapse = ", " ) ),
+          by = .( Folder = sprintf( "`%s`", folder ) ) ]
+f <- rbind( f, data.table( Folder = "**Total**", Files = sum( f$Files ), MB = round( sum( f$MB ), 1 ), `Read by steps` = "" ) )
+cat( knitr::kable( f, format = "pipe", format.args = list( big.mark = "," ) ), sep = "\n" )
+```
+
+`soi` and `nccs-bmf` (the unified BMF) were frozen before the others and keep their
+own layout. `env/restore_inputs.R` handles both.
+
+# Final tables
+
+The build produces two analysis tables, one per geographic unit. Both are annual,
+2000–2024.
+
+| Table | Unit | Rows | Columns |
+|---|---|---|---|
+| `data/analysis/county_year.parquet` | 3,144 counties (2023 delineation, Connecticut planning regions) | 78,600 | 354 |
+| `data/analysis/cbsa_year.parquet` | 925 core-based statistical areas: 387 metropolitan, 538 micropolitan [@data_omb_cbsa] | 23,125 | 422 |
+
+Covariates observed only in some years come in up to three versions: `_obs` (observed
+values only), `_lin` (linear interpolation between observed years) and `_locf` (last
+observation carried forward). The dictionary marks these with *gap-fill*.
+
+# Variable dictionary
+
+```{r}
+#| label: dict
+#| output: asis
+dict[ , table := fifelse( table == "both", "county and CBSA", fifelse( table == "county", "county only", fifelse( table == "cbsa", "CBSA only", table ) ) ) ]
+for ( g in unique( dict$group ) ) {
+  x <- dict[ group == g ]
+  cat( "\n## ", tools::toTitleCase( gsub( "_", " ", g ) ), " {.unnumbered}\n\n", sep = "" )
+  cat( knitr::kable( x[ , .( Variable = sprintf( "`%s`", variable ), Description = md( description ),
+                             Table = table, Step = step, `Gap-fill` = fifelse( gapfill, "yes", "" ) ) ],
+                     format = "pipe" ), sep = "\n" )
+}
+```
+
+The dictionary is generated from the build scripts by `docs/make_dictionary.R` and is
+also available as [variable_dictionary.csv](https://github.com/lecy/multiverse/blob/main/docs/variable_dictionary.csv).
+
+# Software
+
+The build runs in R [@r_core] with package versions pinned by renv [@pkg_renv]. It uses
+data.table [@pkg_datatable] and arrow [@pkg_arrow] for data handling and fixest
+[@pkg_fixest] for the panel models. This site is built with Quarto [@quarto].
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

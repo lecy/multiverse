@@ -1,0 +1,162 @@
+---
+title: "7. Running the multiverse"
+subtitle: "From the specification grid to the decision matrix"
+---
+
+::: {.callout-note}
+Draft, 2026-11-18. Run times are still to be added from the build machine's logs.
+:::
+
+Part 4 explains why the analysis is a multiverse, and Part 5 sets out the decisions it
+crosses. This page shows how the multiverse is executed: the code that defines and
+runs the grid, the commands, the output files, and how the outputs become the
+findings. The approach follows multiverse and multimodel analysis
+[@steegen2016increasing; @simonsohn2020specification; @young2017model], and keeps
+choices that change the question apart from arbitrary ones
+[@delgiudice2021traveler].
+
+# The run in one picture
+
+```{mermaid}
+flowchart LR
+  P["cbsa_year.parquet<br/>(Part 1)"] --> G["40_multiverse.R<br/>grid + model engine"]
+  G --> R["44_run_universe.R<br/>432,432 specifications<br/>in resumable batches"]
+  R --> O["specs.parquet<br/>coefs.parquet"]
+  O --> S["97_v11_decision_summary.R<br/>importance, stability"]
+  O --> M["98_decision_matrix.R<br/>decision matrix figures"]
+  S --> F["Findings<br/>(paper/05)"]
+  M --> F
+```
+
+# The engine: `R/lib/40_multiverse.R`
+
+One file defines the whole universe. It has three parts:
+
+1. **The covariate catalog.** Every covariate belongs to a block, a construct
+   (need, heterogeneity, wealth, education, social capital, government, history,
+   growth). Each covariate has a type:
+   - **Type A, intensive:** rates and levels, such as the poverty rate. In the
+     all-SAMI arm these are residualized on log population.
+   - **Type B, extensive:** totals that grow with size, such as foundation assets.
+     These enter raw, per capita, logged or as SAMIs.
+
+   Every block has a default measure plus alternatives. The current run uses the
+   *lean* default model of 13 covariates (`MV_MODEL=lean`; Part 5, Variables).
+2. **The specification grid.** The grid is built in three layers:
+   - **Strata:** choices that change the question are never pooled. That means the
+     construct (counts or spending), whether hospitals and universities are included,
+     and identification (cross-section, pooled panel or within-metro).
+   - **Forks:** inside each stratum, the arbitrary choices are crossed with each
+     other: outcome measure, DV form, predictor form, log population on the right,
+     unit, estimator, year and winsorizing.
+   - **Covariate sets:** each fork combination is fitted with the default model, with
+     one block dropped, with one measure swapped, or with one measure added.
+
+   Impossible combinations are removed, and so are specifications that are algebraic
+   duplicates of another (for example, by the Frisch–Waugh–Lovell theorem).
+3. **The model engine.** One function fits a specification and returns one row per
+   term: estimate, standard error, *t*, *p*, standardized β, *n* and *R*². Every
+   covariate is compared on one yardstick, its **partial correlation**
+   $r = t / \sqrt{t^2 + df}$. Models are fitted with fixest [@pkg_fixest].
+
+# The scripts
+
+| Script | Role |
+|---|---|
+| `R/lib/40_multiverse.R` | catalog, grid and model engine (sourced by the others) |
+| `R/lib/41_composites.R` | composite-index alternatives (unit-weighted z-score means) |
+| `R/multiverse/42_timing_test.R` | sizes the grid and times 1,000 sampled specifications to estimate total run time |
+| `R/multiverse/43_verify_duplicates.R` | checks that dropped algebraic duplicates give the same coefficients as their kept twin |
+| `R/multiverse/44_run_universe.R` | runs a universe in resumable parallel batches |
+| `R/multiverse/45_summarize_run.R` | first-pass summary: sign stability, share significant, variance decomposition |
+| `R/multiverse/46_compare_runs.R` | compares two runs on their shared specifications |
+| `51`, `53`, `57` | add an estimator (Census-division fixed effects), the composite indexes, or a longer within-metro window to a finished run |
+| `55`, `82`, `85`, `92`, `93` | add-on covariate blocks: endowment, population-growth kernels, civic capacity and religion, inequality and congregations, government delivery mode |
+| `R/multiverse/97_v11_decision_summary.R` | decision importance (η²), option medians, stability and drop-one-block shifts |
+| `R/multiverse/98_decision_matrix.R` | the decision-matrix figures: one row per covariate, one column per decision |
+
+The add-on scripts append their specifications after the base grid, so the IDs of
+existing specifications never change, and a finished run can be extended without
+being re-run.
+
+# Running it
+
+The multiverse is the `multiverse` stage of `pipeline.csv`, so it runs with the same
+runner as the database (Part 3):
+
+```sh
+Rscript run.R multiverse
+```
+
+That runs three steps, each with `MV_MODEL=lean`:
+
+| Step | Command it runs | Output |
+|---|---|---|
+| 44v11 | `44_run_universe.R principled 2000 14 principled_v11` | `data/spec/run_principled_v11/`: specifications in batches of 2,000, on 14 workers |
+| 97 | `97_v11_decision_summary.R` | `data/outline/v11/mv/`: `decision_importance.csv`, `option_medians.csv`, `stability.csv`, `drop_shift.csv` |
+| 98 | `98_decision_matrix.R principled_v11` | the decision-matrix figures |
+
+`44_run_universe.R` takes four arguments:
+
+```sh
+Rscript R/multiverse/44_run_universe.R <universe> <batch_size> <workers> <run_name>
+```
+
+- **universe:** `principled` (the designed grid) or `kitchen` (every combination;
+  built but not run).
+- **batch_size** and **workers:** how many specifications per batch, and how many
+  run in parallel.
+- **run_name:** the output folder.
+
+Each worker writes its batch to `data/spec/run_<run_name>/batches/`, and finished
+batches are skipped on a re-run, so an interrupted run resumes. At the end the batches
+are combined into:
+
+- `specs.parquet`: one row per specification, with its fork settings and status
+  (432,432 rows in run v11);
+- `coefs.parquet`: one row per specification × term;
+- `run_summary.csv`.
+
+Before a full run, `42_timing_test.R` times a stratified sample of 1,000
+specifications, serially and in parallel, and extrapolates the total run time.
+
+# From outputs to findings
+
+Two summary scripts turn the coefficient table into the exhibits in the findings
+chapter:
+
+- **Decision importance (97).** For each covariate and decision, η² is the share of
+  the spread in partial *r* across specifications that the decision explains, computed
+  within strata. With 10⁴–10⁵ specifications every F test is significant, so η² ≥ .06
+  (a medium effect), not a *p*-value, marks a decision that matters.
+- **Matched pairs (98).** Pairs of specifications that differ in only one decision
+  give two measures:
+  - the mean absolute change in partial *r*;
+  - the share of pairs whose verdict changes: significantly positive, not significant,
+    or significantly negative.
+
+**What the run shows.** Across the 13 covariates:
+
+- **The question matters most.** Choices that change the question change 20–42% of
+  verdicts: which population is counted, how the model is identified, and the unit
+  of analysis.
+- **The usual robustness checks matter least.** The choices papers usually report as
+  robustness checks move the average covariate by .04 or less: the year, winsorizing,
+  log population on the right, and the money measure.
+
+The full tables, the decision matrix and the sensitivity analyses are in
+[Findings](../paper/05-findings.qmd).
+
+# Reproducing a run
+
+1. Build the database (Part 3), or restore `cbsa_year.parquet`.
+2. `Rscript run.R multiverse`. A full run is CPU-bound, and the number of workers is
+   the third argument of step 44v11 in `pipeline.csv`.
+3. Compare with the published run: `specs.parquet` and `coefs.parquet` should match
+   specification by specification. Compare by specification ID, since parallel
+   batches can finish in a different order.
+
+# References {.unnumbered}
+
+::: {#refs}
+:::
