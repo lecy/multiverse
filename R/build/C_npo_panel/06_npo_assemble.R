@@ -41,11 +41,23 @@ rd <- function( f ) as.data.table( read_parquet( need( file.path( OUT$npo, f ) )
 
 ## ---- price index (PCE, annual average), floor in nominal dollars ---------
 
-f_pce <- fetch( "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCEPI", RAW$census_popest,
-                file = "fred_pcepi.csv" )
+## BEA NIPA Table 2.8.4 line 1 (series DPCERG), monthly, from BEA's flat file, not
+## FRED: FRED's terms forbid archiving its downloads. Same numbers as FRED PCEPI
+## (checked 2026-11-17: annual means 1999-2025 identical). Only the DPCERG rows are
+## kept, in raw/bea-nipa/; freeze that file (inputs/bea-pcepi/).
+f_pce <- file.path( BUILD, "raw", "bea-nipa", "bea_pcepi_monthly.csv" )
+if ( !file.exists( f_pce ) ) {
+  dir.create( dirname( f_pce ), recursive = TRUE, showWarnings = FALSE )
+  nipa <- fetch( "https://apps.bea.gov/national/Release/TXT/NipaDataM.txt", TMP )
+  x <- fread( nipa, colClasses = "character" )[ `%SeriesCode` == "DPCERG" ]
+  fwrite( x[ , .( series = `%SeriesCode`, period = Period, value = as.numeric( gsub( ",", "", Value ) ),
+                  retrieved = format( Sys.Date() ) ) ], f_pce )
+  unlink( nipa )
+}
 pce <- fread( f_pce )
-setnames( pce, c( "date", "pce" ) )
-pce <- pce[ , .( pce = mean( pce ) ), by = .( year = year( as.IDate( date ) ) ) ][ year %in% 1999:2025 ]
+pce <- pce[ , .( pce = mean( value ), months = .N ), by = .( year = as.integer( substr( period, 1, 4 ) ) ) ][ year %in% 1999:2025 ]
+stopifnot( all( pce$months == 12 ), identical( pce$year, 1999:2025 ) )
+pce[ , months := NULL ]
 pce[ , to2022 := pce[ year == 2022 ] / pce ]                       # nominal -> 2022 $
 pce[ , floor_nom := FLOOR_REAL_2010 * pce / pce[ year == 2010 ] ]
 fwrite( pce, file.path( OUT$diag, "pce_deflator.csv" ) )

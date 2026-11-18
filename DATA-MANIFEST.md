@@ -28,7 +28,7 @@ Contents
 | CBSA crosswalk | OMB 2023 CBSA delineation (`00 - DATA/population/cbsa2fipsxw.csv`) | Local copy | — | Metro and micro CBSAs; the analysis uses 387 metros (or all 925 CBSAs) |
 | County population | Census PEP: `co-est00int-tot.csv` (2000–09 intercensal), `sub-est2020int.csv` (2010–19 intercensal, via towns for CT), `co-est2025-alldata.csv` (Vintage 2025 postcensal, 2020–25), CT town crosswalk | Script download from `www2.census.gov/programs-surveys/popest/datasets`, cached in `raw/census-popest` | 2000–2025, July 1 | Total resident population |
 | Boundary fixes | Bedford city → Bedford County VA (2013); Shannon → Oglala Lakota SD (2015); Wade Hampton → Kusilvak AK (2015); Valdez-Cordova split into Chugach / Copper River AK (2019; earlier years split by 2020 shares); CT legacy counties → planning regions (towns or lat/long) | `00_setup.R` `COUNTY_RECODE`, `geo_helpers.R` | All | Applied to every source |
-| Price index | FRED PCEPI, annual mean (`fred_pcepi.csv`) | Script download | 1999–2025 | Deflates dollars to 2022 $ and sets the active-filer floor |
+| Price index | BEA PCE chain-type price index, NIPA Table 2.8.4 line 1 (series `DPCERG`), monthly, annual mean. From BEA's flat file `apps.bea.gov/national/Release/TXT/NipaDataM.txt`; the DPCERG rows are kept in `raw/bea-nipa/bea_pcepi_monthly.csv`. Replaced the FRED PCEPI download on 2026-11-17 (FRED's terms forbid archiving); the annual values 1999–2025 are identical | Script download | 1999–2025 | Deflates dollars to 2022 $ and sets the active-filer floor |
 
 The old interpolated population file (`00 - DATA/population/cbsa_population_2000_2025.csv`)
 is read only for a comparison diagnostic. It is not used in the panel.
