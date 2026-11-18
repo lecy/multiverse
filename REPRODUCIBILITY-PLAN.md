@@ -275,7 +275,7 @@ results.
   - **c9 needs no builder.** 82 read `c9_metro_1970_2024.csv` (73) only for a consistency printout, which was dropped. The real cycle was `load_panel()`, which 82 used to get CBSA population. 26 now sums county population from `npo_county_year.csv` exactly as 30 does.
   - **Merge moved to 30.** 30 merges `hist_pre1970`, `lag_g5`, `lag_g10` and `gini_m` last (after derive and fill), exactly as `load_panel()` attached them. `load_panel()` now only adds `logP` and `division`, and it stops if a panel lacks the four columns.
 - **Step 3 done.** In 06, the grants, monthly BMF, reconstructed BMF and entry inputs are required (`need()`).
-- **Step 4 done.** `pipeline.csv` has 36 steps (database, checks, multiverse). `run.R` provides the stage selection, `--dry-run`, `--from`, `--only`, make-style skipping, a missing-input stop, per-step logs and `MANIFEST.csv`. `run.R --graph` writes `env/pipeline_graph.md` (Mermaid). Inputs in `pipeline.csv` list build files only; raw sources are noted in the notes column and are left to the Phase 4 inventory. From Git Bash, export `MV_BUILD`, because R there reads `~/.Renviron` from `$HOME`, not Documents.
+- **Step 4 done.** `pipeline.csv` has 36 steps (database, checks, multiverse). `run.R` provides the stage selection, `--dry-run`, `--from`, `--only`, make-style skipping, a missing-input stop, per-step logs and `MANIFEST.csv`. `run.R --graph` writes `env/pipeline_graph.md` (Mermaid). Inputs in `pipeline.csv` list build files only; raw sources were noted in the notes column and left to the Phase 4 inventory. *(Superseded 2026-11-17: raw sources now have their own `raw` column; see "Changes after Phase 3".)* From Git Bash, export `MV_BUILD`, because R there reads `~/.Renviron` from `$HOME`, not Documents.
 - **Step 5 done** (`env/check_phase2.R`, against the 11:02 S3 snapshot used for Phase 1).
   - **Side files and panels.** The rebuilt side files are identical to the reference: `cov_endowment`, `cov_lag_kernel` (+ coverage), `cov_gini_metro` and `acs_need_cbsa`. `cbsa_year.parquet` equals the reference plus exactly those four columns (23,125 × 422, cell by cell). `load_panel()` returns the same table as before (column order aside), and `county_year.parquet` is identical.
   - **06.** The committed 06 and the new 06 were run on the same inputs (current S3 copies). `npo_county_year`, `npo_cbsa_year`, `npo_county_year_by_source` and `splice_overlap` are byte-identical.
@@ -300,6 +300,17 @@ Update the `source()` paths, the README and the memory notes. Check:
   - `run.R --only 25,26` rebuilt the endowment and lag-kernel files byte-identical to the reference.
   - A 200-spec v11 slice through the parallel workers matched 200/200 statuses and every coefficient row, apart from lme4 noise around 1e-9.
 
+*Changes after Phase 3 (2026-11-17, second machine). Deliberate, and the first since Phase 1 that change outputs:*
+- **One NTEE rule** (`92afdb8`). The invalid-code rule and its backfill live once, in `bad_ntee()` / `resolve_ntee()` in `R/lib/00_setup.R`. Step 02 writes the lookup `data/npo/ein_ntee_best.csv.gz` (each EIN's latest valid snapshot code) and resolves its own snapshot codes before counting. 02b, 06, 08, 23, 24, 10b and 10c call the same rule. Unresolved codes become NA everywhere.
+  - **The helper, 02 and 02b were swept into the Phase 3 commit `e086df1`**, which was already pushed. `e086df1` alone is therefore not a consistent state; `92afdb8` completes it. History was not rewritten.
+  - **Effect measured here:** 2000–22 legacy BMF counts, `n_bmf_c3pc_hs` +0.01–0.4% (most in 2009), `n_bmf_c3pc_nohu` and totals unchanged (`diagnostics/bmf_legacy_ntee_effect.csv`).
+  - **Not yet measured** (needs the build machine): 06 and 23 now build the lookup from all BMF rows rather than located ones only, and 06 falls back to the filing's own code where the BMF code is invalid. Expect small changes in the `*_nohu` and `*_hs` filer series, hence in 30 and v11.
+- **Hidden dependencies declared** (`92afdb8`): the unified BMF (05 → 02b), the ruling cohorts (02b → 08), the NTEE lookup, and step 24, which joins the pipeline after 06 (37 steps). 30 reads a fixed list of `cov/cbsa/` files instead of globbing the folder (same three files today, so no change).
+- **Price index from BEA** (`3a6c3f7`): 06 reads NIPA Table 2.8.4 line 1 (`DPCERG`) from BEA's monthly flat file into `raw/bea-nipa/`. The annual means 1999–2025 equal FRED PCEPI and the reference `pce_deflator.csv` exactly, so no output changes.
+- **Raw inputs declared** (`713df95`): new `raw` column in `pipeline.csv`, 79 entries in 27 steps, as `<inputs folder>=<path>` (see the Phase 2 Step 4 note). `run.R --raw` lists what each resolves to and writes `MV_BUILD/raw_inputs.csv`; raw files newer than a step's outputs make it rerun.
+- **Workflow page** (`a73471c`): `docs/workflow.qmd` → `workflow.html`, with the build diagram, folder structure, sources by archive status, final tables and a 321-variable dictionary.
+- **Consequence for Phase 5:** the reference outputs (`s3://lecy/multiverse/data`, the 11:02 snapshot used for the Phase 1–3 checks) no longer match the code. Before the clean-room diff, rebuild 02 onward once on the build machine from the frozen inputs, record the differences against the old reference as the NTEE change, and use that build as the new reference.
+
 **Phase 4: freeze the inputs (1 day, mostly upload time)**
 1. Write an inventory script that lists every file the build reads. Instrument the
    read helpers, or use `pipeline.csv` inputs, and record size and sha256 for each.
@@ -313,13 +324,14 @@ Update the `source()` paths, the README and the memory notes. Check:
 *Status 2026-11-17:*
 - **Steps 2 and 3 done as documentation.** `inputs/README.md` indexes 25 source folders, each with a `SOURCE.md`: publisher, files, URL, years, how the file is obtained, the scripts that read it, licence, whether it can be redistributed, and citation. Licence terms were checked on 2026-11-17.
 - **Already frozen on S3:** SOI and the unified BMF. Freezing the rest is step 1. sha256 goes into each folder's `MANIFEST.csv` when it is frozen.
+- **Step 1 ready to start.** The file list is the `raw` column of `pipeline.csv`, grouped by `inputs/` folder: `run.R --raw` resolves it (globs already narrowed to the files read, e.g. the 23 BMF snapshots, not 88). Run it on the build machine, where every entry should resolve; on the second machine 39 of 79 do. The inventory script then adds sha256 and copies each folder.
 - **Provenance:**
   - The SOI sample frame has columns that the saved `soi-extract-harmonization` scripts don't produce (`NTEE_IRS`, `LATITUDE`, `LONGITUDE`, `BMF_SUBSECTION_CODE`, …). The frozen file is the record. The S3 SOI README should say so.
   - The long BMF panel has a methods memo but no script.
   - The QCEW county files and the legacy BMF snapshots have no recorded download URL.
 - **Licences:**
   - RCMS (ASARB) and the NERCRD social capital files have no open licence, but permission to bundle them was received (recorded 2026-11-17). They are frozen with the rest, each with a `PERMISSION.md`.
-  - Replace the FRED PCEPI download with BEA: FRED's terms forbid archiving it.
+  - ~~Replace the FRED PCEPI download with BEA: FRED's terms forbid archiving it.~~ Done (`3a6c3f7`); freeze `raw/bea-nipa/bea_pcepi_monthly.csv`.
   - Everything else can be redistributed with attribution: NCCS under ODC-BY, tonmcg under MIT, PatentsView under CC BY 4.0, MEDSL under CC0, and the federal sources as public domain.
 
 **Phase 5: clean-room rebuild (1–2 days of compute)**

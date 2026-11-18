@@ -102,7 +102,7 @@ has that field set to NA. These records are listed in `guard_over_200bn.csv`.
 
 ### 2.5 NTEE codes: invalid-code backfill (2026-11-17)
 
-**Rule** (`06_npo_assemble.R`, the same as `23_cov_compete.R`):
+**Rule** (one copy since 2026-11-17: `bad_ntee()` / `resolve_ntee()` in `R/lib/00_setup.R`. `02_npo_bmf_counts.R` writes the lookup `data/npo/ein_ntee_best.csv.gz` and applies it to the legacy snapshots; 02b, 06, 08, 23 and 24 apply it to their records. Codes it cannot resolve are set to NA):
 - A record's 3-character NTEE is **invalid** if it is missing, blank, or starts with `UND` (undefined), `INV` (invalid) or `Z99` (unknown).
 - An invalid code is replaced by the **most recent valid NTEE for the same EIN in the legacy NCCS BMF snapshots** (2000–2022-08, `ein_location_bmf.csv.gz`). There, NTEE = `NTEEFINAL`, else `NTEECC`.
 - The backfilled code then drives the hospital/university flag (E20–E24, B40–B43, B50) and the human-services flag (I–P).
