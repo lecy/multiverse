@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Literature review – Nonprofit Density: Data and Multiverse</title>
+<title>0. Motivation – Nonprofit Density: Data and Multiverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../site/01-construction.html" rel="next">
+<link href="../site/01-literature.html" rel="next">
 <link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -91,36 +91,8 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
+<link rel="stylesheet" href="../site/styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -132,7 +104,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../site/00-literature.html">Literature review</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../site/00-motivation.html">0. Motivation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -164,8 +136,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/00-literature.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Literature review</span></a>
+  <a href="../site/00-motivation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">0. Motivation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/01-literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Literature review</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -179,20 +157,20 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/01-construction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1. Dataset construction</span></a>
+  <a href="../site/02-construction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Dataset construction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/02-files-sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. Files, sources and dictionaries</span></a>
+  <a href="../site/03-files-sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Files, sources and dictionaries</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/03-workflow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3. Workflow code</span></a>
+  <a href="../site/04-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Workflow code</span></a>
   </div>
 </li>
       </ul>
@@ -209,13 +187,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../paper/03-multiverse-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4. Multiverse overview</span></a>
+ <span class="menu-text">5. Multiverse overview</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">5. Multiverse design</span></a>
+ <span class="menu-text">6. Multiverse design</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -238,13 +216,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../paper/01-stylized-facts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6. Stylized facts</span></a>
+ <span class="menu-text">7. Stylized facts</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">7. Running the multiverse</span></a>
+ <span class="menu-text">8. Running the multiverse</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -252,7 +230,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/07-multiverse-run.html" class="sidebar-item-text sidebar-link">
+  <a href="../site/08-multiverse-run.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Code and execution</span></a>
   </div>
 </li>
@@ -264,14 +242,20 @@ window.Quarto = {
 </li>
       </ul>
   </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../site/08-next.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">8. Where the research goes</span></a>
-  </div>
-</li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/09-reconciliation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Reconciling the literature</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/10-next.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Where the research goes</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -282,21 +266,22 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#nonprofit-density" id="toc-nonprofit-density" class="nav-link active" data-scroll-target="#nonprofit-density">Nonprofit density</a></li>
-  <li><a href="#urban-scaling-and-samis" id="toc-urban-scaling-and-samis" class="nav-link" data-scroll-target="#urban-scaling-and-samis">Urban scaling and SAMIs</a></li>
-  <li><a href="#multiverse-analysis" id="toc-multiverse-analysis" class="nav-link" data-scroll-target="#multiverse-analysis">Multiverse analysis</a></li>
-  <li><a href="#what-this-means-for-local-funders-and-governments" id="toc-what-this-means-for-local-funders-and-governments" class="nav-link" data-scroll-target="#what-this-means-for-local-funders-and-governments">What this means for local funders and governments</a></li>
+  <li><a href="#the-question-communities-ask" id="toc-the-question-communities-ask" class="nav-link active" data-scroll-target="#the-question-communities-ask">The question communities ask</a></li>
+  <li><a href="#why-the-evidence-has-not-been-usable" id="toc-why-the-evidence-has-not-been-usable" class="nav-link" data-scroll-target="#why-the-evidence-has-not-been-usable">Why the evidence has not been usable</a></li>
+  <li><a href="#what-this-project-does" id="toc-what-this-project-does" class="nav-link" data-scroll-target="#what-this-project-does">What this project does</a></li>
+  <li><a href="#what-a-community-can-take-from-it" id="toc-what-a-community-can-take-from-it" class="nav-link" data-scroll-target="#what-a-community-can-take-from-it">What a community can take from it</a></li>
+  <li><a href="#how-the-site-is-organized" id="toc-how-the-site-is-organized" class="nav-link" data-scroll-target="#how-the-site-is-organized">How the site is organized</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/site/00-literature.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/site/00-motivation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Literature review</h1>
-<p class="subtitle lead">Nonprofit density, urban scaling and SAMIs, and multiverse analysis</p>
+<h1 class="title">0. Motivation</h1>
+<p class="subtitle lead">Why measure nonprofit density, and why do it as a multiverse</p>
 </div>
 
 
@@ -313,157 +298,135 @@ window.Quarto = {
 </header>
 
 
-<p>This project draws on three bodies of work. The first explains why some communities have more nonprofits than others. The second, urban scaling, sets the yardstick: how many nonprofits a place of a given size should be expected to have. The third, multiverse analysis, makes visible how much a conclusion depends on the analyst’s choices. Together they answer a practical question for local foundations and governments: <strong>compared with places like it, is our nonprofit sector large or small, and which of the levers we control are actually associated with a stronger sector?</strong></p>
-<section id="nonprofit-density" class="level1">
-<h1>Nonprofit density</h1>
-<p><strong>Why nonprofits exist.</strong> Economic theories explain the nonprofit sector by the limits of markets and governments:</p>
-<ul>
-<li><strong>Government failure.</strong> Government supplies public goods at the level the median voter wants. Where preferences are diverse, nonprofits supply the unmet demand <span class="citation" data-cites="weisbrod1977voluntary">(<a href="#ref-weisbrod1977voluntary" role="doc-biblioref">Weisbrod, 1977</a>)</span>.</li>
-<li><strong>Contract failure.</strong> Where donors or clients cannot judge quality, the nondistribution constraint makes nonprofits more trustworthy providers than firms <span class="citation" data-cites="hansmann1980role">(<a href="#ref-hansmann1980role" role="doc-biblioref">Hansmann, 1980</a>)</span>.</li>
-<li><strong>Interdependence.</strong> Voluntary action has its own failures: it is insufficient, particularistic, paternalistic and amateur. Government and nonprofits therefore act as partners, with public money flowing through nonprofit providers <span class="citation" data-cites="salamon1987market">(<a href="#ref-salamon1987market" role="doc-biblioref">Salamon, 1987</a>)</span>.</li>
-</ul>
-<p>Each theory implies a different set of local conditions associated with a larger sector: demand heterogeneity, information problems, or government spending.</p>
-<p><strong>Empirical tests across places.</strong> A line of studies tests these theories by comparing nonprofit counts or spending across states, metros and counties:</p>
-<ul>
-<li>the joint size of the for-profit, nonprofit and government sectors <span class="citation" data-cites="benner1992empirical">(<a href="#ref-benner1992empirical" role="doc-biblioref">Ben-Ner &amp; Van Hoomissen, 1992</a>)</span>;</li>
-<li>the growth of social-service nonprofits <span class="citation" data-cites="corbin1999study">(<a href="#ref-corbin1999study" role="doc-biblioref">Corbin, 1999</a>)</span>;</li>
-<li>metropolitan nonprofit sectors in NCCS data <span class="citation" data-cites="bielefeld2000metropolitan">(<a href="#ref-bielefeld2000metropolitan" role="doc-biblioref">Bielefeld, 2000</a>)</span>;</li>
-<li>community variations in the size and scope of the sector <span class="citation" data-cites="gronbjerg2001community">(<a href="#ref-gronbjerg2001community" role="doc-biblioref">Grønbjerg &amp; Paarlberg, 2001</a>)</span>;</li>
-<li>a state panel test of government-failure theory <span class="citation" data-cites="matsunaga2004government">(<a href="#ref-matsunaga2004government" role="doc-biblioref">Matsunaga &amp; Yamauchi, 2004</a>)</span>;</li>
-<li>social capital and sector growth <span class="citation" data-cites="saxton2005social">(<a href="#ref-saxton2005social" role="doc-biblioref">Saxton &amp; Benson, 2005</a>)</span>;</li>
-<li>socioeconomic diversity and political engagement across counties <span class="citation" data-cites="kim2015socioeconomic">(<a href="#ref-kim2015socioeconomic" role="doc-biblioref">Kim, 2015</a>)</span>;</li>
-<li>government support and density in a metro panel <span class="citation" data-cites="lecy2013nonprofit">(<a href="#ref-lecy2013nonprofit" role="doc-biblioref">Lecy &amp; Van Slyke, 2013</a>)</span>.</li>
-</ul>
-<p><strong>Inconsistent results.</strong> The covariates in these studies are much the same: education, income, poverty, diversity, philanthropy, government, civic culture. Yet their signs often disagree from study to study. Poverty and income, for example, change sign between pooled and fixed-effects models of the same metros <span class="citation" data-cites="lecy2013nonprofit">(<a href="#ref-lecy2013nonprofit" role="doc-biblioref">Lecy &amp; Van Slyke, 2013</a>)</span>.</p>
-<p>Studies also differ in many design choices:</p>
-<ul>
-<li>whether they count organizations or dollars;</li>
-<li>whether they scale by population, and how;</li>
-<li>the unit of analysis;</li>
-<li>the years covered;</li>
-<li>the estimator.</li>
-</ul>
-<p>The disagreements could therefore come from the communities or from those choices, and the literature has had no way to tell which. That gap motivates the rest of this project.</p>
-</section>
-<section id="urban-scaling-and-samis" class="level1">
-<h1>Urban scaling and SAMIs</h1>
-<p><strong>Scaling laws.</strong> Many urban quantities grow as a power of population, <span class="math inline">\(Y = Y_0 N^{\beta}\)</span> <span class="citation" data-cites="bettencourt2007growth west2017scale">(<a href="#ref-bettencourt2007growth" role="doc-biblioref">Bettencourt et al., 2007</a>; <a href="#ref-west2017scale" role="doc-biblioref">West, 2017</a>)</span>:</p>
-<ul>
-<li><strong>Superlinear</strong> (<span class="math inline">\(\beta &gt; 1\)</span>): innovation, wages and GDP grow faster than population.</li>
-<li><strong>Sublinear</strong> (<span class="math inline">\(\beta &lt; 1\)</span>): infrastructure grows more slowly.</li>
-<li><strong>Linear</strong> (<span class="math inline">\(\beta \approx 1\)</span>): individual needs, such as housing and jobs, grow in proportion to population.</li>
-</ul>
-<p>The exponents are explained by the way social interactions grow with city size <span class="citation" data-cites="bettencourt2013origins">(<a href="#ref-bettencourt2013origins" role="doc-biblioref">Bettencourt, 2013</a>)</span> and are linked to a production-function view of cities <span class="citation" data-cites="lobo2013urban">(<a href="#ref-lobo2013urban" role="doc-biblioref">Lobo et al., 2013</a>)</span>.</p>
-<p><strong>SAMIs.</strong> If density were judged by raw counts per capita, the result would depend on whether the outcome scales linearly. <em>Scale-adjusted metropolitan indicators</em> (SAMIs) solve this: each city’s deviation from the scaling line, the log of observed over size-expected <span class="citation" data-cites="bettencourt2010urban">(<a href="#ref-bettencourt2010urban" role="doc-biblioref">Bettencourt et al., 2010</a>)</span>. - <strong>Independent of size.</strong> SAMIs remove size from the comparison by construction. - <strong>Persistent.</strong> A city’s SAMI changes slowly over decades. - <strong>Meaningful.</strong> They separate local performance from the effect of size.</p>
-<p>Per-capita ratios have a known flaw. They are biased whenever the numerator does not scale one-for-one with the denominator, and they can induce spurious correlations between ratios that share it <span class="citation" data-cites="uslaner1976pitfalls">(<a href="#ref-uslaner1976pitfalls" role="doc-biblioref">Uslaner, 1976</a>)</span>.</p>
-<p><strong>Cautions.</strong> - Estimated exponents are sensitive to the definition of the unit and the estimator, and apparent nonlinearity has to be tested, not assumed <span class="citation" data-cites="leitao2016scaling">(<a href="#ref-leitao2016scaling" role="doc-biblioref">Leitão et al., 2016</a>)</span>. - Cross-sectional exponents need not describe how any one city changes over time <span class="citation" data-cites="depersin2018global bettencourt2020interpretation">(<a href="#ref-bettencourt2020interpretation" role="doc-biblioref">Bettencourt et al., 2020</a>; <a href="#ref-depersin2018global" role="doc-biblioref">Depersin &amp; Barthelemy, 2018</a>)</span>.</p>
-<p>Both cautions recur in our design: the unit of analysis, the estimator, and cross-sectional versus within-city identification are decisions in the multiverse (Part 5, D2–D5).</p>
-<p><strong>What it means for nonprofit density.</strong> Counts of 501(c)(3) organizations scale almost exactly linearly with population at every unit of aggregation, but spending does not (Part 6, Fact 1). A metro’s filer SAMI is therefore a size-neutral measure: how many nonprofits it has relative to a typical place of its size. That gives local funders and governments a fair benchmark, comparing like with like rather than a small town with a large city.</p>
-</section>
-<section id="multiverse-analysis" class="level1">
-<h1>Multiverse analysis</h1>
-<p><strong>The problem.</strong> Every estimate depends on a chain of defensible choices. Leamer <span class="citation" data-cites="leamer1983lets">(<a href="#ref-leamer1983lets" role="doc-biblioref">1983</a>)</span> argued for reporting how estimates move across reasonable specifications. Later work showed how undisclosed flexibility produces false positives <span class="citation" data-cites="simmons2011false">(<a href="#ref-simmons2011false" role="doc-biblioref">Simmons et al., 2011</a>)</span>, and that even analysts who never search for results walk a “garden of forking paths” <span class="citation" data-cites="gelman2014garden">(<a href="#ref-gelman2014garden" role="doc-biblioref">Gelman &amp; Loken, 2014</a>)</span>.</p>
-<p><strong>The method.</strong> - <strong>Multiverse analysis</strong> fits every combination of defensible choices and reports the whole set <span class="citation" data-cites="steegen2016increasing">(<a href="#ref-steegen2016increasing" role="doc-biblioref">Steegen et al., 2016</a>)</span>. - <strong>Specification curve analysis</strong> adds inference across the set <span class="citation" data-cites="simonsohn2020specification">(<a href="#ref-simonsohn2020specification" role="doc-biblioref">Simonsohn et al., 2020</a>)</span>. - <strong>Multimodel analysis</strong> attributes the spread of an estimate to the choices that produce it <span class="citation" data-cites="young2017model">(<a href="#ref-young2017model" role="doc-biblioref">Young &amp; Holsteen, 2017</a>)</span>. - <strong>Which choices to fork.</strong> Not every choice belongs in one distribution. Choices that change the question (non-equivalent) should be separated from arbitrary ones <span class="citation" data-cites="delgiudice2021traveler">(<a href="#ref-delgiudice2021traveler" role="doc-biblioref">Del Giudice &amp; Gangestad, 2021</a>)</span>.</p>
-<p><strong>Evidence that it matters.</strong> - When many teams analyse the same data to answer the same question, their estimates vary widely: in sign, size and significance <span class="citation" data-cites="silberzahn2018many">(<a href="#ref-silberzahn2018many" role="doc-biblioref">Silberzahn et al., 2018</a>)</span>. - Much of that variation cannot be traced to any team’s identifiable choices <span class="citation" data-cites="breznau2022observing">(<a href="#ref-breznau2022observing" role="doc-biblioref">Breznau et al., 2022</a>)</span>.</p>
-<p>Density research fits this description. It has standard covariates, many defensible designs and conflicting published signs.</p>
-<p><strong>How this project uses it.</strong> - <strong>Design.</strong> The multiverse separates <em>non-equivalent</em> decisions (what question is asked: filers or spending, metros or counties, levels or changes) from <em>arbitrary</em> ones (how a construct is measured, which estimator, how gaps are filled). Each decision has a card with its options and a recommendation (Part 5). - <strong>Execution.</strong> It fits about 432,000 specifications on one common yardstick (Part 7). - <strong>Reporting.</strong> It reports which decisions move results and which covariates hold up under all of them.</p>
-</section>
-<section id="what-this-means-for-local-funders-and-governments" class="level1">
-<h1>What this means for local funders and governments</h1>
-<p>The three literatures together suggest how a community can assess its nonprofit sector:</p>
+<section id="the-question-communities-ask" class="level1">
+<h1>The question communities ask</h1>
+<p>Local foundations, community foundations, United Ways and city and county governments spend heavily on their nonprofit sectors. They fund organizations directly, contract with them for services, and invest in capacity-building, leadership programs and shared infrastructure. Behind that spending sit three practical questions:</p>
 <ol type="1">
-<li><strong>Benchmark against size, not per capita.</strong> Compare a place with its size-expected level (its SAMI), not with raw counts per resident. Fact 1 shows counts scale linearly but spending does not, so per-capita spending comparisons mislead.</li>
-<li><strong>Expect slow change.</strong> Density is persistent over decades (Fact 2), and growth leaves a lag that closes slowly (Fact 3). A sector’s size today largely reflects its history. Goals and evaluation horizons should match.</li>
-<li><strong>Act only on robust associations.</strong> A factor that changes sign under reasonable alternative designs is not a reliable lever. The multiverse shows which local conditions are associated with a larger sector under every defensible design, and which are artefacts of a particular one.</li>
-<li><strong>Distinguish filers from grassroots.</strong> Most registered charities never file a full return (Fact 4). They respond to different conditions from established filers, so policies aimed at one group may not reach the other.</li>
+<li><strong>Is our nonprofit sector large or small for a place like ours?</strong></li>
+<li><strong>Which local conditions go with a stronger sector, and which of them can we change?</strong></li>
+<li><strong>How long should it take for an investment to show up in the sector’s size?</strong></li>
 </ol>
+<p>The research literature should help answer them, but in practice it gives a funder little to act on.</p>
+</section>
+<section id="why-the-evidence-has-not-been-usable" class="level1">
+<h1>Why the evidence has not been usable</h1>
+<p>Nonprofit density has been studied for three decades. The theories are well developed: - <strong>Government failure:</strong> nonprofits supply public goods where preferences are diverse <span class="citation" data-cites="weisbrod1977voluntary">(<a href="#ref-weisbrod1977voluntary" role="doc-biblioref">Weisbrod, 1977</a>)</span>. - <strong>Contract failure:</strong> nonprofits are trusted where quality is hard to judge <span class="citation" data-cites="hansmann1980role">(<a href="#ref-hansmann1980role" role="doc-biblioref">Hansmann, 1980</a>)</span>. - <strong>Interdependence:</strong> government and nonprofits act as partners <span class="citation" data-cites="salamon1987market">(<a href="#ref-salamon1987market" role="doc-biblioref">Salamon, 1987</a>)</span>.</p>
+<p>The empirical tests disagree. Poverty, diversity, income and government spending have each been reported as positive in some studies and negative in others. In one panel of metro areas, the sign changed between pooled and fixed-effects models <span class="citation" data-cites="lecy2013nonprofit">(<a href="#ref-lecy2013nonprofit" role="doc-biblioref">Lecy &amp; Van Slyke, 2013</a>)</span>.</p>
+<p>A funder reading this literature cannot tell whether the disagreements describe real differences between communities, or the many design choices each study made:</p>
+<ul>
+<li>which organizations to count;</li>
+<li>how to adjust for population;</li>
+<li>whether to compare places or changes over time;</li>
+<li>which unit and estimator to use.</li>
+</ul>
+<p>Every one of those choices is defensible, and together they form a “garden of forking paths” <span class="citation" data-cites="gelman2014garden">(<a href="#ref-gelman2014garden" role="doc-biblioref">Gelman &amp; Loken, 2014</a>)</span>. A single study reports one path through it.</p>
+<p>Two further problems make simple comparisons misleading:</p>
+<ul>
+<li><strong>Size.</strong> Bigger places have more of nearly everything. Counts of nonprofits grow in proportion to population, but spending does not <span class="citation" data-cites="bettencourt2007growth">(<a href="#ref-bettencourt2007growth" role="doc-biblioref">Bettencourt et al., 2007</a>)</span>. Comparing per-capita spending across places of different size therefore ranks them by size.</li>
+<li><strong>History.</strong> A community’s nonprofit sector today largely reflects its past. Density is nearly frozen over decades. Without accounting for history, the effect of inherited size gets attributed to whatever current conditions correlate with it.</li>
+</ul>
+</section>
+<section id="what-this-project-does" class="level1">
+<h1>What this project does</h1>
+<p>The project addresses these problems in three steps:</p>
+<ol type="1">
+<li><strong>A national database (Parts 2–4).</strong> It counts every 501(c)(3) public charity in every US county and metro area, 2000–2024, and joins them to about 300 covariates. Every input is frozen so that the database can be rebuilt exactly.</li>
+<li><strong>A fair benchmark (Parts 5 and 7).</strong> Each place is compared with its size-expected level, using scale-adjusted metropolitan indicators <span class="citation" data-cites="bettencourt2010urban">(<a href="#ref-bettencourt2010urban" role="doc-biblioref">Bettencourt et al., 2010</a>)</span>. Seven stylized facts describe what any analysis of the data has to confront.</li>
+<li><strong>A multiverse (Parts 6, 8 and 9).</strong> Rather than choosing one design, the analysis fits every defensible combination of choices: about 432,000 specifications <span class="citation" data-cites="steegen2016increasing young2017model">(<a href="#ref-steegen2016increasing" role="doc-biblioref">Steegen et al., 2016</a>; <a href="#ref-young2017model" role="doc-biblioref">Young &amp; Holsteen, 2017</a>)</span>.
+<ul>
+<li>It reports which conclusions hold under all of them, and which decisions change the answer.</li>
+<li>It then reads ten well-known studies through those results, to show why they disagree and where they agree.</li>
+</ul></li>
+</ol>
+</section>
+<section id="what-a-community-can-take-from-it" class="level1">
+<h1>What a community can take from it</h1>
+<ul>
+<li><strong>A benchmark that compares like with like:</strong> density relative to places of the same size, not raw counts per resident.</li>
+<li><strong>A list of robust and fragile associations.</strong>
+<ul>
+<li>Robust, positive under nearly every design: education, civic participation and the sector’s history.</li>
+<li>Fragile: the result depends on which organizations are counted and which question is asked, as with diversity and poverty.</li>
+</ul></li>
+<li><strong>Realistic expectations:</strong> density changes slowly, so sector-building goals and evaluations need long horizons.</li>
+<li><strong>A research agenda (Part 10):</strong> the data, methods and analyses needed to move from association to evidence about what local action can change.</li>
+</ul>
+</section>
+<section id="how-the-site-is-organized" class="level1">
+<h1>How the site is organized</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Motivation (this page)</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Literature review: nonprofit density, urban scaling and SAMIs, multiverse analysis</td>
+</tr>
+<tr class="odd">
+<td>2–4</td>
+<td>The data: construction, files and sources, and the code to rebuild it</td>
+</tr>
+<tr class="even">
+<td>5–6</td>
+<td>The multiverse: overview and design decisions</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Stylized facts about density data</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Running the multiverse, and its findings</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Reconciling ten density studies through the multiverse</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Where the research goes from here</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="references" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-benner1992empirical" class="csl-entry" role="listitem">
-Ben-Ner, A., &amp; Van Hoomissen, T. (1992). An empirical investigation of the joint determination of the size of the for-profit, nonprofit and government sectors. <em>Annals of Public and Cooperative Economics</em>, <em>63</em>(3), 391–415.
-</div>
-<div id="ref-bettencourt2013origins" class="csl-entry" role="listitem">
-Bettencourt, L. M. A. (2013). The origins of scaling in cities. <em>Science</em>, <em>340</em>(6139), 1438–1441. <a href="https://doi.org/10.1126/science.1235823">https://doi.org/10.1126/science.1235823</a>
-</div>
 <div id="ref-bettencourt2007growth" class="csl-entry" role="listitem">
 Bettencourt, L. M. A., Lobo, J., Helbing, D., Kühnert, C., &amp; West, G. B. (2007). Growth, innovation, scaling, and the pace of life in cities. <em>Proceedings of the National Academy of Sciences</em>, <em>104</em>(17), 7301–7306. <a href="https://doi.org/10.1073/pnas.0610172104">https://doi.org/10.1073/pnas.0610172104</a>
 </div>
 <div id="ref-bettencourt2010urban" class="csl-entry" role="listitem">
 Bettencourt, L. M. A., Lobo, J., Strumsky, D., &amp; West, G. B. (2010). Urban scaling and its deviations: Revealing the structure of wealth, innovation and crime across cities. <em>PLoS ONE</em>, <em>5</em>(11), e13541. <a href="https://doi.org/10.1371/journal.pone.0013541">https://doi.org/10.1371/journal.pone.0013541</a>
 </div>
-<div id="ref-bettencourt2020interpretation" class="csl-entry" role="listitem">
-Bettencourt, L. M. A., Yang, V. C., Lobo, J., Kempes, C. P., Rybski, D., &amp; Hamilton, M. J. (2020). The interpretation of urban scaling analysis in time. <em>Journal of the Royal Society Interface</em>, <em>17</em>(163), 20190846. <a href="https://doi.org/10.1098/rsif.2019.0846">https://doi.org/10.1098/rsif.2019.0846</a>
-</div>
-<div id="ref-bielefeld2000metropolitan" class="csl-entry" role="listitem">
-Bielefeld, W. (2000). Metropolitan nonprofit sectors: Findings from <span>NCCS</span> data. <em>Nonprofit and Voluntary Sector Quarterly</em>, <em>29</em>(2), 297–314.
-</div>
-<div id="ref-breznau2022observing" class="csl-entry" role="listitem">
-Breznau, N., Rinke, E. M., Wuttke, A., et al. (2022). Observing many researchers using the same data and hypothesis reveals a hidden universe of uncertainty. <em>Proceedings of the National Academy of Sciences</em>, <em>119</em>(44), e2203150119. <a href="https://doi.org/10.1073/pnas.2203150119">https://doi.org/10.1073/pnas.2203150119</a>
-</div>
-<div id="ref-corbin1999study" class="csl-entry" role="listitem">
-Corbin, J. J. (1999). A study of factors influencing the growth of nonprofits in social services. <em>Nonprofit and Voluntary Sector Quarterly</em>, <em>28</em>(3), 296–314.
-</div>
-<div id="ref-delgiudice2021traveler" class="csl-entry" role="listitem">
-Del Giudice, M., &amp; Gangestad, S. W. (2021). A traveler’s guide to the multiverse: Promises, pitfalls, and a framework for the evaluation of analytic decisions. <em>Advances in Methods and Practices in Psychological Science</em>, <em>4</em>(1).
-</div>
-<div id="ref-depersin2018global" class="csl-entry" role="listitem">
-Depersin, J., &amp; Barthelemy, M. (2018). From global scaling to the dynamics of individual cities. <em>Proceedings of the National Academy of Sciences</em>, <em>115</em>(10), 2317–2322. <a href="https://doi.org/10.1073/pnas.1718690115">https://doi.org/10.1073/pnas.1718690115</a>
-</div>
 <div id="ref-gelman2014garden" class="csl-entry" role="listitem">
 Gelman, A., &amp; Loken, E. (2014). The statistical crisis in science. <em>American Scientist</em>, <em>102</em>(6), 460–465.
-</div>
-<div id="ref-gronbjerg2001community" class="csl-entry" role="listitem">
-Grønbjerg, K. A., &amp; Paarlberg, L. (2001). Community variations in the size and scope of the nonprofit sector: Theory and preliminary findings. <em>Nonprofit and Voluntary Sector Quarterly</em>, <em>30</em>(4), 684–706.
 </div>
 <div id="ref-hansmann1980role" class="csl-entry" role="listitem">
 Hansmann, H. B. (1980). The role of nonprofit enterprise. <em>Yale Law Journal</em>, <em>89</em>(5), 835–901.
 </div>
-<div id="ref-kim2015socioeconomic" class="csl-entry" role="listitem">
-Kim, M. (2015). Socioeconomic diversity, political engagement, and the density of nonprofit organizations in <span>U.S.</span> counties. <em>American Review of Public Administration</em>, <em>45</em>(4), 402–416.
-</div>
-<div id="ref-leamer1983lets" class="csl-entry" role="listitem">
-Leamer, E. E. (1983). Let’s take the con out of econometrics. <em>American Economic Review</em>, <em>73</em>(1), 31–43.
-</div>
 <div id="ref-lecy2013nonprofit" class="csl-entry" role="listitem">
-Lecy, J. D., &amp; Van Slyke, D. M. (2013). Nonprofit sector growth and density: Testing theories of government support. <em>Journal of Public Administration Research and Theory</em>, <em>23</em>(1), 189–214.
-</div>
-<div id="ref-leitao2016scaling" class="csl-entry" role="listitem">
-Leitão, J. C., Miotto, J. M., Gerlach, M., &amp; Altmann, E. G. (2016). Is this scaling nonlinear? <em>Royal Society Open Science</em>, <em>3</em>(7), 150649. <a href="https://doi.org/10.1098/rsos.150649">https://doi.org/10.1098/rsos.150649</a>
-</div>
-<div id="ref-lobo2013urban" class="csl-entry" role="listitem">
-Lobo, J., Bettencourt, L. M. A., Strumsky, D., &amp; West, G. B. (2013). Urban scaling and the production function for cities. <em>PLoS ONE</em>, <em>8</em>(3), e58407. <a href="https://doi.org/10.1371/journal.pone.0058407">https://doi.org/10.1371/journal.pone.0058407</a>
-</div>
-<div id="ref-matsunaga2004government" class="csl-entry" role="listitem">
-Matsunaga, Y., &amp; Yamauchi, N. (2004). Is the government failure theory still relevant? <span>A</span> panel analysis using <span>US</span> state level data. <em>Annals of Public and Cooperative Economics</em>, <em>75</em>(2), 227–263.
+Lecy, J. D., &amp; Van Slyke, D. M. (2013). Nonprofit sector growth and density: Testing theories of government support. <em>Journal of Public Administration Research and Theory</em>, <em>23</em>(1), 189–214. <a href="https://doi.org/10.1093/jopart/mus010">https://doi.org/10.1093/jopart/mus010</a>
 </div>
 <div id="ref-salamon1987market" class="csl-entry" role="listitem">
 Salamon, L. M. (1987). Of market failure, voluntary failure, and third-party government: Toward a theory of government-nonprofit relations in the modern welfare state. <em>Journal of Voluntary Action Research</em>, <em>16</em>(1–2), 29–49.
 </div>
-<div id="ref-saxton2005social" class="csl-entry" role="listitem">
-Saxton, G. D., &amp; Benson, M. A. (2005). Social capital and the growth of the nonprofit sector. <em>Social Science Quarterly</em>, <em>86</em>(1), 16–35.
-</div>
-<div id="ref-silberzahn2018many" class="csl-entry" role="listitem">
-Silberzahn, R., Uhlmann, E. L., Martin, D. P., Anselmi, P., Aust, F., Awtrey, E., Bahnı́k, Š., Bai, F., Bannard, C., Bonnier, E., et al. (2018). Many analysts, one data set: Making transparent how variations in analytic choices affect results. <em>Advances in Methods and Practices in Psychological Science</em>, <em>1</em>(3), 337–356. <a href="https://doi.org/10.1177/2515245917747646">https://doi.org/10.1177/2515245917747646</a>
-</div>
-<div id="ref-simmons2011false" class="csl-entry" role="listitem">
-Simmons, J. P., Nelson, L. D., &amp; Simonsohn, U. (2011). False-positive psychology: Undisclosed flexibility in data collection and analysis allows presenting anything as significant. <em>Psychological Science</em>, <em>22</em>(11), 1359–1366. <a href="https://doi.org/10.1177/0956797611417632">https://doi.org/10.1177/0956797611417632</a>
-</div>
-<div id="ref-simonsohn2020specification" class="csl-entry" role="listitem">
-Simonsohn, U., Simmons, J. P., &amp; Nelson, L. D. (2020). Specification curve analysis. <em>Nature Human Behaviour</em>, <em>4</em>(11), 1208–1214.
-</div>
 <div id="ref-steegen2016increasing" class="csl-entry" role="listitem">
 Steegen, S., Tuerlinckx, F., Gelman, A., &amp; Vanpaemel, W. (2016). Increasing transparency through a multiverse analysis. <em>Perspectives on Psychological Science</em>, <em>11</em>(5), 702–712.
 </div>
-<div id="ref-uslaner1976pitfalls" class="csl-entry" role="listitem">
-Uslaner, E. M. (1976). The pitfalls of per capita. <em>American Journal of Political Science</em>, <em>20</em>(1), 125–133. <a href="https://doi.org/10.2307/2110513">https://doi.org/10.2307/2110513</a>
-</div>
 <div id="ref-weisbrod1977voluntary" class="csl-entry" role="listitem">
 Weisbrod, B. A. (1977). <em>The voluntary nonprofit sector: An economic analysis</em>. Lexington Books.
-</div>
-<div id="ref-west2017scale" class="csl-entry" role="listitem">
-West, G. (2017). <em>Scale: The universal laws of growth, innovation, sustainability, and the pace of life in organisms, cities, economies, and companies</em>. Penguin Press.
 </div>
 <div id="ref-young2017model" class="csl-entry" role="listitem">
 Young, C., &amp; Holsteen, K. (2017). Model uncertainty and robustness: A computational framework for multimodel analysis. <em>Sociological Methods &amp; Research</em>, <em>46</em>(1), 3–40.
@@ -881,8 +844,8 @@ Young, C., &amp; Holsteen, K. (2017). Model uncertainty and robustness: A comput
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../site/01-construction.html" class="pagination-link" aria-label="1. Dataset construction">
-        <span class="nav-page-text">1. Dataset construction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../site/01-literature.html" class="pagination-link" aria-label="1. Literature review">
+        <span class="nav-page-text">1. Literature review</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -891,4 +854,4 @@ Young, C., &amp; Holsteen, K. (2017). Model uncertainty and robustness: A comput
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/site/00-literature.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/site/00-motivation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

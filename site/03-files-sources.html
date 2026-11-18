@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2. Files, sources and data dictionaries – Nonprofit Density: Data and Multiverse</title>
+<title>3. Files, sources and data dictionaries – Nonprofit Density: Data and Multiverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,8 +50,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../site/03-workflow.html" rel="next">
-<link href="../site/01-construction.html" rel="prev">
+<link href="../site/04-workflow.html" rel="next">
+<link href="../site/02-construction.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -91,36 +91,8 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
+<link rel="stylesheet" href="../site/styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -132,7 +104,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../site/01-construction.html">Data</a></li><li class="breadcrumb-item"><a href="../site/02-files-sources.html">2. Files, sources and dictionaries</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../site/02-construction.html">Data</a></li><li class="breadcrumb-item"><a href="../site/03-files-sources.html">3. Files, sources and dictionaries</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -164,8 +136,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/00-literature.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Literature review</span></a>
+  <a href="../site/00-motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">0. Motivation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/01-literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Literature review</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -179,20 +157,20 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/01-construction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1. Dataset construction</span></a>
+  <a href="../site/02-construction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Dataset construction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/02-files-sources.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">2. Files, sources and dictionaries</span></a>
+  <a href="../site/03-files-sources.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3. Files, sources and dictionaries</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/03-workflow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3. Workflow code</span></a>
+  <a href="../site/04-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Workflow code</span></a>
   </div>
 </li>
       </ul>
@@ -209,13 +187,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../paper/03-multiverse-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4. Multiverse overview</span></a>
+ <span class="menu-text">5. Multiverse overview</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">5. Multiverse design</span></a>
+ <span class="menu-text">6. Multiverse design</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -238,13 +216,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../paper/01-stylized-facts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6. Stylized facts</span></a>
+ <span class="menu-text">7. Stylized facts</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">7. Running the multiverse</span></a>
+ <span class="menu-text">8. Running the multiverse</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -252,7 +230,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../site/07-multiverse-run.html" class="sidebar-item-text sidebar-link">
+  <a href="../site/08-multiverse-run.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Code and execution</span></a>
   </div>
 </li>
@@ -264,14 +242,20 @@ window.Quarto = {
 </li>
       </ul>
   </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../site/08-next.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">8. Where the research goes</span></a>
-  </div>
-</li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/09-reconciliation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Reconciling the literature</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../site/10-next.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Where the research goes</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -314,14 +298,14 @@ window.Quarto = {
   <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/site/02-files-sources.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/site/03-files-sources.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../site/01-construction.html">Data</a></li><li class="breadcrumb-item"><a href="../site/02-files-sources.html">2. Files, sources and dictionaries</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../site/02-construction.html">Data</a></li><li class="breadcrumb-item"><a href="../site/03-files-sources.html">3. Files, sources and dictionaries</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">2. Files, sources and data dictionaries</h1>
+<h1 class="title">3. Files, sources and data dictionaries</h1>
 <p class="subtitle lead">Every input the build reads, where it came from, and every variable in the final tables</p>
 </div>
 
@@ -339,7 +323,7 @@ window.Quarto = {
 </header>
 
 
-<p>The database is built from 25 sources. Every file the build reads is frozen on Amazon S3 with a SHA-256 checksum, so the published tables can be rebuilt exactly even after a publisher revises or removes a file: 1,215 files, 32.8 GB. Part 3 shows how to restore them. Each source folder in <a href="https://github.com/lecy/multiverse/tree/main/inputs"><code>inputs/</code></a> has a <code>SOURCE.md</code> with the publisher, URL, years, how the file is obtained, the build steps that read it, the licence and the citation.</p>
+<p>The database is built from 25 sources. Every file the build reads is frozen on Amazon S3 with a SHA-256 checksum, so the published tables can be rebuilt exactly even after a publisher revises or removes a file: 1,215 files, 32.8 GB. Part 4 shows how to restore them. Each source folder in <a href="https://github.com/lecy/multiverse/tree/main/inputs"><code>inputs/</code></a> has a <code>SOURCE.md</code> with the publisher, URL, years, how the file is obtained, the build steps that read it, the licence and the citation.</p>
 <section id="sources" class="level1">
 <h1>Sources</h1>
 <p><strong>Why frozen</strong> records the reason each source is archived rather than only downloaded on demand:</p>
@@ -356,250 +340,196 @@ Table&nbsp;1: Data sources. Files and GB are the frozen copy on S3.
 <div aria-describedby="tbl-sources-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 51%">
-<col style="width: 17%">
-<col style="width: 3%">
-<col style="width: 1%">
-<col style="width: 1%">
-<col style="width: 8%">
+<col style="width: 49%">
+<col style="width: 38%">
+<col style="width: 7%">
+<col style="width: 2%">
+<col style="width: 2%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Source</th>
-<th style="text-align: left;">Publisher</th>
 <th style="text-align: left;">Years</th>
 <th style="text-align: left;">Why frozen</th>
 <th style="text-align: right;">Files</th>
 <th style="text-align: left;">GB</th>
-<th style="text-align: left;">Cite</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>PCE price index (deflator and active-filer floor)</strong><br><code>bea-pcepi</code></td>
-<td style="text-align: left;">U.S. Bureau of Economic Analysis</td>
+<td style="text-align: left;"><strong>PCE price index (deflator and active-filer floor)</strong><br><code>bea-pcepi</code> <span class="citation" data-cites="data_bea_pcepi">(<a href="#ref-data_bea_pcepi" role="doc-biblioref">U.S. Bureau of Economic Analysis, 2026a</a>)</span></td>
 <td style="text-align: left;">1999–2025, annual mean of the monthly index</td>
 <td style="text-align: left;">on demand (moving)</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_bea_pcepi">(<a href="#ref-data_bea_pcepi" role="doc-biblioref">U.S. Bureau of Economic Analysis, 2026a</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>BEA regional economic accounts (county)</strong><br><code>bea-regional</code></td>
-<td style="text-align: left;">U.S. Bureau of Economic Analysis, Regional Economic Accounts</td>
+<td style="text-align: left;"><strong>BEA regional economic accounts (county)</strong><br><code>bea-regional</code> <span class="citation" data-cites="data_bea_regional">(<a href="#ref-data_bea_regional" role="doc-biblioref">U.S. Bureau of Economic Analysis, 2026b</a>)</span></td>
 <td style="text-align: left;">Income, earnings and GDP 2000–2024; employment and transfers 2000–2022</td>
 <td style="text-align: left;">on demand (moving)</td>
 <td style="text-align: right;">15</td>
 <td style="text-align: left;">0.42</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_bea_regional">(<a href="#ref-data_bea_regional" role="doc-biblioref">U.S. Bureau of Economic Analysis, 2026b</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>BLS research data on the nonprofit sector (MSA files)</strong><br><code>bls-nonprofits</code></td>
-<td style="text-align: left;">U.S. Bureau of Labor Statistics, Business Employment Dynamics / QCEW research data on nonprofits (QCEW establishments matched to IRS 501(c)(3) status)</td>
+<td style="text-align: left;"><strong>BLS research data on the nonprofit sector (MSA files)</strong><br><code>bls-nonprofits</code> <span class="citation" data-cites="data_bls_nonprofits">(<a href="#ref-data_bls_nonprofits" role="doc-biblioref">U.S. Bureau of Labor Statistics, 2024</a>)</span></td>
 <td style="text-align: left;">2013–2022. BLS has announced no update before 2029</td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">10</td>
 <td style="text-align: left;">0.03</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_bls_nonprofits">(<a href="#ref-data_bls_nonprofits" role="doc-biblioref">U.S. Bureau of Labor Statistics, 2024</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>BLS QCEW county files (private sector and NAICS 813; government ownerships)</strong><br><code>bls-qcew</code></td>
-<td style="text-align: left;">U.S. Bureau of Labor Statistics, Quarterly Census of Employment and Wages (QCEW)</td>
+<td style="text-align: left;"><strong>BLS QCEW county files (private sector and NAICS 813; government ownerships)</strong><br><code>bls-qcew</code> <span class="citation" data-cites="data_bls_qcew">(<a href="#ref-data_bls_qcew" role="doc-biblioref">U.S. Bureau of Labor Statistics, 2025</a>)</span></td>
 <td style="text-align: left;">2000–2024, annual averages</td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">50</td>
 <td style="text-align: left;">0.15</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_bls_qcew">(<a href="#ref-data_bls_qcew" role="doc-biblioref">U.S. Bureau of Labor Statistics, 2025</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Census ACS 5-year and Census 2000 SF3</strong><br><code>census-acs</code></td>
-<td style="text-align: left;">U.S. Census Bureau, American Community Survey (5-year) and Decennial Census 2000 Summary File 3</td>
+<td style="text-align: left;"><strong>Census ACS 5-year and Census 2000 SF3</strong><br><code>census-acs</code> <span class="citation" data-cites="data_census_acs data_census_sf3">(<a href="#ref-data_census_sf3" role="doc-biblioref">U.S. Census Bureau, 2002</a>, <a href="#ref-data_census_acs" role="doc-biblioref">2025a</a>)</span></td>
 <td style="text-align: left;">ACS end years 2009–2024 (2010–2024 for the metro-Gini tables); SF3 2000</td>
 <td style="text-align: left;">on demand (release)</td>
 <td style="text-align: right;">77</td>
 <td style="text-align: left;">0.03</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_census_acs data_census_sf3">(<a href="#ref-data_census_sf3" role="doc-biblioref">U.S. Census Bureau, 2002</a>, <a href="#ref-data_census_acs" role="doc-biblioref">2025a</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Census of Governments: local government finances</strong><br><code>census-cog</code></td>
-<td style="text-align: left;">U.S. Census Bureau, Census of Governments, Finance</td>
+<td style="text-align: left;"><strong>Census of Governments: local government finances</strong><br><code>census-cog</code> <span class="citation" data-cites="data_census_cog">(<a href="#ref-data_census_cog" role="doc-biblioref">U.S. Census Bureau, 2024</a>)</span></td>
 <td style="text-align: left;">2002, 2007, 2012, 2017, 2022 (interpolated between census years in 30)</td>
 <td style="text-align: left;">on demand (release)</td>
 <td style="text-align: right;">44</td>
 <td style="text-align: left;">0.81</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_census_cog">(<a href="#ref-data_census_cog" role="doc-biblioref">U.S. Census Bureau, 2024</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Geography: TIGER county boundaries and the OMB CBSA delineation</strong><br><code>census-geo</code></td>
-<td style="text-align: left;">U.S. Census Bureau (TIGER/Line cartographic boundaries); Office of Management and Budget (CBSA delineation, published by Census)</td>
+<td style="text-align: left;"><strong>Geography: TIGER county boundaries and the OMB CBSA delineation</strong><br><code>census-geo</code> <span class="citation" data-cites="data_census_tiger data_omb_cbsa">(<a href="#ref-data_omb_cbsa" role="doc-biblioref">Office of Management and Budget, 2023</a>; <a href="#ref-data_census_tiger" role="doc-biblioref">U.S. Census Bureau, 2023</a>)</span></td>
 <td style="text-align: left;">2023 delineation, fixed for every year</td>
 <td style="text-align: left;">on demand (release)</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_census_tiger data_omb_cbsa">(<a href="#ref-data_omb_cbsa" role="doc-biblioref">Office of Management and Budget, 2023</a>; <a href="#ref-data_census_tiger" role="doc-biblioref">U.S. Census Bureau, 2023</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Census historical county population estimates, 1970–1999</strong><br><code>census-hist</code></td>
-<td style="text-align: left;">U.S. Census Bureau, Population Estimates Program (historical tables)</td>
+<td style="text-align: left;"><strong>Census historical county population estimates, 1970–1999</strong><br><code>census-hist</code> <span class="citation" data-cites="data_census_hist">(<a href="#ref-data_census_hist" role="doc-biblioref">U.S. Census Bureau, 2000</a>)</span></td>
 <td style="text-align: left;">1970–1999, for the population-growth kernels <code>lag_g5</code>, <code>lag_g10</code> and the pre-2000 growth notes</td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_census_hist">(<a href="#ref-data_census_hist" role="doc-biblioref">U.S. Census Bureau, 2000</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Census PEP county characteristics (race, ethnicity, age)</strong><br><code>census-pep-char</code></td>
-<td style="text-align: left;">U.S. Census Bureau, Population Estimates Program</td>
+<td style="text-align: left;"><strong>Census PEP county characteristics (race, ethnicity, age)</strong><br><code>census-pep-char</code> <span class="citation" data-cites="data_census_pep_char">(<a href="#ref-data_census_pep_char" role="doc-biblioref">U.S. Census Bureau, 2026a</a>)</span></td>
 <td style="text-align: left;">2000–2024</td>
 <td style="text-align: left;">on demand (release)</td>
 <td style="text-align: right;">55</td>
 <td style="text-align: left;">0.44</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_census_pep_char">(<a href="#ref-data_census_pep_char" role="doc-biblioref">U.S. Census Bureau, 2026a</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Census PEP county population totals and CT crosswalk</strong><br><code>census-popest</code></td>
-<td style="text-align: left;">U.S. Census Bureau, Population Estimates Program (PEP)</td>
+<td style="text-align: left;"><strong>Census PEP county population totals and CT crosswalk</strong><br><code>census-popest</code> <span class="citation" data-cites="data_census_popest">(<a href="#ref-data_census_popest" role="doc-biblioref">U.S. Census Bureau, 2026b</a>)</span></td>
 <td style="text-align: left;">July 1 population, 2000–2025</td>
 <td style="text-align: left;">on demand (release)</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: left;">0.02</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_census_popest">(<a href="#ref-data_census_popest" role="doc-biblioref">U.S. Census Bureau, 2026b</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Census SAIPE: county poverty and median household income</strong><br><code>census-saipe</code></td>
-<td style="text-align: left;">U.S. Census Bureau, Small Area Income and Poverty Estimates (SAIPE)</td>
+<td style="text-align: left;"><strong>Census SAIPE: county poverty and median household income</strong><br><code>census-saipe</code> <span class="citation" data-cites="data_census_saipe">(<a href="#ref-data_census_saipe" role="doc-biblioref">U.S. Census Bureau, 2025b</a>)</span></td>
 <td style="text-align: left;">2000–2024</td>
 <td style="text-align: left;">on demand (release)</td>
 <td style="text-align: right;">25</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_census_saipe">(<a href="#ref-data_census_saipe" role="doc-biblioref">U.S. Census Bureau, 2025b</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Inputs read only by checks (not needed to build the database)</strong><br><code>check-only</code></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Inputs read only by checks (not needed to build the database)</strong><br><code>check-only</code> <span class="citation" data-cites="data_irs_1023ez data_nccs_ntee_crosswalk">(<a href="#ref-data_irs_1023ez" role="doc-biblioref">Internal Revenue Service, 2024</a>; <a href="#ref-data_nccs_ntee_crosswalk" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2026b</a>)</span></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">119</td>
 <td style="text-align: left;">1.11</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_irs_1023ez data_nccs_ntee_crosswalk">(<a href="#ref-data_irs_1023ez" role="doc-biblioref">Internal Revenue Service, 2024</a>; <a href="#ref-data_nccs_ntee_crosswalk" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2026b</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>County presidential election returns, 2000–2024</strong><br><code>elections</code></td>
-<td style="text-align: left;">2000–2016: MIT Election Data and Science Lab (MEDSL), <code>countypres_2000-2016.csv</code>. 2020 and 2024: Tony McGovern, <code>US_County_Level_Election_Results_08-24</code> (<code>2020_US_County_Level_Presidential_Results.csv</code>, <code>2024_…</code>). Alaska: certified statewide totals from the Alaska Division of Elections, typed into 16</td>
+<td style="text-align: left;"><strong>County presidential election returns, 2000–2024</strong><br><code>elections</code> <span class="citation" data-cites="data_medsl_county data_mcgovern_elections">(<a href="#ref-data_mcgovern_elections" role="doc-biblioref">McGovern, 2025</a>; <a href="#ref-data_medsl_county" role="doc-biblioref">MIT Election Data and Science Lab, 2018</a>)</span></td>
 <td style="text-align: left;">Presidential years 2000–2024</td>
 <td style="text-align: left;">on demand (moving)</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_medsl_county data_mcgovern_elections">(<a href="#ref-data_mcgovern_elections" role="doc-biblioref">McGovern, 2025</a>; <a href="#ref-data_medsl_county" role="doc-biblioref">MIT Election Data and Science Lab, 2018</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>County unemployment (BLS LAUS, republished by USDA ERS)</strong><br><code>ers-laus</code></td>
-<td style="text-align: left;">USDA Economic Research Service, County-level Data Sets (unemployment and median household income); underlying data from BLS Local Area Unemployment Statistics</td>
+<td style="text-align: left;"><strong>County unemployment (BLS LAUS, republished by USDA ERS)</strong><br><code>ers-laus</code> <span class="citation" data-cites="data_ers_laus">(<a href="#ref-data_ers_laus" role="doc-biblioref">U.S. Department of Agriculture, Economic Research Service, 2024</a>)</span></td>
 <td style="text-align: left;">2000–2023 (labor force, employed, unemployed)</td>
 <td style="text-align: left;">on demand (moving)</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">0.02</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_ers_laus">(<a href="#ref-data_ers_laus" role="doc-biblioref">U.S. Department of Agriculture, Economic Research Service, 2024</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>IRS SOI county income data</strong><br><code>irs-soi-county</code></td>
-<td style="text-align: left;">Internal Revenue Service, Statistics of Income, County Data</td>
+<td style="text-align: left;"><strong>IRS SOI county income data</strong><br><code>irs-soi-county</code> <span class="citation" data-cites="data_irs_soi_county">(<a href="#ref-data_irs_soi_county" role="doc-biblioref">Internal Revenue Service, Statistics of Income, 2025b</a>)</span></td>
 <td style="text-align: left;">TY2000–2023. Charitable contributions (N/A19700) from TY2010</td>
 <td style="text-align: left;">on demand (release)</td>
 <td style="text-align: right;">543</td>
 <td style="text-align: left;">0.10</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_irs_soi_county">(<a href="#ref-data_irs_soi_county" role="doc-biblioref">Internal Revenue Service, Statistics of Income, 2025b</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>NCCS legacy BMF snapshots, 2000–2022</strong><br><code>nccs-bmf-legacy</code></td>
-<td style="text-align: left;">Urban Institute, National Center for Charitable Statistics (NCCS), from the IRS Exempt Organizations Business Master File</td>
+<td style="text-align: left;"><strong>NCCS legacy BMF snapshots, 2000–2022</strong><br><code>nccs-bmf-legacy</code> <span class="citation" data-cites="data_nccs_bmf_legacy">(<a href="#ref-data_nccs_bmf_legacy" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2023</a>)</span></td>
 <td style="text-align: left;">2000–2022 (2023–24 come from the monthly BMF, see <code>../nccs-bmf-monthly/</code>)</td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">23</td>
 <td style="text-align: left;">7.68</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_nccs_bmf_legacy">(<a href="#ref-data_nccs_bmf_legacy" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2023</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Long NCCS BMF panel, 1995–2022</strong><br><code>nccs-bmf-long-panel</code></td>
-<td style="text-align: left;">Built in 2022 by a collaborator (methods memo initialled ““LF”“) from the NCCS legacy BMF files (the last month available each year), Pub 78 and IRS automatic revocations</td>
+<td style="text-align: left;"><strong>Long NCCS BMF panel, 1995–2022</strong><br><code>nccs-bmf-long-panel</code> <span class="citation" data-cites="data_bmf_long_panel">(<a href="#ref-data_bmf_long_panel" role="doc-biblioref">Project team, 2022</a>)</span></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">0.27</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_bmf_long_panel">(<a href="#ref-data_bmf_long_panel" role="doc-biblioref">Project team, 2022</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>NCCS monthly BMF (processed), December 2023 and December 2024</strong><br><code>nccs-bmf-monthly</code></td>
-<td style="text-align: left;">Urban Institute, National Center for Charitable Statistics</td>
+<td style="text-align: left;"><strong>NCCS monthly BMF (processed), December 2023 and December 2024</strong><br><code>nccs-bmf-monthly</code> <span class="citation" data-cites="data_nccs_bmf_monthly">(<a href="#ref-data_nccs_bmf_monthly" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2025</a>)</span></td>
 <td style="text-align: left;">2023, 2024 (registered stock); December 2024 rulings for entries 2022–24</td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: left;">3.40</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_nccs_bmf_monthly">(<a href="#ref-data_nccs_bmf_monthly" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2025</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>NCCS unified BMF, geocoded (already frozen)</strong><br><code>nccs-bmf-unified</code></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>NCCS unified BMF, geocoded (already frozen)</strong><br><code>nccs-bmf-unified</code> <span class="citation" data-cites="data_nccs_bmf_unified">(<a href="#ref-data_nccs_bmf_unified" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2026c</a>)</span></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">frozen</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">0.64</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_nccs_bmf_unified">(<a href="#ref-data_nccs_bmf_unified" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2026c</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>NCCS CORE files, harmonized (990, 990-EZ, 990-PF), TY2000–2019</strong><br><code>nccs-core</code></td>
-<td style="text-align: left;">Urban Institute, National Center for Charitable Statistics</td>
+<td style="text-align: left;"><strong>NCCS CORE files, harmonized (990, 990-EZ, 990-PF), TY2000–2019</strong><br><code>nccs-core</code> <span class="citation" data-cites="data_nccs_core">(<a href="#ref-data_nccs_core" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2024</a>)</span></td>
 <td style="text-align: left;">TY2000–2019 read. In the splice: 990/EZ 2000–2010 and 990-PF 2000–2015; 2011–19 for overlap diagnostics</td>
 <td style="text-align: left;">on demand (moving)</td>
 <td style="text-align: right;">72</td>
 <td style="text-align: left;">0.49</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_nccs_core">(<a href="#ref-data_nccs_core" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2024</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>NCCS e-file data (IRS 990 XML, parsed), via panel990</strong><br><code>nccs-efile</code></td>
-<td style="text-align: left;">Urban Institute, National Center for Charitable Statistics. IRS 990 e-file XML, parsed by <code>ef2</code> 2.0.0</td>
+<td style="text-align: left;"><strong>NCCS e-file data (IRS 990 XML, parsed), via panel990</strong><br><code>nccs-efile</code> <span class="citation" data-cites="data_nccs_efile">(<a href="#ref-data_nccs_efile" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2026a</a>)</span></td>
 <td style="text-align: left;">990/EZ tax years 2020–2024; 990-PF 2021–2024; grants (P09) 2020–2024</td>
 <td style="text-align: left;">on demand (release)</td>
 <td style="text-align: right;">61</td>
 <td style="text-align: left;">2.18</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_nccs_efile">(<a href="#ref-data_nccs_efile" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2026a</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>PatentsView granted-patent tables (USPTO)</strong><br><code>patents</code></td>
-<td style="text-align: left;">U.S. Patent and Trademark Office, PatentsView, via the USPTO Open Data Portal (dataset PVGPATDIS, 2026-04 release, grants through 2025)</td>
+<td style="text-align: left;"><strong>PatentsView granted-patent tables (USPTO)</strong><br><code>patents</code> <span class="citation" data-cites="data_patentsview">(<a href="#ref-data_patentsview" role="doc-biblioref">U.S. Patent and Trademark Office, 2026</a>)</span></td>
 <td style="text-align: left;">Application years 2000–2024; 2021+ truncated by grant lag (<code>patents_truncated</code>)</td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: left;">4.97</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_patentsview">(<a href="#ref-data_patentsview" role="doc-biblioref">U.S. Patent and Trademark Office, 2026</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Religious Congregations and Membership Study (RCMS), 2000, 2010, 2020</strong><br><code>religion-census</code></td>
-<td style="text-align: left;">Association of Statisticians of American Religious Bodies (ASARB). 2000 and 2010 county files distributed by the Association of Religion Data Archives (ARDA); 2020 by the U.S. Religion Census</td>
+<td style="text-align: left;"><strong>Religious Congregations and Membership Study (RCMS), 2000, 2010, 2020</strong><br><code>religion-census</code> <span class="citation" data-cites="data_rcms_2000_2010 data_rcms_2020">(<a href="#ref-data_rcms_2000_2010" role="doc-biblioref">Association of Statisticians of American Religious Bodies, 2012</a>; <a href="#ref-data_rcms_2020" role="doc-biblioref">Grammich et al., 2023</a>)</span></td>
 <td style="text-align: left;">2000, 2010, 2020 (interpolated, and carried forward after 2020, in 30)</td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: left;">0.01</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_rcms_2000_2010 data_rcms_2020">(<a href="#ref-data_rcms_2000_2010" role="doc-biblioref">Association of Statisticians of American Religious Bodies, 2012</a>; <a href="#ref-data_rcms_2020" role="doc-biblioref">Grammich et al., 2023</a>)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>County social capital index (Rupasingha, Goetz and Freshwater)</strong><br><code>social-capital</code></td>
-<td style="text-align: left;">Northeast Regional Center for Rural Development (NERCRD), Penn State</td>
+<td style="text-align: left;"><strong>County social capital index (Rupasingha, Goetz and Freshwater)</strong><br><code>social-capital</code> <span class="citation" data-cites="data_nercrd_socap rupasingha2006production">(<a href="#ref-data_nercrd_socap" role="doc-biblioref">Northeast Regional Center for Rural Development, 2019</a>; <a href="#ref-rupasingha2006production" role="doc-biblioref">Rupasingha et al., 2006</a>)</span></td>
 <td style="text-align: left;">1997, 2005, 2009, 2014 (2000 interpolated; carried forward after 2014)</td>
 <td style="text-align: left;">archive needed</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: left;">0.00</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_nercrd_socap rupasingha2006production">(<a href="#ref-data_nercrd_socap" role="doc-biblioref">Northeast Regional Center for Rural Development, 2019</a>; <a href="#ref-rupasingha2006production" role="doc-biblioref">Rupasingha et al., 2006</a>)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>IRS SOI exempt-organization extracts, harmonized (already frozen)</strong><br><code>soi</code></td>
-<td style="text-align: left;">Internal Revenue Service, Statistics of Income, ““Annual Extract of Tax-Exempt Organization Financial Data”” (filing years 2012–2024), harmonized with <code>Nonprofit-Open-Data-Collective/soi-extract-harmonization</code>, plus NCCS Unified BMF V1.1 attributes</td>
+<td style="text-align: left;"><strong>IRS SOI exempt-organization extracts, harmonized (already frozen)</strong><br><code>soi</code> <span class="citation" data-cites="data_irs_soi_eo data_nccs_bmf_unified">(<a href="#ref-data_irs_soi_eo" role="doc-biblioref">Internal Revenue Service, Statistics of Income, 2025a</a>; <a href="#ref-data_nccs_bmf_unified" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2026c</a>)</span></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">frozen</td>
 <td style="text-align: right;">87</td>
 <td style="text-align: left;">10.02</td>
-<td style="text-align: left;"><span class="citation" data-cites="data_irs_soi_eo data_nccs_bmf_unified">(<a href="#ref-data_irs_soi_eo" role="doc-biblioref">Internal Revenue Service, Statistics of Income, 2025a</a>; <a href="#ref-data_nccs_bmf_unified" role="doc-biblioref">Urban Institute, National Center for Charitable Statistics, 2026c</a>)</span></td>
 </tr>
 </tbody>
 </table>
@@ -1175,7 +1105,7 @@ Table&nbsp;3: Frozen files by source folder.
 <h2 class="unnumbered anchored" data-anchor-id="nonprofit-resources">Nonprofit Resources</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 13%">
+<col style="width: 12%">
 <col style="width: 65%">
 <col style="width: 11%">
 <col style="width: 3%">
@@ -1290,7 +1220,7 @@ Table&nbsp;3: Frozen files by source folder.
 <table class="caption-top table">
 <colgroup>
 <col style="width: 12%">
-<col style="width: 54%">
+<col style="width: 55%">
 <col style="width: 17%">
 <col style="width: 5%">
 <col style="width: 9%">
@@ -2113,57 +2043,75 @@ Table&nbsp;3: Frozen files by source folder.
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>qcew_priv_wages</code></td>
-<td style="text-align: left;">private total annual wages (<span class="math inline">\()                                                                                                                   |county and CBSA |20   |         |
-|`qcew_813_estab`       |NAICS 813 membership-organization establishments, private (NA = suppressed)                                                                      |county and CBSA |20   |         |
-|`qcew_813_emp`         |NAICS 813 employment, private                                                                                                                    |county and CBSA |20   |         |
-|`qcew_813_wages`       |NAICS 813 wages, private (\)</span>)</td>
+<td style="text-align: left;">private total annual wages ($)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">20</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><code>qcew_813_estab</code></td>
+<td style="text-align: left;">NAICS 813 membership-organization establishments, private (NA = suppressed)</td>
+<td style="text-align: left;">county and CBSA</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>qcew_813_emp</code></td>
+<td style="text-align: left;">NAICS 813 employment, private</td>
+<td style="text-align: left;">county and CBSA</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>qcew_813_wages</code></td>
+<td style="text-align: left;">NAICS 813 wages, private ($)</td>
+<td style="text-align: left;">county and CBSA</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><code>qcew_privx813_estab</code></td>
 <td style="text-align: left;">Private establishments excluding NAICS 813</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">20</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>qcew_privx813_emp</code></td>
 <td style="text-align: left;">Private employment excluding NAICS 813</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">20</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>qcew_privx813_wages</code></td>
 <td style="text-align: left;">Private wages excluding NAICS 813 ($)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">20</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>qcew_813_suppressed</code></td>
 <td style="text-align: left;">1 = county’s 813 cell suppressed</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">20</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>pcpi</code></td>
 <td style="text-align: left;">Per-capita personal income = personal_income / bea_pop</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>gdp_per_worker</code></td>
 <td style="text-align: left;">Real GDP per job = gdp_real / emp_total</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>qcew_avg_pay</code></td>
 <td style="text-align: left;">Average private annual pay = qcew_priv_wages / qcew_priv_emp</td>
 <td style="text-align: left;">county and CBSA</td>
@@ -2295,202 +2243,208 @@ Table&nbsp;3: Frozen files by source folder.
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>qcew_fgov_wages</code></td>
-<td style="text-align: left;">QCEW federal government total annual wages (<span class="math inline">\()                                                                                                           |county and CBSA |22   |         |
-|`qcew_sgov_wages`     |QCEW state government wages (\)</span>)</td>
+<td style="text-align: left;">QCEW federal government total annual wages ($)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><code>qcew_sgov_wages</code></td>
+<td style="text-align: left;">QCEW state government wages ($)</td>
+<td style="text-align: left;">county and CBSA</td>
+<td style="text-align: left;">22</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><code>qcew_lgov_wages</code></td>
 <td style="text-align: left;">QCEW local government wages ($)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>qcew_fgov_imputed</code></td>
 <td style="text-align: left;">1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: federal</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>qcew_sgov_imputed</code></td>
 <td style="text-align: left;">1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: state</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>qcew_lgov_imputed</code></td>
 <td style="text-align: left;">1 = suppressed county cell, imputed as state total minus disclosed counties, allocated by population: local</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>acs_cow_den</code></td>
 <td style="text-align: left;">ACS civilian employed residents 16+ (B24080 universe)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>acs_cow_npo</code></td>
 <td style="text-align: left;">ACS residents working for private not-for-profits</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>acs_cow_lgov</code></td>
 <td style="text-align: left;">ACS residents working for local government</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>acs_cow_sgov</code></td>
 <td style="text-align: left;">ACS residents working for state government</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>acs_cow_fgov</code></td>
 <td style="text-align: left;">ACS residents working for federal government</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>cog_curop</code></td>
 <td style="text-align: left;">Local current operations, excl. utilities and liquor stores (E codes) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>cog_capital</code></td>
 <td style="text-align: left;">Local capital outlay, excl. utilities (F+G) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>cog_assist</code></td>
 <td style="text-align: left;">Local assistance and subsidies (J) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>cog_interest</code></td>
 <td style="text-align: left;">Local interest on general debt (I89) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>cog_educ_curop</code></td>
 <td style="text-align: left;">Local current operations, education (E12, E16, E18, E21) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>cog_welfare</code></td>
 <td style="text-align: left;">Local public welfare spending (E/J 67, 68, 74, 75, 77, 79) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>cog_health_curop</code></td>
 <td style="text-align: left;">Local health and hospitals current operations (E32, E36, E38) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>cog_salaries</code></td>
 <td style="text-align: left;">Local salaries and wages (Z00; not published for 2022) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>cog_fed_igr</code></td>
 <td style="text-align: left;">Local intergovernmental revenue from federal government (B) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>cog_state_igr</code></td>
 <td style="text-align: left;">Local intergovernmental revenue from state government (C) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>cog_dge</code></td>
 <td style="text-align: left;">Local direct general expenditure = curop + capital + assist + interest [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">22</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>gov_emp_share</code></td>
 <td style="text-align: left;">State and local government share of jobs = gov_emp_sl / emp_total</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>gov_earn_share</code></td>
 <td style="text-align: left;">State and local government share of earnings = gov_earn_sl / earn_total</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>tr_medmaint</code></td>
 <td style="text-align: left;">Medicare + Medicaid + income-maintenance transfers</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>acs_pct_gov</code></td>
 <td style="text-align: left;">Share of employed residents working for any government (ACS)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>acs_pct_lgov</code></td>
 <td style="text-align: left;">Share of employed residents working for local government (ACS)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>qcew_lgov_share</code></td>
 <td style="text-align: left;">Local government share of QCEW employment (government + private)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>gov_labor_intensity</code></td>
 <td style="text-align: left;">Local government wages / local current operations</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>gov_indirect_share</code></td>
 <td style="text-align: left;">Indirect government (Medicare, Medicaid, income maintenance) / (indirect + state and local wages)</td>
 <td style="text-align: left;">county and CBSA</td>
@@ -2529,9 +2483,21 @@ Table&nbsp;3: Frozen files by source folder.
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>a00100</code></td>
-<td style="text-align: left;">Adjusted gross income (<span class="math inline">\()                                                                                                         |county and CBSA |15   |         |
-|`n04470`              |Returns with itemized deductions                                                                                                  |county and CBSA |15   |         |
-|`a04470`              |Total itemized deductions (\)</span>)</td>
+<td style="text-align: left;">Adjusted gross income ($)</td>
+<td style="text-align: left;">county and CBSA</td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>n04470</code></td>
+<td style="text-align: left;">Returns with itemized deductions</td>
+<td style="text-align: left;">county and CBSA</td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>a04470</code></td>
+<td style="text-align: left;">Total itemized deductions ($)</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">15</td>
 <td style="text-align: left;"></td>
@@ -2545,48 +2511,54 @@ Table&nbsp;3: Frozen files by source folder.
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>a19700</code></td>
-<td style="text-align: left;">Itemized charitable contributions (<span class="math inline">\()                                                                                             |county and CBSA |15   |         |
-|`agi_per_return`      |AGI per return (\)</span>)</td>
-<td style="text-align: left;">county only</td>
+<td style="text-align: left;">Itemized charitable contributions ($)</td>
+<td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">15</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><code>agi_per_return</code></td>
+<td style="text-align: left;">AGI per return ($)</td>
+<td style="text-align: left;">county only</td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><code>itemizer_share</code></td>
 <td style="text-align: left;">Share of returns itemizing</td>
 <td style="text-align: left;">county only</td>
 <td style="text-align: left;">15</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>contrib_claim_share</code></td>
 <td style="text-align: left;">Share of returns claiming charitable contributions</td>
 <td style="text-align: left;">county only</td>
 <td style="text-align: left;">15</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>contrib_per_return</code></td>
 <td style="text-align: left;">Itemized contributions per tax return [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>contrib_per_claim</code></td>
 <td style="text-align: left;">Contributions per claiming return ($)</td>
 <td style="text-align: left;">county only</td>
 <td style="text-align: left;">15</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>contrib_share_agi</code></td>
 <td style="text-align: left;">Itemized contributions / AGI [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>contrib_total</code></td>
 <td style="text-align: left;">Itemized charitable contributions, $ (= a19700) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]</td>
 <td style="text-align: left;">county and CBSA</td>
@@ -2976,71 +2948,89 @@ Table&nbsp;3: Frozen files by source folder.
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>bls_npo_wages</code></td>
-<td style="text-align: left;">501(c)(3) total annual wages (<span class="math inline">\()                                        |CBSA only |07   |         |
-|`bls_priv_estab`     |All private establishments                                              |CBSA only |07   |         |
-|`bls_priv_emp`       |All private employment                                                  |CBSA only |07   |         |
-|`bls_priv_wages`     |All private total annual wages (\)</span>)</td>
+<td style="text-align: left;">501(c)(3) total annual wages ($)</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><code>bls_priv_estab</code></td>
+<td style="text-align: left;">All private establishments</td>
+<td style="text-align: left;">CBSA only</td>
+<td style="text-align: left;">07</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>bls_priv_emp</code></td>
+<td style="text-align: left;">All private employment</td>
+<td style="text-align: left;">CBSA only</td>
+<td style="text-align: left;">07</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>bls_priv_wages</code></td>
+<td style="text-align: left;">All private total annual wages ($)</td>
+<td style="text-align: left;">CBSA only</td>
+<td style="text-align: left;">07</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><code>bls_pct_npo</code></td>
 <td style="text-align: left;">Nonprofit share of private employment</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>bls_wage_ratio</code></td>
 <td style="text-align: left;">Nonprofit / private average annual wage (raw)</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>bls_wage_ratio_adj</code></td>
 <td style="text-align: left;">Composition-adjusted wage ratio (fixed 2018 national sector weights)</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>bls_wage_ratio_cov</code></td>
 <td style="text-align: left;">Share of national sector weight available for the adjusted ratio</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>bls_pct_npo_61</code></td>
 <td style="text-align: left;">Nonprofit share of employment, educational services (NAICS 61)</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>bls_pct_npo_62</code></td>
 <td style="text-align: left;">Nonprofit share of employment, health care and social assistance (62)</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>bls_pct_npo_624</code></td>
 <td style="text-align: left;">Nonprofit share of employment, social assistance (624)</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>bls_pct_npo_71</code></td>
 <td style="text-align: left;">Nonprofit share of employment, arts and recreation (71)</td>
 <td style="text-align: left;">CBSA only</td>
 <td style="text-align: left;">07</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>bls_delin_flag</code></td>
 <td style="text-align: left;">1 = MSA code absent from the 2023 delineation or its county set changed</td>
 <td style="text-align: left;">CBSA only</td>
@@ -4128,13 +4118,13 @@ Ushey, K., &amp; Wickham, H. (2026). <em><span class="nocase">renv</span>: Proje
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../site/01-construction.html" class="pagination-link" aria-label="1. Dataset construction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1. Dataset construction</span>
+      <a href="../site/02-construction.html" class="pagination-link" aria-label="2. Dataset construction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2. Dataset construction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../site/03-workflow.html" class="pagination-link" aria-label="3. Workflow code">
-        <span class="nav-page-text">3. Workflow code</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../site/04-workflow.html" class="pagination-link" aria-label="4. Workflow code">
+        <span class="nav-page-text">4. Workflow code</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -4143,4 +4133,4 @@ Ushey, K., &amp; Wickham, H. (2026). <em><span class="nocase">renv</span>: Proje
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/site/02-files-sources.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lecy/multiverse/blob/main/site/03-files-sources.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/lecy/multiverse/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -1,0 +1,18 @@
+/* Tables fit the text column: smaller type, cells wrap, and the column widths that
+   Pandoc derives from long cells are ignored so the browser can balance them. */
+main table {
+  font-size: 0.85rem;
+  width: 100%;
+}
+main table colgroup col {
+  width: auto !important;
+}
+main table td,
+main table th {
+  white-space: normal;
+}
+/* Long variable and file names may break only where they must. */
+main table code {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
