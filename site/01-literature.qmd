@@ -47,9 +47,10 @@ comparing nonprofit counts or spending across states, metros and counties:
 
 **Inconsistent results.** The covariates in these studies are much the same:
 education, income, poverty, diversity, philanthropy, government, civic culture. Yet
-their signs often disagree from study to study. Poverty and income, for example,
-change sign between pooled and fixed-effects models of the same metros
-[@lecy2013nonprofit].
+their signs often disagree from study to study. Most of these studies are
+cross-sections, which describe differences between places. Only a few use
+within-place panels, which compare each place with itself over time and come closer
+to identifying what changes density [@matsunaga2004government; @lecy2013nonprofit].
 
 Studies also differ in many design choices:
 

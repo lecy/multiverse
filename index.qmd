@@ -21,7 +21,7 @@ nonprofit sectors.
 | [6. Multiverse design](paper/04-design-decisions.qmd) | Decision cards D1–D12; [variables and constructs](paper/02-variables.qmd) |
 | [7. Stylized facts](paper/01-stylized-facts.qmd) | Seven regularities in density data |
 | [8. Running the multiverse](site/08-multiverse-run.qmd) | Code and execution; [findings](paper/05-findings.qmd) |
-| [9. Reconciling the literature](site/09-reconciliation.qmd) | Ten density studies read through the multiverse; 26 recent density, entry-exit and spatial studies weighed against it |
+| [9. Reconciling the literature](site/09-reconciliation.qmd) | Within-place evidence from the density literature compared with the multiverse; cross-sectional studies as descriptive context |
 | [10. Where the research goes](site/10-next.qmd) | Open questions, new data, methods and analyses |
 
 Code: [github.com/lecy/multiverse](https://github.com/lecy/multiverse).

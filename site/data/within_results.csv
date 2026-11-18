@@ -1,0 +1,10 @@
+key,group,read,need,inc,het,govfund,govprov,dens,note
+matsunaga2004government,within,full,+,-,0,+,-,,"50 states, 1992–1999, state and year FE; need = unemployment; race null, age heterogeneity +; funding = public support to nonprofits; provision = state and local direct spending"
+lecy2013nonprofit,within,full,+,+,,+,-,,"Counties in 331 MSAs, 1998–2003, city and year FE (models 3–4); human-service filers; heterogeneity absorbed by the fixed effects; provision = government wages"
+marquis2013golfing,within,full,,±,,,-,,"100 metros, 1987–2002, FE check (Table 4); large nonprofits only; wages + for elite-oriented, null for social welfare; provision = government revenue"
+mayer2025connecting,within,full,-,,,,+,-,"US counties, 2010–2016, county and year FE; foundings and dissolutions; hardship raises exits; government wages raise foundings; density lowers foundings and raises exits"
+shon2024demographic,within,full,,,-,,,-,"3,129 counties, 2007–2015, county and year FE; dissolutions; heterogeneity and density raise exits (shown as − for the stock)"
+mcdonnell2020charity,within,full,+,,,,,,"England and Wales, 328 local authorities, 1971–2011; density rises within an area as it becomes more deprived"
+MV-w-filers,multiverse,,0,,-,0,0,,"Metro and year FE, 2010–2022: poverty −.02; % nonwhite −.10; Medicaid −.01; state and local earnings −.01"
+MV-w-grassroots,multiverse,,+,,-,0,-,,"Metro and year FE, 2010–2022: poverty +.08; % nonwhite −.08; Medicaid −.01; state and local earnings −.13"
+MV-w-spending,multiverse,,-,,0,+,0,,"Metro and year FE, 2010–2022: poverty −.05; % nonwhite .00; Medicaid +.08; state and local earnings +.01"

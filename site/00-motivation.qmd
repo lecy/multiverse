@@ -31,9 +31,10 @@ developed:
   [@salamon1987market].
 
 The empirical tests disagree. Poverty, diversity, income and government spending have
-each been reported as positive in some studies and negative in others. In one panel
-of metro areas, the sign changed between pooled and fixed-effects models
-[@lecy2013nonprofit].
+each been reported as positive in some studies and negative in others. And most
+studies compare places at one point in time. They describe where nonprofits are, but
+cannot say what changes a sector's size. Only a handful follow places over time with
+within-place designs.
 
 A funder reading this literature cannot tell whether the disagreements describe real
 differences between communities, or the many design choices each study made:

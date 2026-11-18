@@ -1,0 +1,8 @@
+key,group,read,gf,int,need,sup,sc,eco,elite,note
+matsunaga2004government,within,full,E±,E+,I+,E−,,,,"Age heterogeneity + and direct spending − (government failure); race null; subsidies +; income −"
+lecy2013nonprofit,within,full,E+,E+,I+,I+,,,,"Grants + (interdependence); government wages − (government failure); poverty + and income + in the fixed-effects models"
+marquis2013golfing,within,full,,I−,,I±,,,E+,"Corporate density + within metros; government revenue − (implicit test of interdependence); wages + for elite organizations only"
+mayer2025connecting,within,full,,E+,I−,,,E+,,"Density dependence; government wages raise foundings; hardship raises exits"
+shon2024demographic,within,full,E−,,,,,I+,,"Heterogeneity raises exits; density and competition raise exits"
+mcdonnell2020charity,within,full,,,E+,,,,,"Density rises within an area as deprivation rises"
+MV-w,multiverse,,E−,E±,E±,E+,E+,,,"Within metros: % nonwhite − (both populations); Medicaid ≈0 for counts, + for spending; poverty + for grassroots, ≈0 for filers; % BA + (.08 filers, .14 grassroots); turnout + (.07, .10)"
