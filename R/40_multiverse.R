@@ -27,10 +27,10 @@ COVS <- data.table( var = c(
   "gdp_per_worker", "qcew_priv_wages", "patents_frac",
   ## historical endowment: 501(c)(3) public charities in the 2000 BMF stock
   ## ruled before 1970 (time-invariant; data/cov/cov_endowment.csv, built by
-  ## 55_endowment_fork.R build; group-exemption artifacts set to NA)
+  ## 25_cov_endowment.R; group-exemption artifacts set to NA)
   "hist_pre1970",
   ## population-lag kernels (2026-11-15; data/cov/cov_lag_kernel.csv, built by
-  ## 82_lag_fork.R build): G[t] = a G[t-1] + dlogP[t], a = 0.5^(1/half-life), with
+  ## 26_cov_lag_kernel.R): G[t] = a G[t-1] + dlogP[t], a = 0.5^(1/half-life), with
   ## 1970-2000 census history. Rates (type A): used as is, residualized on log P in the
   ## all-SAMI arm. (A 2.5-year Pascal pair was tried and dropped the same day: its two
   ## terms are collinear and split the effect; notes/catchup-lag-results.md 2.9.)
@@ -40,7 +40,7 @@ COVS <- data.table( var = c(
   ## votes (added to BLOCKS 2026-11-16, run v8)
   "socap_respn",
   ## metro household-income Gini from summed county ACS brackets (B19001; data/cov/
-  ## cov_gini_metro.csv, built by 89_need_socap_diversity.R build, 2010-2024). The panel's
+  ## cov_gini_metro.csv, built by 27_cov_acs_metro.R, 2010-2024). The panel's
   ## gini is a population-weighted mean of county Ginis and misses between-county inequality.
   ## Congregations: RCMS count (2000/2010/2020, interpolated), extensive like foundation assets.
   ## Both added 2026-11-16 (run v9; notes/need-socap-diversity-results.md)
@@ -280,24 +280,11 @@ load_panel <- function( path = file.path( BUILD, "data", "analysis", "cbsa_year.
   d <- as.data.table( arrow::read_parquet( path ) )
   d[ , logP := log( population ) ]
   d[ , division := unname( DIVISION[ state_fips ] ) ]
-  ## time-invariant historical endowment (add-on "history" block)
-  fe <- file.path( OUT$cov, "cov_endowment.csv" )
-  if ( file.exists( fe ) ) {
-    e <- fread( fe, select = c( "cbsa", "hist_pre1970" ), colClasses = list( character = "cbsa" ) )
-    d[ e, on = "cbsa", hist_pre1970 := i.hist_pre1970 ]
-  }
-  ## population-lag kernels (add-on "lag" block)
-  fk <- file.path( OUT$cov, "cov_lag_kernel.csv" )
-  if ( file.exists( fk ) ) {
-    k <- fread( fk, select = c( "cbsa", "year", "lag_g5", "lag_g10" ), colClasses = list( character = "cbsa" ) )
-    d[ k, on = c( "cbsa", "year" ), `:=`( lag_g5 = i.lag_g5, lag_g10 = i.lag_g10 ) ]
-  }
-  ## metro Gini from summed county brackets (add-on "inequality" block)
-  fg <- file.path( OUT$cov, "cov_gini_metro.csv" )
-  if ( file.exists( fg ) ) {
-    gm <- fread( fg, colClasses = list( character = "cbsa" ) )
-    d[ gm, on = c( "cbsa", "year" ), gini_m := i.gini_m ]
-  }
+  ## hist_pre1970, lag_g5 / lag_g10 and gini_m are merged by 30_assemble_analysis.R
+  ## (since Phase 2 of the reproducibility plan; before, they were attached here)
+  miss <- setdiff( c( "hist_pre1970", "lag_g5", "lag_g10", "gini_m" ), names( d ) )
+  if ( length( miss ) ) stop( basename( path ), " lacks ", paste( miss, collapse = ", " ),
+                              ": rebuild it with R/30_assemble_analysis.R" )
   d[]
 }
 

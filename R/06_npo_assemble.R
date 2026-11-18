@@ -30,7 +30,14 @@
 source( "R/00_setup.R" )
 suppressPackageStartupMessages( library( arrow ) )
 
-rd <- function( f ) as.data.table( read_parquet( file.path( OUT$npo, f ) ) )
+## every input is required: a missing file stops the build (the grants, monthly BMF,
+## reconstructed BMF and entry inputs were optional before Phase 2 of the
+## reproducibility plan, which let a wrong run order build a different database)
+need <- function( f ) {
+  if ( !file.exists( f ) ) stop( "missing input ", f, " (see the run order in pipeline.csv)" )
+  f
+}
+rd <- function( f ) as.data.table( read_parquet( need( file.path( OUT$npo, f ) ) ) )
 
 ## ---- price index (PCE, annual average), floor in nominal dollars ---------
 
@@ -121,12 +128,9 @@ log_msg( "records with a field > $200B set to NA: ", nrow( guard ) )
 ## grants paid to other organizations (pass-through; 09_npo_grants.R).
 ## Net measures exist from 2012; filers with no grants data (SOI-era 990-EZ)
 ## count as zero pass-through.
-fg <- file.path( OUT$npo, "orgyear_grants.parquet" )
 NET_START <- 2012L   # CORE 2010 and SOI 2011 grant fields are incomplete (09_npo_grants.R log)
-if ( file.exists( fg ) ) {
-  gr <- rd( "orgyear_grants.parquet" )[ , .( source, ein, year, g_org = grants_org ) ]
-  org <- merge( org, gr, by = c( "source", "ein", "year" ), all.x = TRUE )
-} else org[ , g_org := NA_real_ ]
+gr <- rd( "orgyear_grants.parquet" )[ , .( source, ein, year, g_org = grants_org ) ]
+org <- merge( org, gr, by = c( "source", "ein", "year" ), all.x = TRUE )
 org[ , g_org := fifelse( is.na( g_org ) | g_org < 0, 0, g_org ) ]
 org[ abs( g_org ) > BIG, g_org := 0 ]
 org <- merge( org, pce[ , .( year, to2022, floor_nom ) ], by = "year" )
@@ -225,20 +229,17 @@ setnames( pcs, "source", "src_990" ); setnames( pfs, "source", "src_pf" )
 ## (02b); the raw snapshot counts (legacy 2000-2022 + monthly 2023-2024) are
 ## kept as n_bmf_*_snap.
 bmf <- fread( file.path( OUT$npo, "bmf_county_year.csv" ), colClasses = list( character = "geoid" ) )
-fm <- file.path( OUT$npo, "bmf_county_year_monthly.csv" )
-if ( file.exists( fm ) ) bmf <- rbind( bmf[ !year %in% 2023:2024 ],
-                                       fread( fm, colClasses = list( character = "geoid" ) ), fill = TRUE )
+fm <- need( file.path( OUT$npo, "bmf_county_year_monthly.csv" ) )
+bmf <- rbind( bmf[ !year %in% 2023:2024 ], fread( fm, colClasses = list( character = "geoid" ) ), fill = TRUE )
 if ( !"bmf_src_monthly" %in% names( bmf ) ) bmf[ , bmf_src_monthly := 0L ]
 bmf[ is.na( bmf_src_monthly ), bmf_src_monthly := 0L ]
-fr <- file.path( OUT$npo, "bmf_county_year_recon.csv" )
-if ( file.exists( fr ) ) {
-  sv <- grep( "^n_bmf", names( bmf ), value = TRUE )
-  setnames( bmf, sv, paste0( sv, "_snap" ) )
-  rec <- fread( fr, colClasses = list( character = "geoid" ) )
-  bmf <- merge( rec, bmf, by = c( "geoid", "year" ), all = TRUE )
-}
-fe <- file.path( OUT$npo, "npo_entry_county_year.csv" )
-entry <- if ( file.exists( fe ) ) fread( fe, colClasses = list( character = "geoid" ) ) else NULL
+fr <- need( file.path( OUT$npo, "bmf_county_year_recon.csv" ) )
+sv <- grep( "^n_bmf", names( bmf ), value = TRUE )
+setnames( bmf, sv, paste0( sv, "_snap" ) )
+rec <- fread( fr, colClasses = list( character = "geoid" ) )
+bmf <- merge( rec, bmf, by = c( "geoid", "year" ), all = TRUE )
+fe <- need( file.path( OUT$npo, "npo_entry_county_year.csv" ) )
+entry <- fread( fe, colClasses = list( character = "geoid" ) )
 pop <- fread( file.path( OUT$pop, "county_pop_2000_2025.csv" ), colClasses = list( character = "geoid" ) )
 
 cy <- CJ( geoid = spine$geoid, year = YEARS )
@@ -274,13 +275,11 @@ cy <- merge( cy, bmf, by = c( "geoid", "year" ), all.x = TRUE )
 bmf_years <- unique( bmf$year )
 for ( v in grep( "^n_bmf", names( cy ), value = TRUE ) )
   set( cy, i = which( is.na( cy[[ v ]] ) & cy$year %in% bmf_years ), j = v, value = 0 )
-if ( !is.null( entry ) ) {
-  cy <- merge( cy, entry, by = c( "geoid", "year" ), all.x = TRUE )
-  ent_years <- unique( entry$year )
-  for ( v in grep( "^n_entry", names( cy ), value = TRUE ) )
-    set( cy, i = which( is.na( cy[[ v ]] ) & cy$year %in% ent_years ), j = v, value = 0 )
-  cy[ , entry_src_monthly := as.integer( year >= 2022 ) ]
-}
+cy <- merge( cy, entry, by = c( "geoid", "year" ), all.x = TRUE )
+ent_years <- unique( entry$year )
+for ( v in grep( "^n_entry", names( cy ), value = TRUE ) )
+  set( cy, i = which( is.na( cy[[ v ]] ) & cy$year %in% ent_years ), j = v, value = 0 )
+cy[ , entry_src_monthly := as.integer( year >= 2022 ) ]
 cy[ , post_splice_soi := year >= 2011 ][ , post_splice_efile := year >= 2020 ]
 fwrite( cy, file.path( OUT$npo, "npo_county_year.csv" ) )
 

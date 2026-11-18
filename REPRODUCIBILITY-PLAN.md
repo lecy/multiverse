@@ -268,6 +268,19 @@ results.
    `pipeline.csv` for the README.
 5. Check: `cbsa_year.parquet` equals today's file plus the three merged columns.
 
+*Status 2026-11-17 (second machine):*
+- **Step 1 done.** `07_npo_bls.R` builds `cbsa_bls.csv` only, and `07b_bls_validation.R` holds the 990-vs-BLS validation. `20_urban_economy.R` builds `cov_qcew.csv` only (no `qcew|bench` argument), and `20b_benchmarks.R` holds the benchmarks and SAMI-on-SAMI. 07b reads `cbsa_bls.csv` back from disk, so its diagnostics can differ from before in the last printed digits. The scripts stay in `R/` until Phase 3.
+- **Step 2 done, with two changes from the wording above.**
+  - **New builders.** `25_cov_endowment.R`, `26_cov_lag_kernel.R` and `27_cov_acs_metro.R` replace the `build` modes of 55, 82 and 89, which now stop and point to them. They write the same files in the same places (`cov/cov_*.csv`, `need_socap/acs_need_cbsa.csv`), not `cov/cbsa/`, because 58, 72 and 89 read those paths.
+  - **c9 needs no builder.** 82 read `c9_metro_1970_2024.csv` (73) only for a consistency printout, which was dropped. The real cycle was `load_panel()`, which 82 used to get CBSA population. 26 now sums county population from `npo_county_year.csv` exactly as 30 does.
+  - **Merge moved to 30.** 30 merges `hist_pre1970`, `lag_g5`, `lag_g10` and `gini_m` last (after derive and fill), exactly as `load_panel()` attached them. `load_panel()` now only adds `logP` and `division`, and it stops if a panel lacks the four columns.
+- **Step 3 done.** In 06, the grants, monthly BMF, reconstructed BMF and entry inputs are required (`need()`).
+- **Step 4 done.** `pipeline.csv` has 36 steps (database, checks, multiverse). `run.R` provides the stage selection, `--dry-run`, `--from`, `--only`, make-style skipping, a missing-input stop, per-step logs and `MANIFEST.csv`. `run.R --graph` writes `env/pipeline_graph.md` (Mermaid). Inputs in `pipeline.csv` list build files only; raw sources are noted in the notes column and are left to the Phase 4 inventory. From Git Bash, export `MV_BUILD`, because R there reads `~/.Renviron` from `$HOME`, not Documents.
+- **Step 5 done** (`env/check_phase2.R`, against the 11:02 S3 snapshot used for Phase 1).
+  - **Side files and panels.** The rebuilt side files are identical to the reference: `cov_endowment`, `cov_lag_kernel` (+ coverage), `cov_gini_metro` and `acs_need_cbsa`. `cbsa_year.parquet` equals the reference plus exactly those four columns (23,125 × 422, cell by cell). `load_panel()` returns the same table as before (column order aside), and `county_year.parquet` is identical.
+  - **06.** The committed 06 and the new 06 were run on the same inputs (current S3 copies). `npo_county_year`, `npo_cbsa_year`, `npo_county_year_by_source` and `splice_overlap` are byte-identical.
+  - **v11 slice.** All 1,000 statuses match, and every OLS / fixed-effects / div_fe spec is byte-identical to the Phase 1 slice. About 60 of 190 `state_re` (lme4) specs differ in the 7th digit, but they differ by the same amount between two runs of identical code. The lme4 fits are not bit-reproducible run to run, and Phase 2 did not change them.
+
 **Phase 3: reorganise folders (½ day)**
 Move the scripts into `R/lib`, `R/build/*`, `R/multiverse`, `R/paper` and `R/notes`.
 Update the `source()` paths, the README and the memory notes. Check:

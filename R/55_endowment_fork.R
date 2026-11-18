@@ -9,7 +9,7 @@
 ## Metros where > 60% of the 2000 stock predates 1970 are group-exemption
 ## artifacts (Mankato, Memphis) and are set to NA.
 ##
-##   Rscript R/55_endowment_fork.R build             -> data/cov/cov_endowment.csv
+##   (build: moved to R/25_cov_endowment.R -> data/cov/cov_endowment.csv)
 ##   Rscript R/55_endowment_fork.R run [workers]     endowment specs -> run_principled_endow/
 ##   Rscript R/55_endowment_fork.R merge             v3 + endowment -> run_principled_v4/ (canonical spec_ids)
 ##   Rscript R/55_endowment_fork.R compare           matched default vs +endowment pairs
@@ -32,22 +32,7 @@ v4_dir  <- file.path( OUT$spec, "run_principled_v4" )
 bat_dir <- file.path( end_dir, "batches" )
 
 ## ---- build the covariate --------------------------------------------------------
-if ( MODE == "build" ) {
-  bmf <- fread( file.path( OUT$npo, "ein_location_bmf.csv.gz" ), select = c( "EIN", "year", "geoid", "subsec", "pf", "ryear" ),
-                colClasses = list( character = c( "EIN", "geoid", "subsec" ) ) )
-  b0 <- bmf[ year == 2000 & subsec %in% c( "03", "3" ) & pf == FALSE & !is.na( geoid ) ]
-  sp <- fread( file.path( OUT$geo, "county_spine.csv" ), colClasses = list( character = c( "geoid", "cbsa" ) ) )
-  b0 <- merge( b0, sp[ !is.na( cbsa ) & cbsa != "", .( geoid, cbsa ) ], by = "geoid" )
-  e <- b0[ , .( n_bmf2000 = .N, n_pre1970 = sum( ryear < 1970, na.rm = TRUE ),
-                n_pre1960 = sum( ryear < 1960, na.rm = TRUE ) ), by = cbsa ]
-  e[ , share_pre1970 := n_pre1970 / n_bmf2000 ]
-  e[ , artifact := share_pre1970 > SHARE_MAX ]
-  e[ , hist_pre1970 := fifelse( artifact, NA_real_, as.numeric( n_pre1970 ) ) ]
-  fwrite( e, COV_FILE )
-  log_msg( "CBSAs: ", nrow( e ), "; flagged as group-exemption artifacts: ", e[ artifact == TRUE, .N ] )
-  print( e[ artifact == TRUE ][ order( -share_pre1970 ) ] )
-  quit( save = "no" )
-}
+if ( MODE == "build" ) stop( "'build' moved to R/25_cov_endowment.R (reproducibility plan, Phase 2)" )
 
 grid <- build_grid( "principled" )[ is.na( dup_of ) ]
 new  <- grid[ op == "history:pre1970" ]

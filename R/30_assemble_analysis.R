@@ -7,6 +7,8 @@
 ## Periodic covariates get *_lin (linear) and *_locf (carry-forward) versions;
 ## the bare name is the default (linear), and *_obs marks observed years.
 ##
+## CBSA-only covariates (25, 26, 27) are merged into the CBSA file last.
+##
 ## Outputs: D:/MULTIVERSE/data/analysis/{county,cbsa}_year.parquet
 ##          D:/MULTIVERSE/data/analysis/codebook_analysis.csv
 
@@ -202,6 +204,20 @@ cbsa <- merge( cbsa, st, by = "cbsa", all.x = TRUE )
 cbsa <- merge( cbsa, meta, by = "cbsa", all.x = TRUE )
 cbsa <- derive( cbsa )
 cbsa <- derive_gov( fill_periodic( cbsa, "cbsa" ) )
+## CBSA-level covariates for the multiverse add-on blocks, merged last and as built
+## (no derive / fill), exactly as load_panel() in 40 used to attach them:
+##   hist_pre1970     25_cov_endowment.R (time-invariant)
+##   lag_g5, lag_g10  26_cov_lag_kernel.R
+##   gini_m           27_cov_acs_metro.R (2010-2024)
+need <- function( f ) { if ( !file.exists( f ) ) stop( "missing input ", f ); f }
+e <- fread( need( file.path( OUT$cov, "cov_endowment.csv" ) ), select = c( "cbsa", "hist_pre1970" ),
+            colClasses = list( character = "cbsa" ) )
+cbsa[ e, on = "cbsa", hist_pre1970 := i.hist_pre1970 ]
+k <- fread( need( file.path( OUT$cov, "cov_lag_kernel.csv" ) ), select = c( "cbsa", "year", "lag_g5", "lag_g10" ),
+            colClasses = list( character = "cbsa" ) )
+cbsa[ k, on = c( "cbsa", "year" ), `:=`( lag_g5 = i.lag_g5, lag_g10 = i.lag_g10 ) ]
+gm <- fread( need( file.path( OUT$cov, "cov_gini_metro.csv" ) ), colClasses = list( character = "cbsa" ) )
+cbsa[ gm, on = c( "cbsa", "year" ), gini_m := i.gini_m ]
 write_parquet( cbsa, file.path( OUT$analysis, "cbsa_year.parquet" ) )
 
 ## ---- coverage report -----------------------------------------------------------
