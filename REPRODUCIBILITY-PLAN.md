@@ -334,6 +334,14 @@ Update the `source()` paths, the README and the memory notes. Check:
   - ~~Replace the FRED PCEPI download with BEA: FRED's terms forbid archiving it.~~ Done (`3a6c3f7`); freeze `raw/bea-nipa/bea_pcepi_monthly.csv`.
   - Everything else can be redistributed with attribution: NCCS under ODC-BY, tonmcg under MIT, PatentsView under CC BY 4.0, MEDSL under CC0, and the federal sources as public domain.
 
+*Status 2026-11-17, Step 1 done (`d4913bb`):*
+- **Frozen:** 1,126 files in 23 folders, 22.16 GB, at `s3://lecy/nonprofit-density/inputs/<folder>/<root>/<path>`, where root is `build`, `hub`, `bls` or `dropbox`. 14.17 GB were copied server side from the `s3://lecy/multiverse/` mirror and 7.99 GB uploaded from this machine.
+- **Manifests:** each folder has a `MANIFEST.csv` (key, bytes, sha256, source, build_path, steps, frozen_at) plus its `SOURCE.md` (and `PERMISSION.md` where needed). SOI and the unified BMF keep their earlier layouts and add 25 more files.
+- **`env/freeze_inputs.R`:** with no flags it lists what would be frozen; `--run` freezes and resumes; `--verify` checks that every planned file is in its folder's manifest, with the right size, and uploaded. The plan matches `pipeline.csv` at `571bedf`, and `--verify` passes.
+- **check-only:** the folder `check-only/` holds 119 files that are not build inputs but are kept for checks: the 1023-EZ baseline, the NTEE resolved crosswalk, the e-file grants tables and the monthly-BMF dictionaries.
+- **`env/restore_inputs.R`:** downloads only, into four roots, checking every sha256, and a rerun resumes. `--check` runs `run.R --raw` against the restored roots and fails if any declared input resolves to no file.
+- **e-file 2020 is frozen:** `efile_990_2020`, `efile_pf_2020` and `efile_grants_2020` are in `nccs-efile/`. This matters for step 05, which now runs tax years 2020–2024.
+
 **Phase 5: clean-room rebuild (1–2 days of compute)**
 1. With `MV_BUILD=D:/MULTIVERSE_REPRO` and `MV_INPUTS=<frozen inputs>`, run
    `Rscript run.R database` on a fresh renv library, ideally on a second machine or
@@ -342,6 +350,40 @@ Update the `source()` paths, the README and the memory notes. Check:
    `diff_files.csv`/`diff_cells.csv` approach from the flog check). Explain or fix
    every difference.
 3. Record the wall time of each step in the README.
+
+*Status 2026-11-17: rehearsal done (second machine, 24 cores); the frozen-input run is still to do.*
+- **Setup.**
+  - Code: `git archive` of `713df95`, the NTEE fix and its follow-ups.
+  - Build folder: a fresh `D:/MULTIVERSE_REPRO`.
+  - Library: a fresh one restored from `renv.lock`, with no user library on the path.
+  - Inputs: `D:/MULTIVERSE_INPUTS` (frozen SOI from S3, plus the 23 BMF snapshots, long panel, population and BLS files copied from the hub). Raw caches came from the `s3://lecy/multiverse` mirror; the RCMS `.SAV` files were read from Dropbox.
+  - Reference: the S3 mirror's `data/` as of 17:34, i.e. code from before Phase 2 and the NTEE commit.
+  - This is not yet the frozen-input clean room. That waits for the Phase 4 freeze and `env/restore_inputs.R`.
+- **Problems found and fixed (`571bedf`).**
+  - `renv.lock` lacked R.utils (needed to read `.csv.gz`) and digest (sha256). The Phase 1 check missed this because the user library was still on the path.
+  - Download caches declared as step outputs made 05 and 09a, and everything after them, rerun on every run.
+  - `run.R --raw` folder entries resolved to the folder itself.
+  - The TIGER polygons were declared on 01, which never reads them.
+- **Found, not yet fixed in the repo.**
+  - **05 runs 2021–2024 by default, but the reference and 06 use 2020–2024.** `pipeline.csv` passed no years, so a clean `run.R database` silently dropped e-file 2020: `orgyear_efile` −18%, `orgyear_efile_pf` −19%, a 2020 gap in `govgrants`, and some CORE orgs left unlocated in `ein_location_rules`. Fixed: 05's args in `pipeline.csv` are now `2020,2021,2022,2023,2024`. The rehearsal was rerun with those args, and the results below are from that rerun.
+  - **`run.R` does not rerun a step when its `args` or `env` change.** Only files are compared.
+  - **`diagnostics/core_extract_manifest.csv` records absolute paths** (`D:/MULTIVERSE/...`), so it differs between machines. Its other columns are equal.
+  - **Step 07 first failed with an empty log (exit 6).** The BLS files are Dropbox online-only on this machine. It worked once the files were fetched or copied locally.
+- **Diff (`env/compare_builds.R`, files the build writes): 99 files.**
+  - **Matching:** 72 byte-identical, and 6 equal cell by cell (all six org-year panels: CORE, SOI, SOI-PF, e-file, e-file PF, grants paid).
+  - **New:** 2 (`ein_ntee_best.csv.gz`, `bmf_legacy_ntee_backfill.csv`).
+  - **Differs:** 19, all explained.
+    - **NTEE rule:** every differing column is NTEE-split: `*_nohu`, `*_hs`, the subsector market-concentration measures (`mkt_*`), `ntee3`, the backfill counts, and correlations of those.
+      - Headline totals (`n_filer_c3`, `exp_c3`, `n_filer_c3_nohu`, `exp_c3_nohu`) are unchanged nationally in every year.
+      - `n_filer_c3_hs` moves by ≤0.03%, and `n_bmf_c3pc_hs` by +0.01–0.43% (the commit predicted +0.01–0.4%).
+      - `n_bmf_c3pc_nohu` falls by up to 35 orgs a year nationally (114 county-years), although the NTEE commit says it is unchanged.
+    - **`cbsa_year` also has the four Phase 2 columns** (`hist_pre1970`, `lag_g5`, `lag_g10`, `gini_m`).
+    - **`core_extract_manifest`:** absolute paths, as above.
+    - **TIGER `.rds`:** re-downloaded; the same polygons and GEOIDs.
+- **Wall time** (last run of each step, minutes; about 21 for the whole database stage):
+  - 02 3.7, 02b 2.7, 06 1.9, 21 1.9, 23 1.4, 24 1.2, 05 1.1, 04 0.9, 08 0.8, 09 0.6, 03 0.5, 30 0.4, 15 0.4, 03b 0.3, 25 0.3.
+  - Every other step under 0.3.
+  - Downloads were cached; a run with empty caches (e-file, CORE, Census APIs) will take much longer.
 
 **Phase 6: paper exhibits (1–2 days)**
 1. Decide whether Part I moves to v11 / post-NTEE-fix outputs, or v10 is rebuilt

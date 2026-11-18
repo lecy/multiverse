@@ -1,7 +1,9 @@
 ## env/compare_builds.R
 ## Phase 5 check: compare a rebuilt build folder with a reference copy, file by file.
-##   Rscript env/compare_builds.R <new_build> <ref_build> [subdir=data] [tol=1e-9]
+##   Rscript env/compare_builds.R <new_build> <ref_build> [subdir=data] [tol=1e-9] [files=all|new]
 ## Every file under <ref>/<subdir> and <new>/<subdir> is matched by relative path.
+## files=new compares only the files the new build wrote (the reference folder may also
+## hold outputs of research-note scripts or backups that the build does not write).
 ##   1. sha256: identical files are done.
 ##   2. Tables that differ (.csv, .csv.gz, .parquet) are read and compared cell by cell,
 ##      after sorting by the key columns found (ein, geoid, cbsa, year, ...) when they
@@ -24,7 +26,8 @@ is_tab <- function( f ) grepl( "\\.(csv|csv\\.gz|parquet)$", f )
 rd <- function( f ) if ( grepl( "\\.parquet$", f ) ) as.data.table( read_parquet( f ) ) else
   fread( f, colClasses = "character", showProgress = FALSE )   # csv: compare as text, then numbers
 
-files <- sort( union( rel( NEW ), rel( REF ) ) )
+ONLY_NEW <- length( a ) >= 5 && a[5] == "new"
+files <- sort( if ( ONLY_NEW ) rel( NEW ) else union( rel( NEW ), rel( REF ) ) )
 cat( length( files ), "files under", SUB, "\n" )
 out_f <- vector( "list", length( files ) ); out_c <- list()
 
