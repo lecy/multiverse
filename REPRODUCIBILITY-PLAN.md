@@ -227,6 +227,12 @@ results.
 3. Record `sessionInfo()` and find `panel990`'s source (GitHub commit or local
    tarball).
 
+*Status 2026-11-17:*
+- **Step 1 done.** Git repo on branch `main`, first commit `6e8c3a5` (253 files, 30 MB). `.gitignore` excludes secrets, rendered HTML, Quarto caches, Office/PDF drafts, data and logs. `.gitattributes` keeps LF. No remote yet.
+- **Step 3 done.** `env/session-info-2026-11-17.txt` and `env/packages-2026-11-17.csv`. `panel990` = GitHub commit `7045d97` (in its DESCRIPTION `RemoteSha`; still HEAD).
+- **Step 2 is open:** freeze timing and conventions for the other sessions.
+- **Note:** the repo lives in Dropbox. Work on it from one machine at a time, because Dropbox can corrupt `.git` when two machines write to it.
+
 **Phase 1: portability, with no change in behaviour (1 day)**
 1. `config.R`: `MV_BUILD`, `MV_INPUTS` (replaces `DATA_HUB` and the `00 - URBAN`
    path) and `CENSUS_API_KEY` from env vars or a git-ignored `.Renviron`. The
