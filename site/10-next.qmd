@@ -91,8 +91,17 @@ and what new data, methods and analyses would move the work toward that goal.
     initiative;
   - difference-in-differences across staggered state policy changes.
 - **Stock-flow models.** Model entry, exit and growth across the filing floor
-  separately, so that a community can see which flow drives its gap.
-- **Small-area estimation.** Most counties are small, and their densities are noisy.
+  separately, so that a community can see which flow drives its gap. Recent work
+  shows that dissolutions predict new foundings, and that turnover is higher in
+  diverse and deprived places [@mayer2025connecting; @shon2024demographic;
+  @clifford2024passing]. Places with the same stock can differ greatly in churn.
+- **Spatial dependence.** County studies find strong spillovers between neighbors
+  [@kim2026interdependence; @never2016place]. Add a spatial-error check across metros
+  to the multiverse, and test nonlinear need effects, which tract studies find
+  U-shaped [@wo2018density].
+- **Small-area estimation and rural places.** Most counties are small, and their
+  densities are noisy. Rural counties outside metro and micro areas are outside the
+  multiverse's units, yet their safety nets are thinnest [@shapiro2021inequality].
   Multilevel models with partial pooling would give stable benchmarks for rural places,
   where funders often have the least information.
 - **Multiverse for causal designs.** The decision framework applies equally to causal

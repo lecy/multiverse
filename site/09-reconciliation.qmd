@@ -1,6 +1,6 @@
 ---
 title: "9. Reconciling the density literature"
-subtitle: "Ten studies read through the multiverse: why their findings differ, and where consensus is emerging"
+subtitle: "Ten studies read through the multiverse, and 26 recent and related studies weighed against it"
 ---
 
 ::: {.callout-note}
@@ -398,6 +398,251 @@ literature should:
   asked;
 - not read government-grant associations as evidence that public money builds
   sectors. They are consistent with that, but cannot show it.
+
+# Beyond the ten: recent and related studies
+
+The ten studies above end in 2018. Since then the field has moved in three
+directions:
+
+- **Density and growth studies** now use national data, panels and spatial models.
+- **Entry and exit:** a separate literature studies which places gain and lose
+  organizations.
+- **Location within places:** spatial analyses ask where nonprofits sit, and whether
+  that matches need.
+
+The tables below summarize 26 such studies. Unlike the ten, they are **not** compared
+coefficient by coefficient. Their outcomes, units and methods differ too much from
+ours for that. Instead, the discussion that follows asks whether each strand
+strengthens the claims of this page and the multiverse, or competes with them.
+
+**Verification.** Every citation was checked against Crossref.
+- **Read in full, or in large part:** studies marked *full*.
+- **Abstract only:** the rest. Their findings come from the abstracts, and their
+  data details are sometimes incomplete.
+
+Two studies from England and Wales are included because they follow density over 50
+years, which no US study does.
+
+## Density and growth
+
+::: {.table-compact}
+
+| Study | Data, unit, years | Outcome (population) | Method | Main finding | Read |
+|---|---|---|---|---|---|
+| @shapiro2026racial | NCCS Core 2017; 3,140 US counties | Human-services spending, log per capita | Cross-section OLS | Counties with a larger Black share have less nonprofit human-services spending per resident; the gap is concentrated in the South | full |
+| @kim2026interdependence | GuideStar 2003; 2,904 counties | Environmental nonprofits, log count; population as a control | Spatial lag and error model (SARAR) | Educational and racial heterogeneity negative; government grants and spending positive; fiscal centralization negative; strong spillovers between neighboring counties | full |
+| @mcdonnell2026development | Charity register; 330 local authorities, England and Wales, 1971–2021 | Charities per 1,000 | Latent growth curves | Density rose to 2001, then plateaued and fell. Trajectories have the same shape everywhere, but level differences persist; middle-deprivation areas are densest | full |
+| @allard2023volatility | NCCS 2000–2017; urban and suburban counties | Health and human-services spending per capita and per poor person | Trends; pooled regressions | Suburban safety nets are weaker and more volatile than urban ones, especially in high-poverty and Black suburbs | full |
+| @willse2023geography | Park and conservation support nonprofits; counties, 2000–2015 | Whether a county has one | *Not confirmed* | More likely in metro counties with well-educated, liberal residents; unrelated to public parks funding | abstract |
+| @kim2022prevalence | Counties, 1995–2015 | Ethnic, cultural and folk nonprofits | County panel | They increase where new immigrant populations grow, unevenly across groups | abstract |
+| @shapiro2021inequality | NCCS; all US counties | Human-services spending | Regression | Rural counties spend least; the negative poverty association is explained by rurality and region | abstract |
+| @wu2021geography | Community foundations; 3,130 counties | Presence and activity | Hurdle negative binomial | Foundations form in urban, White, homogeneous, high-capital counties; once present, they are more active in diverse and unequal ones | abstract |
+| @lu2020population | Meta-analysis: 37 studies, 491 effects | Sector size, various | Random-effects meta-analysis | Heterogeneity is positively related to sector size, but weakly; age, education, ethnicity, language and religion fit best | full |
+| @jeong2020density | BMF 2013; US counties | Registered arts, health and human-services charities, log per 10,000 | Cross-section OLS, state dummies | Government size negative, fragmentation positive; racial and educational diversity and religious adherence positive; for-profit providers co-locate | full |
+| @mcdonnell2020charity | Charity register; 328 local authorities, 1971–2011 | Charities per 5,000 | Poisson; within-area change; spatial controls | Density is highest in the least deprived areas, but rises *within* an area as it becomes more deprived | full |
+| @lu2018complementary | Meta-analysis: 30 studies, 151 effects | Nonprofit vs. government activity | Random-effects meta-analysis | Net association null to slightly positive; no crowding out; depends on data structure, unit and field | full |
+| @vanpuyvelde2016determinants | NCCS 2012; 254 Texas counties | Public charities per 10,000 | Cross-section OLS | Education and older population positive; congregation density not significant | full |
+
+: Recent density and growth studies, most recent first. {#tbl-recent-density}
+
+:::
+
+## Entry, exit and survival
+
+::: {.table-compact}
+
+| Study | Data, unit, years | Outcome | Method | Main finding | Read |
+|---|---|---|---|---|---|
+| @mayer2025connecting | US counties, 2010–2016 (21,756 county-years) | Foundings and dissolutions | Ecological count models | Density dependence, resources and government size shape both; more dissolutions predict more foundings | abstract |
+| @lee2025exploring | Human-service nonprofits, 2007–2018 | Dissolution | Survival model, county fixed effects | Stronger local economic and social conditions lower risk; higher human-service density raises it | abstract |
+| @shon2024demographic | US counties, 2007–2015 | Dissolution | Longitudinal | More demographically heterogeneous and more liberal counties have more dissolution | abstract |
+| @clifford2024passing | Charities and trustees, England and Wales | Dissolution | Survival analysis | Charities in deprived areas dissolve more often, partly because volunteer leadership is harder to replace | abstract |
+| @lu2020dissolution | US public charities, 2005–2015 | Dissolution | Proportional hazards | Organization-level finances matter: revenue diversification and commercial revenue improve survival | abstract |
+| @garrow2015racial | Human-service nonprofits, one metro, 2002–2011 | Disbanding | Logistic panel | Organizations in tracts with more Black and Latino residents disband more often | abstract |
+
+: Entry, exit and survival studies. {#tbl-recent-exit}
+
+:::
+
+## Location within places
+
+::: {.table-compact}
+
+| Study | Data, unit, years | Outcome | Method | Main finding | Read |
+|---|---|---|---|---|---|
+| @marwell2026configuring | Headquarters and service sites; one city | Location; fiscal vulnerability | *Not confirmed* | Most nonprofits locate in neighborhoods like their own; some affluent-based organizations serve poor areas; those serving Black and immigrant areas are more fiscally vulnerable | abstract |
+| @mayer2024location | Geocoded 990s; Cuyahoga County, Ohio | Revenue by location | Generalized additive models | Location matters within a county; nearby nonprofits raise revenue (agglomeration) | abstract |
+| @wo2018density | Los Angeles census tracts | Nonprofit density | Nonlinear models | Concentrated disadvantage has a U-shaped relationship with density; violent crime lowers it | abstract |
+| @lee2017sustainability | Human-service nonprofits, Capital District, New York | Concentration and longevity | Spatial analysis, regression | Concentrated in inner-city neighborhoods; shorter-lived where revenues are small and the Black share is high | abstract |
+| @never2016place | US counties | Human-services spending | Spatial Durbin model | Spending rises with the Black and renter population at home; neighboring counties free-ride | abstract |
+| @yan2014antipoverty | Greater Hartford census tracts | Antipoverty nonprofits, counts | Bayesian spatial zero-inflated Poisson | Antipoverty nonprofits locate where poverty, unemployment and renting are higher | abstract |
+| @peck2008antipoverty | Phoenix metro, 1990 and 2000 | Antipoverty organizations and spending | Spatial analysis | They locate in higher-need areas; little evidence they reduce neighborhood poverty | abstract |
+
+: Spatial studies of nonprofit location. {#tbl-recent-spatial}
+
+:::
+
+# Do they strengthen our claims, or compete with them?
+
+Each claim below comes from this page or from the multiverse.
+
+## Across places, poverty goes with fewer nonprofits; within places, organizations follow need
+
+**Strengthens, strongly.** This is the claim the newer work supports most directly.
+
+- **The same split, observed directly.** @mcdonnell2020charity find, in 40 years of
+  data from England and Wales, that density is highest in the *least* deprived areas,
+  yet rises *within* an area as it becomes more deprived. That is the across-versus-
+  within distinction (D3) shown in one study.
+- **Following need within a metro.** Antipoverty nonprofits locate in higher-need
+  tracts within a metro [@peck2008antipoverty; @yan2014antipoverty]. That is the
+  county-within-metro pattern of D2, at finer grain.
+- **Fewer resources where need is high, across places:**
+  - rural and high-poverty counties have the thinnest safety nets
+    [@shapiro2021inequality];
+  - high-poverty suburbs have weaker and more volatile ones [@allard2023volatility].
+
+**Qualifies.** The relationship need not be linear:
+- @wo2018density find a U-shape across Los Angeles tracts.
+- @mcdonnell2026development find middle-deprivation areas densest.
+
+The multiverse models poverty linearly, so a curved relationship would be absorbed
+into its average. That is worth testing.
+
+## Size has to be handled, and comparisons belong at the metro level
+
+**Strengthens.**
+- **Counts track population.** Every recent density study that reports the
+  correlation finds raw counts track population almost perfectly, *r* = .98 in
+  @vanpuyvelde2016determinants. All of them adjust for population, either per capita
+  or as a control.
+- **Corbin's raw-count design has not been repeated.** The field has converged on
+  the D4 lesson.
+
+**Competes, in part: spatial spillovers.**
+- @kim2026interdependence and @never2016place find strong spillovers between
+  neighboring *counties*. One county's conditions shape its neighbors' nonprofits,
+  and neighbors free-ride on human-services spending.
+- That supports metro units (D2), since a metro brings commuting neighbors into one
+  observation.
+- It also exposes an untested assumption: the multiverse treats metros as
+  independent. Spillovers *between* metros are probably weaker than between
+  counties, but a spatial-error check is a reasonable addition (Part 10).
+
+## Diversity works differently for different organizations
+
+**Strengthens the central point: name the population and the measure.**
+- **The meta-analysis.** @lu2020population find a positive but small heterogeneity
+  effect across 37 studies. That is what the multiverse predicts when studies pool
+  populations whose signs differ.
+- **New, small, identity-based organizations rise with diversity:**
+  - registered arts, health and human-services charities rise with racial diversity
+    [@jeong2020density];
+  - ethnic, cultural and folk organizations rise with immigration
+    [@kim2022prevalence].
+
+  These are grassroots-like populations, where the multiverse finds diversity
+  positive.
+- **Established resources fall with diversity:**
+  - human-services spending is lower where the Black share is higher
+    [@shapiro2026racial; @allard2023volatility];
+  - community foundations form in homogeneous counties [@wu2021geography].
+
+  These are the filer and spending populations, where the multiverse finds % nonwhite
+  negative.
+
+**Adds a mechanism.** The exit studies suggest *why* the two populations differ:
+- diverse counties have more dissolutions [@shon2024demographic];
+- organizations in Black and Latino neighborhoods disband more often
+  [@garrow2015racial; @lee2017sustainability].
+
+High turnover keeps organizations small and unregistered as filers. That is
+consistent with more grassroots and fewer established organizations in diverse
+places, but not proof of it.
+
+**Competes.** @kim2026interdependence find heterogeneity *negative* for environmental
+nonprofits. That fits the subsector caution (D11): diversity findings are
+subsector-specific until shown otherwise. The multiverse models the full sector, so
+its grassroots-positive result may not hold in every field.
+
+## Government: funding complements, provision substitutes within places
+
+**Partly strengthens, partly competes.**
+
+- **Funding complements.** Supported again:
+  - @kim2026interdependence find government grants and spending positive for
+    environmental nonprofits;
+  - a meta-analysis of 30 studies finds no crowding out [@lu2018complementary].
+- **Provision substitutes.** This side is contested. @jeong2020density find
+  government size (government wages) *negative* in a cross-section of counties.
+  - Our page reads that as a within-place effect.
+  - The multiverse finds direct government slightly *positive* across metros.
+  - @lu2018complementary report that effect sizes depend on data structure and unit
+    of analysis, which is what the identification argument predicts.
+
+  A cross-sectional negative at the county level does not fit cleanly. It may
+  reflect county units, where government payroll concentrates in county seats and
+  capitals, or a real difference in the claim.
+- **Verdict.** "Funding complements" is now well supported. "Provision substitutes
+  within places" is supported by within-place designs and contested by one
+  cross-sectional one. It should stay a qualified claim.
+
+## Density is persistent, and history matters
+
+**Strengthens, strongly.**
+- **Persistent levels.** Over 50 years, area densities follow the same trajectory
+  while level differences persist [@mcdonnell2026development]. That is Fact 2, seen
+  over a longer span than US data allow.
+- **A mechanism for persistence.** Dissolutions predict new foundings
+  [@mayer2025connecting], so organizations that close tend to be replaced.
+- **Persistent leadership gaps.** Deprived areas lose charities when volunteer
+  leaders are not replaced [@clifford2024passing]. That shows how gaps can persist.
+
+Together these support controlling for history (D8), and the realistic time horizons
+in Part 10.
+
+## Resources, education and civic life
+
+**Strengthens.**
+- **Education.** Positive in every model of @vanpuyvelde2016determinants, and linked
+  to conservation nonprofits [@willse2023geography].
+- **Religious adherence.** Positive in @jeong2020density.
+- **Congregation density.** Not significant in @vanpuyvelde2016determinants. That is
+  consistent with our reading of Corbin, where congregation measures that grow with
+  size look positive only when size is not handled.
+
+**Competes, mildly: the older population.** It is positive in
+@vanpuyvelde2016determinants and in Kim (2015), but weak in the multiverse: % 65+
+has a median *r* of .02 for filers. The difference may be the unit: counties,
+including many small rural ones, versus metros.
+
+## What the new work adds that the multiverse does not cover
+
+- **Rural places.** Rural counties outside metro and micro areas fall outside the
+  multiverse's units. They are where safety nets are thinnest
+  [@shapiro2021inequality]. A funder in a rural county should not assume the metro
+  results apply.
+- **Turnover.** The multiverse models stocks. Entry and exit studies show that
+  places with similar stocks can have very different churn. For local capacity
+  building, churn matters as much as the level.
+- **Who is served.** Location studies show that where an organization is based is
+  not where it serves [@marwell2026configuring]. Density by headquarters can
+  overstate access in poor neighborhoods.
+
+**Overall.** The newer literature mostly *strengthens* the page's claims:
+- across places versus within places;
+- size handled explicitly;
+- diversity depends on the population;
+- history and persistence.
+
+It *competes* on two points: whether direct government substitutes for nonprofits
+across counties, and the role of the older population. And it identifies three
+gaps:
+- spatial spillovers between metros;
+- rural counties;
+- turnover.
+
+All three are now listed in Part 10.
 
 # References {.unnumbered}
 
