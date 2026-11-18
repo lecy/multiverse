@@ -336,10 +336,21 @@ div.csl-indent {
 </header>
 
 
-<p>The whole database is rebuilt by one command from frozen inputs. This page goes through the setup, each executable step, and how to check that a rebuild matches the published tables. Every command runs from the repository root. The build was last rebuilt in a clean room on 2026-11-18: - <strong>Library:</strong> a fresh R library restored from the lockfile. - <strong>Inputs:</strong> restored from S3 into empty folders. - <strong>Run time:</strong> all 30 steps in 19 minutes on a 24-core machine. - <strong>Result:</strong> every output was identical to the reference build, equal cell by cell, or different for a documented reason.</p>
+<p>The whole database is rebuilt by one command from frozen inputs. This page goes through the setup, each executable step, and how to check that a rebuild matches the published tables. Every command runs from the repository root. The build was last rebuilt in a clean room on 2026-11-18:</p>
+<ul>
+<li><strong>Library:</strong> a fresh R library restored from the lockfile.</li>
+<li><strong>Inputs:</strong> restored from S3 into empty folders.</li>
+<li><strong>Run time:</strong> all 30 steps in 19 minutes on a 24-core machine.</li>
+<li><strong>Result:</strong> every output was identical to the reference build, equal cell by cell, or different for a documented reason.</li>
+</ul>
 <section id="setup" class="level1">
 <h1>Setup</h1>
-<p><strong>Software.</strong> - R 4.5.3 <span class="citation" data-cites="r_core">(<a href="#ref-r_core" role="doc-biblioref">R Core Team, 2026</a>)</span> and Quarto <span class="citation" data-cites="quarto">(<a href="#ref-quarto" role="doc-biblioref">Allaire et al., 2025</a>)</span> (Quarto is needed only for this site). - The AWS command-line interface, to download the frozen inputs. - Package versions are pinned in <code>renv.lock</code> <span class="citation" data-cites="pkg_renv">(<a href="#ref-pkg_renv" role="doc-biblioref">Ushey &amp; Wickham, 2026</a>)</span>:</p>
+<p><strong>Software.</strong></p>
+<ul>
+<li>R 4.5.3 <span class="citation" data-cites="r_core">(<a href="#ref-r_core" role="doc-biblioref">R Core Team, 2026</a>)</span> and Quarto <span class="citation" data-cites="quarto">(<a href="#ref-quarto" role="doc-biblioref">Allaire et al., 2025</a>)</span> (Quarto is needed only for this site).</li>
+<li>The AWS command-line interface, to download the frozen inputs.</li>
+<li>Package versions are pinned in <code>renv.lock</code> <span class="citation" data-cites="pkg_renv">(<a href="#ref-pkg_renv" role="doc-biblioref">Ushey &amp; Wickham, 2026</a>)</span>:</li>
+</ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>( <span class="st">"renv"</span> )</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">restore</span>()          <span class="co"># installs the exact versions in renv.lock</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Folders.</strong> The build reads and writes four locations, set as environment variables in <code>~/.Renviron</code> (see <code>R/lib/config.R</code>):</p>
