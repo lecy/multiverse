@@ -132,14 +132,17 @@ qcew_813_wages|economy|20|NAICS 813 wages, private ($)
 qcew_privx813_estab|economy|20|Private establishments excluding NAICS 813
 qcew_privx813_emp|economy|20|Private employment excluding NAICS 813
 qcew_privx813_wages|economy|20|Private wages excluding NAICS 813 ($)
+hq_pub_per100k|corporate|30|Public-company headquarters per 100,000 residents = 1e5 * hq_pub / population
+hq_pub_large_per100k|corporate|30|Large-filer headquarters per 100,000 residents (2011+)
+cbp_hq_est_per100k|corporate|30|NAICS 551114 managing-office establishments per 100,000 residents
 ', sep = "|" )
 
 ## ---- codebooks written by the covariate steps ------------------------------------
 step_of <- c( elections = "16", irs_soi = "15", laus = "14", saipe = "13", acs = "17", bea = "12",
-              gov = "22", pep_char = "11", qcew = "20", rcms = "18", socap = "19" )
+              gov = "22", pep_char = "11", qcew = "20", rcms = "18", socap = "19", corphq = "28" )
 grp_of  <- c( elections = "civic", irs_soi = "giving", laus = "economy", saipe = "need", acs = "demography",
               bea = "economy", gov = "government", pep_char = "demography", qcew = "economy",
-              rcms = "religion", socap = "social capital" )
+              rcms = "religion", socap = "social capital", corphq = "corporate" )
 cb <- rbindlist( lapply( list.files( OUT$cov, "codebook", full.names = TRUE ), function( f ) {
   x <- fread( f ); setnames( x, 1:2, c( "variable", "description" ) )
   k <- sub( "^(cov_)?(codebook_)?", "", sub( "(_codebook)?\\.csv$", "", basename( f ) ) )

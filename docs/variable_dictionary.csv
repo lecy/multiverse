@@ -80,6 +80,14 @@ tr_unemp,economy,12,both,TRUE,"Unemployment insurance compensation [interpolated
 tr_veterans,economy,12,both,TRUE,"Veterans' benefits [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
 tr_education,economy,12,both,TRUE,"Education and training assistance [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
 tr_nonprofit,economy,12,both,TRUE,"Transfer receipts of nonprofit institutions (descriptive only) [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
+hq_pub,corporate,28,both,FALSE,"Public-company headquarters: SEC registrants whose latest annual report (10-K family, 20-F, 40-F) filed that year gives a business address in the county; excl. asset-backed issuers, commodity pools, blank checks, non-operating shells, foreign governments"
+hq_pub_large,corporate,28,both,FALSE,Large public-company headquarters: hq_pub filers with large-accelerated-filer status (public float >= $700M) on that report (FSDS afs = 1-LAF); 2011+
+cbp_hq_est,corporate,28,both,FALSE,"Establishments in NAICS 551114, corporate, subsidiary and regional managing offices (CBP)"
+cbp_hq_est100,corporate,28,both,FALSE,"NAICS 551114 establishments with 100+ employees (2017+: withheld size classes allocated, see cbp_hq_est100_imp)"
+cbp_hq_emp,corporate,28,both,FALSE,"NAICS 551114 mid-March employment, suppressed cells imputed from size classes (see cbp_hq_emp_imp)"
+cbp_hq_emp_imp,corporate,28,both,FALSE,Imputed part of cbp_hq_emp (suppressed cells)
+cbp_hq_est100_imp,corporate,28,both,FALSE,"Allocated part of cbp_hq_est100 (withheld size classes, 2017+)"
+cbp_hq_nosmall,corporate,28,both,FALSE,"1 = CBP year 2017+, when cells with fewer than 3 establishments are not published (counted as 0)"
 votes_total,civic,16,both,FALSE,Total presidential votes cast (all candidates)
 votes_dem,civic,16,both,FALSE,Democratic presidential votes
 votes_rep,civic,16,both,FALSE,Republican presidential votes
@@ -222,6 +230,9 @@ contrib_total,giving,30,both,TRUE,"Itemized charitable contributions, $ (= a1970
 pct_adherent,religion,30,both,TRUE,"Religious adherents / population [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
 pct_catholic,religion,30,both,TRUE,"Catholic adherents / all adherents [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
 gdp_per_worker,economy,30,both,FALSE,Real GDP per job = gdp_real / emp_total
+hq_pub_per100k,corporate,30,both,FALSE,"Public-company headquarters per 100,000 residents = 1e5 * hq_pub / population"
+hq_pub_large_per100k,corporate,30,both,FALSE,"Large-filer headquarters per 100,000 residents (2011+)"
+cbp_hq_est_per100k,corporate,30,both,FALSE,"NAICS 551114 managing-office establishments per 100,000 residents"
 qcew_avg_pay,economy,30,both,FALSE,Average private annual pay = qcew_priv_wages / qcew_priv_emp
 turnout,civic,30,both,TRUE,"Presidential votes / population 18+ [interpolated; also _obs (observed flag), _lin (linear), _locf (carried forward)]"
 tr_medmaint,government,30,both,FALSE,Medicare + Medicaid + income-maintenance transfers

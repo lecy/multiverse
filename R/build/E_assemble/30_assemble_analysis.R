@@ -53,7 +53,7 @@ FLAGS <- c( "src_990", "src_pf", "bmf_months_off", "post_splice_soi", "post_spli
             "pf_interp", "acs_mid_year", "ak_statewide", "mhi_ct_approx", "post_tcja",
             "irs_era_pre2010", "u18_method", "gini_method",
             "bmf_src_monthly", "entry_src_monthly", "rel_2000_noblack", "rel_groups",
-            "socap_interp2000", "patents_truncated" )
+            "socap_interp2000", "patents_truncated", "cbp_hq_nosmall" )
 ## rates, shares, and indices published by the sources: never summed; the
 ## ones the analysis uses are recomputed from numerators in derive()
 RATE_PAT <- "^pct_|_rate|_share|share$|_hhi$|^race_diversity$|^age_(mean|sd|hhi)$|competitiveness|per_return|per_claim|^dem_margin$"
@@ -103,6 +103,10 @@ derive <- function( d ) {
   if ( has( "rel_adh", "population" ) ) set( d, j = "pct_adherent", value = sdiv( d$rel_adh, d$population ) )
   if ( has( "rel_cath_adh", "rel_adh" ) ) set( d, j = "pct_catholic", value = sdiv( d$rel_cath_adh, d$rel_adh ) )
   if ( has( "gdp_real", "emp_total" ) ) set( d, j = "gdp_per_worker", value = sdiv( d$gdp_real, d$emp_total ) )
+  ## corporate headquarters (28_cov_corporate_hq.R), per 100,000 residents
+  if ( has( "hq_pub", "population" ) ) set( d, j = "hq_pub_per100k", value = 1e5 * sdiv( d$hq_pub, d$population ) )
+  if ( has( "hq_pub_large", "population" ) ) set( d, j = "hq_pub_large_per100k", value = 1e5 * sdiv( d$hq_pub_large, d$population ) )
+  if ( has( "cbp_hq_est", "population" ) ) set( d, j = "cbp_hq_est_per100k", value = 1e5 * sdiv( d$cbp_hq_est, d$population ) )
   if ( has( "qcew_priv_wages", "qcew_priv_emp" ) )
     set( d, j = "qcew_avg_pay", value = sdiv( d$qcew_priv_wages, d$qcew_priv_emp ) )
   vt_v <- col( c( "votes_total", "totalvotes" ) )
@@ -184,7 +188,7 @@ meta <- unique( spine[ !is.na( cbsa ) & cbsa != "", .( cbsa, cbsa_title, cbsa_ty
 flags <- cb[ , .( src_990 = first( src_990 ), src_pf = first( src_pf ), pf_interp = first( pf_interp ),
                   n_counties = uniqueN( geoid ) ), by = .( cbsa, year ) ]
 fl_max <- intersect( c( "bmf_src_monthly", "entry_src_monthly", "rel_2000_noblack", "socap_interp2000",
-                        "patents_truncated" ), names( cb ) )
+                        "patents_truncated", "cbp_hq_nosmall" ), names( cb ) )
 if ( length( fl_max ) )
   flags <- merge( flags, cb[ , lapply( .SD, function( x ) suppressWarnings( max( as.numeric( x ), na.rm = TRUE ) ) ),
                              by = .( cbsa, year ), .SDcols = fl_max ], by = c( "cbsa", "year" ) )

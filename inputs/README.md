@@ -42,6 +42,8 @@ hub, the S3 mirror of the build caches, and the publishers' terms pages (checked
 | [religion-census](religion-census/SOURCE.md) | RCMS 2000, 2010 (ARDA), USRC 2020 | **manual** | yes, **by permission** | no |
 | [social-capital](social-capital/SOURCE.md) | Rupasingha et al. (NERCRD) | **manual** | yes, **by permission** | no |
 | [patents](patents/SOURCE.md) | PatentsView (USPTO) 2026-04 release | **manual, login** | yes (CC BY 4.0) | no |
+| [sec-edgar](sec-edgar/SOURCE.md) | SEC EDGAR index, filing headers, FSDS `sub.txt` 2000–24; Census ZCTA files | script (SEC User-Agent) | yes | no |
+| [census-cbp](census-cbp/SOURCE.md) | Census County Business Patterns 2000–23 (NAICS 551114) | script | yes | no |
 | [check-only](check-only/SOURCE.md) | 1023-EZ, NTEE-resolved, e-file 2009–19, election checks | various | yes | no |
 
 ## Open items found while documenting
