@@ -75,3 +75,21 @@ test_that( "mv_read_frame rebuilds a frame from slices and checks it", {
   data.table::fwrite( m, file.path( d, "MANIFEST.csv" ) )
   expect_error( mv_read_frame( "cbsa_year", dir = d ), "do not match" )
 } )
+
+test_that( "geo helpers place Connecticut and spine codes", {
+  g <- withr_dir <- file.path( tempdir(), "geo_fixture" ); dir.create( g, showWarnings = FALSE )
+  data.table::fwrite( data.table::data.table(
+    town_name = c( "HARTFORD", "WEST HARTFORD", "NEW HAVEN" ), pr = c( "09110", "09110", "09170" ),
+    legacy_county = c( "09003", "09003", "09009" ), dominant_pr = c( "09110", "09110", "09170" ),
+    pop2019 = c( 120000, 60000, 130000 ) ), file.path( g, "ct_town_lookup.csv" ) )
+  data.table::fwrite( data.table::data.table( geoid = c( "09110", "09170", "04013" ) ), file.path( g, "county_spine.csv" ) )
+  expect_equal( ct_to_planning_region( c( "09003", "09009", "04013", NA ), c( "new haven", "x", "y", "z" ), g ),
+                c( "09170", "09170", "04013", NA ) )
+  expect_equal( county_from_block( c( "090030001001000", NA ), c( "Hartford", "" ), g ), c( "09110", NA ) )
+  expect_equal( not_in_spine( c( "09110", "09003", NA ), g ), c( FALSE, TRUE, FALSE ) )
+  d <- data.table::data.table( geoid = c( "09003", "04013" ), year = 2020, n = c( 10, 5 ) )
+  r <- ct_legacy_to_pr( d, "n", "total", g )
+  expect_equal( sum( r$n ), 15 )
+  expect_true( all( county_from_zip( "12345", g ) %in% NA ) )
+  expect_error( geo_lookup( "ct", file.path( g, "nope" ) ), "missing" )
+} )

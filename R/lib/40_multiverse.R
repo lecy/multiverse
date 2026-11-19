@@ -288,37 +288,8 @@ load_panel <- function( path = file.path( BUILD, "data", "analysis", "cbsa_year.
   d[]
 }
 
-winsor <- function( x, p = 0.01 ) {
-  q <- quantile( x, c( p, 1 - p ), na.rm = TRUE )
-  pmin( pmax( x, q[1] ), q[2] )
-}
-
-## residual of y on log P, year by year (the SAMI first stage)
-resid_logP <- function( y, logP, year ) {
-  out <- rep( NA_real_, length( y ) )
-  for ( t in unique( year ) ) {
-    i <- which( year == t & is.finite( y ) & is.finite( logP ) )
-    if ( length( i ) > 3 ) {
-      X <- cbind( 1, logP[ i ] )
-      out[ i ] <- y[ i ] - X %*% qr.coef( qr( X ), y[ i ] )
-    }
-  }
-  out
-}
-
-slog <- function( x ) log( pmax( x, 0 ) + 1 )        # log with zeros (kept for older scripts)
-## log of an extensive covariate with a per-capita floor (2026-11-15, run v6 on).
-## slog() turned a zero into log(1) = 0: Eagle Pass, TX (no foundation assets in
-## any year) sat ~8 SD below the mean of the log-asset SAMI, and 89 CBSAs carry
-## zeros or near-zero assets ($0.002 per person vs a $452 median). Values below
-## the p-th percentile of positive per-capita values in the estimation sample are
-## raised to it, then logged. Only foundation assets and foundation counts have
-## zeros; the floor touches ~1% of the other extensive covariates' lowest values.
-flog <- function( x, pop, p = 0.01 ) {
-  pc <- x / pop
-  f <- quantile( pc[ is.finite( pc ) & pc > 0 ], p, na.rm = TRUE, names = FALSE )
-  log( pmax( pc, f ) * pop )
-}
+## winsor(), resid_logP() (the SAMI first stage), slog() and flog() (log with a
+## per-capita floor, run v6 on) are in the package: ?npdensity::transforms.
 
 covars_for <- function( s ) {
   blocks <- setdiff( names( BLOCKS ), s$drop )

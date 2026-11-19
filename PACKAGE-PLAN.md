@@ -139,7 +139,19 @@ The pipeline isn't moved into package functions. Most of the 3,900 build lines a
   - `winsor`, `resid_logP`, `slog`, `flog`;
   - `mv_read_frame` (rebuilds a frame from the `data/` slices, with checks) and `frame_signature`.
   - Tests cover each function. `R CMD check`: 0 errors, 0 warnings, 0 notes.
-- **Step 1b next:** switch `R/build`, `R/multiverse` and `R/paper` from `source("R/lib/...")` to the package. This waits until the corporate-HQ session has committed its edits to `pipeline.csv` and step 30. The geo helpers move in 1b, because they read build files at load time.
+- **Step 1b done.** The scripts now get the helpers from the package:
+  - `R/lib/00_setup.R` sources `R/lib/load_pkg.R`, which installs `pkg/` into the first library when its sources have changed (it keeps their sha256 in the installed copy) and attaches it. The script lines stay `source("R/lib/00_setup.R")`, so no build, multiverse or paper script changed.
+  - The constants, `pad`, `log_msg`, the NTEE rule and the transforms (`winsor`, `flog`, `slog`, `resid_logP`) are no longer defined in `R/lib`.
+  - `fetch()` calls `mv_fetch()`. `read_ntee_best()` and `resolve_ntee()` stay in 00_setup.R as two-line bindings to this build's lookup file.
+  - The geo helpers moved to `pkg/R/geo.R` with their names unchanged. They take `geo_dir`, which defaults to `options(npdensity.geo_dir)`; 00_setup.R sets that option to `BUILD/data/geo`.
+  - `R/lib/geo_helpers.R` still binds `.ct`, `.ct_city`, `.ct_dom` and `.spine`, because steps 04, 11, 12 and 13 read them directly.
+  - Checks (2026-11-18):
+    - On the clean-room lookups, every helper returns identical results to the old `R/lib` code.
+    - A full database rebuild with the new code, from the frozen inputs (`D:/MV_PKG1B`), matches the clean-room build cell for cell. All 422 cbsa_year and 354 county_year columns are identical. The only additions are the eight corporate-HQ columns and four files of step 28, and `core_extract_manifest.csv` differs only by its absolute paths.
+    - 300 sampled v11 specifications (3,888 coefficients) are bit-identical with the old and the new code.
+  - Found on the way:
+    - `renv.lock` does not pin `duckdb`. Step 05 needs it whenever the panel990 cache lacks a year, so a cold rebuild with a fresh library fails at step 05.
+    - Steps 02b and 24 also depend on download caches in `BUILD/raw` (monthly BMF, panel990 tables) that `restore_inputs.R` does not restore.
 
 Each step ends with the clean-room check from Phase 5: rebuild in `D:/MV_CLEAN` and compare with `env/compare_builds.R`. A refactor step must reproduce the frames and v11 byte for byte, or cell for cell.
 
