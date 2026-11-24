@@ -17,5 +17,5 @@ utils::globalVariables( c( "EIN", "year", "ntee3", "ntee_best", ".", "frame",
   "cs_year", "outlier", "op", "op_block", "drop", "logP_rhs", "dup_of", "spec_id",
   "logP", "population", "division", "state_fips", "cbsa_type", "var", "type", "term",
   "estimate", "se", "se_state", "std_beta", "batch", "status", "N",
-  ".mv_grid", ".mv_panel", ".mv_cfg", ".mv_bat_dir", ".mv_fit",
+  ".mv_grid", ".mv_panel", ".mv_cfg", ".mv_bat_dir", ".mv_fit", "dest", "sha256", "bytes", "method", "note", "sha256_live",
   "..dvs", "a", "b", "base_y", "cls", "construct_term", "dabs", "decision", "dvform_sd", "flip", "group", "ident_scope", "label", "mean_pr", "median_pr", "n", "n_opt", "n_units", "oi", "opt", "opt_lab", "p", "p_state", "pair", "pois", "pr0", "pr_state", "predform_sd", "r2_logP", "rho", "same_sign", "sig", "sig_state", "sign_stability", "stat", "std_beta_raw", "stratum" ) )

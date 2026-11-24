@@ -187,6 +187,21 @@ The pipeline isn't moved into package functions. Most of the 3,900 build lines a
   - Fixed on the way: `mv_read_frame()` (Step 1a) selected the slices of both frames, because `man[ man$frame == frame ]` compares the `frame` column with itself inside data.table. The filters are now built outside `[ ]`. Tests cover both frames, tampered hashes, unknown releases, resume and missing assets.
   - After a new freeze (e.g. `sec-edgar`), rerun `env/build_pkg_manifest.R`.
 
+- **Step 4 done (2026-11-24).** Fetchers for class C:
+  - The source registry `pkg/inst/extdata/sources.csv` (`env/build_sources.R`, read with `mv_sources()`) gives each of the 1,520 frozen files a download method:
+    - `http`: a stable URL;
+    - `http_ua`: a stable URL, sent with a browser User-Agent (IRS, ERS, GitHub);
+    - `frozen`, with the reason in `note`.
+    - 153 files have a URL, taken from the URLs the build steps use.
+  - `mv_fetch_source(sources, roots, mode = "frozen" | "live", on_change = "stop" | "report" | "use")`:
+    - Frozen (the default) is `mv_get_inputs()`.
+    - Live downloads again and compares with the frozen hash.
+    - A server that refuses with an HTML page is reported as `rejected`, not as a change.
+    - The command line is `env/fetch_sources.R`.
+  - Live check against the publishers (`inputs/live_check.csv`): 152 of 153 files are byte-identical to the freeze. The Census firewall refuses one URL (Delaware 2000–2010, `census-pep-char`).
+  - `census-hist` and the monthly BMF, placed by hand before, are now scripted through the registry, and both match the freeze. They stay in class A.
+  - **Not done:** the build steps keep their own `fetch()` calls. With the inputs restored they only read the cache, so they no longer download, but their URLs are written twice, in the step and in the registry. Making the steps read the registry is a cleanup for later. API sources (SAIPE, ACS, QCEW, CoG via tidycensus) are only reproduced by rerunning their step.
+
 Each step ends with the clean-room check from Phase 5: rebuild in `D:/MV_CLEAN` and compare with `env/compare_builds.R`. A refactor step must reproduce the frames and v11 byte for byte, or cell for cell.
 
 **Step 1: skeleton and helpers (1 day)**

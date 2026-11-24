@@ -69,3 +69,10 @@ hub, the S3 mirror of the build caches, and the publishers' terms pages (checked
 
 **Inputs outside the hub and the build folder:** the RCMS .SAV files sit in
 `38 - resource environments/replication/`.
+
+## Getting the sources again
+
+- **Frozen copies (the published numbers):** `Rscript env/restore_inputs.R`, or `npdensity::mv_get_inputs()`. Every file is checked against the package manifest (`pkg/inst/extdata/manifest.csv`).
+- **From the publishers:** `Rscript env/fetch_sources.R`, or `npdensity::mv_fetch_source( mode = "live" )`. It downloads every file that has a stable public URL again and compares it with the frozen hash. The URLs are in the source registry `pkg/inst/extdata/sources.csv` (`env/build_sources.R`). It now covers the sources that were placed by hand before, `census-hist` and the monthly BMF.
+- **Live check, 2026-11-24** (`live_check.csv`): 153 of the 1,520 frozen files have a stable public URL. 152 of them are byte-identical to the freeze. One was refused by the Census firewall: Delaware's 2000–2010 county characteristics (see `census-pep-char/SOURCE.md`).
+- The other 1,367 files have only the frozen copy, and the registry's `note` says why: API responses (SAIPE, ACS, QCEW), files extracted from a download, SEC files re-compressed by step 28, hand-placed files, and our own intermediates (CORE, panel990 tables).

@@ -71,3 +71,22 @@ test_that( "the package manifest and the specification dictionary", {
   for ( v in c( "construct", "hu", "outcome", "ident", "dv_form", "pred_form", "unit", "est", "outlier", "drop", "op" ) )
     expect_true( all( unique( as.character( g[[ v ]] ) ) %in% sd[ column == v, code ] ), info = v )
 } )
+
+test_that( "mv_fetch_source: live downloads compared with the frozen hash", {
+  x <- fx()
+  roots <- c( build = file.path( x$root, "B" ), hub = file.path( x$root, "H" ), bls = file.path( x$root, "L" ), dropbox = file.path( x$root, "D" ) )
+  reg <- data.table::data.table( source = "src1", file = c( "build/raw/one.csv", "hub/A/two.txt" ), method = c( "http", "frozen" ),
+                                 url = c( paste0( furl( x$fz ), "/src1/build/raw/one.csv" ), NA ), note = c( NA, "by hand" ) )
+  r <- suppressMessages( mv_fetch_source( "src1", roots, mode = "live", registry = reg, manifest = x$m ) )
+  expect_equal( r$status, c( "same", "frozen only" ) )
+  expect_true( file.exists( file.path( roots[[ "build" ]], "raw", "one.csv" ) ) )
+  writeLines( "a,b\n1,3", file.path( x$fz, "src1", "build", "raw", "one.csv" ) )          # the source changes
+  expect_error( suppressMessages( mv_fetch_source( "src1", roots, mode = "live", registry = reg, manifest = x$m ) ), "has changed at its source" )
+  r <- suppressMessages( mv_fetch_source( "src1", roots, mode = "live", on_change = "report", registry = reg, manifest = x$m ) )
+  expect_equal( r$status[1], "changed" )
+  expect_equal( readLines( file.path( roots[[ "build" ]], "raw", "one.csv" ) ), c( "a,b", "1,2" ) )   # frozen copy kept
+  writeLines( "<html><head><title>Request Rejected</title></head></html>", file.path( x$fz, "src1", "build", "raw", "one.csv" ) )
+  r <- suppressMessages( mv_fetch_source( "src1", roots, mode = "live", registry = reg, manifest = x$m ) )   # no stop: a refusal is not a change
+  expect_equal( r$status[1], "rejected" )
+  expect_true( all( mv_sources()$file %in% mv_manifest()$file ) )
+} )

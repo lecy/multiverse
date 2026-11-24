@@ -23,7 +23,8 @@ aws <- function( ... ) { o <- suppressWarnings( system2( "aws", shQuote( c( ...,
   if ( !is.null( attr( o, "status" ) ) ) stop( "aws failed: ", paste( o, collapse = " " ) ); o }
 
 ## ---- frames: the files of data/ at the release tag -----------------------------------------
-stopifnot( length( system2( "git", c( "diff", "--name-only", REL, "--", "data" ), stdout = TRUE ) ) == 0 )
+## files of the tag that have changed since (files added after the tag, e.g. spec_dictionary.csv, are not part of the release)
+stopifnot( length( system2( "git", c( "diff", "--name-only", "--diff-filter=MD", REL, "--", "data" ), stdout = TRUE ) ) == 0 )
 man <- fread( "data/MANIFEST.csv", colClasses = list( character = "sha256" ) )
 fr <- man[ , .( class = "frame", release = REL, item = frame, file, bytes, sha256, location = file ) ]
 ## the text files are hashed as the tag stores them (git blobs, LF line endings), which is what

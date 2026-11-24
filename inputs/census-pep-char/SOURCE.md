@@ -15,3 +15,8 @@
 
 **Drift risk:** the Vintage 2025 names (`cc-est2025-*`) are hard-coded and will be
 replaced by the next vintage.
+
+**Live check, 2026-11-24** (`env/fetch_sources.R`): 54 of the 55 files downloaded again are byte-identical
+to the frozen copies. The Delaware file (`co-est00int-alldata-10.csv`) could not be downloaded: the Census
+firewall answers that URL with a "Request Rejected" page (HTTP 200), with or without a browser User-Agent.
+Only the frozen copy is available for it at present.
