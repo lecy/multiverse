@@ -3,7 +3,7 @@
 ## each with its sha256 (PACKAGE-PLAN.md Step 3). Read only: never writes to S3.
 ##   Rscript env/build_pkg_manifest.R [runs_dir=D:/MV_CLEAN/build/data/spec]
 ## Rows (class, release, item, file, bytes, sha256, location):
-##   frame  the research frames of release v1.0-data: the slices in data/ and MANIFEST.csv,
+##   frame  the research frames of every data release tag (v*-data): the slices in the tag's data/ and MANIFEST.csv,
 ##          FRAMES.csv and variable_dictionary.csv (item "frames"); location = path in data/
 ##   run    the runs built from those frames in the Phase 5 clean room (v11, its grassroots
 ##          refit, v10): specs.parquet and coefs.parquet; location = release asset name
@@ -17,27 +17,28 @@ a <- commandArgs( TRUE )
 RUNS <- if ( length( a ) ) a[1] else "D:/MV_CLEAN/build/data/spec"
 PROFILE <- Sys.getenv( "AWS_PROFILE", "lecy-data" )
 SRC <- "s3://lecy/nonprofit-density/inputs"
-REL <- "v1.0-data"; FREEZE <- "freeze-2026-11"
+REL <- "v1.0-data"; FREEZE <- "freeze-2026-11"            # REL: the release the runs belong to
 sha <- function( f ) digest::digest( f, algo = "sha256", file = TRUE )
 aws <- function( ... ) { o <- suppressWarnings( system2( "aws", shQuote( c( ..., "--profile", PROFILE ) ), stdout = TRUE, stderr = TRUE ) )
   if ( !is.null( attr( o, "status" ) ) ) stop( "aws failed: ", paste( o, collapse = " " ) ); o }
 
-## ---- frames: the files of data/ at the release tag -----------------------------------------
-## files of the tag that have changed since (files added after the tag, e.g. spec_dictionary.csv, are not part of the release)
-stopifnot( length( system2( "git", c( "diff", "--name-only", "--diff-filter=MD", REL, "--", "data" ), stdout = TRUE ) ) == 0 )
-man <- fread( "data/MANIFEST.csv", colClasses = list( character = "sha256" ) )
-fr <- man[ , .( class = "frame", release = REL, item = frame, file, bytes, sha256, location = file ) ]
-## the text files are hashed as the tag stores them (git blobs, LF line endings), which is what
-## GitHub serves; a Windows checkout with core.autocrlf has CRLF and other bytes
-blob <- function( p ) { f <- tempfile(); st <- system2( "git", c( "cat-file", "blob", paste0( REL, ":", p ) ), stdout = f )
+## ---- frames: every data release tag (v*-data), read from the tag itself ------------------------
+## Everything is hashed as the tag stores it (git blobs; text files with LF line endings), which is
+## what GitHub serves; a Windows checkout with core.autocrlf has CRLF and other bytes. data/ in the
+## working tree is not read: a new version of the frames joins the manifest once it is tagged.
+blob <- function( rel, p ) { f <- tempfile(); st <- system2( "git", c( "cat-file", "blob", paste0( rel, ":", p ) ), stdout = f )
   stopifnot( st == 0 ); f }
-for ( f in c( "MANIFEST.csv", "FRAMES.csv", "variable_dictionary.csv" ) ) {
-  b <- blob( paste0( "data/", f ) )
-  fr <- rbind( fr, data.table( class = "frame", release = REL, item = "frames", file = f, bytes = file.size( b ), sha256 = sha( b ), location = f ) )
-}
-sl <- fr[ item != "frames" ]
-chk <- vapply( sl$file, function( p ) sha( blob( paste0( "data/", p ) ) ), "" )
-stopifnot( all( chk == sl$sha256 ) )                                     # the slices in the tag are the ones in MANIFEST.csv
+TAGS <- system2( "git", c( "tag", "-l", "v*-data" ), stdout = TRUE )
+fr <- rbindlist( lapply( TAGS, function( rel ) {
+  man <- fread( blob( rel, "data/MANIFEST.csv" ), colClasses = list( character = "sha256" ) )
+  x <- man[ , .( class = "frame", release = rel, item = frame, file, bytes, sha256, location = file ) ]
+  chk <- vapply( x$file, function( p ) sha( blob( rel, paste0( "data/", p ) ) ), "" )
+  stopifnot( all( chk == x$sha256 ) )                                  # the slices in the tag are the ones in its MANIFEST.csv
+  for ( f in c( "MANIFEST.csv", "FRAMES.csv", "variable_dictionary.csv" ) ) {
+    b <- blob( rel, paste0( "data/", f ) )
+    x <- rbind( x, data.table( class = "frame", release = rel, item = "frames", file = f, bytes = file.size( b ), sha256 = sha( b ), location = f ) )
+  }
+  message( rel, ": ", nrow( x ), " frame files" ); x } ) )
 
 ## ---- runs ------------------------------------------------------------------------------------
 ru <- rbindlist( lapply( c( "principled_v11", "principled_v11_grass", "principled_v10" ), function( r ) {

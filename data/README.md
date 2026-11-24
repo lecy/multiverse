@@ -4,8 +4,8 @@ These are the two final research frames of the nonprofit-density project: one ro
 
 | Frame | Unit | Rows × columns | Files | Size |
 |---|---|---|---|---|
-| `cbsa_year/` | 2023 CBSA (metro and micro, 925) × year | 23,125 × 422 | `cbsa_year_2000.parquet` … `_2024` | 50 MB |
-| `county_year/` | county-equivalent, 2023 delineation (CT planning regions) × year | 78,600 × 354 | `county_year_2000.parquet` … `_2024` | 109 MB |
+| `cbsa_year/` | 2023 CBSA (metro and micro, 925) × year | 23,125 × 433 | `cbsa_year_2000.parquet` … `_2024` | 50 MB |
+| `county_year/` | county-equivalent, 2023 delineation (CT planning regions) × year | 78,600 × 365 | `county_year_2000.parquet` … `_2024` | 110 MB |
 
 - **`variable_dictionary.csv`:** one row per variable, giving its group, the build step that makes it, which frame carries it, whether it is gap-filled, and a description. The gap-fill variants `_obs`, `_lin` and `_locf` share their base variable's row.
 - **`MANIFEST.csv`:** each file's frame, year, rows, columns, bytes and sha256.
@@ -42,7 +42,9 @@ It takes about 35 minutes on 22 workers. With `MV_RUN_V10=TRUE` it also runs v10
 - `env/release_slices.R` cut them into these files.
 - A rerun of v11 from the clean-room frames matches the stored v11. All 432,432 spec ids and sample sizes are identical, 94.5% of coefficients are bit-identical, and no significance verdict changes.
 
-Code version: the release tag on this commit. The build code is unchanged since commit `69c6e15`.
+Code version: the release tag on this commit.
+
+**Versions:** `v1.0-data` had 422 (CBSA) and 354 (county) columns. This version adds the 11 corporate-headquarters columns of step 28 to both frames: `hq_pub`, `hq_pub_large`, `cbp_hq_est`, `cbp_hq_est100`, `cbp_hq_emp`, `cbp_hq_emp_imp`, `cbp_hq_est100_imp` and `cbp_hq_nosmall`, plus the per-100,000 rates `hq_pub_per100k`, `hq_pub_large_per100k` and `cbp_hq_est_per100k`. Every other column is identical to `v1.0-data`. The frames come from a rebuild with the package code (npdensity, PACKAGE-PLAN.md Step 1b) from the frozen inputs, including the `sec-edgar` and `census-cbp` freeze. CBP covers 2000–2023, so the CBP columns are missing for 2024.
 
 ## Sources, licences and citation
 
@@ -53,7 +55,7 @@ The frames combine the sources documented in `inputs/` (one `SOURCE.md` per sour
   - BEA regional accounts and the PCE price index.
   - BLS: QCEW and the nonprofit research data.
   - USDA ERS (LAUS), IRS SOI county income and exempt-organization extracts.
-  - SEC EDGAR, when present.
+  - SEC EDGAR company filings (public-company headquarters, step 28).
   - Census API notice: *This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.*
 - **ODC-BY 1.0:** NCCS (Urban Institute) BMF, CORE and e-file data. Attribute: Urban Institute, National Center for Charitable Statistics.
 - **CC BY 4.0:** PatentsView (USPTO). Attribute: PatentsView, www.patentsview.org.
