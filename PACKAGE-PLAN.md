@@ -174,6 +174,19 @@ The pipeline isn't moved into package functions. Most of the 3,900 build lines a
   - The scripts now only read the runs, write the tables and, for 98, draw the figures. The ggplot code stays in the compendium, because it is presentation.
   - Check: the old and new scripts, run on the clean-room v10, v11 and grassroots runs (45, 97, 98, and 97 and 98 with `MV_SPLIT=1`), write byte-identical outputs. All 42 files match: 30 tables and the 12 decision-matrix figures.
 
+- **Step 3 done (2026-11-24).** Data access (`pkg/R/get.R`):
+  - `mv_manifest()` reads `pkg/inst/extdata/manifest.csv`, which `env/build_pkg_manifest.R` builds. It lists every file the getters can fetch, with its sha256:
+    - 53 frame files of `v1.0-data`, hashed as the tag stores them (LF line endings);
+    - 6 run files (the clean-room v11, grassroots refit and v10);
+    - 1,520 frozen inputs (33.7 GB) from the S3 folder manifests.
+  - `mv_get_frame(frame, release)` downloads the slices from the tag on GitHub into the cache, checks them, and binds them with `mv_read_frame()`. Both frames from GitHub are identical to `data/`.
+  - `mv_get_run(run, release)` gets `specs`/`coefs` from the release assets. Checked from a local folder laid out like the assets. **The runs are not attached to a GitHub release yet**, so from GitHub it stops and asks whether they are.
+  - `mv_get_inputs(folders, roots, source)` restores the freeze from `s3://` (AWS CLI) or an `https://` mirror. `env/restore_inputs.R` is now a wrapper over it. Four folders covering all four roots, restored from S3, are byte-identical to the clean room's.
+  - `mv_spec_dictionary()` and `data/spec_dictionary.csv` (`env/build_spec_dictionary.R`): 116 rows, one per fork column and code. The covariate-variant rows are generated from the configurations, and the build stops if a grid value has no row.
+  - `R/lib/load_pkg.R` now also hashes `pkg/inst/`, so a manifest change reinstalls the package.
+  - Fixed on the way: `mv_read_frame()` (Step 1a) selected the slices of both frames, because `man[ man$frame == frame ]` compares the `frame` column with itself inside data.table. The filters are now built outside `[ ]`. Tests cover both frames, tampered hashes, unknown releases, resume and missing assets.
+  - After a new freeze (e.g. `sec-edgar`), rerun `env/build_pkg_manifest.R`.
+
 Each step ends with the clean-room check from Phase 5: rebuild in `D:/MV_CLEAN` and compare with `env/compare_builds.R`. A refactor step must reproduce the frames and v11 byte for byte, or cell for cell.
 
 **Step 1: skeleton and helpers (1 day)**

@@ -1,0 +1,117 @@
+column,code,label,description
+spec_id,<integer>,Specification id,"Row number of the full grid of the universe (algebraic duplicates included), so ids are stable when the duplicates are left out. Ids are specific to a run's model and universe."
+construct,count,Counts,Outcome construct: number of nonprofits.
+construct,exp,Resources,Outcome construct: nonprofit dollars (expenses or revenue).
+hu,incl,Hospitals & universities in,"Hospitals (NTEE E20-E24) and universities (B40-B43, B50) are included in the outcome."
+hu,excl,Hospitals & universities out,Hospitals and universities are excluded from the outcome (the _nohu outcomes).
+outcome,n_filer_c3,Filers,501(c)(3) public charities filing a Form 990 or 990-EZ (above the real-dollar floor) per CBSA-year.
+outcome,n_filer_c3_nohu,Filers excl. H&U,"Filers, excluding hospitals and universities."
+outcome,n_filer_c3_hs,"Filers, human services",Filers in human services (subsector extension; kitchen universe only).
+outcome,n_bmf_c3pc,Registered,501(c)(3) public charities registered in the IRS Business Master File (the registered stock).
+outcome,n_grass,Grassroots,Registered minus filers: registered public charities that do not file (R/notes/104_fit_grassroots_v11.R refit).
+outcome,exp_c3,Expenses,Total expenses of filing public charities.
+outcome,exp_c3_net,"Expenses, net",Expenses net of grants paid to other organizations (series start in 2010).
+outcome,exp_c3_nohu,Expenses excl. H&U,"Expenses, excluding hospitals and universities."
+outcome,exp_c3_nohu_net,"Expenses excl. H&U, net","Expenses excluding hospitals and universities, net of grants paid."
+outcome,exp_c3_hs,"Expenses, human services",Expenses in human services (kitchen universe only).
+outcome,rev_c3,Revenue,Total revenue of filing public charities.
+outcome,rev_c3_net,"Revenue, net",Revenue net of grants received from other organizations.
+outcome,rev_c3_nohu,Revenue excl. H&U,"Revenue, excluding hospitals and universities."
+outcome,rev_c3_nohu_net,"Revenue excl. H&U, net","Revenue excluding hospitals and universities, net of grants received."
+ident,cs,Cross-section,Single-year cross-section (cs_year).
+ident,pooled,Pooled,Pooled 2015-2022 with year fixed effects; standard errors clustered by metro.
+ident,within,Within,"Two-step within: year-specific SAMIs, metro and year fixed effects, 2010-2022. Time-invariant covariates leave the model."
+dv_form,pc,Per capita,Outcome per resident (Y / P).
+dv_form,logpc,Log per capita,log(Y / P).
+dv_form,loglog,Log-log,log(Y) with log P on the right-hand side.
+dv_form,sami,SAMI,"Scale-adjusted metropolitan indicator: residual of log(Y) on log P, fitted year by year."
+dv_form,pois_off,"Poisson, offset",Poisson model of Y with offset log P.
+dv_form,pois_free,"Poisson, free log P",Poisson model of Y with log P as a free regressor.
+pred_form,raw,Raw,Covariates as measured.
+pred_form,pc,Per capita,Extensive (type B) covariates per resident; intensive (type A) covariates as measured.
+pred_form,log,Logged,Extensive covariates logged with a per-capita floor (flog); intensive covariates as measured.
+pred_form,sami,SAMI form,Every covariate residualized on log P year by year (extensive ones after flog).
+rhs_logP,FALSE,No log P,log P not on the right-hand side (it is anyway for loglog and pois_free).
+rhs_logP,TRUE,log P on the right,log P added to the right-hand side.
+unit,metro,Metros,Metropolitan CBSAs only.
+unit,cbsa,Metros + micros,"All CBSAs, metropolitan and micropolitan."
+est,ols,OLS,OLS (cross-section: heteroskedasticity-robust SEs; panels: metro-clustered; within: metro and year FE).
+est,state_fe,State FE,State fixed effects; state-clustered SEs.
+est,div_fe,Division FE,Census division fixed effects; state-clustered SEs.
+est,state_re,State RE,Random state intercept (lme4); model-based SEs. Pooled state RE fits are left out of the summaries.
+cs_year,2022,2022,Cross-section year 2022 (also the value carried by panel specifications).
+cs_year,2019,2019,Cross-section year 2019 (pre-pandemic check).
+outlier,none,None,No outlier treatment.
+outlier,winsor1,Winsorized 1%,Outcome (except Poisson) and covariates winsorized at the 1st and 99th percentiles.
+drop,none,Full model,Every covariate block in the model.
+drop,diversity,diversity,The diversity block (pct_nonwhite) is left out of the model. (model default)
+drop,philanthropy,philanthropy,The philanthropy block (pf_assets) is left out of the model. (model default and lean)
+drop,political,political,The political block (turnout) is left out of the model. (model default)
+drop,government,government,The government block (gov_earn_sl) is left out of the model. (model default)
+drop,need,need,"default: The need block (poverty_rate, pct_ba) is left out of the model. lean: The need block (poverty_rate, pct_65plus) is left out of the model."
+drop,heterogeneity,heterogeneity,"The heterogeneity block (gini_m, pct_nonwhite, rel_hhi, age_sd) is left out of the model. (model lean)"
+drop,education,education,The education block (pct_ba) is left out of the model. (model lean)
+drop,civic,civic,The civic block (turnout) is left out of the model. (model lean)
+drop,growth,growth,The growth block (lag_g10) is left out of the model. (model lean)
+drop,gov_direct,gov_direct,The gov_direct block (gov_earn_sl) is left out of the model. (model lean)
+drop,gov_indirect,gov_indirect,The gov_indirect block (tr_medicaid) is left out of the model. (model lean)
+drop,history,history,The history block (hist_pre1970) is left out of the model. (model lean)
+op,default,Default measures,Every block uses its default measures.
+op,diversity:hhi,diversity: hhi,The diversity block uses race_hhi instead of pct_nonwhite. (model default)
+op,diversity:foreign_born,diversity: foreign_born,The diversity block uses pct_foreign_born instead of pct_nonwhite. (model default)
+op,diversity:gini,diversity: gini,The diversity block uses gini instead of pct_nonwhite. (model default)
+op,diversity:age_sd,diversity: age_sd,The diversity block uses age_sd instead of pct_nonwhite. (model default)
+op,philanthropy:n_pf,philanthropy: n_pf,The philanthropy block uses n_pf instead of pf_assets. (model default and lean)
+op,philanthropy:contrib_total,philanthropy: contrib_total,The philanthropy block uses contrib_total instead of pf_assets. (model default and lean)
+op,philanthropy:contrib_per_return,philanthropy: contrib_per_return,The philanthropy block uses contrib_per_return instead of pf_assets. (model default and lean)
+op,philanthropy:contrib_share_agi,philanthropy: contrib_share_agi,The philanthropy block uses contrib_share_agi instead of pf_assets. (model default and lean)
+op,political:margin,political: margin,The political block uses dem_margin instead of turnout. (model default)
+op,political:both,political: both,"The political block uses turnout, dem_margin instead of turnout. (model default)"
+op,government:gov_emp,government: gov_emp,The government block uses gov_emp_sl instead of gov_earn_sl. (model default)
+op,government:gov_emp_share,government: gov_emp_share,The government block uses gov_emp_share instead of gov_earn_sl. (model default)
+op,need:unemp,need: unemp,"default: The need block uses unemp_rate, pct_ba instead of poverty_rate, pct_ba. lean: The need block uses unemp_rate, pct_65plus instead of poverty_rate, pct_65plus."
+op,need:plus_pcpi,need: plus_pcpi,"default: The need block uses poverty_rate, pct_ba, pcpi instead of poverty_rate, pct_ba. lean: The need block uses poverty_rate, pct_65plus, pcpi instead of poverty_rate, pct_65plus."
+op,need:plus_age,need: plus_age,"The need block uses poverty_rate, pct_ba, pct_65plus instead of poverty_rate, pct_ba. (model default)"
+op,history:pre1970,history: pre1970,Add-on: hist_pre1970 is added to the full default model. (model default)
+op,lag:g5,lag: g5,Add-on: lag_g5 is added to the full default model. (model default)
+op,lag:g10,lag: g10,Add-on: lag_g10 is added to the full default model. (model default)
+op,civic:respn,civic: respn,default: Add-on: socap_respn is added to the full default model. lean: The civic block uses socap_respn instead of turnout.
+op,civic:sk2,civic: sk2,Add-on: socap_sk2 is added to the full default model. (model default)
+op,religion:hhi,religion: hhi,Add-on: rel_hhi is added to the full default model. (model default)
+op,religion:adherent,religion: adherent,Add-on: pct_adherent is added to the full default model. (model default)
+op,inequality:gini,inequality: gini,Add-on: gini_m is added to the full default model. (model default)
+op,congregations:cong,congregations: cong,Add-on: rel_cng is added to the full default model. (model default)
+op,gov_indirect:medicaid,gov_indirect: medicaid,Add-on: tr_medicaid is added to the full default model. (model default)
+op,gov_indirect:transfers,gov_indirect: transfers,default: Add-on: tr_medmaint is added to the full default model. lean: The gov_indirect block uses tr_medmaint instead of tr_medicaid.
+op,gov_indirect:welfare,gov_indirect: welfare,default: Add-on: cog_welfare is added to the full default model. lean: The gov_indirect block uses cog_welfare instead of tr_medicaid.
+op,gov_direct:dge,gov_direct: dge,default: Add-on: cog_dge is added to the full default model. lean: The gov_direct block uses cog_dge instead of gov_earn_sl.
+op,heterogeneity:race_hhi,heterogeneity: race_hhi,"The heterogeneity block uses gini_m, race_hhi, rel_hhi, age_sd instead of gini_m, pct_nonwhite, rel_hhi, age_sd. (model lean)"
+op,heterogeneity:foreign_born,heterogeneity: foreign_born,"The heterogeneity block uses gini_m, pct_foreign_born, rel_hhi, age_sd instead of gini_m, pct_nonwhite, rel_hhi, age_sd. (model lean)"
+op,growth:g5,growth: g5,The growth block uses lag_g5 instead of lag_g10. (model lean)
+op,gov_direct:gov_emp,gov_direct: gov_emp,The gov_direct block uses gov_emp_sl instead of gov_earn_sl. (model lean)
+op_block,<NA>,Default measures,No block uses an alternative measure (op = default).
+op_block,diversity,diversity,The diversity block uses an alternative measure (see op). (model default)
+op_block,philanthropy,philanthropy,The philanthropy block uses an alternative measure (see op). (model default and lean)
+op_block,political,political,The political block uses an alternative measure (see op). (model default)
+op_block,government,government,The government block uses an alternative measure (see op). (model default)
+op_block,need,need,The need block uses an alternative measure (see op). (model default and lean)
+op_block,history,history,The history block uses an alternative measure (see op). (model default and lean)
+op_block,lag,lag,The lag block uses an alternative measure (see op). (model default)
+op_block,civic,civic,The civic block uses an alternative measure (see op). (model default and lean)
+op_block,religion,religion,The religion block uses an alternative measure (see op). (model default)
+op_block,inequality,inequality,The inequality block uses an alternative measure (see op). (model default)
+op_block,congregations,congregations,The congregations block uses an alternative measure (see op). (model default)
+op_block,gov_indirect,gov_indirect,The gov_indirect block uses an alternative measure (see op). (model default and lean)
+op_block,gov_direct,gov_direct,The gov_direct block uses an alternative measure (see op). (model default and lean)
+op_block,heterogeneity,heterogeneity,The heterogeneity block uses an alternative measure (see op). (model lean)
+op_block,education,education,The education block uses an alternative measure (see op). (model lean)
+op_block,growth,growth,The growth block uses an alternative measure (see op). (model lean)
+dup_of,<NA>,Not a duplicate,The specification is run.
+dup_of,loglog,= log-log,Algebraic duplicate of the log-log specification (same covariate coefficients); not run.
+dup_of,pois_free,= Poisson free,Duplicate of the free-log-P Poisson specification; not run.
+dup_of,pred_log,= logged predictors,SAMI-form predictors alongside log P equal logged / level predictors (FWL); not run.
+status,ok,Fitted,The specification was fitted.
+status,no fit,No fit,"Fewer than 30 usable rows, or the estimator failed."
+status,not run,Not run,The specification's batch has not run.
+status,error: ...,Error,The fit stopped with this error.
+batch,<integer>,Batch,Batch of the run that fitted the specification.

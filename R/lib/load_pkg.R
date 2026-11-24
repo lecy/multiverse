@@ -10,7 +10,8 @@
 ## and a step sources this before it starts workers, so workers find it current.
 
 local( {
-  src <- sort( c( list.files( "pkg/R", full.names = TRUE ), "pkg/DESCRIPTION", "pkg/NAMESPACE" ) )
+  src <- sort( c( list.files( "pkg/R", full.names = TRUE ), list.files( "pkg/inst", full.names = TRUE, recursive = TRUE ),
+                  "pkg/DESCRIPTION", "pkg/NAMESPACE" ) )
   if ( !length( src ) || !file.exists( "pkg/DESCRIPTION" ) ) stop( "pkg/ not found: run from the multiverse/ folder" )
   h <- digest::digest( paste( vapply( src, digest::digest, "", algo = "sha256", file = TRUE ), collapse = "" ),
                        "sha256", serialize = FALSE )
