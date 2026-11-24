@@ -1,13 +1,14 @@
 Package: npdensity
 Title: Nonprofit Density Research Frames and Multiverse Tools
-Version: 0.1.0
+Version: 0.2.0
 Authors@R:
     person("Jesse", "Lecy", role = c("aut", "cre"), email = "jdlecy@asu.edu")
 Description: Helpers shared by the nonprofit-density build and multiverse analysis:
     the NTEE validity rule and backfill, county and code utilities, the size
     transforms used by the models, a download helper that checks files against
-    recorded sha256 hashes, and readers that rebuild the released research frames
-    from their per-year parquet slices.
+    recorded sha256 hashes, readers that rebuild the released research frames
+    from their per-year parquet slices, and the multiverse engine (specification
+    grid, model fit and resumable parallel runner).
 License: MIT + file LICENSE
 URL: https://github.com/lecy/multiverse
 BugReports: https://github.com/lecy/multiverse/issues
@@ -16,12 +17,15 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Depends: R (>= 4.1)
 Imports:
+    arrow,
     data.table,
     digest,
-    utils,
-    stats
+    fixest,
+    lme4,
+    parallel,
+    stats,
+    utils
 Suggests:
-    arrow,
     sf,
     tigris,
     testthat (>= 3.0.0)

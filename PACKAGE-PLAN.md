@@ -153,6 +153,19 @@ The pipeline isn't moved into package functions. Most of the 3,900 build lines a
     - `renv.lock` does not pin `duckdb`. Step 05 needs it whenever the panel990 cache lacks a year, so a cold rebuild with a fresh library fails at step 05.
     - Steps 02b and 24 also depend on download caches in `BUILD/raw` (monthly BMF, panel990 tables) that `restore_inputs.R` does not restore.
 
+- **Step 2, engine part, done (2026-11-24).** The multiverse engine is in the package (npdensity 0.2.0).
+  - Configuration (`pkg/R/mv_config.R`): `mv_spec_config(model)` returns the covariate catalog, blocks, outcomes, forks and identifications as a list, for `"default"` (v1–v10) or `"lean"` (v11). Also `DIVISION`.
+  - Engine (`pkg/R/mv_engine.R`):
+    - `mv_grid(universe, model, cfg)`, with `mv_op_variants()`, `mv_block_sets()`, `mv_addon_blocks()` and `mv_covars()`.
+    - `mv_load_panel()` and `mv_run_spec(s, panel, cfg)`.
+    - `mv_run_universe(grid, panel, dir, cfg, batch, workers)`: the resumable parallel batches of 44, with the same files.
+    - No globals: the configuration is an argument, and the workers get it from the call.
+  - `R/lib/40_multiverse.R` keeps the old names (`COVS`, `BLOCKS`, `build_grid()`, `run_spec()`, …) as wrappers that read the globals at call time. Scripts that add alternatives to `BLOCKS` or `COVS` (41, 89) still work. `44_run_universe.R` is now a call to `mv_run_universe()`.
+  - Checks:
+    - The principled and kitchen grids of both models are identical to the old code. The tests check the sizes, 432,432 (v11) and 605,352 (v10).
+    - A full v11 run with the package engine (`D:/MV_PKG1B/build2`) against the clean-room v11 made with the old code: all OLS, state-FE and division-FE coefficients are bit-identical, and no significance verdict changes. Only the `state_re` (lmer) fits move, with p-values within 1.3e-6. 94.4% of all coefficients are bit-identical, the same share as two runs of the old code (Phase 6). An lmer fit depends slightly on the fits run before it in the same worker, so batch composition shows up; run alone, old and new code give identical lmer fits.
+  - **Next:** the summaries (45, 97, 98) into `mv_summarize()`, `mv_decision_importance()` and `mv_decision_matrix()`, tested against `outline/v11/mv*`. 41 (composites) stays in the compendium as a research extension.
+
 Each step ends with the clean-room check from Phase 5: rebuild in `D:/MV_CLEAN` and compare with `env/compare_builds.R`. A refactor step must reproduce the frames and v11 byte for byte, or cell for cell.
 
 **Step 1: skeleton and helpers (1 day)**
