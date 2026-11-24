@@ -11,7 +11,7 @@
 | Licence | EDGAR filings and the Financial Statement Data Sets are public information released by a U.S. government agency (no copyright claimed). The Census relationship files are public domain |
 | Redistribute in release | Yes |
 | Cite as | Source: U.S. Securities and Exchange Commission, EDGAR full index and filing headers, 2000–2024, and Financial Statement Data Sets, 2009–2024; U.S. Census Bureau, ZCTA to County Relationship Files, 2010 and 2020. |
-| Frozen copy | `inputs/sec-edgar/` (not yet frozen) |
+| Frozen copy | `inputs/sec-edgar/` |
 
 **What is cached.** The index files are the original `form.idx` gzipped. `sub.txt`
 is copied from each FSDS zip and the zip deleted: `num.txt` and `pre.txt` (most of

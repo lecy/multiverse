@@ -11,7 +11,7 @@
 | Licence | U.S. government work, public domain |
 | Redistribute in release | Yes |
 | Cite as | Source: U.S. Census Bureau, County Business Patterns, 2000–2023, NAICS 551114. |
-| Frozen copy | `inputs/census-cbp/` (not yet frozen) |
+| Frozen copy | `inputs/census-cbp/` |
 
 **Why the bulk files and not the API:** the CBP API uses a different NAICS variable
 in each vintage (`NAICS2002`, `NAICS2007`, `NAICS2012`, `NAICS2017`), returns no data
