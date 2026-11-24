@@ -48,3 +48,13 @@ test_that( "mv_run_universe runs, resumes and combines", {
   suppressMessages( mv_run_universe( g, panel, d, cfg, batch = 20, workers = 1, verbose = FALSE ) )
   expect_equal( file.mtime( file.path( d, "batches", "coefs_0001.parquet" ) ), t0 )
 } )
+
+test_that( "partial r and eta squared", {
+  expect_equal( mv_partial_r( 2, 103, 2, "cs" ), 2 / sqrt( 4 + 100 ) )
+  expect_equal( mv_partial_r( 2, 800, 2, "pooled" ), 2 / sqrt( 4 + 97 ) )
+  expect_equal( mv_partial_r( 2, 13, 5, "within" ), 2 / sqrt( 4 + 1 ) )
+  y <- c( 1, 2, 3, 11, 12, 13 ); g <- rep( c( "a", "b" ), each = 3 )
+  expect_equal( mv_eta2( y, g ), 150 / 154 )
+  expect_true( is.na( mv_eta2( y, g, min_n = 10 ) ) )
+  expect_true( is.na( mv_eta2( y, rep( "a", 6 ) ) ) )
+} )

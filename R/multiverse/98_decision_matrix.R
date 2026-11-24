@@ -12,6 +12,8 @@
 ##                 negative), plus the number of covariates with eta^2 >= .06.
 ## Usage: Rscript R/multiverse/98_decision_matrix.R [run] (default principled_v11). Outputs to
 ##   D:/MULTIVERSE/data/outline/<v>/matrix/ and paper/figures/decision_matrix_<v>_{counts,spending}.png
+## The numbers are npdensity::mv_decision_matrix(); this script reads the run, writes the four
+## tables and draws the figures.
 
 source( "R/lib/00_setup.R" )
 suppressPackageStartupMessages( { library( arrow ); library( ggplot2 ) } )
@@ -27,19 +29,6 @@ OD   <- file.path( BUILD, "data", "outline", VL, if ( SPLIT ) "matrix_split" els
 GTITLE <- c( counts = "counts (filers, registrations)", filers = "filer counts", grassroots = "grassroots counts (registered non-filers)",
              spending = "spending excl. hospitals & universities" )
 FIG  <- "paper/figures"
-ETA_MIN <- .06
-
-LAB <- c( pct_ba = "% BA", pf_assets = "Foundation assets", pct_nonwhite = "% nonwhite", turnout = "Turnout",
-          poverty_rate = "Poverty rate", gov_earn_sl = "S&L govt earnings", tr_medicaid = "Medicaid",
-          lag_g10 = "Growth kernel", hist_pre1970 = "Pre-1970 endowment", gini_m = "Gini (metro)",
-          rel_frac = "Religious fract.", age_sd = "Age SD", pct_65plus = "% 65+" )
-## measurement swaps: the alternative term is read as the construct's default term
-CONSTRUCT_OF <- c( unemp_rate = "poverty_rate", race_hhi = "pct_nonwhite", pct_foreign_born = "pct_nonwhite",
-                   n_pf = "pf_assets", contrib_total = "pf_assets", contrib_per_return = "pf_assets",
-                   contrib_share_agi = "pf_assets", socap_respn = "turnout", dem_margin = "turnout",
-                   lag_g5 = "lag_g10", gov_emp_sl = "gov_earn_sl", gov_emp_share = "gov_earn_sl", cog_dge = "gov_earn_sl",
-                   tr_medmaint = "tr_medicaid", cog_welfare = "tr_medicaid" )
-
 log_msg( "read ", RUNN )
 specs <- as.data.table( read_parquet( file.path( RUN, "specs.parquet" ) ) )[ status == "ok" ]
 co <- as.data.table( read_parquet( file.path( RUN, "coefs.parquet" ) ) )
@@ -48,120 +37,13 @@ if ( SPLIT ) {
   specs <- rbind( specs[ outcome != "n_bmf_c3pc" ], as.data.table( read_parquet( file.path( GRD, "specs.parquet" ) ) )[ status == "ok" ], fill = TRUE )
   co <- rbind( co, as.data.table( read_parquet( file.path( GRD, "coefs.parquet" ) ) ), fill = TRUE )
 }
-keep <- specs[ drop %in% c( "none", "history", "growth" ) & ( op == "default" | drop == "none" ) ]
-co <- co[ spec_id %in% keep$spec_id ]
-co <- merge( co, co[ , .( k = .N ), by = spec_id ], by = "spec_id" )
-co <- merge( co, keep[ , .( spec_id, ident, est ) ], by = "spec_id" )
-co[ , n_units := n / fcase( ident == "pooled", 8, ident == "within", 13, default = 1 ) ]
-co[ , pr := stat / sqrt( stat^2 + pmax( n_units - k - 1, 1 ) ) ]
-co <- co[ term != "logP" & !( ident == "pooled" & est == "state_re" ) ]
-co[ term %in% c( "rel_hhi", "race_hhi" ), pr := -pr ]                         # concentration -> diversity
-co[ term == "rel_hhi", term := "rel_frac" ]
-co[ , cls := fifelse( p < .05, sign( pr ), 0 ) ]
-d <- merge( co[ , .( spec_id, term, pr, cls ) ], keep, by = "spec_id" )
-rm( co ); gc()
-d[ , construct_term := fifelse( term %in% names( CONSTRUCT_OF ), CONSTRUCT_OF[ term ], term ) ]
-TERMS <- intersect( names( LAB ), unique( d[ op == "default" & drop == "none", term ] ) )
-log_msg( "  terms: ", paste( TERMS, collapse = ", " ) )
+ETA_MIN <- .06
+LAB <- MV_V11_LABELS
 
-FORKS <- c( "construct", "hu", "outcome", "ident", "dv_form", "pred_form", "rhs_logP", "unit", "est", "cs_year",
-            "outlier", "op", "drop" )
-eta2 <- function( y, g ) { g <- as.factor( g ); if ( nlevels( g ) < 2 || length( y ) < 10 ) return( NA_real_ )
-  m <- tapply( y, g, mean ); n <- tapply( y, g, length )
-  sum( n * ( m - mean( y ) )^2, na.rm = TRUE ) / sum( ( y - mean( y ) )^2 ) }
-## pairwise summaries within a matched group
-pw_abs  <- function( r ) { k <- length( r ); if ( k < 2 ) return( NA_real_ ); sum( abs( outer( r, r, "-" ) ) ) / ( k * ( k - 1 ) ) }
-pw_flip <- function( c ) { k <- length( c ); if ( k < 2 ) return( NA_real_ ); sum( outer( c, c, "!=" ) ) / ( k * ( k - 1 ) ) }
-
-## ---- decisions --------------------------------------------------------------------------------
-## each: data (default model unless noted), the fork column, the strata eta^2 is averaged over,
-## the columns that vary together with the fork (dropped from the matching key), option labels
-DEFAULT <- quote( op == "default" & drop == "none" )
-GROUPS <- if ( SPLIT ) list( filers = quote( outcome == "n_filer_c3" ), grassroots = quote( outcome == "n_grass" ),
-                             spending = quote( construct == "exp" & hu == "excl" ) ) else
-          list( counts = quote( construct == "count" & hu == "incl" ), spending = quote( construct == "exp" & hu == "excl" ) )
-decisions <- function( g ) {
-  x0 <- d[ eval( DEFAULT ) & ident != "within" ]
-  xg <- x0[ eval( GROUPS[[ g ]] ) ]
-  L <- list(
-    D1 = if ( g == "counts" ) list( x = xg, f = "outcome", by = "ident", lab = "Outcome",
-                                    opt = c( n_filer_c3 = "filers", n_bmf_c3pc = "registered" ) )
-         else if ( g != "spending" ) list( x = x0[ outcome %in% c( "n_filer_c3", "n_grass" ) ], f = "outcome", by = "ident", lab = "Population",
-                                           opt = c( n_filer_c3 = "filers", n_grass = "grassroots" ) )
-         else list( x = x0[ hu == "excl" & outcome %in% c( "n_filer_c3_nohu", "exp_c3_nohu" ) ], f = "construct",
-                    by = "ident", lab = "Counts vs\nspending", vary = "outcome", opt = c( count = "counts", exp = "spending" ) ),
-    D2 = list( x = xg, f = "unit", by = c( "ident", "outcome" ), lab = "Unit", opt = c( metro = "metro", cbsa = "+ micro" ) ),
-    D3 = list( x = d[ eval( DEFAULT ) & eval( GROUPS[[ g ]] ) & est == "ols" & cs_year == 2022L ], f = "ident", by = "outcome", lab = "Identification",
-               opt = c( cs = "cross-section", pooled = "pooled", within = "within" ) ),
-    D4 = list( x = xg, f = "dv_form", by = c( "ident", "outcome" ), lab = "DV form",
-               opt = c( pc = "per capita", logpc = "log pc", loglog = "log-log", sami = "SAMI", pois_off = "Poisson offset", pois_free = "Poisson free" ) ),
-    D6 = list( x = xg, f = "pred_form", by = c( "ident", "outcome" ), lab = "Predictor form",
-               opt = c( raw = "raw", pc = "per capita", log = "logged", sami = "SAMI form" ) ),
-    RHS = list( x = xg, f = "rhs_logP", by = c( "ident", "outcome" ), lab = "log P on\nthe right", opt = c( "FALSE" = "no", "TRUE" = "yes" ) ),
-    D7 = list( x = d[ drop == "none" & ident != "within" & eval( GROUPS[[ g ]] ) ], f = "op", by = c( "ident", "outcome" ),
-               lab = "Measure\n(own swap)", opt = NULL, own = TRUE ),
-    D8 = list( x = d[ op == "default" & drop %in% c( "none", "history" ) & ident != "within" & eval( GROUPS[[ g ]] ) ], f = "drop",
-               by = c( "ident", "outcome" ), lab = "Endowment", opt = c( none = "in", history = "out" ) ),
-    Growth = list( x = d[ op == "default" & drop %in% c( "none", "growth" ) & ident != "within" & eval( GROUPS[[ g ]] ) ], f = "drop",
-                   by = c( "ident", "outcome" ), lab = "Growth\nkernel", opt = c( none = "in", growth = "out" ) ),
-    D9 = list( x = xg, f = "est", by = c( "ident", "outcome" ), lab = "Estimator",
-               opt = c( ols = "OLS", div_fe = "division FE", state_fe = "state FE", state_re = "state RE" ) ),
-    D10 = { z <- x0[ construct == ifelse( g == "spending", "exp", "count" ) &
-                     outcome %in% c( "n_filer_c3", "n_filer_c3_nohu", "exp_c3", "exp_c3_nohu" ) ]
-            list( x = z, f = "hu", by = "ident", lab = "Hospitals &\nuniversities", vary = "outcome", opt = c( incl = "in", excl = "out" ) ) },
-    Year = list( x = xg[ ident == "cs" ], f = "cs_year", by = "outcome", lab = "Year", opt = c( "2022" = "2022", "2019" = "2019" ) ),
-    Winsor = list( x = xg, f = "outlier", by = c( "ident", "outcome" ), lab = "Winsorizing", opt = c( none = "none", winsor1 = "1%" ) ) )
-  if ( g == "spending" ) L$Money <- list( x = xg, f = "outcome", by = "ident", lab = "Money\nmeasure",
-                                          opt = c( exp_c3_nohu = "expenses", exp_c3_nohu_net = "net", rev_c3_nohu = "revenue", rev_c3_nohu_net = "rev. net" ) )
-  if ( g == "grassroots" ) L$D10 <- NULL                         # no grassroots series without hospitals & universities
-  if ( !any( d$drop == "growth" ) ) L$Growth <- NULL
-  if ( !any( d$drop == "history" ) ) L$D8 <- NULL
-  L
-}
-
-cell_stats <- function( D, term_v ) {
-  x <- copy( D$x )
-  if ( isTRUE( D$own ) ) {
-    ## measurement: default vs swaps of the term's own block, read on the construct's term
-    x <- x[ construct_term == term_v ]
-    sw <- unique( x[ op != "default" & term != term_v, op ] )
-    x <- x[ op == "default" | op %in% sw ]
-    x <- x[ op == "default" & term == term_v | op %in% sw ]
-  } else x <- x[ term == term_v ]
-  if ( !nrow( x ) || uniqueN( x[[ D$f ]] ) < 2 ) return( NULL )
-  x[ , opt := as.character( get( D$f ) ) ]
-  e <- x[ , .( e = eta2( pr, opt ) ), by = c( D$by ) ][ , mean( e, na.rm = TRUE ) ]
-  key <- setdiff( FORKS, c( D$f, D$vary, if ( isTRUE( D$own ) ) "op" ) )
-  if ( !is.null( D$vary ) && D$f == "hu" ) { x[ , base_y := sub( "_nohu$", "", outcome ) ]; key <- c( key, "base_y" ) }
-  m <- x[ , .( n_opt = .N, dabs = pw_abs( pr ), flip = pw_flip( cls ) ), by = key ][ n_opt >= 2 ]
-  means <- x[ , .( mean_pr = mean( pr ), n = .N ), by = opt ]
-  list( eta2 = e, dabs = mean( m$dabs ), flip = mean( m$flip ), pairs = nrow( m ), means = means )
-}
-
-out_cells <- list(); out_means <- list(); out_all <- list(); out_glob <- list()
-for ( g in names( GROUPS ) ) {
-  DL <- decisions( g )
-  ## all-specifications strip (every covariate set and option, all identifications)
-  a <- d[ eval( GROUPS[[ g ]] ) & construct_term %in% TERMS & term %in% TERMS ]
-  out_all[[ g ]] <- a[ , .( group = g, n = .N, median = median( pr ), agree = mean( sign( pr ) == sign( median( pr ) ) ),
-                            sig = mean( cls != 0 ), pos_sig = mean( cls > 0 ), neg_sig = mean( cls < 0 ) ), by = term ]
-  for ( dn in names( DL ) ) for ( tv in TERMS ) {
-    s <- tryCatch( cell_stats( DL[[ dn ]], tv ), error = function( e ) { message( dn, " ", tv, ": ", conditionMessage( e ) ); NULL } )
-    if ( is.null( s ) ) next
-    out_cells[[ length( out_cells ) + 1 ]] <- data.table( group = g, decision = dn, label = DL[[ dn ]]$lab, term = tv,
-                                                          eta2 = s$eta2, dabs = s$dabs, flip = s$flip, pairs = s$pairs )
-    mm <- s$means; op <- DL[[ dn ]]$opt
-    mm[ , opt_lab := if ( is.null( op ) ) ifelse( opt == "default", "default", "swap" ) else unname( op[ opt ] ) ]
-    mm[ , oi := if ( is.null( op ) ) ifelse( opt == "default", 1L, 2L ) else match( opt, names( op ) ) ]
-    if ( is.null( op ) ) mm <- mm[ , .( mean_pr = weighted.mean( mean_pr, n ), n = sum( n ) ), by = .( opt_lab, oi ) ]
-    out_means[[ length( out_means ) + 1 ]] <- mm[ , .( group = g, decision = dn, term = tv, opt_lab, oi, mean_pr, n ) ]
-  }
-  log_msg( "  ", g, " done" )
-}
-cells <- rbindlist( out_cells ); means <- rbindlist( out_means, fill = TRUE ); allr <- rbindlist( out_all )
-glob <- cells[ , .( mean_dabs = mean( dabs, na.rm = TRUE ), flip_rate = mean( flip, na.rm = TRUE ),
-                    n_meaningful = sum( eta2 >= ETA_MIN, na.rm = TRUE ), n_terms = .N,
-                    pooled_eta2 = NA_real_ ), by = .( group, decision, label ) ]
+M <- mv_decision_matrix( specs, co, split = SPLIT, eta_min = ETA_MIN, labels = LAB )
+rm( specs, co ); gc()
+cells <- M$cells; means <- M$option_means; allr <- M$all_specs; glob <- M$global_scores
+d <- M$d; GROUPS <- M$groups; TERMS <- M$terms
 fwrite( cells, file.path( OD, "cells.csv" ) ); fwrite( means, file.path( OD, "option_means.csv" ) )
 fwrite( allr, file.path( OD, "all_specs.csv" ) ); fwrite( glob, file.path( OD, "global_scores.csv" ) )
 print( glob[ order( group, -mean_dabs ) ][ , lapply( .SD, function( z ) if ( is.numeric( z ) ) round( z, 3 ) else z ) ] )

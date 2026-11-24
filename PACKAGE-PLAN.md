@@ -164,7 +164,15 @@ The pipeline isn't moved into package functions. Most of the 3,900 build lines a
   - Checks:
     - The principled and kitchen grids of both models are identical to the old code. The tests check the sizes, 432,432 (v11) and 605,352 (v10).
     - A full v11 run with the package engine (`D:/MV_PKG1B/build2`) against the clean-room v11 made with the old code: all OLS, state-FE and division-FE coefficients are bit-identical, and no significance verdict changes. Only the `state_re` (lmer) fits move, with p-values within 1.3e-6. 94.4% of all coefficients are bit-identical, the same share as two runs of the old code (Phase 6). An lmer fit depends slightly on the fits run before it in the same worker, so batch composition shows up; run alone, old and new code give identical lmer fits.
-  - **Next:** the summaries (45, 97, 98) into `mv_summarize()`, `mv_decision_importance()` and `mv_decision_matrix()`, tested against `outline/v11/mv*`. 41 (composites) stays in the compendium as a research extension.
+  - 41 (composites) stays in the compendium as a research extension.
+- **Step 2, summaries part, done (2026-11-24).** The computations behind the paper's multiverse numbers are in the package:
+  - `mv_partial_r()` and `mv_eta2()`, the two building blocks.
+  - `mv_summarize(specs, co, panel, cfg)`: the six run summaries of 45.
+  - `mv_decision_summary(specs, co, specs_v10, co_v10, split)`: the eight decision tables of 97. The planned `mv_decision_importance()` is its first table.
+  - `mv_decision_matrix(specs, co, split)`: the four tables of 98, plus the coefficient rows the figures draw.
+  - `MV_V11_TERMS`, `MV_V11_LABELS`, `MV_V11_BLOCK_OF`, `MV_V11_SWAP_TERM` and `MV_V11_CONSTRUCT_OF`, the v11 constants.
+  - The scripts now only read the runs, write the tables and, for 98, draw the figures. The ggplot code stays in the compendium, because it is presentation.
+  - Check: the old and new scripts, run on the clean-room v10, v11 and grassroots runs (45, 97, 98, and 97 and 98 with `MV_SPLIT=1`), write byte-identical outputs. All 42 files match: 30 tables and the 12 decision-matrix figures.
 
 Each step ends with the clean-room check from Phase 5: rebuild in `D:/MV_CLEAN` and compare with `env/compare_builds.R`. A refactor step must reproduce the frames and v11 byte for byte, or cell for cell.
 
