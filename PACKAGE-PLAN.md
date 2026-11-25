@@ -209,7 +209,7 @@ The pipeline isn't moved into package functions. Most of the 3,900 build lines a
   - `R CMD check`: 0 errors, 0 warnings, 1 note (the browser User-Agent default of `mv_fetch_source()` makes a usage line wider than 90 characters).
   - The six articles run real code when the site builds: they download the `v1.1-data` CBSA frame and fit and summarize a slice of the v11 grid (1,352 specifications: two outcomes, default covariates, all model forks). `mv_get_run()`, `mv_get_inputs()`, live `mv_fetch_source()` and `mv_decision_summary()` are shown but not run.
   - The compendium's `R/lib/load_pkg.R` installs from the local checkout; `pkg/` is gone from here.
-  - **To do:** pin a pushed commit of the package in `env/npdensity.ref` before the next compendium tag, or a clone without a local checkout cannot install the package.
+  - `env/npdensity.ref` pins f734447 (pushed). From an empty library, `load_pkg.R` downloads and installs it from GitHub, and the lean grid it builds has the 432,432 specifications. Update the pin whenever the compendium should use newer package code.
 
 Each step ends with the clean-room check from Phase 5: rebuild in `D:/MV_CLEAN` and compare with `env/compare_builds.R`. A refactor step must reproduce the frames and v11 byte for byte, or cell for cell.
 
