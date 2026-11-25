@@ -29,7 +29,7 @@
 #'   `coefs`. `mv_get_inputs()`: a data.table, one row per folder, invisibly.
 #' @examples
 #' \dontrun{
-#' cbsa <- mv_get_frame( "cbsa_year", release = "v1.0-data" )
+#' cbsa <- mv_get_frame( "cbsa_year", release = "v1.1-data" )
 #' v11  <- mv_get_run( "principled_v11", release = "v1.0-data" )
 #' mv_get_inputs( c( "census-saipe", "ers-laus" ),
 #'                roots = c( build = "build", hub = "inputs", bls = "bls", dropbox = "dropbox" ) )
@@ -66,7 +66,7 @@ mv_cache_dir <- function() getOption( "npdensity.cache", tools::R_user_dir( "npd
 
 #' @rdname get
 #' @export
-mv_get_frame <- function( frame = c( "cbsa_year", "county_year" ), release = "v1.0-data", repo = "lecy/multiverse",
+mv_get_frame <- function( frame = c( "cbsa_year", "county_year" ), release = "v1.1-data", repo = "lecy/multiverse",
                           base = sprintf( "https://raw.githubusercontent.com/%s/%s/data", repo, release ),
                           cache = mv_cache_dir(), manifest = mv_manifest() ) {
   frame <- match.arg( frame )
