@@ -1,6 +1,6 @@
 ## geo_helpers.R
 ## Place organization records on 2023 county-equivalents. The helpers live in the
-## package (pkg/R/geo.R, ?npdensity::geo): ct_to_planning_region, ct_pr_from_latlon,
+## package (npdensity: R/geo.R, ?npdensity::geo): ct_to_planning_region, ct_pr_from_latlon,
 ## county_from_latlon, county_from_zip, county_from_block, ct_legacy_to_pr,
 ## not_in_spine, recode_county. They read the lookups in BUILD/data/geo, set by
 ## 00_setup.R as options( npdensity.geo_dir ).

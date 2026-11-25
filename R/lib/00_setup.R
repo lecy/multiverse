@@ -52,7 +52,7 @@ Sys.setenv( TMPDIR = TMP, TEMP = TMP, TMP = TMP )      # inherited by child proc
 ## ---- the project package --------------------------------------------------
 ## Constants (YEARS, POP_YEARS, FLOOR_REAL_2010, NTEE_HOSP, NTEE_UNIV, NTEE_INVALID,
 ## COUNTY_RECODE) and helpers (pad, log_msg, recode_county, the NTEE rule, the geo
-## helpers, winsor/flog/slog/resid_logP, mv_fetch) come from npdensity (pkg/).
+## helpers, winsor/flog/slog/resid_logP, mv_fetch) come from npdensity (github.com/Nonprofit-Open-Data-Collective/npdensity; R/lib/load_pkg.R).
 source( "R/lib/load_pkg.R" )
 options( npdensity.geo_dir = OUT$geo )                 # where the geo helpers find step 01's lookups
 

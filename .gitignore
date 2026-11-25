@@ -49,3 +49,6 @@ pubs/
 !/data/**/*.parquet
 /replication/
 !site/guides/*.html
+
+# local path of the npdensity checkout (R/lib/load_pkg.R); one per machine
+/env/npdensity_path.txt

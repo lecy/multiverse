@@ -1,5 +1,5 @@
 ## env/build_pkg_manifest.R
-## Builds pkg/inst/extdata/manifest.csv, the list of files the package getters can fetch,
+## Builds inst/extdata/manifest.csv of the npdensity checkout (R/lib/load_pkg.R), the list of files the package getters can fetch,
 ## each with its sha256 (PACKAGE-PLAN.md Step 3). Read only: never writes to S3.
 ##   Rscript env/build_pkg_manifest.R [runs_dir=D:/MV_CLEAN/build/data/spec]
 ## Rows (class, release, item, file, bytes, sha256, location):
@@ -12,6 +12,7 @@
 ##          location = key under the freeze. Layouts as in env/restore_inputs.R.
 ## Needs the AWS CLI with profile lecy-data (AWS_PROFILE overrides).
 
+source( "R/lib/load_pkg.R" )                             # npdensity_extdata(): where the file goes
 suppressPackageStartupMessages( library( data.table ) )
 a <- commandArgs( TRUE )
 RUNS <- if ( length( a ) ) a[1] else "D:/MV_CLEAN/build/data/spec"
@@ -70,6 +71,6 @@ inp$unified <- data.table( class = "input", release = FREEZE, item = "nccs-bmf-u
                            location = "nccs-bmf/unified-bmf-geocoded/2026-09-21/bmf_unified_geocoded.parquet" )
 out <- rbind( fr, ru, rbindlist( inp ) )
 stopifnot( !anyDuplicated( out[ , .( class, release, item, file ) ] ) )
-dir.create( "pkg/inst/extdata", recursive = TRUE, showWarnings = FALSE )
-fwrite( out, "pkg/inst/extdata/manifest.csv" )
+EXT <- npdensity_extdata(); dir.create( EXT, recursive = TRUE, showWarnings = FALSE )
+fwrite( out, file.path( EXT, "manifest.csv" ) )
 print( out[ , .( files = .N, GB = round( sum( bytes ) / 1e9, 2 ) ), by = .( class, release ) ] )

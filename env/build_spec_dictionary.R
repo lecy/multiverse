@@ -3,7 +3,7 @@
 ## multiverse grid and value, with a label and a description, so that specs.parquet can be read
 ## without the code.
 ##   Rscript env/build_spec_dictionary.R
-## Writes pkg/inst/extdata/spec_dictionary.csv and data/spec_dictionary.csv. Stops if any value
+## Writes inst/extdata/spec_dictionary.csv of the npdensity checkout and data/spec_dictionary.csv. Stops if any value
 ## used by the grids (both models, both universes) or by the grassroots refit has no row.
 ## The covariate-variant rows (op) are generated from the configurations (npdensity::mv_spec_config),
 ## so they always say which measures a variant uses.
@@ -100,6 +100,6 @@ miss <- rbindlist( lapply( setdiff( names( g ), "spec_id" ), function( v ) {
   u <- unique( as.character( g[[ v ]] ) ); u[ is.na( u ) ] <- "<NA>"
   data.table( column = v, code = setdiff( u, dict[ column == v, code ] ) ) } ) )
 if ( nrow( miss ) ) { print( miss ); stop( nrow( miss ), " grid values have no dictionary row" ) }
-fwrite( dict, "pkg/inst/extdata/spec_dictionary.csv" ); fwrite( dict, "data/spec_dictionary.csv" )
-cat( nrow( dict ), "rows ->", "pkg/inst/extdata/spec_dictionary.csv, data/spec_dictionary.csv\n" )
+fwrite( dict, file.path( npdensity_extdata(), "spec_dictionary.csv" ) ); fwrite( dict, "data/spec_dictionary.csv" )
+cat( nrow( dict ), "rows ->", file.path( npdensity_extdata(), "spec_dictionary.csv" ), "and data/spec_dictionary.csv\n" )
 print( dict[ , .N, by = column ] )

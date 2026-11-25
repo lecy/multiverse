@@ -9,7 +9,7 @@
 ## --on-change report (default here): keep the frozen copies, list what changed.
 ##             stop: stop at the first change. use: put the new files in place (the build
 ##             then no longer reproduces the published numbers).
-## The URLs are in the source registry, pkg/inst/extdata/sources.csv (env/build_sources.R).
+## The URLs are in the source registry, npdensity::mv_sources() (env/build_sources.R).
 ## Files with no stable public file are listed as "frozen only".
 ## Roots default to MV_BUILD, MV_INPUTS, MV_BLS, MV_DROPBOX (R/lib/config.R).
 

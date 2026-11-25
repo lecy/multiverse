@@ -2,7 +2,7 @@
 ## Multiverse configuration, specification grid, and model engine, for the scripts.
 ## Sourced after 00_setup.R by 44_run_universe.R and the research-note scripts.
 ##
-## The engine lives in the package (pkg/R/mv_config.R, pkg/R/mv_engine.R):
+## The engine lives in the package (npdensity: R/mv_config.R, R/mv_engine.R):
 ##   mv_spec_config( model )            covariate catalog, blocks, outcomes, forks
 ##   mv_grid( universe, cfg = )         the specification grid
 ##   mv_run_spec( s, panel, cfg )       one specification

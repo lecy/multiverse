@@ -1,5 +1,5 @@
 ## env/build_sources.R
-## Builds pkg/inst/extdata/sources.csv, the source registry (PACKAGE-PLAN.md Step 4): for every
+## Builds inst/extdata/sources.csv of the npdensity checkout, the source registry (PACKAGE-PLAN.md Step 4): for every
 ## frozen input file, where it can be downloaded again and how.
 ##   Rscript env/build_sources.R
 ## Columns: source, file (as in the package manifest: <root>/<path>), method, url, note.
@@ -12,7 +12,8 @@
 ## Reads the package manifest, so run env/build_pkg_manifest.R first.
 
 suppressPackageStartupMessages( library( data.table ) )
-m <- fread( "pkg/inst/extdata/manifest.csv", colClasses = list( character = "sha256" ) )[ class == "input" ]
+source( "R/lib/load_pkg.R" ); EXT <- npdensity_extdata()   # the npdensity checkout
+m <- fread( file.path( EXT, "manifest.csv" ), colClasses = list( character = "sha256" ) )[ class == "input" ]
 m <- m[ , .( source = item, file ) ]
 m[ , b := basename( file ) ]
 
@@ -79,6 +80,6 @@ why( "census-geo", ".", "delineation file placed in the hub, and boundaries cach
 why( "check-only", ".", "check files placed by hand (not read by the build)" )
 m[ method == "frozen" & is.na( note ), note := "placed by hand or from a source with no stable public file (see inputs/<source>/SOURCE.md)" ]
 m[ , b := NULL ]
-fwrite( m, "pkg/inst/extdata/sources.csv" )
+fwrite( m, file.path( EXT, "sources.csv" ) )
 print( m[ , .N, keyby = .( source, method ) ], nrows = 100 )
 cat( sum( m$method != "frozen" ), "of", nrow( m ), "files can be downloaded again\n" )

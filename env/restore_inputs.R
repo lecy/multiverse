@@ -7,7 +7,7 @@
 ##
 ## Roots default to MV_BUILD, MV_INPUTS, MV_BLS, MV_DROPBOX (R/lib/config.R).
 ## The work is npdensity::mv_get_inputs(): the files, their destinations and their sha256 come
-## from the package manifest (pkg/inst/extdata/manifest.csv, built by env/build_pkg_manifest.R
+## from the package manifest (npdensity::mv_manifest(), built by env/build_pkg_manifest.R
 ## from each folder's MANIFEST.csv; layouts in env/freeze_inputs.R). Every file is checked
 ## after download; a mismatch stops the run. A file already in place with the manifest's size
 ## and hash is kept, so a rerun resumes. After a new freeze, rebuild the manifest first.

@@ -95,9 +95,12 @@ It merges today's per-folder `MANIFEST.csv` files with the release manifest. The
 
 **Name:** to decide (§6). Placeholder `npdensity`.
 
-**Two parts in one repository:**
-- `pkg/` is the R package: functions, the manifest, data documentation and tests. It installs with `remotes::install_github("lecy/multiverse", subdir = "pkg")`.
-- The repository root stays the research compendium: `R/build/` steps, `run.R` with `pipeline.csv`, `R/paper/`, `paper/`, `site/` and `notes/`. Its scripts call `library(npdensity)` instead of `source("R/lib/...")`.
+**Two repositories** (split 2026-11-24, §6 decision 2):
+- The package is its own repository, `Nonprofit-Open-Data-Collective/npdensity`: functions, the manifest, data documentation, tests, and a pkgdown site (pkgstyle template) with one article per stage (get data, build the database, read frames, define the universe, fit, summarize). It installs with `remotes::install_github("Nonprofit-Open-Data-Collective/npdensity")`. It was developed in `pkg/` here, and its repository keeps that history (`git subtree split`).
+- This repository is the research compendium: `R/build/` steps, `run.R` with `pipeline.csv`, `R/paper/`, `paper/`, `site/` and `notes/`, and the released frames in `data/`. Its scripts attach the package through `R/lib/load_pkg.R`:
+  - with a local checkout (the path in `NPDENSITY_SRC`, or in `env/npdensity_path.txt`, which is not in git), it reinstalls the package whenever the checkout's sources change;
+  - otherwise it installs the commit pinned in `env/npdensity.ref` from GitHub, so a tag of the compendium runs the package code its results were made with.
+- `env/build_pkg_manifest.R`, `env/build_sources.R` and `env/build_spec_dictionary.R` write the package's `inst/extdata/` files into the local checkout.
 
 The pipeline isn't moved into package functions. Most of the 3,900 build lines are one-off transformations that read best as scripts. The package holds what is reused: data access, helpers, the multiverse engine, and fetchers.
 
@@ -202,6 +205,12 @@ The pipeline isn't moved into package functions. Most of the 3,900 build lines a
   - `census-hist` and the monthly BMF, placed by hand before, are now scripted through the registry, and both match the freeze. They stay in class A.
   - **Not done:** the build steps keep their own `fetch()` calls. With the inputs restored they only read the cache, so they no longer download, but their URLs are written twice, in the step and in the registry. Making the steps read the registry is a cleanup for later. API sources (SAIPE, ACS, QCEW, CoG via tidycensus) are only reproduced by rerunning their step.
 
+- **Split and Step 6 done (2026-11-24).** The package moved to its own repository (§2), with its history, and has its documentation site:
+  - `R CMD check`: 0 errors, 0 warnings, 1 note (the browser User-Agent default of `mv_fetch_source()` makes a usage line wider than 90 characters).
+  - The six articles run real code when the site builds: they download the `v1.1-data` CBSA frame and fit and summarize a slice of the v11 grid (1,352 specifications: two outcomes, default covariates, all model forks). `mv_get_run()`, `mv_get_inputs()`, live `mv_fetch_source()` and `mv_decision_summary()` are shown but not run.
+  - The compendium's `R/lib/load_pkg.R` installs from the local checkout; `pkg/` is gone from here.
+  - **To do:** pin a pushed commit of the package in `env/npdensity.ref` before the next compendium tag, or a clone without a local checkout cannot install the package.
+
 Each step ends with the clean-room check from Phase 5: rebuild in `D:/MV_CLEAN` and compare with `env/compare_builds.R`. A refactor step must reproduce the frames and v11 byte for byte, or cell for cell.
 
 **Step 1: skeleton and helpers (1 day)**
@@ -246,7 +255,7 @@ Each step ends with the clean-room check from Phase 5: rebuild in `D:/MV_CLEAN` 
 ## 4. What a replicator would run
 
 ```r
-remotes::install_github( "lecy/multiverse", subdir = "pkg" )
+remotes::install_github( "Nonprofit-Open-Data-Collective/npdensity" )
 library( npdensity )
 
 panel <- mv_get_frame( "cbsa_year", release = "v1.0" )   # 43 MB, checked, cached
@@ -273,7 +282,7 @@ mv_fetch_source( "all", dest = "inputs" )                 # class C, checked aga
 ## 6. Decisions needed
 
 1. **Package name.**
-2. **Same repository (`pkg/` subfolder) or a separate package repository.** Recommendation: same repository until v1.0, then split if the package gets users of its own.
+2. **Same repository (`pkg/` subfolder) or a separate package repository.** Decided 2026-11-24: a separate repository, Nonprofit-Open-Data-Collective/npdensity, so the package has its own documentation and this repository holds the analysis.
 3. **Public home for class A:** a public S3 prefix, requester-pays S3, or Zenodo. Recommendation: Zenodo, for a DOI and no egress cost, with S3 kept as the working mirror.
 4. **Whether to release the org-year panels** (1.3 GB) with v1.0 or later.
 5. **`{targets}` instead of `run.R`:** not now. `run.R` passed the clean room. Revisit if the pipeline grows.
